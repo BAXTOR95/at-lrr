@@ -1,0 +1,135 @@
+<nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+  <a class="navbar-brand mb-0 h1" style="cursor: pointer; color: white;"
+    >AT-LRR</a
+  >
+  <button
+    class="navbar-toggler d-lg-none"
+    type="button"
+    data-toggle="collapse"
+    data-target="#collapsibleNavId"
+    aria-controls="collapsibleNavId"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+    (click)="collapsed = !collapsed"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div
+    class="collapse navbar-collapse"
+    id="collapsibleNavId"
+    [class.collapse]="collapsed"
+    (window:resize)="collapsed = true"
+  >
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item dropdown" appDropdown *ngIf="!isAuthenticated">
+        <a
+          class="nav-link dropdown-toggle"
+          style="cursor: pointer;"
+          id="dropdownManage"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          >Modules</a
+        >
+        <div
+          class="dropdown-menu dropdown-menu-right"
+          aria-labelledby="dropdownManage"
+        >
+          <a
+            class="dropdown-item"
+            style="cursor: pointer;"
+            (click)="onSaveData()"
+            >Balance Account</a
+          >
+          <a
+            class="dropdown-item"
+            style="cursor: pointer;"
+            (click)="onFetchData()"
+            >Resources</a
+          >
+          <a
+            class="dropdown-item"
+            style="cursor: pointer;"
+            (click)="onFetchData()"
+            >Views</a
+          >
+          <a
+            class="dropdown-item"
+            style="cursor: pointer;"
+            (click)="onFetchData()"
+            >Workflow</a
+          >
+          <li class="nav-item dropdown" appDropdown *ngIf="!isAuthenticated">
+            <a
+              class="nav-link dropdown-toggle"
+              style="cursor: pointer;"
+              id="dropdownManage"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              >Checker</a
+            >
+            <div
+              class="dropdown-menu dropdown-menu-right"
+              aria-labelledby="dropdownManage"
+            >
+              <a
+                class="dropdown-item"
+                style="cursor: pointer;"
+                (click)="onSaveData()"
+                >Approval</a
+              >
+              <a
+                class="dropdown-item"
+                style="cursor: pointer;"
+                (click)="onFetchData()"
+                >Validation</a
+              >
+            </div>
+          </li>
+        </div>
+      </li>
+      <li routerLinkActive="active" class="nav-item" *ngIf="!isAuthenticated">
+        <a class="nav-link" routerLink="/auth">Resources</a>
+      </li>
+      <li routerLinkActive="active" class="nav-item">
+        <a class="nav-link" routerLink="/shopping-list">Views</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav mr-1 mt-0 mt-lg-0">
+      <li class="nav-item" *ngIf="isAuthenticated">
+        <a class="nav-link" style="cursor: pointer;" (click)="onLogout()"
+          >Logout</a
+        >
+      </li>
+      <li class="nav-item dropdown" appDropdown *ngIf="isAuthenticated">
+        <a
+          class="nav-link dropdown-toggle"
+          style="cursor: pointer;"
+          id="dropdownManage"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          >Manage</a
+        >
+        <div
+          class="dropdown-menu dropdown-menu-right"
+          aria-labelledby="dropdownManage"
+        >
+          <a
+            class="dropdown-item"
+            style="cursor: pointer;"
+            (click)="onSaveData()"
+            >Save Data</a
+          >
+          <a
+            class="dropdown-item"
+            style="cursor: pointer;"
+            (click)="onFetchData()"
+            >Fetch Data</a
+          >
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>

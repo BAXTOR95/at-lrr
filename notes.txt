@@ -1,0 +1,292 @@
+---Python installation steps
+
+1.- Download and install Anaconda2 4.1.1 64bit (https://www.continuum.io/downloads)
+2.- Download and install TDM-64. This gives 300x speedup to Theano, which is expecially useful during training. (http://tdm-gcc.tdragon.net/download)
+3.- Install Theano 0.8.2 into the Anaconda
+	a.- Download Theano zip from https://github.com/Theano/Theano/releases
+	b.- Go to Theano directory after unzipping it
+	c.- Make sure that Anaconda is your default Python. Alternatively specify the full path to Python executable from Anaconda. You can check it on Windows by executing "where python" and checking the first result
+	d.- Execute "python setup.py install". Verify that installation logs (console output) contain no errors.
+4.- Set the Windows environment variable to specify the proxy for conda. Execute the command depending on your PC location. If the following commands do not work on cloud machines, please contact the cloud support team for help regarding the proxy.
+	- EMEA
+		- set HTTP_PROXY=http://webproxy.wlb2.nam.nsroot.net:8080
+		- set HTTPS_PROXY=http://webproxy.wlb2.nam.nsroot.net:8080
+	- NAM
+		- set HTTP_PROXY=http://webproxy.ssmb.com:8080
+		- set HTTPS_PROXY=http://webproxy.wlb2.nam.nsroot.net:8080
+		
+1.- Execute "conda install mingw libpython". It will give connection errors if proxy settings are incorrect. If proxy is set correctly, it will start downloading packages and can take a few minutes to complete. Make sure you execute the right conda if you have multiple Anaconda installations.
+2.- At this point everything should be ready to go regarding the packages. From windows console open python and type "import theano". You should see no errors.
+
+---Steps to install NodeJS, npm and yarn locally on machine
+
+1- download node & npm as "windows binary (.zip) from https://nodejs.org/en/download/
+
+2- download yarn from the github, if you cannot install .msi locally
+
+https://github.com/yarnpkg/yarn/tags
+
+or https://github.com/yarnpkg/yarn/releases
+
+Download and extract the ".tar.gz" and add its "bin" directory to PATH.
+
+3- after putting node, npm and yarn into different folders (or same folder if you want... 
+I would prefer different folders)
+
+you can put them into PATH of "User Environment"
+(See http://www.kscodes.com/misc/how-to-set-path-in-windows-without-admin-rights/ if you don't know how to)
+
+4- set proxy in "User Environment" with key/value as below
+
+HTTPS_PROXY=http://webproxy.wlb2.nsroot.net:8092/
+
+HTTP_PROXY=http://webproxy.wlb2.nsroot.net:8092/
+
+(make sure that the "/" is at the end)
+
+then after finishing all 4 steps, try "node init" in any project folder and create a project to see if you can create node project
+
+Additional setup if the above still does not work for you:
+
+(1) .npmrc should look something like below
+
+proxy=http://webproxy.wlb2.nam.nsroot.net:8092/  
+https-proxy=http://webproxy.wlb2.nam.nsroot.net:8092/  
+registry=http://registry.npmjs.org/  
+strict-ssl=false  
+ca=  
+
+(2) if you prefer yarn over npm, you can set yarn proxy with
+
+yarn config set proxy http://webproxy.wlb2.nam.nsroot.net:8092/  
+yarn config set https-proxy http://webproxy.wlb2.nam.nsroot.net:8092/  
+
+(3) if you encounter issue with "node-sass", we need to handle it like below
+
+     https://github.com/sass/node-sass#binary-configuration-parameters
+
+     + Ensure you have python.exe or python2.exe in your PATH
+
+     + Download "binding.node" file from node-sass release page
+
+     + Set environment variable SASS_BINARY_PATH to the location of that "binding.node" (including the filename)
+
+(4) if "Error: self signed certificate in certificate chain" appears after all, try setting NODE_TLS_REJECT_UNAUTHORIZED=0 before yarn install
+
+(5) possible issue with node-gyp: It is worth reading the instruction as mentioned here
+
+https://www.npmjs.com/package/node-gyp
+
+Option 1: Install all the required tools and configurations using Microsoft's windows-build-tools using npm install --global --production windows-build-tools from an elevated PowerShell or CMD.exe (run as Administrator).
+
+If the CLI prompts you to answer some questions (some versions do that), you can simply hit 
+ENTER for all questions. This will accept the default settings which are fine for this course.
+
+The CLI generates a different welcome screen than you're going to see in my video though. 
+No worries, you'll still be able to follow along without issues! Just make sure to code 
+along so that your code equals mine - Angular itself didn't change a bit :)
+
+Depending on the CLI version you're using, you might also need to add the FormsModule  
+to the imports[]  array in your app.module.ts  file (add it if you don't see it there). 
+You might not fully understand what that all means but we're going to cover that in this 
+course, no worries.
+
+If you don't have FormsModule  in imports[]  in AppModule , please do add it and also add an 
+import at the top of that file: import { FormsModule } from '@angular/forms'; 
+
+If you want to install other npm, like typescirpt, please try to set he env proxy
+
+A: run this
+
+npm config set strict-ssl false
+
+B: run this
+npm config set proxy=http://webproxy.wlb.nsroot.net:8080/
+
+npm config set https-proxy http://webproxy.wlb.nsroot.net:8080/
+
+-----
+
+If you want to dive deeper into the CLI and learn more about its usage, have a look at its 
+official documentation: https://github.com/angular/angular-cli/wiki
+
+You encountered issues during the installation of the CLI or setup of a new Angular project?
+
+A lot of problems are solved by making sure you're using the latest version of NodeJS, 
+npm and the CLI itself.
+
+Updating NodeJS:
+
+Go to nodejs.org and download the latest version - uninstall (all) installed versions on 
+your machine first.
+
+Updating npm:
+
+Run [sudo] npm install -g npm  (sudo  is only required on Mac/ Linux)
+
+Updating the CLI
+
+[sudo] npm uninstall -g angular-cli @angular/cli 
+
+npm cache clean 
+
+[sudo] npm install -g @angular/cli 
+
+If having problems with lock issues, do this
+Add the following lines to your ~/.npmrc and run npm install again.
+
+; avoid EEXIST lock errors
+cache-lock-wait=30000  
+cache-lock-retries=10  
+cache-lock-stale=300000  
+
+If this doesn't work, Navigate to the directory your node was installed in
+rename your npm.cmd and npm files
+Try run the installation again
+If successful..delete the files you renamed earlier npm and npm.cmd
+
+Here are some common issues & solutions:
+
+Creation of a new project takes forever (longer than 3 minutes)
+That happens on Windows from time to time => Try running the command line as administrator
+
+You get an EADDR error (Address already in use)
+You might already have another ng serve process running - make sure to quit that or use 
+ng serve --port ANOTHERPORT  to serve your project on a new port
+
+My changes are not reflected in the browser (App is not compiling)
+Check if the window running ng serve  displays an error. If that's not the case, 
+make sure you're using the latest CLI version and try restarting your CLI
+
+NOTE: Visit https://collaborate.citi.net/people/sm17336/blog/2017/05/06/getting-started-with-angular-cli
+      if you want to prepare your project for Citi dependencies
+
+--- Creating an App with Angular
+
+npm install -g @angular/cli
+
+ng new my-dream-app
+cd my-dream-app
+ng serve
+
+If the creating of a new project takes too long, run this
+
+ng new project-name --skip-install
+cd project-name
+yarn install
+
+This will install your dependencies super-fast
+
+--- To install bootstrap on your project, run this
+
+npm install --save bootstrap@4 jquery
+
+NOTE: Don't forget to update the angular.json file of the project by adding the path of the bootstrap file
+
+"styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.css"
+        	],
+
+-- If for some reason ng serve fails, run this
+
+npm link
+ng serve
+
+--- If you get a 'This syntax requires an imported helper but module 'tslib' cannot be found.ts(2354)' on the editor, run this
+
+npm i
+
+--- To generate a component
+
+ng generate component component-name (or ng g c component-name)
+
+NOTE: You can add a '--skipTests true' at the end to prevent a creation of a testing file
+	  If you don't want the component to be created on the app folder, then add the path separated by a /
+
+
+--- To generate a directive
+
+ng generate directive directive-name (or ng g d directive-name)
+
+
+--- To build for production
+
+ng build --prod
+
+
+--- To Install NgRx
+
+npm install --save @ngrx/store
+
+npm install --save @ngrx/effects
+
+npm install --save-dev @ngrx/store-devtools
+
+-- goto: http://extension.remotedev.io/
+
+npm install --save @ngrx/router-store
+
+---To make a project with Django and Angular, do this. 
+HELP: https://www.django-rest-framework.org/tutorial/quickstart/
+	  https://www.youtube.com/watch?v=z_H-oxQVsPw
+	  https://github.com/LondonAppDev/build-a-backend-api-python-drf-beginner-cheat-sheet/blob/master/README.md
+
+# Create the project directory
+mkdir project-name
+cd project-name
+
+# Create a virtualenv to isolate our package dependencies locally
+HELP: https://anbasile.github.io/programming/2017/06/25/jupyter-venv/
+python -m venv environment-name
+environment-name\Scripts\activate
+
+# To create a new kernel for Jupyter Notebook to work independently with local virtual environment
+pip install ipykernel
+ipython kernel install --user --name=projectname
+
+# Install django and rest framework
+pip install django
+pip install djangorestframework
+
+# Start a project with django
+django-admin startproject project-name . # Note the trailing '.' character
+cd project-name
+django-admin startapp app-name
+
+# Apply migrations
+python manage.py migrate
+
+# Create a super-user
+python manage.py createsuperuser
+
+# Run server
+python manage.py runserver
+
+# Follow this video https://www.youtube.com/watch?v=z_H-oxQVsPw for better instructions on how to properly set the project...
+
+# On the frontend part, to set the service that will interact with the api (django), do this
+ng generate service name-of-service
+
+# Once again, follow the video tutorial...
+
+# To be able to communicate with the api, install django cors headers
+HELP: https://github.com/ottoyiu/django-cors-headers
+pip install django-cors-headers
+
+--- Returning to Angular ---
+
+--- Bindable Properties and Events
+How do you know to which Properties or Events of HTML Elements you may bind? You can basically bind to all Properties and Events - a good idea is to console.log()  the element you're interested in to see which properties and events it offers.
+
+Important: For events, you don't bind to onclick but only to click (=> (click)).
+
+The MDN (Mozilla Developer Network) offers nice lists of all properties and events of the element you're interested in. Googling for YOUR_ELEMENT properties  or YOUR_ELEMENT events  should yield nice results.
+
+--- Important: FormsModule is Required for Two-Way-Binding!
+Important: For Two-Way-Binding (covered in the next lecture) to work, you need to enable the ngModel  directive. This is done by adding the FormsModule  to the imports[]  array in the AppModule.
+
+You then also need to add the import from @angular/forms  in the app.module.ts file:
+
+import { FormsModule } from '@angular/forms'; 
+

@@ -1,0 +1,77 @@
+<ng-template appPlaceholder></ng-template>
+<div class="row">
+  <div class="jumbotron jumbotron-fluid col-12 col-sm-6 offset-sm-3">
+    <div class="container-fluid">
+      <!-- <div class="alert alert-danger" role="alert" *ngIf="error">
+        <strong>{{ error }}</strong>
+      </div> -->
+      <!-- <app-alert
+        [message]="error"
+        *ngIf="error"
+        (closeAlert)="onHandleError()"
+      ></app-alert> -->
+      <div class="row" *ngIf="isLoading">
+        <div class="col-12 offset-5 px-0">
+          <app-loading-spinner></app-loading-spinner>
+        </div>
+      </div>
+      <form
+        #authForm="ngForm"
+        (ngSubmit)="onSubmit(authForm)"
+        *ngIf="!isLoading"
+      >
+        <div class="form-group">
+          <label for="email">E-Mail</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            class="form-control"
+            placeholder="E-Mail Address"
+            aria-describedby="helpIdE"
+            ngModel
+            required
+            email
+          />
+          <small id="helpIdE" class="text-muted"
+            >Type your E-Mail Address</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            class="form-control"
+            placeholder="Password"
+            aria-describedby="helpIdP"
+            ngModel
+            required
+            minlength="6"
+          />
+          <small id="helpIdP" class="text-muted">Type your Password</small>
+        </div>
+        <div class="form-group row" style="text-align: center;">
+          <div class="col-12">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="!authForm.valid"
+            >
+              {{ isLoginMode ? "Login" : "Sign Up" }}
+            </button>
+            <span style="color: gray"> | </span>
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="onSwitchMode()"
+            >
+              Switch to {{ isLoginMode ? "Sign Up" : "Login" }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
