@@ -238,8 +238,8 @@ cd project-name
 
 # Create a virtualenv to isolate our package dependencies locally
 HELP: https://anbasile.github.io/programming/2017/06/25/jupyter-venv/
-python -m venv environment-name
-environment-name\Scripts\activate
+python -m venv .env
+source .env/Scripts/activate
 
 # To create a new kernel for Jupyter Notebook to work independently with local virtual environment
 pip install ipykernel

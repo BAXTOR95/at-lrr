@@ -1,0 +1,7 @@
+{
+    "python.venvFolders": [
+        ".env"
+    ],
+    "python.venvPath": "/backend/.env",
+    "python.envFile": "${workspaceFolder}/Project/backend/.env"
+}
