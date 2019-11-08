@@ -290,3 +290,4 @@ You then also need to add the import from @angular/forms  in the app.module.ts f
 
 import { FormsModule } from '@angular/forms'; 
 
+NOTE: https://www.techiediaries.com/django-rest-image-file-upload-tutorial/
