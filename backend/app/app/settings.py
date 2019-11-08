@@ -38,13 +38,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
     'core',
-    'user'
+    'user',
+    'upload'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -127,7 +130,9 @@ STATIC_URL = '/static/'
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = '/vol/web/media'
-STATIC_ROOT = '/vol/web/static'
+MEDIA_ROOT = os.path.join(BASE_DIR, '/vol/web/media')
+STATIC_ROOT = os.path.join(BASE_DIR, '/vol/web/static')
 
 AUTH_USER_MODEL = 'core.User'
+
+CORS_ORIGIN_ALLOW_ALL =  True

@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
     PermissionsMixin
 from django.conf import settings
 
+
 def resource_file_path(instance, filename):
     """Generate file path for new resource file"""
     ext = filename.split('.')[-1]
@@ -49,6 +50,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class File(models.Model):
+    """Custom file model that supports uploading a file"""
     file = models.FileField(blank=False, null=False)
     def __str__(self):
         return self.file.name
