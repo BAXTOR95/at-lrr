@@ -11,7 +11,7 @@ def resource_file_path(instance, filename):
     ext = filename.split('.')[-1]
     filename = f'{uuid.uuid4()}.{ext}'
 
-    return os.path.join('uploads/resources/', filename)
+    return os.path.join(settings.MEDIA_ROOT, filename)
 
 
 class UserManager(BaseUserManager):

@@ -14,6 +14,7 @@ export interface AuthResponseData {
   kind: string;
   idToken: string;
   email: string;
+  name: string;
   refreshToken: string;
   expiresIn: string;
   localId: string;
@@ -24,14 +25,16 @@ const handleAuthentication = (
   expiresIn: number,
   email: string,
   userId: string,
+  name: string,
   token: string,
 ) => {
   const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-  const user = new User(email, userId, token, expirationDate);
+  const user = new User(email, userId, name, token, expirationDate);
   localStorage.setItem('userData', JSON.stringify(user));
   return new AuthActions.AuthenticateSuccess({
     email,
     userId,
+    name,
     token,
     expirationDate,
     redirect: true,
@@ -59,14 +62,16 @@ const handleError = (errorRes: any) => {
 
 @Injectable()
 export class AuthEffects {
+
+  DJANGO_SERVER = 'http://127.0.0.1:8000';
+
   @Effect()
   authSignup = this.actions$.pipe(
     ofType(AuthActions.SIGNUP_START),
     switchMap((signupAction: AuthActions.SignupStart) => {
       return this.http
         .post<AuthResponseData>(
-          'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' +
-            '', // environment.firebaseAPIKey,
+          `${this.DJANGO_SERVER}/api/user/`,
           {
             email: signupAction.payload.email,
             password: signupAction.payload.password,
@@ -82,6 +87,7 @@ export class AuthEffects {
               +resData.expiresIn,
               resData.email,
               resData.localId,
+              resData.name,
               resData.idToken,
             );
           }),
@@ -98,8 +104,7 @@ export class AuthEffects {
     switchMap((authData: AuthActions.LoginStart) => {
       return this.http
         .post<AuthResponseData>(
-          'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' +
-          '', // environment.firebaseAPIKey,
+          `${this.DJANGO_SERVER}/api/user/`,
           {
             email: authData.payload.email,
             password: authData.payload.password,
@@ -115,6 +120,7 @@ export class AuthEffects {
               +resData.expiresIn,
               resData.email,
               resData.localId,
+              resData.name,
               resData.idToken,
             );
           }),
@@ -142,6 +148,7 @@ export class AuthEffects {
       const userData: {
         email: string;
         id: string;
+        name: string;
         _token: string;
         _tokenExpirationDate: string;
       } = JSON.parse(localStorage.getItem('userData'));
@@ -152,6 +159,7 @@ export class AuthEffects {
       const loadedUser = new User(
         userData.email,
         userData.id,
+        userData.name,
         userData._token,
         new Date(userData._tokenExpirationDate),
       );
@@ -166,6 +174,7 @@ export class AuthEffects {
         return new AuthActions.AuthenticateSuccess({
           email: loadedUser.email,
           userId: loadedUser.id,
+          name: loadedUser.name,
           token: loadedUser.token,
           expirationDate: new Date(userData._tokenExpirationDate),
           redirect: false,
