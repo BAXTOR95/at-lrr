@@ -6,10 +6,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { ResourcesComponent } from './resources.component';
 import { ResourcesRoutingModule } from './resources-routing.module';
 import { SharedModule } from '../../shared/shared.module';
+import { ResourcesStartComponent } from './resources-start/resources-start.component';
 
 @NgModule({
   declarations: [
-    ResourcesComponent
+    ResourcesComponent,
+    ResourcesStartComponent
   ],
   imports: [
     RouterModule,

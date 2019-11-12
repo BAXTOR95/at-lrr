@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ResourcesComponent } from './resources.component';
+import { ResourcesStartComponent } from './resources-start/resources-start.component'
 import { AuthGuard } from '../../auth/auth.guard';
 // import { ResourcesResolverService } from './resources-resolver.service';
 
@@ -9,9 +10,9 @@ const resourcesRoutes: Routes = [
   {
     path: '',
     component: ResourcesComponent,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     children: [
-      { path: '', component: ResourcesComponent },
+      { path: '', component: ResourcesStartComponent },
       // {
       //   path: '/approval',
       //   component: CheckerApprovalComponent,
