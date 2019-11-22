@@ -11,33 +11,31 @@ import { User } from '../user.model';
 import { AuthService } from './../auth.service';
 
 export interface AuthResponseData {
-  kind: string;
-  idToken: string;
+  token: string;
+  created: string;
+  expiresIn: number;
   email: string;
   name: string;
-  refreshToken: string;
-  expiresIn: string;
-  localId: string;
-  registered?: boolean;
+  is_active?: boolean;
+  is_staff?: boolean;
+  is_superuser?: boolean;
 }
 
 const handleAuthentication = (
   expiresIn: number,
   email: string,
-  userId: string,
   name: string,
-  token: string,
+  token: string
 ) => {
   const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-  const user = new User(email, userId, name, token, expirationDate);
+  const user = new User(email, name, token, expirationDate);
   localStorage.setItem('userData', JSON.stringify(user));
   return new AuthActions.AuthenticateSuccess({
     email,
-    userId,
     name,
     token,
     expirationDate,
-    redirect: true,
+    redirect: true
   });
 };
 
@@ -62,7 +60,6 @@ const handleError = (errorRes: any) => {
 
 @Injectable()
 export class AuthEffects {
-
   DJANGO_SERVER = 'http://127.0.0.1:8000';
 
   @Effect()
@@ -70,14 +67,11 @@ export class AuthEffects {
     ofType(AuthActions.SIGNUP_START),
     switchMap((signupAction: AuthActions.SignupStart) => {
       return this.http
-        .post<AuthResponseData>(
-          `${this.DJANGO_SERVER}/api/user/`,
-          {
-            email: signupAction.payload.email,
-            password: signupAction.payload.password,
-            returnSecureToken: true,
-          },
-        )
+        .post<AuthResponseData>(`${this.DJANGO_SERVER}/api/user/create/`, {
+          email: signupAction.payload.email,
+          password: signupAction.payload.password,
+          name: signupAction.payload.name,
+        })
         .pipe(
           tap(resData => {
             this.authService.setLogoutTimer(+resData.expiresIn * 1000);
@@ -86,16 +80,15 @@ export class AuthEffects {
             return handleAuthentication(
               +resData.expiresIn,
               resData.email,
-              resData.localId,
               resData.name,
-              resData.idToken,
+              resData.token
             );
           }),
           catchError(errorRes => {
             return handleError(errorRes);
-          }),
+          })
         );
-    }),
+    })
   );
 
   @Effect()
@@ -103,14 +96,10 @@ export class AuthEffects {
     ofType(AuthActions.LOGIN_START),
     switchMap((authData: AuthActions.LoginStart) => {
       return this.http
-        .post<AuthResponseData>(
-          `${this.DJANGO_SERVER}/api/user/`,
-          {
-            email: authData.payload.email,
-            password: authData.payload.password,
-            returnSecureToken: true,
-          },
-        )
+        .post<AuthResponseData>(`${this.DJANGO_SERVER}/api/user/token/`, {
+          email: authData.payload.email,
+          password: authData.payload.password,
+        })
         .pipe(
           tap(resData => {
             this.authService.setLogoutTimer(+resData.expiresIn * 1000);
@@ -119,16 +108,15 @@ export class AuthEffects {
             return handleAuthentication(
               +resData.expiresIn,
               resData.email,
-              resData.localId,
               resData.name,
-              resData.idToken,
+              resData.token
             );
           }),
           catchError(errorRes => {
             return handleError(errorRes);
-          }),
+          })
         );
-    }),
+    })
   );
 
   @Effect({ dispatch: false })
@@ -138,7 +126,7 @@ export class AuthEffects {
       if (authSuccessAction.payload.redirect) {
         this.router.navigate(['/']);
       }
-    }),
+    })
   );
 
   @Effect()
@@ -147,7 +135,6 @@ export class AuthEffects {
     map(() => {
       const userData: {
         email: string;
-        id: string;
         name: string;
         _token: string;
         _tokenExpirationDate: string;
@@ -158,10 +145,9 @@ export class AuthEffects {
 
       const loadedUser = new User(
         userData.email,
-        userData.id,
         userData.name,
         userData._token,
-        new Date(userData._tokenExpirationDate),
+        new Date(userData._tokenExpirationDate)
       );
 
       if (loadedUser.token) {
@@ -173,11 +159,10 @@ export class AuthEffects {
 
         return new AuthActions.AuthenticateSuccess({
           email: loadedUser.email,
-          userId: loadedUser.id,
           name: loadedUser.name,
           token: loadedUser.token,
           expirationDate: new Date(userData._tokenExpirationDate),
-          redirect: false,
+          redirect: false
         });
         // const expirationDuration =
         //   new Date(userData._tokenExpirationDate).getTime() -
@@ -185,7 +170,7 @@ export class AuthEffects {
         // this.autoLogout(expirationDuration);
       }
       return { type: 'DUMMY' };
-    }),
+    })
   );
 
   @Effect({ dispatch: false })
@@ -195,13 +180,13 @@ export class AuthEffects {
       this.authService.clearLogoutTimer();
       localStorage.removeItem('userData');
       this.router.navigate(['/auth']);
-    }),
+    })
   );
 
   constructor(
     private actions$: Actions,
     private http: HttpClient,
     private router: Router,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 }

@@ -14,7 +14,6 @@ export class AuthenticateSuccess implements Action {
   constructor(
     public payload: {
       email: string;
-      userId: string;
       name: string;
       token: string;
       expirationDate: Date;
@@ -42,7 +41,7 @@ export class AuthenticateFail implements Action {
 export class SignupStart implements Action {
   readonly type = SIGNUP_START;
 
-  constructor(public payload: { email: string; password: string }) {}
+  constructor(public payload: { email: string; password: string; name: string }) {}
 }
 
 export class ClearError implements Action {

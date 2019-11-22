@@ -18,6 +18,7 @@ from user.authentication import ExpiringTokenAuthentication
 
 EXPIRE_HOURS = getattr(settings, 'REST_FRAMEWORK_TOKEN_EXPIRE_HOURS', 24)
 
+
 class CreateUserView(generics.CreateAPIView):
     """Create a new user in the system"""
     serializer_class = UserSerializer
@@ -27,6 +28,7 @@ class CreateTokenView(ObtainAuthToken):
     """Create a new auth token for user"""
     serializer_class = AuthTokenSerializer
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
+
 
 class CreateExpiringTokenView(ObtainAuthToken):
     """Create a new auth token for user"""
@@ -38,16 +40,30 @@ class CreateExpiringTokenView(ObtainAuthToken):
         serializer = self.serializer_class(data=request.data)
 
         if serializer.is_valid():
-            token, created = Token.objects.get_or_create(user=serializer.validated_data['user'])
+            user = serializer.validated_data['user']
 
-            if not created and token.created < timezone.now() - datetime.timedelta(hours=EXPIRE_HOURS):
+            token, created = Token.objects.get_or_create(
+                user=user)
+
+            yesterday = (timezone.now() - datetime.timedelta(hours=EXPIRE_HOURS))
+
+            if not created and token.created < yesterday:
                 token.delete()
-                token = Token.objects.get_or_create(user=serializer.validated_data['user'])
+                token = Token.objects.get_or_create(
+                    user=serializer.validated_data['user'])
                 token.created = datetime.datetime.utcnow().replace(tzinfo=timezone.utc)
                 token.save()
 
-            return Response({'token': token.key, 'created': token.created})
+            return Response({'token': token.key,
+                             'created': token.created,
+                             'expiresIn': token.created - yesterday,
+                             'email':user.email,
+                             'name':user.name,
+                             'is_active':user.is_active,
+                             'is_staff':user.is_staff,
+                             'is_superuser':user.is_superuser})
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class ManageUserView(generics.RetrieveUpdateAPIView):
     """Manage the authenticated user"""

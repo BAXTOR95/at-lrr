@@ -21,7 +21,6 @@ export function authReducer(
     case AuthActions.AUTHENTICATE_SUCCESS:
       const user = new User(
         action.payload.email,
-        action.payload.userId,
         action.payload.name,
         action.payload.token,
         action.payload.expirationDate,
