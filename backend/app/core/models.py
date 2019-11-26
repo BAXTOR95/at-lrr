@@ -1,9 +1,18 @@
+import datetime
 import uuid
 import os
+
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
     PermissionsMixin
 from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.utils import timezone
+
+from rest_framework.authtoken.models import Token
+
+EXPIRE_HOURS = getattr(settings, 'REST_FRAMEWORK_TOKEN_EXPIRE_HOURS', 24)
 
 
 def resource_file_path(instance, filename):
@@ -14,6 +23,18 @@ def resource_file_path(instance, filename):
     return os.path.join(settings.MEDIA_ROOT, filename)
 
 
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        token = Token.objects.create(
+            user=instance)
+        # TODO: Fix the UNIQUE CONSTRAINT problem of the token creation
+        yesterday = (timezone.now() - datetime.timedelta(hours=EXPIRE_HOURS))
+        instance.expiresIn = (
+            instance.auth_token.created - yesterday).total_seconds()
+        instance.save()
+
+
 class UserManager(BaseUserManager):
 
     def create_user(self, email, password=None, **extra_fields):
@@ -21,6 +42,7 @@ class UserManager(BaseUserManager):
         if not email:
             raise ValueError('Users must have an email address')
         user = self.model(email=self.normalize_email(email), **extra_fields)
+        user.is_active = True
         user.set_password(password)
         user.save(using=self._db)
 
@@ -43,6 +65,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    expiresIn = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    # token = models.ForeignKey('Token',
+    #                           related_name='token',
+    #                           on_delete=models.CASCADE,
+    #                           default=None)
 
     objects = UserManager()
 
@@ -52,6 +79,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 class File(models.Model):
     """Custom file model that supports uploading a file"""
     file = models.FileField(blank=False, null=False)
+
     def __str__(self):
         return self.file.name
 

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark bg-dark navbar-expand-sm">
   <a class="navbar-brand mb-0 h1" style="cursor: pointer; color: white;"
-    >AT-LRR</a
+    >SIRDCAT</a
   >
   <button
     class="navbar-toggler d-lg-none"
@@ -21,7 +21,7 @@
     (window:resize)="collapsed = true"
   >
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item dropdown" appDropdown *ngIf="!isAuthenticated">
+      <li class="nav-item dropdown" appDropdown *ngIf="isAuthenticated">
         <a
           class="nav-link dropdown-toggle"
           style="cursor: pointer;"
@@ -36,30 +36,30 @@
           aria-labelledby="dropdownManage"
         >
           <a
-            class="dropdown-item"
+            class="dropdown-item nav-link"
             style="cursor: pointer;"
-            (click)="onSaveData()"
+            routerLink="/balance-account"
             >Balance Account</a
           >
           <a
-            class="dropdown-item"
+            class="dropdown-item nav-link"
             style="cursor: pointer;"
-            (click)="onFetchData()"
+            routerLink="/resources"
             >Resources</a
           >
           <a
-            class="dropdown-item"
+            class="dropdown-item nav-link"
             style="cursor: pointer;"
-            (click)="onFetchData()"
+            routerLink="/views"
             >Views</a
           >
           <a
-            class="dropdown-item"
+            class="dropdown-item nav-link"
             style="cursor: pointer;"
-            (click)="onFetchData()"
+            routerLink="/workflow"
             >Workflow</a
           >
-          <li class="nav-item dropdown" appDropdown *ngIf="!isAuthenticated">
+          <li class="nav-item dropdown" appDropdown>
             <a
               class="nav-link dropdown-toggle"
               style="cursor: pointer;"
@@ -74,26 +74,20 @@
               aria-labelledby="dropdownManage"
             >
               <a
-                class="dropdown-item"
+                class="dropdown-item nav-link"
                 style="cursor: pointer;"
-                (click)="onSaveData()"
+                routerLink="/checker/approval"
                 >Approval</a
               >
               <a
-                class="dropdown-item"
+                class="dropdown-item nav-link"
                 style="cursor: pointer;"
-                (click)="onFetchData()"
+                routerLink="/checker/validation"
                 >Validation</a
               >
             </div>
           </li>
         </div>
-      </li>
-      <li routerLinkActive="active" class="nav-item" *ngIf="!isAuthenticated">
-        <a class="nav-link" routerLink="/auth">Resources</a>
-      </li>
-      <li routerLinkActive="active" class="nav-item">
-        <a class="nav-link" routerLink="/shopping-list">Views</a>
       </li>
     </ul>
     <ul class="navbar-nav mr-1 mt-0 mt-lg-0">

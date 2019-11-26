@@ -6,5 +6,5 @@
     "python.envFile": "${workspaceFolder}/Project/backend/.env",
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
-    "python.pythonPath": "V:\\Business Inteligence\\AT04\\Project\\backend\\.env\\scripts\\python.exe"
+    "python.pythonPath": "I:\\Projects\\AT-LRR\\backend\\.env\\scripts\\python.exe"
 }

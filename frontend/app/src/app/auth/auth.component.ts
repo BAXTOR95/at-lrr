@@ -54,13 +54,14 @@ export class AuthComponent implements OnInit, OnDestroy {
     }
     const email = form.value.email;
     const password = form.value.password;
+    const name = form.value.name;
 
     this.isLoading = true;
     if (this.isLoginMode) {
       // authObs = this.authService.login(email, password);
       this.store.dispatch(new AuthActions.LoginStart({ email, password }));
     } else {
-      this.store.dispatch(new AuthActions.SignupStart({ email, password }));
+      this.store.dispatch(new AuthActions.SignupStart({ email, password, name }));
     }
 
     form.reset();

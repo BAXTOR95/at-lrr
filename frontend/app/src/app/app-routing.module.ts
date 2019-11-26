@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const appRoutes: Routes = [
-  // { path: '', redirectTo: '/recipes', pathMatch: 'full' },
+  { path: '', redirectTo: '/resources', pathMatch: 'full' },
   {
     path: 'resources',
     loadChildren: () =>
-      import('./modules/resources/resources.module').then(m => m.ResourcesModule),
+      import( './modules/resources/resources.module' ).then( m => m.ResourcesModule ),
   },
   // {
   //   path: 'shopping-list',
@@ -17,14 +17,14 @@ const appRoutes: Routes = [
   // },
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
+    loadChildren: () => import( './auth/auth.module' ).then( m => m.AuthModule ),
   },
 ];
 
-@NgModule({
+@NgModule( {
   imports: [
-    RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules }),
+    RouterModule.forRoot( appRoutes, { preloadingStrategy: PreloadAllModules } ),
   ],
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}
+  exports: [ RouterModule ],
+} )
+export class AppRoutingModule { }

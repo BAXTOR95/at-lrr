@@ -10,7 +10,7 @@ const resourcesRoutes: Routes = [
   {
     path: '',
     component: ResourcesComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [ AuthGuard ],
     children: [
       { path: '', component: ResourcesStartComponent },
       // {
@@ -27,8 +27,8 @@ const resourcesRoutes: Routes = [
   },
 ];
 
-@NgModule({
-  imports: [RouterModule.forChild(resourcesRoutes)],
-  exports: [RouterModule],
-})
-export class ResourcesRoutingModule {}
+@NgModule( {
+  imports: [ RouterModule.forChild( resourcesRoutes ) ],
+  exports: [ RouterModule ],
+} )
+export class ResourcesRoutingModule { }
