@@ -1,129 +1,90 @@
-<nav class="navbar navbar-dark bg-dark navbar-expand-sm">
-  <a class="navbar-brand mb-0 h1" style="cursor: pointer; color: white;"
-    >SIRDCAT</a
-  >
-  <button
-    class="navbar-toggler d-lg-none"
-    type="button"
-    data-toggle="collapse"
-    data-target="#collapsibleNavId"
-    aria-controls="collapsibleNavId"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-    (click)="collapsed = !collapsed"
-  >
-    <span class="navbar-toggler-icon"></span>
+<mat-toolbar color="primary" class="toolbar">
+  <button mat-icon-button (click)="snav.toggle()" *ngIf="isAuthenticated">
+    <mat-icon>menu</mat-icon>
   </button>
-  <div
-    class="collapse navbar-collapse"
-    id="collapsibleNavId"
-    [class.collapse]="collapsed"
-    (window:resize)="collapsed = true"
+  <h1 class="app-name">SIRDCAT</h1>
+  <span class="fill-remaining-space"></span>
+  <button
+    mat-raised-button
+    color="primary"
+    *ngIf="isAuthenticated"
+    (click)="onLogout()"
   >
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item dropdown" appDropdown *ngIf="isAuthenticated">
-        <a
-          class="nav-link dropdown-toggle"
-          style="cursor: pointer;"
-          id="dropdownManage"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-          >Modules</a
-        >
-        <div
-          class="dropdown-menu dropdown-menu-right"
-          aria-labelledby="dropdownManage"
-        >
-          <a
-            class="dropdown-item nav-link"
-            style="cursor: pointer;"
-            routerLink="/balance-account"
-            >Balance Account</a
-          >
-          <a
-            class="dropdown-item nav-link"
-            style="cursor: pointer;"
-            routerLink="/resources"
-            >Resources</a
-          >
-          <a
-            class="dropdown-item nav-link"
-            style="cursor: pointer;"
-            routerLink="/views"
-            >Views</a
-          >
-          <a
-            class="dropdown-item nav-link"
-            style="cursor: pointer;"
-            routerLink="/workflow"
-            >Workflow</a
-          >
-          <li class="nav-item dropdown" appDropdown>
-            <a
-              class="nav-link dropdown-toggle"
-              style="cursor: pointer;"
-              id="dropdownManage"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-              >Checker</a
-            >
-            <div
-              class="dropdown-menu dropdown-menu-right"
-              aria-labelledby="dropdownManage"
-            >
-              <a
-                class="dropdown-item nav-link"
-                style="cursor: pointer;"
-                routerLink="/checker/approval"
-                >Approval</a
-              >
-              <a
-                class="dropdown-item nav-link"
-                style="cursor: pointer;"
-                routerLink="/checker/validation"
-                >Validation</a
-              >
-            </div>
-          </li>
+    LOGOUT
+  </button>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container" [style.marginBottom.px]="0">
+  <mat-sidenav
+    #snav
+    [mode]="mobileQuery.matches ? 'over' : 'side'"
+    [fixedInViewport]="true"
+    [fixedTopGap]="mobileQuery.matches ? 56 : 65"
+    role="navigation"
+  >
+    <!-- MODULES -->
+    <mat-nav-list>
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="modules"
+        matTooltip="Modules"
+        [matTooltipPosition]="positionOptions[5]"
+        [matTooltipShowDelay]="500"
+        [matTooltipHideDelay]="250"
+      >
+        <mat-icon
+          svgIcon="module"
+          aria-hidden="false"
+          aria-label="Module icon"
+        ></mat-icon>
+      </button>
+      <mat-menu #modules="matMenu">
+        <button mat-menu-item routerLink="/balance-account">
+          Balance Account
+        </button>
+        <button mat-menu-item routerLink="/resources">Resources</button>
+        <button mat-menu-item routerLink="/views">Views</button>
+        <button mat-menu-item routerLink="/workflow">Workflow</button>
+        <button mat-menu-item [matMenuTriggerFor]="checker">Checker</button>
+      </mat-menu>
+
+      <mat-menu #checker="matMenu">
+        <button mat-menu-item routerLink="/checker/approval">Approval</button>
+        <button mat-menu-item routerLink="/checker/validation">
+          Validation
+        </button>
+      </mat-menu>
+    </mat-nav-list>
+    <!-- MANAGE -->
+    <mat-nav-list>
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="manage"
+        matTooltip="Manage"
+        [matTooltipPosition]="positionOptions[5]"
+        [matTooltipShowDelay]="500"
+        [matTooltipHideDelay]="250"
+      >
+        <mat-icon
+          svgIcon="manage"
+          aria-hidden="false"
+          aria-label="Manage icon"
+        ></mat-icon>
+      </button>
+      <mat-menu #manage="matMenu">
+        <button mat-menu-item>Save Data</button>
+        <button mat-menu-item>Fetch Data</button>
+      </mat-menu>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <router-outlet></router-outlet>
         </div>
-      </li>
-    </ul>
-    <ul class="navbar-nav mr-1 mt-0 mt-lg-0">
-      <li class="nav-item" *ngIf="isAuthenticated">
-        <a class="nav-link" style="cursor: pointer;" (click)="onLogout()"
-          >Logout</a
-        >
-      </li>
-      <li class="nav-item dropdown" appDropdown *ngIf="isAuthenticated">
-        <a
-          class="nav-link dropdown-toggle"
-          style="cursor: pointer;"
-          id="dropdownManage"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-          >Manage</a
-        >
-        <div
-          class="dropdown-menu dropdown-menu-right"
-          aria-labelledby="dropdownManage"
-        >
-          <a
-            class="dropdown-item"
-            style="cursor: pointer;"
-            (click)="onSaveData()"
-            >Save Data</a
-          >
-          <a
-            class="dropdown-item"
-            style="cursor: pointer;"
-            (click)="onFetchData()"
-            >Fetch Data</a
-          >
-        </div>
-      </li>
-    </ul>
-  </div>
-</nav>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

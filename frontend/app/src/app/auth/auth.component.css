@@ -12,3 +12,8 @@
   padding: 16px;
   z-index: 20;
 }
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}

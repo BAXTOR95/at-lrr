@@ -2,88 +2,105 @@
 <div class="row">
   <div class="jumbotron jumbotron-fluid col-12 col-sm-6 offset-sm-3">
     <div class="container-fluid">
-      <!-- <div class="alert alert-danger" role="alert" *ngIf="error">
-        <strong>{{ error }}</strong>
-      </div> -->
-      <!-- <app-alert
-        [message]="error"
-        *ngIf="error"
-        (closeAlert)="onHandleError()"
-      ></app-alert> -->
       <div class="row" *ngIf="isLoading">
         <div class="col-12 offset-5 px-0">
-          <app-loading-spinner></app-loading-spinner>
+          <!-- <app-loading-spinner></app-loading-spinner> -->
+          <mat-progress-spinner
+            color="primary"
+            mode="indeterminate"
+          ></mat-progress-spinner>
         </div>
       </div>
+
       <form
         #authForm="ngForm"
         (ngSubmit)="onSubmit(authForm)"
         *ngIf="!isLoading"
       >
-        <div class="form-group">
-          <label for="email">E-Mail</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            class="form-control"
-            placeholder="E-Mail Address"
-            aria-describedby="helpIdE"
-            ngModel
-            required
-            email
-          />
-          <small id="helpIdE" class="text-muted"
-            >Type your E-Mail Address</small
-          >
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            class="form-control"
-            placeholder="Password"
-            aria-describedby="helpIdP"
-            ngModel
-            required
-            minlength="6"
-          />
-          <small id="helpIdP" class="text-muted">Type your Password</small>
-        </div>
-        <div class="form-group" *ngIf="!isLoginMode">
-          <label for="password">Name</label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            class="form-control"
-            placeholder="Name"
-            aria-describedby="helpIdN"
-            ngModel
-          />
-          <small id="helpIdN" class="text-muted">Type your Name</small>
-        </div>
-        <div class="form-group row" style="text-align: center;">
-          <div class="col-12">
-            <button
-              type="submit"
-              class="btn btn-primary"
-              [disabled]="!authForm.valid"
-            >
-              {{ isLoginMode ? "Login" : "Sign Up" }}
-            </button>
-            <span style="color: gray"> | </span>
-            <button
-              type="button"
-              class="btn btn-primary"
-              (click)="onSwitchMode()"
-            >
-              Switch to {{ isLoginMode ? "Sign Up" : "Login" }}
-            </button>
-          </div>
-        </div>
+        <mat-grid-list cols="4" rowHeight="100px">
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-form-field>
+              <mat-label aria-label>E-Mail</mat-label>
+              <input
+                matNativeControl
+                type="email"
+                name="email"
+                id="email"
+                aria-describedby="helpIdE"
+                ngModel
+                required
+                placeholder="E-Mail Address"
+                email
+              />
+              <mat-error>This field is required</mat-error>
+              <mat-hint hintLabel align="start" id="helpIdE" class="text-muted"
+                ><strong>Type your E-Mail Address</strong>
+              </mat-hint>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-form-field>
+              <mat-label aria-label>Password</mat-label>
+              <input
+                matNativeControl
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Password"
+                aria-describedby="helpIdP"
+                ngModel
+                required
+                minlength="6"
+              />
+              <mat-error>This field is required</mat-error>
+              <mat-hint hintLabel align="start" id="helpIdP" class="text-muted"
+                ><strong>Type your Password</strong>
+              </mat-hint>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="4" [rowspan]="1" *ngIf="!isLoginMode">
+            <mat-form-field>
+              <mat-label aria-label>Name</mat-label>
+              <input
+                matNativeControl
+                type="text"
+                name="name"
+                id="name"
+                placeholder="Name"
+                aria-describedby="helpIdN"
+                ngModel
+                required
+              />
+              <mat-error>This field is required</mat-error>
+              <mat-hint hintLabel align="start" id="helpIdN" class="text-muted"
+                ><strong>Type your Name</strong>
+              </mat-hint>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="4" [rowspan]="1">
+            <div class="form-group row" style="text-align: center;">
+              <div class="col-12">
+                <button
+                  type="submit"
+                  mat-raised-button
+                  [disabled]="!authForm.valid"
+                  color="primary"
+                >
+                  {{ isLoginMode ? "Login" : "Sign Up" }}
+                </button>
+                <span style="color: gray"> | </span>
+                <button
+                  type="button"
+                  mat-raised-button
+                  (click)="onSwitchMode()"
+                  color="primary"
+                >
+                  Switch to {{ isLoginMode ? "Sign Up" : "Login" }}
+                </button>
+              </div>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
       </form>
     </div>
   </div>

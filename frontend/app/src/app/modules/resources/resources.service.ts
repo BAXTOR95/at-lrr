@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 
 
 @Injectable({
@@ -7,10 +9,29 @@ import { HttpClient } from '@angular/common/http';
 })
 export class UploadService {
 
-  DJANGO_SERVER: string = "http://127.0.0.1:8000";
-  constructor(private http: HttpClient) { }
+  DJANGO_SERVER = 'http://127.0.0.1:8000';
+
+  constructor (private http: HttpClient) { }
 
   public upload(formData) {
-    return this.http.post<any>(`${this.DJANGO_SERVER}/api/upload/`, formData);
+    return this.http.post(`${ this.DJANGO_SERVER }/api/upload/`, formData, {
+      reportProgress: true,
+      observe: 'events'
+    }).pipe(
+      catchError(this.errorMgmt)
+    );
+  }
+
+  errorMgmt(error: HttpErrorResponse) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // Get client-side error
+      errorMessage = error.error.message;
+    } else {
+      // Get server-side error
+      errorMessage = `Error Code: ${ error.status }\nMessage: ${ error.message }`;
+    }
+    console.log(errorMessage);
+    return throwError(errorMessage);
   }
 }

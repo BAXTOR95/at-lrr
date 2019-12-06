@@ -1,5 +1,5 @@
 import { Actions, ofType, Effect } from '@ngrx/effects';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { switchMap, catchError, map, tap } from 'rxjs/operators';
@@ -39,20 +39,25 @@ const handleAuthentication = (
   });
 };
 
-const handleError = (errorRes: any) => {
+const handleError = (errorRes: HttpErrorResponse) => {
   let errorMessage = 'An unknown error occured!';
-  if (!errorRes.error || !errorRes.error.error) {
+
+  console.log('errorRes', errorRes);
+
+  if (!errorRes.error) {
     return of(new AuthActions.AuthenticateFail(errorMessage));
   }
-  switch (errorRes.error.error.message) {
-    case 'EMAIL_EXISTS':
-      errorMessage = 'This email exists already!';
+
+  const errorObj = Object.values(errorRes.error);
+
+  switch (errorRes.status) {
+    case 0:
+      errorMessage = 'There seems to be problems with the API call!<br>' +
+        errorRes.message;
       break;
-    case 'EMAIL_NOT_FOUND':
-      errorMessage = 'This email does not exist.';
-      break;
-    case 'INVALID_PASSWORD':
-      errorMessage = 'This password is not correct.';
+    case 400:
+      errorMessage = errorRes.statusText + '<br>' +
+        errorObj[ '0' ][ 0 ];
       break;
   }
   return of(new AuthActions.AuthenticateFail(errorMessage));
@@ -67,7 +72,7 @@ export class AuthEffects {
     ofType(AuthActions.SIGNUP_START),
     switchMap((signupAction: AuthActions.SignupStart) => {
       return this.http
-        .post<AuthResponseData>(`${this.DJANGO_SERVER}/api/user/create/`, {
+        .post<AuthResponseData>(`${ this.DJANGO_SERVER }/api/user/create/`, {
           email: signupAction.payload.email,
           password: signupAction.payload.password,
           name: signupAction.payload.name,
@@ -96,7 +101,7 @@ export class AuthEffects {
     ofType(AuthActions.LOGIN_START),
     switchMap((authData: AuthActions.LoginStart) => {
       return this.http
-        .post<AuthResponseData>(`${this.DJANGO_SERVER}/api/user/token/`, {
+        .post<AuthResponseData>(`${ this.DJANGO_SERVER }/api/user/token/`, {
           email: authData.payload.email,
           password: authData.payload.password,
         })
@@ -124,7 +129,7 @@ export class AuthEffects {
     ofType(AuthActions.AUTHENTICATE_SUCCESS),
     tap((authSuccessAction: AuthActions.AuthenticateSuccess) => {
       if (authSuccessAction.payload.redirect) {
-        this.router.navigate(['/']);
+        this.router.navigate([ '/' ]);
       }
     })
   );
@@ -179,14 +184,14 @@ export class AuthEffects {
     tap(() => {
       this.authService.clearLogoutTimer();
       localStorage.removeItem('userData');
-      this.router.navigate(['/auth']);
+      this.router.navigate([ '/auth' ]);
     })
   );
 
-  constructor(
+  constructor (
     private actions$: Actions,
     private http: HttpClient,
     private router: Router,
     private authService: AuthService
-  ) {}
+  ) { }
 }

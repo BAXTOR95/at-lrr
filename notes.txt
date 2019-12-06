@@ -227,6 +227,12 @@ npm install --save-dev @ngrx/store-devtools
 
 npm install --save @ngrx/router-store
 
+# You can also use ng add @*package-name* and it will use the default package manager
+# Or use yarn like so
+yarn add @*package-name*
+
+# See: https://waverleysoftware.com/blog/yarn-vs-npm/
+
 ---To make a project with Django and Angular, do this. 
 HELP: https://www.django-rest-framework.org/tutorial/quickstart/
 	  https://www.youtube.com/watch?v=z_H-oxQVsPw

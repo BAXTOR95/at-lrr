@@ -1,5 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
 import { Store } from '@ngrx/store';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material/icon';
+import { TooltipPosition } from '@angular/material/tooltip';
+import { FormControl } from '@angular/forms';
+
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DataStorageService } from '../shared/data-storage.service';
@@ -11,25 +17,42 @@ import * as AuthActions from '../auth/store/auth.actions';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styles: [
-    `
-      .navbar {
-        margin-bottom: 20px;
-      }
-    `,
-  ],
+  styleUrls: [ './header.component.css' ]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  showNavText = false;
   isAuthenticated = false;
-  collapsed = true;
+
+  positionOptions: TooltipPosition[] = [ 'after', 'before', 'above', 'below', 'left', 'right' ];
+
+  mobileQuery: MediaQueryList;
 
   private userSub: Subscription;
 
-  constructor(
+  private _mobileQueryListener: () => void;
+
+  constructor (
     private dataStorageService: DataStorageService,
     private authService: AuthService,
     private store: Store<fromApp.AppState>,
-  ) {}
+    changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
+    iconRegistry: MatIconRegistry, sanitizer: DomSanitizer
+  ) {
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addEventListener('change', () => {
+      this._mobileQueryListener();
+    });
+    iconRegistry.addSvgIcon(
+      'check',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/img/icons/check-circle-regular.svg'));
+    iconRegistry.addSvgIcon(
+      'module',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/img/icons/cubes-solid.svg'));
+    iconRegistry.addSvgIcon(
+      'manage',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/img/icons/tasks-solid.svg'));
+  }
 
   ngOnInit() {
     this.userSub = this.store
@@ -38,6 +61,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe(user => {
         this.isAuthenticated = !!user;
       });
+  }
+
+  onMouseEnter() {
+    this.showNavText = !this.showNavText;
+    console.log('mouse enter: ' + this.showNavText);
+  }
+
+  onMouseLeave() {
+    this.showNavText = !this.showNavText;
+    console.log('mouse leave: ' + this.showNavText);
   }
 
   onSaveData() {
@@ -56,5 +89,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userSub.unsubscribe();
+    this.mobileQuery.removeEventListener('change', () => {
+      this._mobileQueryListener();
+    });
   }
 }
