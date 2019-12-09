@@ -1,0 +1,5 @@
+@import '../app/footer/footer.component';
+
+@mixin component-themes($theme) {
+  @include footer-theme($theme);
+}

@@ -67,7 +67,7 @@ class CreateExpiringTokenView(ObtainAuthToken):
                 token.delete()
                 token = Token.objects.get_or_create(
                     user=serializer.validated_data['user'])
-                token['created'] = datetime.datetime.utcnow().replace(
+                token[0]['created'] = datetime.datetime.utcnow().replace(
                     tzinfo=timezone.utc)
                 token.save()
 

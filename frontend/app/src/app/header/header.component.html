@@ -76,6 +76,12 @@
         <button mat-menu-item>Fetch Data</button>
       </mat-menu>
     </mat-nav-list>
+    <mat-slide-toggle
+      [checked]="isDarkTheme | async"
+      (change)="toggleDarkTheme($event.checked)"
+    >
+      <mat-icon>brightness_medium</mat-icon>
+    </mat-slide-toggle>
   </mat-sidenav>
 
   <mat-sidenav-content>

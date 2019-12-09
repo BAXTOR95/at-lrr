@@ -128,7 +128,7 @@ import { DropdownDirective } from './dropdown.directive';
   entryComponents: [ AlertComponent, ],
   providers: [
     { provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'auto' } },
-    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
   ]
 })
 export class SharedModule { }

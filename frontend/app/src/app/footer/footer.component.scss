@@ -1,0 +1,30 @@
+@import '~@angular/material/theming';
+
+@mixin footer-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $background: map-get($theme, background);
+  $background-color: mat-color($background, card);
+
+  .footer {
+
+    background-color: mat-color($accent);
+
+
+    p {
+      // color: $background-color;
+      line-height: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+  }
+}

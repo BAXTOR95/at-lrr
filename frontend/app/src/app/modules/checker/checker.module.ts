@@ -23,4 +23,4 @@ import { SharedModule } from '../../shared/shared.module';
     SharedModule,
   ],
 })
-export class RecipesModule {}
+export class CheckerModule { }

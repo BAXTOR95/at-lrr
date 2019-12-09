@@ -6,9 +6,11 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { TooltipPosition } from '@angular/material/tooltip';
 import { FormControl } from '@angular/forms';
 
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DataStorageService } from '../shared/data-storage.service';
+
+import { DataStorageService } from '../shared/services/data-storage.service';
+import { ThemeService } from '../shared/services/theme.service';
 import { AuthService } from '../auth/auth.service';
 import * as fromApp from '../store/app.reducer';
 import * as AuthActions from '../auth/store/auth.actions';
@@ -17,7 +19,7 @@ import * as AuthActions from '../auth/store/auth.actions';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: [ './header.component.css' ]
+  styleUrls: [ './header.component.css' ],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   showNavText = false;
@@ -27,6 +29,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   mobileQuery: MediaQueryList;
 
+  isDarkTheme: Observable<boolean>;
+
   private userSub: Subscription;
 
   private _mobileQueryListener: () => void;
@@ -35,8 +39,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private dataStorageService: DataStorageService,
     private authService: AuthService,
     private store: Store<fromApp.AppState>,
+    private themeService: ThemeService,
     changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
-    iconRegistry: MatIconRegistry, sanitizer: DomSanitizer
+    iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -61,6 +66,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe(user => {
         this.isAuthenticated = !!user;
       });
+    this.isDarkTheme = this.themeService.isDarkTheme;
   }
 
   onMouseEnter() {
@@ -71,6 +77,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onMouseLeave() {
     this.showNavText = !this.showNavText;
     console.log('mouse leave: ' + this.showNavText);
+  }
+
+  toggleDarkTheme(checked: boolean) {
+    this.themeService.setDarkTheme(checked);
   }
 
   onSaveData() {

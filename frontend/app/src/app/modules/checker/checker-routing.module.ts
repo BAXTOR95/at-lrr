@@ -12,25 +12,25 @@ const checkerRoutes: Routes = [
   {
     path: '',
     component: CheckerComponent,
-    canActivate: [AuthGuard],
+    canActivate: [ AuthGuard ],
     children: [
       { path: '', component: CheckerStartComponent },
       {
-        path: '/approval',
+        path: 'approval',
         component: CheckerApprovalComponent,
-        resolve: [CheckerResolverService],
+        resolve: [ CheckerResolverService ],
       },
       {
-        path: '/validation',
+        path: 'validation',
         component: CheckerValidationComponent,
-        resolve: [CheckerResolverService],
+        resolve: [ CheckerResolverService ],
       },
     ],
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(checkerRoutes)],
-  exports: [RouterModule],
+  imports: [ RouterModule.forChild(checkerRoutes) ],
+  exports: [ RouterModule ],
 })
-export class CheckerRoutingModule {}
+export class CheckerRoutingModule { }
