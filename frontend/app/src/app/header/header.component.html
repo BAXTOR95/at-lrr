@@ -117,7 +117,7 @@
         [checked]="isDarkTheme | async"
         (change)="toggleDarkTheme($event.checked)"
         (click)="snav.toggle()"
-        matTooltip="Toogle Dark Mode"
+        [matTooltip]="isDTChecked ? 'Toogle Light Mode' : 'Toogle Dark Mode'"
         [matTooltipPosition]="positionOptions[5]"
         [matTooltipShowDelay]="500"
         [matTooltipHideDelay]="250"
@@ -158,7 +158,7 @@
       <h1 class="app-name">SIRDCAT</h1>
       <span class="fill-remaining-space"></span>
       <button
-        mat-raised-button
+        mat-flat-button
         color="primary"
         *ngIf="isAuthenticated"
         (click)="onLogout()"

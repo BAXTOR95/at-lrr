@@ -48,6 +48,8 @@ import {
   MAT_LABEL_GLOBAL_OPTIONS, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher
 } from '@angular/material';
 
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 import { AlertComponent } from './alert/alert.component';
@@ -122,6 +124,7 @@ import { DropdownDirective } from './dropdown.directive';
     PortalModule,
     ScrollingModule,
     MatFormFieldModule,
+    FlexLayoutModule,
     MaterialFileInputModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],

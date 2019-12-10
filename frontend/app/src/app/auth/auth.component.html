@@ -1,10 +1,112 @@
 <ng-template appPlaceholder></ng-template>
-<div class="row">
-  <div class="jumbotron jumbotron-fluid col-12 col-sm-6 offset-sm-3">
+<div class="auth">
+  <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box mat-elevation-z6" color="primary">
+      <mat-card-header>
+        <mat-card-title>
+          {{ isLoginMode ? "Log in" : "Sign Up" }}
+        </mat-card-title>
+      </mat-card-header>
+
+      <div *ngIf="isLoading" fxLayout="row" fxLayoutAlign="center center">
+        <mat-progress-spinner
+          color="primary"
+          mode="indeterminate"
+        ></mat-progress-spinner>
+      </div>
+
+      <form
+        #authForm="ngForm"
+        (ngSubmit)="onSubmit(authForm)"
+        *ngIf="!isLoading"
+        class="example-form"
+      >
+        <mat-card-content>
+          <mat-form-field class="example-full-width">
+            <mat-label aria-label>E-Mail</mat-label>
+            <input
+              matNativeControl
+              type="email"
+              name="email"
+              id="email"
+              aria-describedby="helpIdE"
+              ngModel
+              required
+              placeholder="E-Mail Address"
+              email
+            />
+            <mat-error>This field is required</mat-error>
+            <mat-hint hintLabel align="start" id="helpIdE" class="text-muted"
+              ><strong>Type your E-Mail Address</strong>
+            </mat-hint>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label aria-label>Password</mat-label>
+            <input
+              matNativeControl
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+              aria-describedby="helpIdP"
+              ngModel
+              required
+              minlength="6"
+            />
+            <mat-error>This field is required</mat-error>
+            <mat-hint hintLabel align="start" id="helpIdP" class="text-muted"
+              ><strong>Type your Password</strong>
+            </mat-hint>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width" *ngIf="!isLoginMode">
+            <mat-label aria-label>Name</mat-label>
+            <input
+              matNativeControl
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Name"
+              aria-describedby="helpIdN"
+              ngModel
+              required
+            />
+            <mat-error>This field is required</mat-error>
+            <mat-hint hintLabel align="start" id="helpIdN" class="text-muted"
+              ><strong>Type your Name</strong>
+            </mat-hint>
+          </mat-form-field>
+        </mat-card-content>
+        <button
+          type="submit"
+          mat-stroked-button
+          [disabled]="!authForm.valid"
+          color="accent"
+          class="btn-block"
+        >
+          {{ isLoginMode ? "Login" : "Sign Up" }}
+        </button>
+        <button
+          type="button"
+          mat-stroked-button
+          (click)="onSwitchMode()"
+          color="accent"
+          class="btn-block"
+        >
+          Switch to {{ isLoginMode ? "Sign Up" : "Login" }}
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</div>
+
+<!-- <div class="row">
+  <div class="jumbotron jumbotron-fluid col s12 m6">
     <div class="container-fluid">
       <div class="row" *ngIf="isLoading">
-        <div class="col-12 offset-5 px-0">
-          <!-- <app-loading-spinner></app-loading-spinner> -->
+        <div class="col s12 offset-5 px-0">
+          <app-loading-spinner></app-loading-spinner>
           <mat-progress-spinner
             color="primary"
             mode="indeterminate"
@@ -17,8 +119,8 @@
         (ngSubmit)="onSubmit(authForm)"
         *ngIf="!isLoading"
       >
-        <mat-grid-list cols="4" rowHeight="100px">
-          <mat-grid-tile [colspan]="2" [rowspan]="1">
+        <div class="row">
+          <div class="col m12 s12">
             <mat-form-field>
               <mat-label aria-label>E-Mail</mat-label>
               <input
@@ -37,8 +139,8 @@
                 ><strong>Type your E-Mail Address</strong>
               </mat-hint>
             </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile [colspan]="2" [rowspan]="1">
+          </div>
+          <div class="col m12 s12">
             <mat-form-field>
               <mat-label aria-label>Password</mat-label>
               <input
@@ -57,8 +159,8 @@
                 ><strong>Type your Password</strong>
               </mat-hint>
             </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile [colspan]="4" [rowspan]="1" *ngIf="!isLoginMode">
+          </div>
+          <div class="col m12 s12" *ngIf="!isLoginMode">
             <mat-form-field>
               <mat-label aria-label>Name</mat-label>
               <input
@@ -76,10 +178,10 @@
                 ><strong>Type your Name</strong>
               </mat-hint>
             </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile [colspan]="4" [rowspan]="1">
-            <div class="form-group row" style="text-align: center;">
-              <div class="col-12">
+          </div>
+          <div class="col m12 s12">
+            <div class="row" style="text-align: center;">
+              <div class="col m6 s6">
                 <button
                   type="submit"
                   mat-raised-button
@@ -88,7 +190,8 @@
                 >
                   {{ isLoginMode ? "Login" : "Sign Up" }}
                 </button>
-                <span style="color: gray"> | </span>
+              </div>
+              <div class="col m6 s6">
                 <button
                   type="button"
                   mat-raised-button
@@ -99,9 +202,9 @@
                 </button>
               </div>
             </div>
-          </mat-grid-tile>
-        </mat-grid-list>
+          </div>
+        </div>
       </form>
     </div>
   </div>
-</div>
+</div> -->

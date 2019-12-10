@@ -27,6 +27,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   positionOptions: TooltipPosition[] = [ 'after', 'before', 'above', 'below', 'left', 'right' ];
   mobileQuery: MediaQueryList;
   isDarkTheme: Observable<boolean>;
+  isDTChecked = false;
   events: string[] = [];
   opened: boolean;
   appropriateClass: string = '';
@@ -90,6 +91,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   toggleDarkTheme(checked: boolean) {
+    this.isDTChecked = checked;
     this.themeService.setDarkTheme(checked);
   }
 

@@ -1,5 +1,7 @@
 @import '../app/footer/footer.component';
+@import '../app/auth/auth.component';
 
 @mixin component-themes($theme) {
   @include footer-theme($theme);
+  @include auth-theme($theme);
 }
