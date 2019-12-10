@@ -37,14 +37,14 @@
       <mat-menu #modules="matMenu">
         <button
           mat-menu-item
-          [routerLink]="['/balance-account']"
+          [routerLink]="['balance-account']"
           (click)="snav.toggle()"
         >
           Balance Account
         </button>
         <button
           mat-menu-item
-          [routerLink]="['/resources']"
+          [routerLink]="['resources']"
           (click)="snav.toggle()"
         >
           Resources
@@ -54,7 +54,7 @@
         </button>
         <button
           mat-menu-item
-          [routerLink]="['/workflow']"
+          [routerLink]="['workflow']"
           (click)="snav.toggle()"
         >
           Workflow
@@ -65,14 +65,14 @@
       <mat-menu #checker="matMenu">
         <button
           mat-menu-item
-          [routerLink]="['/checker', '/approval']"
+          [routerLink]="['checker', 'approval']"
           (click)="snav.toggle()"
         >
           Approval
         </button>
         <button
           mat-menu-item
-          [routerLink]="['/checker', '/validation']"
+          [routerLink]="['checker', 'validation']"
           (click)="snav.toggle()"
         >
           Validation

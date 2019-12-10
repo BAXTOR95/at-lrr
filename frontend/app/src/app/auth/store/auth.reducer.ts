@@ -51,7 +51,7 @@ export function authReducer(
         authError: action.payload,
         loading: false,
       };
-    case AuthActions.CLEARE_ERROR:
+    case AuthActions.CLEAR_ERROR:
       return {
         ...state,
         authError: null,

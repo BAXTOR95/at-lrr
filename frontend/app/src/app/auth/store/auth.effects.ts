@@ -52,11 +52,11 @@ const handleError = (errorRes: HttpErrorResponse) => {
 
   switch (errorRes.status) {
     case 0:
-      errorMessage = 'There seems to be problems with the API call!<br>' +
+      errorMessage = 'There seems to be problems with the API call! ' +
         errorRes.message;
       break;
     case 400:
-      errorMessage = errorRes.statusText + '<br>' +
+      errorMessage = errorRes.statusText + ': ' +
         errorObj[ '0' ][ 0 ];
       break;
   }

@@ -7,17 +7,20 @@ import {
   OnInit,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
+
 
 import { AlertComponent } from '../shared/alert/alert.component';
 import { PlaceholderDirective } from '../shared/placeholder/placeholder.directive';
 import * as fromApp from '../store/app.reducer';
 import * as AuthActions from './store/auth.actions';
+import { ComponentType } from '@angular/cdk/portal';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss'],
+  styleUrls: [ './auth.component.scss' ],
 })
 export class AuthComponent implements OnInit, OnDestroy {
   isLoginMode = true;
@@ -25,21 +28,24 @@ export class AuthComponent implements OnInit, OnDestroy {
   error: string = null;
   @ViewChild(PlaceholderDirective, { static: false })
   alertHost: PlaceholderDirective;
+  durationInSeconds = 10;
 
   private closeSub: Subscription;
   private storeSub: Subscription;
 
-  constructor(
+  constructor (
     private componentFactoryResolver: ComponentFactoryResolver,
     private store: Store<fromApp.AppState>,
-  ) {}
+    private _snackBar: MatSnackBar
+  ) { }
 
   ngOnInit() {
     this.storeSub = this.store.select('auth').subscribe(authState => {
       this.isLoading = authState.loading;
       this.error = authState.authError;
       if (this.error) {
-        this.showErrorAlert(this.error);
+        // this.showErrorAlert(this.error);
+        this.openSnackBar(this.error, 'Close');
       }
     });
   }
@@ -80,6 +86,12 @@ export class AuthComponent implements OnInit, OnDestroy {
     }
   }
 
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
+
   private showErrorAlert(message: string) {
     const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(
       AlertComponent,
@@ -90,6 +102,7 @@ export class AuthComponent implements OnInit, OnDestroy {
     const componentRef = hostViewContainerRef.createComponent(alertCmpFactory);
 
     componentRef.instance.message = message;
+
     this.closeSub = componentRef.instance.closeAlert.subscribe(() => {
       this.closeSub.unsubscribe();
       hostViewContainerRef.clear();
