@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, HostListener } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Store } from '@ngrx/store';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -19,21 +19,30 @@ import * as AuthActions from '../auth/store/auth.actions';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: [ './header.component.css' ],
+  styleUrls: [ './header.component.scss' ],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   showNavText = false;
   isAuthenticated = false;
-
   positionOptions: TooltipPosition[] = [ 'after', 'before', 'above', 'below', 'left', 'right' ];
-
   mobileQuery: MediaQueryList;
-
   isDarkTheme: Observable<boolean>;
+  events: string[] = [];
+  opened: boolean;
+  appropriateClass: string = '';
 
   private userSub: Subscription;
-
   private _mobileQueryListener: () => void;
+
+  @HostListener('window:resize', [ '$event' ])
+  getScreenHeight(event?) {
+    // console.log(window.innerHeight);
+    if (window.innerHeight <= 412) {
+      this.appropriateClass = 'bottomRelative';
+    } else {
+      this.appropriateClass = 'bottomStick';
+    }
+  }
 
   constructor (
     private dataStorageService: DataStorageService,
@@ -48,6 +57,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.mobileQuery.addEventListener('change', () => {
       this._mobileQueryListener();
     });
+    this.getScreenHeight();
     iconRegistry.addSvgIcon(
       'check',
       sanitizer.bypassSecurityTrustResourceUrl('assets/img/icons/check-circle-regular.svg'));
