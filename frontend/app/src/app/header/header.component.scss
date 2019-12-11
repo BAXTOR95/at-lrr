@@ -1,125 +1,135 @@
-.is-mobile .toolbar {
-  position: fixed;
-  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
-  z-index: 2;
-}
+@import "~@angular/material/theming";
 
-h1.app-name {
-  margin-left: 8px;
-}
+@mixin header-theme($theme) {
+  $primary: map-get($theme, primary);
+  $secundary: map-get($theme, foreground);
+  $accent: map-get($theme, accent);
+  $background: map-get($theme, background);
+  $background-color: mat-color($background, card);
 
-.sidenav-container {
-  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+  .header {
+    .is-mobile .toolbar {
+      position: fixed;
+      /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+      z-index: 2;
+    }
+
+    h1.app-name {
+      margin-left: 8px;
+    }
+
+    .sidenav-container {
+      /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
      causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
-  flex: 1;
-}
+      flex: 1;
+    }
 
-.is-mobile .sidenav-container {
-  /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+    .is-mobile .sidenav-container {
+      /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
      `<body>` to be our scrolling element for mobile layouts. */
-  flex: 1 0 auto;
-}
+      flex: 1 0 auto;
+    }
 
-.navbar {
-  margin-bottom: 20px;
-}
+    .navbar {
+      margin-bottom: 20px;
+    }
 
-.flex-container {
-  display: flex;
-  flex-direction: column;
-}
+    .flex-container {
+      display: flex;
+      flex-direction: column;
+    }
 
-.fill-remaining-space {
-  /* This fills the remaining space, by using flexbox.
+    .fill-remaining-space {
+      /* This fills the remaining space, by using flexbox.
      Every toolbar row uses a flexbox row layout. */
-  flex: 1 1 auto;
-}
+      flex: 1 1 auto;
+    }
 
-button {
-  outline: none;
-  border: none;
-}
+    button {
+      outline: none;
+      border: none;
+    }
 
-.mat-list .mat-list-item .mat-list-icon,
-.mat-list .mat-list-option .mat-list-icon,
-.mat-nav-list .mat-list-item .mat-list-icon,
-.mat-nav-list .mat-list-option .mat-list-icon,
-.mat-selection-list .mat-list-item .mat-list-icon,
-.mat-selection-list .mat-list-option .mat-list-icon {
-  padding: 0 0 16px 0 !important;
-}
+    .mat-list .mat-list-item .mat-list-icon,
+    .mat-list .mat-list-option .mat-list-icon,
+    .mat-nav-list .mat-list-item .mat-list-icon,
+    .mat-nav-list .mat-list-option .mat-list-icon,
+    .mat-selection-list .mat-list-item .mat-list-icon,
+    .mat-selection-list .mat-list-option .mat-list-icon {
+      padding: 0 0 16px 0 !important;
+    }
 
-.mat-list .mat-list-item .mat-list-text,
-.mat-list .mat-list-option .mat-list-text,
-.mat-nav-list .mat-list-item .mat-list-text,
-.mat-nav-list .mat-list-option .mat-list-text,
-.mat-selection-list .mat-list-item .mat-list-text,
-.mat-selection-list .mat-list-option .mat-list-text {
-  padding-right: 0 !important;
-}
+    .mat-list .mat-list-item .mat-list-text,
+    .mat-list .mat-list-option .mat-list-text,
+    .mat-nav-list .mat-list-item .mat-list-text,
+    .mat-nav-list .mat-list-option .mat-list-text,
+    .mat-selection-list .mat-list-item .mat-list-text,
+    .mat-selection-list .mat-list-option .mat-list-text {
+      padding-right: 0 !important;
+    }
 
-.bottomStick {
-  /*border-top:1px solid green;border-bottom:1px solid green;*/
-  position: absolute;
-  bottom: 0
-}
+    .bottomStick {
+      /*border-top:1px solid green;border-bottom:1px solid green;*/
+      position: absolute;
+      bottom: 0;
+    }
 
-.bottomRelative {
-  position: relative;
-}
+    .bottomRelative {
+      position: relative;
+    }
 
-#visibilityContainer ::ng-deep ::-webkit-scrollbar {
-  height: 4px;
-  width: 4px;
-}
+    #visibilityContainer {
+      ::-webkit-scrollbar {
+        height: 4px;
+        width: 4px;
+      }
 
-#visibilityContainer ::ng-deep ::-webkit-scrollbar-track {
-  background-color: rgba(245, 245, 245, 0.26) !important;
-  background: transparent;
-}
+      ::-webkit-scrollbar-track {
+        background-color: mat-color($primary) !important;
+        background: transparent;
+      }
 
-#visibilityContainer ::ng-deep ::-webkit-scrollbar-thumb {
-  background: rgba(231, 0, 0, 0.664)
-}
+      ::-webkit-scrollbar-thumb {
+        background: mat-color($accent);
+      }
+    }
 
-/*
- * Actual Sticky Footer Styles
- */
+    /*
+    * Actual Sticky Footer Styles
+    */
 
-.all-wrap {
-  min-height: 100vh;
-  /*same height as browser window height */
-}
+    .all-wrap {
+      min-height: 100vh;
+      /*same height as browser window height */
+    }
 
-.page-wrap {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  /* same height as browser window height */
-}
+    .page-wrap {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      /* same height as browser window height */
+    }
 
-.content {
-  flex: 1;
-  /* child will set to an equal size inside the container */
-}
+    .content {
+      flex: 1;
+      /* child will set to an equal size inside the container */
+    }
 
-/*
- * Make the component injected by <router-outlet> full height:
- */
+    /*
+    * Make the component injected by <router-outlet> full height:
+    */
 
-main {
+    main {
+      display: flex;
+      flex-direction: column;
 
-  display: flex;
-  flex-direction: column;
-
-  /* Select all direct descendants only of the <main> element
-  that are not <router-outlet> elements: */
-  >*:not(router-outlet) {
-
-    flex: 1;
-    /* child will set to an equal size inside the container */
-    display: block;
-
+      /* Select all direct descendants only of the <main> element
+         that are not <router-outlet> elements: */
+      > *:not(router-outlet) {
+        flex: 1;
+        /* child will set to an equal size inside the container */
+        display: block;
+      }
+    }
   }
-
 }

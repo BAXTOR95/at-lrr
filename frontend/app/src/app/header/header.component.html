@@ -1,176 +1,182 @@
-<mat-sidenav-container fullscreen id="visibilityContainer" class="all-wrap">
-  <mat-sidenav
-    #snav
-    [mode]="mobileQuery.matches ? 'over' : 'push'"
-    role="navigation"
-  >
-    <mat-toolbar color="primary" class="mat-elevation-z6">
-      <span class="fill-remaining-space"></span>
-      <button
-        mat-icon-button
-        (click)="snav.toggle()"
-        class="mat-icon-button sidenav-toggle-button"
-        [hidden]="!snav.opened"
-      >
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-toolbar>
-
-    <!-- MODULES -->
-    <mat-nav-list>
-      <mat-list-item
-        [matMenuTriggerFor]="modules"
-        matTooltip="Modules"
-        [matTooltipPosition]="positionOptions[5]"
-        [matTooltipShowDelay]="500"
-        [matTooltipHideDelay]="250"
-      >
-        <mat-icon
-          mat-list-icon
-          svgIcon="module"
-          aria-hidden="false"
-          aria-label="Module icon"
-        ></mat-icon>
-        <h4 mat-line>Modules</h4>
-        <p mat-line>section</p>
-      </mat-list-item>
-      <mat-menu #modules="matMenu">
-        <button
-          mat-menu-item
-          [routerLink]="['balance-account']"
-          (click)="snav.toggle()"
-        >
-          Balance Account
-        </button>
-        <button
-          mat-menu-item
-          [routerLink]="['resources']"
-          (click)="snav.toggle()"
-        >
-          Resources
-        </button>
-        <button mat-menu-item [routerLink]="['/views']" (click)="snav.toggle()">
-          Views
-        </button>
-        <button
-          mat-menu-item
-          [routerLink]="['workflow']"
-          (click)="snav.toggle()"
-        >
-          Workflow
-        </button>
-        <button mat-menu-item [matMenuTriggerFor]="checker">Checker</button>
-      </mat-menu>
-
-      <mat-menu #checker="matMenu">
-        <button
-          mat-menu-item
-          [routerLink]="['checker', 'approval']"
-          (click)="snav.toggle()"
-        >
-          Approval
-        </button>
-        <button
-          mat-menu-item
-          [routerLink]="['checker', 'validation']"
-          (click)="snav.toggle()"
-        >
-          Validation
-        </button>
-      </mat-menu>
-    </mat-nav-list>
-    <!-- MODULES -->
-    <mat-divider></mat-divider>
-    <!-- MANAGE -->
-    <mat-nav-list>
-      <mat-list-item
-        [matMenuTriggerFor]="manage"
-        matTooltip="Manage"
-        [matTooltipPosition]="positionOptions[5]"
-        [matTooltipShowDelay]="500"
-        [matTooltipHideDelay]="250"
-      >
-        <mat-icon
-          mat-list-icon
-          svgIcon="manage"
-          aria-hidden="false"
-          aria-label="Manage icon"
-        ></mat-icon>
-        <h4 mat-line>Manage</h4>
-        <p mat-line>section</p>
-      </mat-list-item>
-      <mat-menu #manage="matMenu">
-        <button mat-menu-item>Save Data</button>
-        <button mat-menu-item>Fetch Data</button>
-      </mat-menu>
-    </mat-nav-list>
-    <!-- MANAGE -->
-    <mat-divider></mat-divider>
-    <!-- TOGGLE DARK MODE -->
-    <mat-toolbar
-      color="secundary"
-      class="mat-elevation-z6"
-      [ngClass]="appropriateClass"
+<div class="header">
+  <mat-sidenav-container fullscreen id="visibilityContainer" class="all-wrap">
+    <mat-sidenav
+      #snav
+      [mode]="mobileQuery.matches ? 'over' : 'push'"
+      role="navigation"
     >
-      <span class="fill-remaining-space"></span>
-      <mat-slide-toggle
-        [checked]="isDarkTheme | async"
-        (change)="toggleDarkTheme($event.checked)"
-        (click)="snav.toggle()"
-        [matTooltip]="isDTChecked ? 'Toogle Light Mode' : 'Toogle Dark Mode'"
-        [matTooltipPosition]="positionOptions[5]"
-        [matTooltipShowDelay]="500"
-        [matTooltipHideDelay]="250"
+      <mat-toolbar color="primary" class="toolbar mat-elevation-z6">
+        <span class="fill-remaining-space"></span>
+        <button
+          mat-icon-button
+          (click)="snav.toggle()"
+          class="mat-icon-button sidenav-toggle-button"
+          [hidden]="!snav.opened"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-toolbar>
+
+      <!-- MODULES -->
+      <mat-nav-list>
+        <mat-list-item
+          [matMenuTriggerFor]="modules"
+          matTooltip="Modules"
+          [matTooltipPosition]="positionOptions[5]"
+          [matTooltipShowDelay]="500"
+          [matTooltipHideDelay]="250"
+        >
+          <mat-icon
+            mat-list-icon
+            svgIcon="module"
+            aria-hidden="false"
+            aria-label="Module icon"
+          ></mat-icon>
+          <h4 mat-line>Modules</h4>
+          <p mat-line>section</p>
+        </mat-list-item>
+        <mat-menu #modules="matMenu">
+          <button
+            mat-menu-item
+            [routerLink]="['balance-account']"
+            (click)="snav.toggle()"
+          >
+            Balance Account
+          </button>
+          <button
+            mat-menu-item
+            [routerLink]="['resources']"
+            (click)="snav.toggle()"
+          >
+            Resources
+          </button>
+          <button
+            mat-menu-item
+            [routerLink]="['/views']"
+            (click)="snav.toggle()"
+          >
+            Views
+          </button>
+          <button
+            mat-menu-item
+            [routerLink]="['workflow']"
+            (click)="snav.toggle()"
+          >
+            Workflow
+          </button>
+          <button mat-menu-item [matMenuTriggerFor]="checker">Checker</button>
+        </mat-menu>
+
+        <mat-menu #checker="matMenu">
+          <button
+            mat-menu-item
+            [routerLink]="['checker', 'approval']"
+            (click)="snav.toggle()"
+          >
+            Approval
+          </button>
+          <button
+            mat-menu-item
+            [routerLink]="['checker', 'validation']"
+            (click)="snav.toggle()"
+          >
+            Validation
+          </button>
+        </mat-menu>
+      </mat-nav-list>
+      <!-- MODULES -->
+      <mat-divider></mat-divider>
+      <!-- MANAGE -->
+      <mat-nav-list>
+        <mat-list-item
+          [matMenuTriggerFor]="manage"
+          matTooltip="Manage"
+          [matTooltipPosition]="positionOptions[5]"
+          [matTooltipShowDelay]="500"
+          [matTooltipHideDelay]="250"
+        >
+          <mat-icon
+            mat-list-icon
+            svgIcon="manage"
+            aria-hidden="false"
+            aria-label="Manage icon"
+          ></mat-icon>
+          <h4 mat-line>Manage</h4>
+          <p mat-line>section</p>
+        </mat-list-item>
+        <mat-menu #manage="matMenu">
+          <button mat-menu-item>Save Data</button>
+          <button mat-menu-item>Fetch Data</button>
+        </mat-menu>
+      </mat-nav-list>
+      <!-- MANAGE -->
+      <mat-divider></mat-divider>
+      <!-- TOGGLE DARK MODE -->
+      <mat-toolbar
+        color="secundary"
+        class="toolbar mat-elevation-z6"
+        [ngClass]="appropriateClass"
       >
-        <mat-icon>brightness_medium</mat-icon>
-      </mat-slide-toggle>
-    </mat-toolbar>
-    <!-- <mat-nav-list [ngClass]="appropriateClass">
-      <span class="fill-remaining-space"></span>
-      <mat-list-item
-        matTooltip="Toogle Dark Mode"
-        [matTooltipPosition]="positionOptions[5]"
-        [matTooltipShowDelay]="500"
-        [matTooltipHideDelay]="250"
-      >
+        <span class="fill-remaining-space"></span>
         <mat-slide-toggle
           [checked]="isDarkTheme | async"
           (change)="toggleDarkTheme($event.checked)"
           (click)="snav.toggle()"
+          [matTooltip]="isDTChecked ? 'Toogle Light Mode' : 'Toogle Dark Mode'"
+          [matTooltipPosition]="positionOptions[5]"
+          [matTooltipShowDelay]="500"
+          [matTooltipHideDelay]="250"
         >
+          <mat-icon>brightness_medium</mat-icon>
         </mat-slide-toggle>
-        <mat-icon>brightness_medium</mat-icon>
-      </mat-list-item>
-    </mat-nav-list> -->
-    <!-- TOGGLE DARK MODE -->
-  </mat-sidenav>
-  <mat-sidenav-content class="page-wrap">
-    <mat-toolbar color="primary" class="toolbar mat-elevation-z6">
-      <button
-        mat-icon-button
-        (click)="snav.toggle()"
-        *ngIf="isAuthenticated"
-        class="mat-icon-button sidenav-toggle-button"
-        [hidden]="snav.opened"
-      >
-        <mat-icon>menu</mat-icon>
-      </button>
-      <h1 class="app-name">SIRDCAT</h1>
-      <span class="fill-remaining-space"></span>
-      <button
-        mat-flat-button
-        color="primary"
-        *ngIf="isAuthenticated"
-        (click)="onLogout()"
-      >
-        LOGOUT
-      </button>
-    </mat-toolbar>
-    <main class="content">
-      <router-outlet></router-outlet>
-    </main>
-    <footer>
-      <app-footer></app-footer>
-    </footer>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+      </mat-toolbar>
+      <!-- <mat-nav-list [ngClass]="appropriateClass">
+            <span class="fill-remaining-space"></span>
+            <mat-list-item
+              matTooltip="Toogle Dark Mode"
+              [matTooltipPosition]="positionOptions[5]"
+              [matTooltipShowDelay]="500"
+              [matTooltipHideDelay]="250"
+            >
+              <mat-slide-toggle
+                [checked]="isDarkTheme | async"
+                (change)="toggleDarkTheme($event.checked)"
+                (click)="snav.toggle()"
+              >
+              </mat-slide-toggle>
+              <mat-icon>brightness_medium</mat-icon>
+            </mat-list-item>
+          </mat-nav-list> -->
+      <!-- TOGGLE DARK MODE -->
+    </mat-sidenav>
+    <mat-sidenav-content class="page-wrap">
+      <mat-toolbar color="primary" class="toolbar mat-elevation-z6">
+        <button
+          mat-icon-button
+          (click)="snav.toggle()"
+          *ngIf="isAuthenticated"
+          class="mat-icon-button sidenav-toggle-button"
+          [hidden]="snav.opened"
+        >
+          <mat-icon>menu</mat-icon>
+        </button>
+        <h1 class="app-name">SIRDCAT</h1>
+        <span class="fill-remaining-space"></span>
+        <button
+          mat-flat-button
+          color="primary"
+          *ngIf="isAuthenticated"
+          (click)="onLogout()"
+        >
+          LOGOUT
+        </button>
+      </mat-toolbar>
+      <main class="content">
+        <router-outlet></router-outlet>
+      </main>
+      <footer>
+        <app-footer></app-footer>
+      </footer>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

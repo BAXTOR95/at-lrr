@@ -50,8 +50,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private store: Store<fromApp.AppState>,
     private themeService: ThemeService,
-    changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
-    iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,
+    changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher,
+    iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer,
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();

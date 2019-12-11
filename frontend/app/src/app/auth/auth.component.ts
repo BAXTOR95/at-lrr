@@ -7,15 +7,15 @@ import {
   OnInit,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 
 
 import { AlertComponent } from '../shared/alert/alert.component';
 import { PlaceholderDirective } from '../shared/placeholder/placeholder.directive';
+import { SnackbarService } from '../shared/services/snackbar.service';
 import * as fromApp from '../store/app.reducer';
 import * as AuthActions from './store/auth.actions';
-import { ComponentType } from '@angular/cdk/portal';
+
 
 @Component({
   selector: 'app-auth',
@@ -36,7 +36,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   constructor (
     private componentFactoryResolver: ComponentFactoryResolver,
     private store: Store<fromApp.AppState>,
-    private _snackBar: MatSnackBar
+    private snackbarService: SnackbarService
   ) { }
 
   ngOnInit() {
@@ -45,7 +45,7 @@ export class AuthComponent implements OnInit, OnDestroy {
       this.error = authState.authError;
       if (this.error) {
         // this.showErrorAlert(this.error);
-        this.openSnackBar(this.error, 'Close');
+        this.snackbarService.openSnackBar(this.error, 'Close', this.durationInSeconds);
       }
     });
   }
@@ -86,26 +86,20 @@ export class AuthComponent implements OnInit, OnDestroy {
     }
   }
 
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: this.durationInSeconds * 1000,
-    });
-  }
+  // private showErrorAlert(message: string) {
+  //   const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(
+  //     AlertComponent,
+  //   );
+  //   const hostViewContainerRef = this.alertHost.viewContainerRef;
+  //   hostViewContainerRef.clear();
 
-  private showErrorAlert(message: string) {
-    const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(
-      AlertComponent,
-    );
-    const hostViewContainerRef = this.alertHost.viewContainerRef;
-    hostViewContainerRef.clear();
+  //   const componentRef = hostViewContainerRef.createComponent(alertCmpFactory);
 
-    const componentRef = hostViewContainerRef.createComponent(alertCmpFactory);
+  //   componentRef.instance.message = message;
 
-    componentRef.instance.message = message;
-
-    this.closeSub = componentRef.instance.closeAlert.subscribe(() => {
-      this.closeSub.unsubscribe();
-      hostViewContainerRef.clear();
-    });
-  }
+  //   this.closeSub = componentRef.instance.closeAlert.subscribe(() => {
+  //     this.closeSub.unsubscribe();
+  //     hostViewContainerRef.clear();
+  //   });
+  // }
 }

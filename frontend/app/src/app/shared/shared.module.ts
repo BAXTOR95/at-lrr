@@ -1,5 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
+
 
 // Angular Material imports
 import { A11yModule } from '@angular/cdk/a11y';
@@ -51,6 +52,8 @@ import {
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { MaterialFileInputModule } from 'ngx-material-file-input';
+
+import { FileSizePipe } from '../shared/pipes/filesize.pipe';
 
 import { AlertComponent } from './alert/alert.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
@@ -130,6 +133,8 @@ import { DropdownDirective } from './dropdown.directive';
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   entryComponents: [ AlertComponent, ],
   providers: [
+    DatePipe,
+    FileSizePipe,
     { provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'auto' } },
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
   ]

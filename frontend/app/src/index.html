@@ -8,7 +8,7 @@
     <link
       rel="icon"
       type="image/x-icon"
-      href="assets/img/icons/citi_1c_rev_rgb_zrT_icon.ico"
+      href="assets/img/icons/citi_r_2c_blu_pos_rgb_Wbv_icon.ico"
     />
     <link
       href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap"
@@ -18,10 +18,19 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
+    <style type="text/css">
+      app-root:empty::after {
+        content: "Loading...";
+        position: absolute;
+        display: block;
+        top: 50%;
+        left: 50%;
+        font-size: 20px;
+        transform: translate(-50%, -50%);
+      }
+    </style>
   </head>
   <body>
-    <app-root>
-      Loading...
-    </app-root>
+    <app-root> </app-root>
   </body>
 </html>
