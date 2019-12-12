@@ -1,60 +1,49 @@
 @import "~@angular/material/theming";
 
-@mixin resource-start-theme($theme) {
+@mixin resource-upload-theme($theme) {
   $primary: map-get($theme, primary);
   $secundary: map-get($theme, foreground);
   $accent: map-get($theme, accent);
   $background: map-get($theme, background);
   $background-color: mat-color($background, card);
 
-  .resource-start {
-    .wrapper {
-      // margin: 25px auto;
-      // max-width: 600px;
-      // text-align: center;
-      // padding: 0 20px;
-      display: flex;
-      flex-direction: column;
-      // min-height: 100vh;
-      flex: 1;
+  .resource-upload {
+    mat-card-header {
+      text-align: center;
+      width: 100%;
+      display: block;
+      font-weight: 700;
+    }
 
-      mat-card-header {
-        text-align: center;
-        width: 100%;
-        display: block;
-        font-weight: 700;
-      }
+    mat-card-header mat-card-title {
+      font-size: 30px;
+      margin: 0;
+    }
 
-      mat-card-header mat-card-title {
-        font-size: 30px;
-        margin: 0;
-      }
+    mat-card {
+      padding: 40px 70px 50px;
+    }
 
-      mat-card {
-        padding: 40px 70px 50px;
-      }
+    .box {
+      position: relative;
+      top: 0;
+      opacity: 1;
+      float: left;
+      // padding: 60px 50px 40px 50px;
+      width: 100%;
+      background: mat-color($secundary);
+      border-radius: 5px;
+      transform: scale(1);
+      -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+      z-index: 5;
+      // max-width: 330px;
+    }
 
-      .box {
-        position: relative;
-        top: 0;
-        opacity: 1;
-        float: left;
-        // padding: 60px 50px 40px 50px;
-        width: 100%;
-        background: mat-color($secundary);
-        border-radius: 5px;
-        transform: scale(1);
-        -webkit-transform: scale(1);
-        -ms-transform: scale(1);
-        z-index: 5;
-        // max-width: 330px;
-      }
-
-      .full-width,
-      .btn-block {
-        width: 100%;
-        margin: 5px 0 5px 0;
-      }
+    .full-width,
+    .btn-block {
+      width: 100%;
+      margin: 5px 0 5px 0;
     }
 
     // .container {

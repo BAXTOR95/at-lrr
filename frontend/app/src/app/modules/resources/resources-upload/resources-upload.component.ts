@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
-import { MediaMatcher } from '@angular/cdk/layout';
+// import { MediaMatcher } from '@angular/cdk/layout';
 
 import { FileValidator } from 'ngx-material-file-input';
 
@@ -13,13 +13,14 @@ import { SnackbarService } from '../../../shared/services/snackbar.service';
 // import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
-  selector: 'app-resources-start',
-  templateUrl: './resources-start.component.html',
-  styleUrls: [ './resources-start.component.scss' ]
+  selector: 'app-resources-upload',
+  templateUrl: './resources-upload.component.html',
+  styleUrls: [ './resources-upload.component.scss' ],
+  encapsulation: ViewEncapsulation.None
 })
-export class ResourcesStartComponent implements OnInit {
+export class ResourcesUploadComponent implements OnInit {
   form: FormGroup;
-  mobileQuery: MediaQueryList;
+  // mobileQuery: MediaQueryList;
 
   DJANGO_SERVER = 'http://127.0.0.1:8000';
   progress = 0;
@@ -62,9 +63,8 @@ export class ResourcesStartComponent implements OnInit {
     private uploadService: UploadService,
     private snackbarService: SnackbarService,
     private datePipe: DatePipe,
-    private fileSizePipe: FileSizePipe,
-    media: MediaMatcher) {
-    this.mobileQuery = media.matchMedia('(max-width: 665px)');
+    private fileSizePipe: FileSizePipe) {
+    // this.mobileQuery = media.matchMedia('(max-width: 665px)');
   }
 
   ngOnInit() {

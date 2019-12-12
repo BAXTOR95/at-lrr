@@ -1,6 +1,22 @@
-<div class="row">
-  <div class="col s12">
-    <h1>Resources</h1>
-    <app-resources-start></app-resources-start>
+<div class="resource">
+  <div class="wrapper">
+    <div class="row">
+      <div class="col s12">
+        <h1>Resources</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col l6 m12 s12">
+        <app-resources-select></app-resources-select>
+      </div>
+      <div class="col l6 m12 s12" [ngClass]="mobileQuery.matches ? 'mt-4' : ''">
+        <app-resources-upload></app-resources-upload>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col m12 s12">
+        <app-resources-view></app-resources-view>
+      </div>
+    </div>
   </div>
 </div>

@@ -9,14 +9,18 @@ import { SharedModule } from '../../shared/shared.module';
 import { FileSizePipe } from '../../shared/pipes/filesize.pipe';
 import { ResourcesComponent } from './resources.component';
 import { ResourcesRoutingModule } from './resources-routing.module';
-import { ResourcesStartComponent } from './resources-start/resources-start.component';
+import { ResourcesUploadComponent } from './resources-upload/resources-upload.component';
+import { ResourcesSelectComponent } from './resources-select/resources-select.component';
+import { ResourcesViewComponent } from './resources-view/resources-view.component';
 
 
 @NgModule({
   declarations: [
     ResourcesComponent,
-    ResourcesStartComponent,
-    FileSizePipe
+    ResourcesUploadComponent,
+    FileSizePipe,
+    ResourcesSelectComponent,
+    ResourcesViewComponent
   ],
   imports: [
     RouterModule,
