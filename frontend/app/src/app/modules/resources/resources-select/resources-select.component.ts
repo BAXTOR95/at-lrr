@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 
+import { ResourceService } from '../resources.service';
+
 export interface ResourceGroup {
   type: string;
   names: string[];
@@ -47,8 +49,7 @@ export class ResourcesSelectComponent implements OnInit {
       'RPT_STG_Dirigidas_TURISMO.txt',
       'CITIBANK  AT-04 MES AÑO.xlsx(IngresoFamModalidadHipo)',
       'MIS Provisiones',
-      'Préstamos Sobre Prestaciones - Sudeban.xls',
-      'Rendimientos_Corporativo.xls'
+      'Préstamos Sobre Prestaciones - Sudeban.xls'
     ]
   }, {
     type: 'Automatic',
@@ -77,7 +78,9 @@ export class ResourcesSelectComponent implements OnInit {
 
   @Output() resourceSelected = new EventEmitter<string>();
 
-  constructor (private _formBuilder: FormBuilder) { }
+  constructor (
+    private _formBuilder: FormBuilder,
+    private resourceService: ResourceService) { }
 
   ngOnInit() {
     this.resourceGroupOptions = this.resourceForm.get('resourceGroup').valueChanges
@@ -90,6 +93,7 @@ export class ResourcesSelectComponent implements OnInit {
   private _filterGroup(value: string): ResourceGroup[] {
     if (value) {
       this.resourceSelected.emit(value);
+      this.resourceService.setResourceSelected(value);
       return this.resourceGroups
         .map(group => ({ type: group.type, names: _filter(group.names, value) }))
         .filter(group => group.names.length > 0);

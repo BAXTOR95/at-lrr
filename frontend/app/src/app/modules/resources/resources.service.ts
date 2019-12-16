@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
-
+import { Observable, throwError, Subject } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UploadService {
+export class ResourceService {
 
   DJANGO_SERVER = 'http://127.0.0.1:8000';
+
+  resourceSelectedChanged = new Subject<string>();
+
+  resourceSelected = '';
 
   constructor (private http: HttpClient) { }
 
@@ -20,6 +23,15 @@ export class UploadService {
     }).pipe(
       catchError(this.errorMgmt)
     );
+  }
+
+  setResourceSelected(resourceSelected: string) {
+    this.resourceSelected = resourceSelected;
+    this.resourceSelectedChanged.next(this.resourceSelected);
+  }
+
+  getSelectedResource() {
+    return this.resourceSelected;
   }
 
   errorMgmt(error: HttpErrorResponse) {

@@ -28,7 +28,6 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         token = Token.objects.create(
             user=instance)
-        # TODO: Fix the UNIQUE CONSTRAINT problem of the token creation
         yesterday = (timezone.now() - datetime.timedelta(hours=EXPIRE_HOURS))
         instance.expiresIn = (
             instance.auth_token.created - yesterday).total_seconds()

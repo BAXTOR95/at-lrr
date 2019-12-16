@@ -7,7 +7,7 @@ import { DatePipe } from '@angular/common';
 import { FileValidator } from 'ngx-material-file-input';
 
 import { FileSizePipe } from '../../../shared/pipes/filesize.pipe';
-import { UploadService } from '../resources.service';
+import { ResourceService } from '../resources.service';
 import { SnackbarService } from '../../../shared/services/snackbar.service';
 
 // import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
@@ -29,6 +29,7 @@ export class ResourcesUploadComponent implements OnInit {
   inQuery = false;
   hasStartedUploading = false;
   durationInSeconds = 5;
+  resource = '';
 
   file = {
     lastModified: null,
@@ -60,7 +61,7 @@ export class ResourcesUploadComponent implements OnInit {
 
   constructor (
     private formBuilder: FormBuilder,
-    private uploadService: UploadService,
+    private resourceService: ResourceService,
     private snackbarService: SnackbarService,
     private datePipe: DatePipe,
     private fileSizePipe: FileSizePipe) {
@@ -84,61 +85,67 @@ export class ResourcesUploadComponent implements OnInit {
 
   submitFile() {
     this.inQuery = true;
-    const formData = new FormData();
-    const value = this.form.get('resource').value._files[ 0 ];
-    formData.append('file', value);
+    this.resource = this.resourceService.getSelectedResource();
 
-    this.file.lastModified = value.lastModified;
-    this.file.lastModifiedDate = value.lastModifiedDate;
-    this.file.name = value.name;
-    this.file.size = value.size;
+    if (this.resource.length !== 0) {
+      const formData = new FormData();
+      const value = this.form.get('resource').value._files[ 0 ];
+      formData.append('file', value);
 
-    this.hasStartedUploading = true;
-    this.snackbarService.openSnackBar(
-      'Uploading file ' +
-      `${ this.file.name } ` + ' | ' +
-      `${ this.datePipe.transform(this.file.lastModifiedDate, 'yyyy-MM-dd') }` + ' | ' +
-      `${ this.fileSizePipe.transform(this.file.size) }`,
-      'OK',
-      this.durationInSeconds
-    );
+      this.file.lastModified = value.lastModified;
+      this.file.lastModifiedDate = value.lastModifiedDate;
+      this.file.name = value.name;
+      this.file.size = value.size;
 
-    this.uploadService.upload(formData).subscribe((event: HttpEvent<any>) => {
-      switch (event.type) {
-        case HttpEventType.Sent:
-          // this.snackbarService.openSnackBar('Request has been made!', 'Close', this.durationInSeconds);
-          // this.response = 'Request has been made!';
-          // console.log('Request has been made!');
-          break;
-        case HttpEventType.ResponseHeader:
-          // this.snackbarService.openSnackBar('Response header has been received!', 'Close', this.durationInSeconds);
-          // this.response = 'Response header has been received!';
-          // console.log('Response header has been received!');
-          break;
-        case HttpEventType.UploadProgress:
-          this.inQuery = false;
-          this.progress = Math.round(event.loaded / event.total * 100);
-          // console.log(`Uploaded! ${ this.progress }%`);
-          break;
-        case HttpEventType.Response:
-          this.snackbarService.openSnackBar(
-            'File successfully uploaded! ' + `${ this.DJANGO_SERVER }${ event.body.file }`,
-            'OK',
-            this.durationInSeconds
-          );
-          // this.response = 'File successfully uploaded! ' + `${ this.DJANGO_SERVER }${ event.body.file }`;
-          // console.log('File successfully uploaded!', event.body);
-          setTimeout(() => {
-            this.progress = 0;
-            this.hasStartedUploading = false;
-          }, 1500);
-          break;
-      }
-    },
-      (err) => {
-        this.hasStartedUploading = false;
-        this.snackbarService.openSnackBar(err, 'Close', this.durationInSeconds);
-      });
+      this.hasStartedUploading = true;
+      this.snackbarService.openSnackBar(
+        'Uploading file ' +
+        `${ this.file.name } ` + ' | ' +
+        `${ this.datePipe.transform(this.file.lastModifiedDate, 'yyyy-MM-dd') }` + ' | ' +
+        `${ this.fileSizePipe.transform(this.file.size) }`,
+        'OK',
+        this.durationInSeconds
+      );
+
+      this.resourceService.upload(formData).subscribe((event: HttpEvent<any>) => {
+        switch (event.type) {
+          case HttpEventType.Sent:
+            // this.snackbarService.openSnackBar('Request has been made!', 'Close', this.durationInSeconds);
+            // this.response = 'Request has been made!';
+            // console.log('Request has been made!');
+            break;
+          case HttpEventType.ResponseHeader:
+            // this.snackbarService.openSnackBar('Response header has been received!', 'Close', this.durationInSeconds);
+            // this.response = 'Response header has been received!';
+            // console.log('Response header has been received!');
+            break;
+          case HttpEventType.UploadProgress:
+            this.inQuery = false;
+            this.progress = Math.round(event.loaded / event.total * 100);
+            // console.log(`Uploaded! ${ this.progress }%`);
+            break;
+          case HttpEventType.Response:
+            this.snackbarService.openSnackBar(
+              'File successfully uploaded! ' + `${ this.DJANGO_SERVER }${ event.body.file }`,
+              'OK',
+              this.durationInSeconds
+            );
+            // this.response = 'File successfully uploaded! ' + `${ this.DJANGO_SERVER }${ event.body.file }`;
+            // console.log('File successfully uploaded!', event.body);
+            setTimeout(() => {
+              this.progress = 0;
+              this.hasStartedUploading = false;
+            }, 1500);
+            break;
+        }
+      },
+        (err) => {
+          this.hasStartedUploading = false;
+          this.snackbarService.openSnackBar(err, 'Close', this.durationInSeconds);
+        });
+    } else {
+      this.snackbarService.openSnackBar('Please select a resource', 'OK', this.durationInSeconds);
+    }
   }
 
   // drop(event: CdkDragDrop<string[]>) {
