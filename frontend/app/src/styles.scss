@@ -3,8 +3,20 @@
 // @import '~@angular/material/prebuilt-themes/pink-bluegrey.css';
 // @import '~@angular/material/prebuilt-themes/purple-green.css';
 
-@import './styles/m-modified.css';
-@import './styles/material-theme';
+@import "./styles/m-modified.css";
+@import "./styles/material-theme";
+
+// Define a custom typography config that overrides the font-family as well as the
+// `headlines` and `body-1` levels.
+$custom-typography: mat-typography-config(
+  $font-family: "Roboto"
+);
+
+// Override typography for all Angular Material, including mat-base-typography and all components.
+@include angular-material-typography($custom-typography);
+
+// Override the typography in the core CSS.
+@include mat-core($custom-typography);
 
 html,
 body {

@@ -10,7 +10,7 @@ export class ResourcesComponent implements OnInit {
   mobileQuery: MediaQueryList;
 
   constructor (media: MediaMatcher) {
-    this.mobileQuery = media.matchMedia('(max-width: 665px)');
+    this.mobileQuery = media.matchMedia('(max-width: 730px)');
   }
 
   ngOnInit() {

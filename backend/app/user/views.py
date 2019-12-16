@@ -65,10 +65,10 @@ class CreateExpiringTokenView(ObtainAuthToken):
 
             if not created and token.created < yesterday:
                 token.delete()
-                token = Token.objects.get_or_create(
+                token = Token.objects.create(
                     user=serializer.validated_data['user'])
-                token[0]['created'] = datetime.datetime.utcnow().replace(
-                    tzinfo=timezone.utc)
+                # token[0]['created'] = datetime.datetime.utcnow().replace(
+                #     tzinfo=timezone.utc)
                 token.save()
 
             return Response({'token': token.key,

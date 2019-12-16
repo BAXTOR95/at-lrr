@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
@@ -75,6 +75,8 @@ export class ResourcesSelectComponent implements OnInit {
 
   resourceGroupOptions: Observable<ResourceGroup[]>;
 
+  @Output() resourceSelected = new EventEmitter<string>();
+
   constructor (private _formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -87,6 +89,7 @@ export class ResourcesSelectComponent implements OnInit {
 
   private _filterGroup(value: string): ResourceGroup[] {
     if (value) {
+      this.resourceSelected.emit(value);
       return this.resourceGroups
         .map(group => ({ type: group.type, names: _filter(group.names, value) }))
         .filter(group => group.names.length > 0);

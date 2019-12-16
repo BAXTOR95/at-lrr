@@ -8,6 +8,19 @@
   $background-color: mat-color($background, card);
 
   .header {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+
+    // set the width size of the sidenave
+    mat-sidenav {
+      width: 350px;
+    }
+
     .is-mobile .toolbar {
       position: fixed;
       /* Make sure the toolbar will stay on top of the content as it scrolls past. */
@@ -106,8 +119,22 @@
     .page-wrap {
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
-      /* same height as browser window height */
+      // uses flexbox to enforce the app toolbar is always present, even as the user scrolls down through content
+      .main-toolbar {
+        flex: 0 0 auto;
+        z-index: 999;
+      }
+      // uses flexbox to push the inner content area, where the router-outlet lives below the toolbar and grants
+      // it the rest of the available space with the ability to scroll
+      .main-content-inner {
+        flex: 1 1 auto;
+        position: relative; /* need this to position inner content */
+        overflow-y: auto;
+
+        .content-area {
+          padding: 15px 30px;
+        }
+      }
     }
 
     .content {
