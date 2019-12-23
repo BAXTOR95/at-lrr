@@ -297,3 +297,24 @@ You then also need to add the import from @angular/forms  in the app.module.ts f
 import { FormsModule } from '@angular/forms'; 
 
 NOTE: https://www.techiediaries.com/django-rest-image-file-upload-tutorial/
+
+# TODO: Check this links at home
+https://material.angular.io/components/table/examples
+https://stackblitz.com/angular/jeojdkamyqx?file=src%2Fapp%2Ftable-overview-example.ts
+https://stackblitz.com/angular/lnbrqmnlmrj?file=src%2Fapp%2Ftable-dynamic-columns-example.ts
+https://material-ui.com/customization/color/
+https://ultimatecourses.com/blog/the-missing-guide-to-angular-material#Forms
+https://www.django-rest-framework.org/tutorial/2-requests-and-responses/
+https://levelup.gitconnected.com/angular-7-share-component-data-with-other-components-1b91d6f0b93f
+https://stackoverflow.com/questions/45717100/how-to-pass-data-from-one-child-component-to-another-child-component-in-angular2
+https://angular.io/guide/component-interaction#parent-interacts-with-child-via-local-variable
+https://stackoverflow.com/questions/55574885/typescript-javascript-convert-array-of-objects-to-key-value-pair
+https://stackoverflow.com/questions/55231886/get-an-array-of-property-values-from-an-object-array-in-typescript
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+https://stackoverflow.com/questions/52856496/typescript-object-keys-return-string
+https://github.com/angular-university/angular-material-course/tree/2-data-table-finished
+https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_json.html
+https://riptutorial.com/pandas/example/9812/using-hdfstore
+https://stackoverflow.com/questions/53331787/how-to-fill-an-angular-material-datatable-with-data-from-a-json
+https://therichpost.com/angular-material-datatables-example-with-laravel-5-6-api-data/
+https://stackblitz.com/edit/angular-material-table-modal?file=src%2Fapp%2Ftable.component.ts
