@@ -298,6 +298,23 @@ import { FormsModule } from '@angular/forms';
 
 NOTE: https://www.techiediaries.com/django-rest-image-file-upload-tutorial/
 
+# To check the structure of the models inside the Django project, do this
+# Help: https://wadewilliams.com/technology-software/generating-erd-for-django-applications/
+
+# Step 1: Install django-extensions and graphviz
+$ pip install django-extensions && pip install graphviz
+
+# Step 2: Add django_extensions to settings.py
+INSTALLED_APPS = [
+    ...
+    'django_extensions',
+    ...
+]
+
+# Step 3 Create the .dot output and convert to .png
+# Run manage.py graph_models from the environment you may normally use:
+$ python manage.py graph_models -a > output.dot
+
 # TODO: Check this links at home
 https://material.angular.io/components/table/examples
 https://stackblitz.com/angular/jeojdkamyqx?file=src%2Fapp%2Ftable-overview-example.ts
