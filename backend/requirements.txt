@@ -40,11 +40,13 @@ Pillow>=6.1.0,<6.2.0
 prometheus-client>=0.7.1,<0.8.0
 prompt-toolkit>=2.0.10,<2.1.0
 pycodestyle>=2.5.0,<2.6.0
+pydot>=1.4.1,<1.5.0
 pyflakes>=2.1.1,<2.2.0
 Pygments>=2.4.2,<2.5.0
 pylint>=2.4.4,<2.5.0
 pylint-django>=2.0.12,<2.1.0
 pylint-plugin-utils>=0.6,<1.0
+pyparsing>=2.4.6,<2.5.0
 pypiwin32==223
 pyrsistent>=0.15.5,<0.16.0
 python-dateutil>=2.8.0,<2.9.0

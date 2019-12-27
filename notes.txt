@@ -301,8 +301,8 @@ NOTE: https://www.techiediaries.com/django-rest-image-file-upload-tutorial/
 # To check the structure of the models inside the Django project, do this
 # Help: https://wadewilliams.com/technology-software/generating-erd-for-django-applications/
 
-# Step 1: Install django-extensions and graphviz
-$ pip install django-extensions && pip install graphviz
+# Step 1: Install django-extensions, graphviz, pyparsing and pydot
+$ pip install django-extensions graphviz pyparsing pydot
 
 # Step 2: Add django_extensions to settings.py
 INSTALLED_APPS = [
@@ -311,9 +311,12 @@ INSTALLED_APPS = [
     ...
 ]
 
+# Step 3: Download Graphviz and add its bin to PATH
+https://graphviz.gitlab.io/_pages/Download/Download_windows.html
+
 # Step 3 Create the .dot output and convert to .png
 # Run manage.py graph_models from the environment you may normally use:
-$ python manage.py graph_models -a > output.dot
+$ python manage.py graph_models -a > output.dot && python manage.py graph_models --pydot -a -g -o output.png
 
 # TODO: Check this links at home
 https://material.angular.io/components/table/examples

@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+# Adds graphviz to PATH
+# os.environ["PATH"] += os.pathsep + 'C:/Users/BA04901/graphviz-2.38/release/bin'
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -148,3 +151,8 @@ AUTH_USER_MODEL = 'core.User'
 CORS_ORIGIN_ALLOW_ALL = True
 
 REST_FRAMEWORK_TOKEN_EXPIRE_HOURS = 24
+
+GRAPH_MODELS = {
+	'all_applications': True,
+	'group_models': True,
+}

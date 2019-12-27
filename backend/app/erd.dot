@@ -1,0 +1,569 @@
+[0m[0Kdigraph model_graph {[0K[?25l
+  // Dotfile by Django-Extensions graph_models[0K
+  // Created: 2019-12-27 13:46[0K
+  // Cli Options: -a[0K
+[0K
+  fontname = "Roboto"[0K
+  fontsize = 8[0K
+  splines  = true[0K
+[0K
+  node [[0K
+    fontname = "Roboto"[0K
+    fontsize = 8[0K
+    shape = "plaintext"[0K
+  ][0K
+[0K
+  edge [[0K
+    fontname = "Roboto"[0K
+    fontsize = 8[0K
+  ][0K
+[0K
+  // Labels[0K
+  subgraph cluster_django_contrib_admin {[0K
+    label=<[0K
+          <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">[0K
+          <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER">[0K
+          <FONT FACE="Roboto" COLOR="Black" POINT-SIZE="10">[0K
+          <B>django.contrib.admin</B>[0K
+          </FONT>[0K
+          </TD></TR>[0K
+          </TABLE>[0K
+          >[0K
+    color=olivedrab4[0K
+    style="rounded"[0K
+[0K
+    django_contrib_admin_models_LogEntry [label=<[0K
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">[0K
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>[0K
+      LogEntry[0K
+      </B></FONT></TD></TR>[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto"><B>id</B></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><B>AutoField</B></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT COLOR="#7B7B7B" FACE="Roboto"><B>content_type</B></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT COLOR="#7B7B7B" FACE="Roboto"><B>ForeignKey (id)</B></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto"><B>user</B></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">action_flag</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">PositiveSmallIntegerField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">action_time</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DateTimeField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT COLOR="#7B7B7B" FACE="Roboto">change_message</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT COLOR="#7B7B7B" FACE="Roboto">TextField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT COLOR="#7B7B7B" FACE="Roboto">object_id</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT COLOR="#7B7B7B" FACE="Roboto">TextField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">object_repr</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+      </TABLE>[0K
+      >][0K
+[0K
+  }[0K
+  subgraph cluster_django_contrib_auth {[0K
+    label=<[0K
+          <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">[0K
+          <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER">[0K
+          <FONT FACE="Roboto" COLOR="Black" POINT-SIZE="10">[0K
+          <B>django.contrib.auth</B>[0K
+          </FONT>[0K
+          </TD></TR>[0K
+          </TABLE>[0K
+          >[0K
+    color=olivedrab4[0K
+    style="rounded"[0K
+[0K
+    django_contrib_auth_models_Permission [label=<[0K
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">[0K
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>[0K
+      Permission[0K
+      </B></FONT></TD></TR>[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto"><B>id</B></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><B>AutoField</B></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto"><B>content_type</B></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">codename</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">name</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+      </TABLE>[0K
+      >][0K
+[0K
+    django_contrib_auth_models_Group [label=<[0K
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">[0K
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>[0K
+      Group[0K
+      </B></FONT></TD></TR>[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto"><B>id</B></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><B>AutoField</B></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">name</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+      </TABLE>[0K
+      >][0K
+[0K
+  }[0K
+  subgraph cluster_django_contrib_contenttypes {[0K
+    label=<[0K
+          <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">[0K
+          <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER">[0K
+          <FONT FACE="Roboto" COLOR="Black" POINT-SIZE="10">[0K
+          <B>django.contrib.contenttypes</B>[0K
+          </FONT>[0K
+          </TD></TR>[0K
+          </TABLE>[0K
+          >[0K
+    color=olivedrab4[0K
+    style="rounded"[0K
+[0K
+    django_contrib_contenttypes_models_ContentType [label=<[0K
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">[0K
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>[0K
+      ContentType[0K
+      </B></FONT></TD></TR>[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto"><B>id</B></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><B>AutoField</B></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">app_label</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">model</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+      </TABLE>[0K
+      >][0K
+[0K
+  }[0K
+  subgraph cluster_django_contrib_sessions {[0K
+    label=<[0K
+          <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">[0K
+          <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER">[0K
+          <FONT FACE="Roboto" COLOR="Black" POINT-SIZE="10">[0K
+          <B>django.contrib.sessions</B>[0K
+          </FONT>[0K
+          </TD></TR>[0K
+          </TABLE>[0K
+          >[0K
+    color=olivedrab4[0K
+    style="rounded"[0K
+[0K
+    django_contrib_sessions_base_session_AbstractBaseSession [label=<[0K
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">[0K
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>[0K
+      AbstractBaseSession[0K
+      </B></FONT></TD></TR>[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">expire_date</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DateTimeField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">session_data</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">TextField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+      </TABLE>[0K
+      >][0K
+[0K
+    django_contrib_sessions_models_Session [label=<[0K
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">[0K
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>[0K
+      Session<BR/>&lt;<FONT FACE="Roboto"><I>AbstractBaseSession</I></FONT>&gt;[0K
+      </B></FONT></TD></TR>[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto"><I><B>session_key</B></I></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><I><B>CharField</B></I></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto"><I>expire_date</I></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><I>DateTimeField</I></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto"><I>session_data</I></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><I>TextField</I></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+      </TABLE>[0K
+      >][0K
+[0K
+  }[0K
+  subgraph cluster_rest_framework_authtoken {[0K
+    label=<[0K
+          <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">[0K
+          <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER">[0K
+          <FONT FACE="Roboto" COLOR="Black" POINT-SIZE="10">[0K
+          <B>rest_framework.authtoken</B>[0K
+          </FONT>[0K
+          </TD></TR>[0K
+          </TABLE>[0K
+          >[0K
+    color=olivedrab4[0K
+    style="rounded"[0K
+[0K
+    rest_framework_authtoken_models_Token [label=<[0K
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">[0K
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>[0K
+      Token[0K
+      </B></FONT></TD></TR>[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto"><B>key</B></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><B>CharField</B></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto"><B>user</B></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><B>OneToOneField (id)</B></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT COLOR="#7B7B7B" FACE="Roboto">created</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT COLOR="#7B7B7B" FACE="Roboto">DateTimeField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+      </TABLE>[0K
+      >][0K
+[0K
+  }[0K
+  subgraph cluster_core {[0K
+    label=<[0K
+          <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">[0K
+          <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER">[0K
+          <FONT FACE="Roboto" COLOR="Black" POINT-SIZE="10">[0K
+          <B>core</B>[0K
+          </FONT>[0K
+          </TD></TR>[0K
+          </TABLE>[0K
+          >[0K
+    color=olivedrab4[0K
+    style="rounded"[0K
+[0K
+    django_contrib_auth_base_user_AbstractBaseUser [label=<[0K
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">[0K
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>[0K
+      AbstractBaseUser[0K
+      </B></FONT></TD></TR>[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT COLOR="#7B7B7B" FACE="Roboto">last_login</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT COLOR="#7B7B7B" FACE="Roboto">DateTimeField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">password</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+      </TABLE>[0K
+      >][0K
+[0K
+    django_contrib_auth_models_PermissionsMixin [label=<[0K
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">[0K
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>[0K
+      PermissionsMixin[0K
+      </B></FONT></TD></TR>[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">is_superuser</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">BooleanField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+      </TABLE>[0K
+      >][0K
+[0K
+    core_models_User [label=<[0K
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">[0K
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>[0K
+      User<BR/>&lt;<FONT FACE="Roboto"><I>AbstractBaseUser,PermissionsMixin</I></FONT>&gt;[0K
+      </B></FONT></TD></TR>[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto"><B>id</B></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><B>AutoField</B></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">email</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">EmailField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">expiresIn</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">is_active</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">BooleanField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">is_staff</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">BooleanField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto"><I>is_superuser</I></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><I>BooleanField</I></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT COLOR="#7B7B7B" FACE="Roboto"><I>last_login</I></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT COLOR="#7B7B7B" FACE="Roboto"><I>DateTimeField</I></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">name</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto"><I>password</I></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><I>CharField</I></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+      </TABLE>[0K
+      >][0K
+[0K
+    core_models_File [label=<[0K
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">[0K
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>[0K
+      File[0K
+      </B></FONT></TD></TR>[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto"><B>id</B></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><B>AutoField</B></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">file</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">FileField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+      </TABLE>[0K
+      >][0K
+[0K
+  }[0K
+[0K
+[0K
+  // Relations[0K
+[0K
+  django_contrib_admin_models_LogEntry -> core_models_User[0K
+  [label=" user (logentry)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
+[0K
+  django_contrib_admin_models_LogEntry -> django_contrib_contenttypes_models_ContentType[0K
+  [label=" content_type (logentry)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
+[0K
+[0K
+  django_contrib_auth_models_Permission -> django_contrib_contenttypes_models_ContentType[0K
+  [label=" content_type (permission)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
+[0K
+  django_contrib_auth_models_Group -> django_contrib_auth_models_Permission[0K
+  [label=" permissions (group)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
+[0K
+[0K
+[0K
+  django_contrib_sessions_models_Session -> django_contrib_sessions_base_session_AbstractBaseSession[0K
+  [label=" abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];[0K
+[0K
+[0K
+  rest_framework_authtoken_models_Token -> core_models_User[0K
+  [label=" user (auth_token)"] [arrowhead=none, arrowtail=none, dir=both];[0K
+[0K
+[0K
+  core_models_User -> django_contrib_auth_models_Group[0K
+  [label=" groups (user)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
+[0K
+  core_models_User -> django_contrib_auth_models_Permission[0K
+  [label=" user_permissions (user)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
+[0K
+  core_models_User -> django_contrib_auth_base_user_AbstractBaseUser[0K
+  [label=" abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];[0K
+[0K
+  core_models_User -> django_contrib_auth_models_PermissionsMixin[0K
+  [label=" abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];[0K
+[0K
+[0K
+}[0K
+[0K[?25h
