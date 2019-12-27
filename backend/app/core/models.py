@@ -158,12 +158,12 @@ class CorporativoNoDirigida(models.Model):
     GrupoEconomico = models.CharField(max_length=100)
     TipoGarantiaPrincipal = models.CharField(max_lenght=10)
     IsOverdraft = models.BooleanField()
-    MakerDate = models.DateField(default=date.now))
+    MakerDate = models.DateField(default=date.now)
     MakerUser = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
-    CheckerDate = models.DateField(default=date.now))
+    CheckerDate = models.DateField(default=date.now)
     CheckerUser = models.ForeignKey(
         settings.AUTH_USER_MODEL,
     )
@@ -212,12 +212,12 @@ class SobregirosConsumer(models.Model):
     Riesgo = models.CharField(max_lenght=20)
     Provision = models.DecimalField(max_digits=3, decimal_places=2)
     SaldoProvision = models.DecimalField(max_digits=18, decimal_places=2)
-    MakerDate = models.DateField(default=date.now))
+    MakerDate = models.DateField(default=date.now)
     MakerUser = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
-    CheckerDate = models.DateField(default=date.now))
+    CheckerDate = models.DateField(default=date.now)
     CheckerUser = models.ForeignKey(
         settings.AUTH_USER_MODEL,
     )
@@ -255,12 +255,12 @@ class RendimientosCorporativos(models.Model):
     CuentaSIF = models.CharField(max_lenght=20)
     PorcentajeProvision = models.DecimalField(max_digits=3, decimal_places=2)
     MontoProvision = models.DecimalField(max_digits=18, decimal_places=2)
-    MakerDate = models.DateField(default=date.now))
+    MakerDate = models.DateField(default=date.now)
     MakerUser = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
-    CheckerDate = models.DateField(default=date.now))
+    CheckerDate = models.DateField(default=date.now)
     CheckerUser = models.ForeignKey(
         settings.AUTH_USER_MODEL,
     )
@@ -272,12 +272,12 @@ class MigrateMorgage(models.Model):
     """MigrateMorgage resource model"""
     NewAcct = models.CharField(max_lenght=20, primary_key=True)
     OldAcct = models.CharField(max_lenght=20, unique=True)
-    MakerDate = models.DateField(default=date.now))
+    MakerDate = models.DateField(default=date.now)
     MakerUser = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
-    CheckerDate = models.DateField(default=date.now))
+    CheckerDate = models.DateField(default=date.now)
     CheckerUser = models.ForeignKey(
         settings.AUTH_USER_MODEL,
     )
@@ -306,6 +306,15 @@ class GavetasCorporativas(models.Model):
     CapitalTransferido = models.DecimalField(max_digits=18, decimal_places=2)
     FechaCambioEstatusCapitalTransferido = models.DateField(default=date.fromisoformat('1900-01-01'))
     FechaCambioEstatusCrédito = models.DateField(default=date.fromisoformat('1900-01-01'))
+    MakerDate = models.DateField(default=date.now)
+    MakerUser = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    CheckerDate = models.DateField(default=date.now)
+    CheckerUser = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+    )
 
     def __str__(self):
         return self.NumeroCredito
