@@ -791,113 +791,12 @@ class AccountHistory(models.Model):
         return self.Acct
 
 
-class StatementAtar(models.Model):
-    """Statement ATAR resource model"""
-    CardNumber = models.CharField(max_lenght=20, primary_key=True)
-    PayDate = models.DateField(default=date.fromisoformat('1900-01-01'))
-    Amount = models.DecimalField(max_digits=18, decimal_places=2)
-    MakerDate = models.DateField(default=date.now)
-    MakerUser = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-    )
-    CheckerDate = models.DateField(default=date.now)
-    CheckerUser = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.DO_NOTHING,
-    )
-
-    def __str__(self):
-        return self.CardNumber
-
-
-class StatementCardAct(models.Model):
-    """Statement Card Account resource Model"""
-    RecordDate = models.DateField(default=date.fromisoformat('1900-01-01'))
-    Org = models.IntegerField()
-    Logo = models.IntegerField()
-    Acct = models.CharField(max_lenght=50, primary_key=True)
-    CardNumber = models.CharField(max_lenght=50)
-    MinimunDue = models.DecimalField(max_digits=18, decimal_places=2)
-    DueDate = models.DateField(default=date.fromisoformat('1900-01-01'))
-    CreditLimit = models.DecimalField(max_digits=18, decimal_places=2)
-    AvailableBalance = models.DecimalField(max_digits=18, decimal_places=2)
-    CashLimit = models.DecimalField(max_digits=18, decimal_places=2)
-    AvailableCashLimit = models.DecimalField(max_digits=18, decimal_places=2)
-    StatementToDate = models.DateField(
-        default=date.fromisoformat('1900-01-01'))
-    EndingBalance = models.DecimalField(max_digits=18, decimal_places=2)
-    OverLimitAmount = models.DecimalField(max_digits=18, decimal_places=2)
-    MembershipFee = models.DecimalField(max_digits=18, decimal_places=2)
-    PastDue = models.DecimalField(max_digits=18, decimal_places=2)
-    DaysInCycle = models.IntegerField()
-    OnlineStatementFlag = models.CharField(max_lenght=50)
-    TotalPayment = models.DecimalField(max_digits=18, decimal_places=2)
-    STATEMENT_PERIOD = models.CharField(max_lenght=50)
-    MP_PRINCIPAL = models.DecimalField(max_digits=18, decimal_places=2)
-    MP_INTEREST_ON_PURCHASES = models.DecimalField(
-        max_digits=18, decimal_places=2)
-    MP_FINANCING_INTEREST = models.DecimalField(
-        max_digits=18, decimal_places=2)
-    MP_LATE_INTEREST = models.DecimalField(max_digits=18, decimal_places=2)
-    MP_FEES = models.DecimalField(max_digits=18, decimal_places=2)
-    MP_OVERLIMIT = models.DecimalField(max_digits=18, decimal_places=2)
-    MP_TOTAL = models.DecimalField(max_digits=18, decimal_places=2)
-    MP_CAPITAL_AMOUNT = models.CharField(max_lenght=50)
-    MLP_PRINCIPAL = models.DecimalField(max_digits=18, decimal_places=2)
-    MLP_INTEREST_ON_PURCHASES = models.DecimalField(
-        max_digits=18, decimal_places=2)
-    MLP_FINANCING_INTEREST = models.DecimalField(
-        max_digits=18, decimal_places=2)
-    MLP_LATE_INTEREST = models.DecimalField(max_digits=18, decimal_places=2)
-    MLP_FEES = models.DecimalField(max_digits=18, decimal_places=2)
-    MLP_OVERLIMIT = models.DecimalField(max_digits=18, decimal_places=2)
-    MLP_TOTAL = models.DecimalField(max_digits=18, decimal_places=2)
-    PBD_PRINCIPAL = models.DecimalField(max_digits=18, decimal_places=2)
-    PBD_INTEREST_ON_PURCHASES = models.DecimalField(
-        max_digits=18, decimal_places=2)
-    PBD_FINANCING_INTEREST = models.DecimalField(
-        max_digits=18, decimal_places=2)
-    PBD_LATE_INTEREST = models.DecimalField(max_digits=18, decimal_places=2)
-    PBD_FEES = models.DecimalField(max_digits=18, decimal_places=2)
-    PBD_TOTAL = models.DecimalField(max_digits=18, decimal_places=2)
-    PD_PRINCIPAL = models.DecimalField(max_digits=18, decimal_places=2)
-    PD_INTEREST_ON_PURCHASES = models.DecimalField(
-        max_digits=18, decimal_places=2)
-    PD_FINANCING_INTEREST = models.DecimalField(
-        max_digits=18, decimal_places=2)
-    PD_LATE_INTEREST = models.DecimalField(max_digits=18, decimal_places=2)
-    PD_FEES = models.DecimalField(max_digits=18, decimal_places=2)
-    PD_TOTAL = models.DecimalField(max_digits=18, decimal_places=2)
-    DateExp = models.DateField(default=date.fromisoformat('1900-01-01'))
-    STA_PRINCIPAL_BALANCE = models.DecimalField(
-        max_digits=18, decimal_places=2)
-    STA_INTEREST_ON_PURCHASES = models.DecimalField(
-        max_digits=18, decimal_places=2)
-    IF_INTEREST = models.DecimalField(max_digits=18, decimal_places=2)
-    INTERESTTHISSTMT = models.DecimalField(max_digits=18, decimal_places=2)
-    FEES = models.DecimalField(max_digits=18, decimal_places=2)
-    ACTUALBALANCE = models.DecimalField(max_digits=18, decimal_places=2)
-    MakerDate = models.DateField(default=date.now)
-    MakerUser = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-    )
-    CheckerDate = models.DateField(default=date.now)
-    CheckerUser = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.DO_NOTHING,
-    )
-
-    def __str__(self):
-        return self.Acct
-
-
-class CarteraAgricolaConsumer(models.Model):
-    """CarteraAgricolaConsumer"""
+class CarteraDirigida(models.Model):
+    """Cartera Dirigida resource model"""
+    # TODO: Add TypeCD options
     COD_OFICINA = models.CharField(max_lenght=4)
     COD_CONTABLE = models.CharField(max_lenght=10)
-    NUM_CREDITO = models.CharField(max_lenght=30)
+    NUM_CREDITO = models.CharField(max_lenght=30, primary_key=True)
     NUM_CREDITO_PRIMER_DESEMBOLSO = models.CharField(max_lenght=30)
     NUM_DESEMBOLSO = models.CharField(max_lenght=2)
     NATURALEZA_CLIENTE = models.IntegerField()
@@ -1033,6 +932,8 @@ class CarteraAgricolaConsumer(models.Model):
         max_digits=18, decimal_places=2)
     SALDO_CREDITO_31_12 = models.DecimalField(max_digits=18, decimal_places=2)
     CANT_VIVIENDAS = models.CharField(max_lenght=5)
+    IsConsumer = models.BooleanField()
+    TypeCD = models.IntegerField()
     MakerDate = models.DateField(default=date.now)
     MakerUser = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -1046,6 +947,585 @@ class CarteraAgricolaConsumer(models.Model):
 
     def __str__(self):
         return self.NUM_CREDITO
+
+
+class RendimientosCobrarConsumer(models.Model):
+    """Rendimientos por Cobrar Consumer resource model"""
+    Acct = models.CharField(max_lenght=20, primary_key=True)
+    SaldoRendXcobrar = models.DecimalField(max_digits=18, decimal_places=2)
+    SaldoRendXcobrarVenc = models.DecimalField(max_digits=18, decimal_places=2)
+    SaldoRendCuentaOrden = models.DecimalField(max_digits=18, decimal_places=2)
+    SaldoRendXMora = models.DecimalField(max_digits=18, decimal_places=2)
+    ProvisionREND = models.DecimalField(max_digits=3, decimal_places=2)
+    Saldo_Provision_REND = models.DecimalField(max_digits=18, decimal_places=2)
+    MakerDate = models.DateField(default=date.now)
+    MakerUser = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    CheckerDate = models.DateField(default=date.now)
+    CheckerUser = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.DO_NOTHING,
+    )
+
+    def __str__(self):
+        return self.Acct
+
+
+class SIIF(models.Model):
+    """SIIF resource model"""
+    # TODO: Check if the data type of resource fields are correct
+    BranchId = models.IntegerField()
+    Acct = models.CharField(max_lenght=20, primary_key=True)
+    OpenDate = models.DateField(default=date.fromisoformat('1900-01-01'))
+    DaysPastDue = models.IntegerField()
+    RecordDate = models.DateField(default=date.fromisoformat('1900-01-01'))
+    MaturityDate = models.DateField(default=date.fromisoformat('1900-01-01'))
+    CreditLimit = models.DecimalField(max_digits=18, decimal_places=2)
+    Rate = models.DecimalField(max_digits=18, decimal_places=2)
+    NumPmtsPastDue = models.IntegerField()
+    AmtPmtPastDue = models.DecimalField(max_digits=18, decimal_places=2)
+    Amt30DPD = models.DecimalField(max_digits=18, decimal_places=2)
+    Amt60DPD = models.DecimalField(max_digits=18, decimal_places=2)
+    Amt90DPD = models.DecimalField(max_digits=18, decimal_places=2)
+    Amt120DPD = models.DecimalField(max_digits=18, decimal_places=2)
+    Amt150DPD = models.DecimalField(max_digits=18, decimal_places=2)
+    Amt180DPD = models.DecimalField(max_digits=18, decimal_places=2)
+    Amt210DPD = models.DecimalField(max_digits=18, decimal_places=2)
+    LoanStatus = models.CharField(max_lenght=50)
+    SaldoCastigado = models.CharField(max_lenght=50)
+    CloseDate = models.DateField(default=date.fromisoformat('1900-01-01'))
+    BlockCodeId1 = models.CharField(max_lenght=50)
+    BlockReason1 = models.CharField(max_lenght=50)
+    BlockCode1Date = models.DateField(default=date.fromisoformat('1900-01-01'))
+    PrincipalBalance = models.CharField(max_lenght=50)
+    TypeId = models.IntegerField()
+    Gender = models.CharField(max_lenght=50)
+    FullName = models.CharField(max_lenght=50)
+    ActivityId = models.IntegerField()
+    OccupationId = models.IntegerField()
+    ProfessionId = models.IntegerField()
+    RelId = models.IntegerField()
+    DivisionTypeId = models.IntegerField()
+    Agro = models.IntegerField()
+    Micro = models.IntegerField()
+    FondoEstadal = models.CharField(max_lenght=50)
+    Rewrite = models.CharField(max_lenght=50)
+    CtaLocal = models.CharField(max_lenght=50)
+    Cid = models.CharField(max_lenght=50)
+    Situacion_Credito = models.IntegerField()
+    SaldoCapital = models.DecimalField(max_digits=18, decimal_places=2)
+    SaldoRendimientos = models.DecimalField(max_digits=18, decimal_places=2)
+    Mora = models.DecimalField(max_digits=18, decimal_places=2)
+    ClaseRiesgo = models.CharField(max_lenght=50)
+    CuotasVencidas = models.IntegerField()
+    EstadoCredito = models.IntegerField()
+    OldAcct = models.CharField(max_lenght=50)
+    OrigOpenDate = models.DateField(default=date.fromisoformat('1900-01-01'))
+    OrigCreditLimit = models.DecimalField(max_digits=18, decimal_places=2)
+    OrigTypeId = models.IntegerField()
+    Staff = models.IntegerField()
+    Purchases = models.CharField(max_lenght=50)
+    FeePaid = models.CharField(max_lenght=50)
+    DireccionH = models.CharField(max_lenght=50)
+    DireccionO = models.CharField(max_lenght=50)
+    DireccionB = models.CharField(max_lenght=50)
+    Int_Efectivamente_Cobrado = models.DecimalField(
+        max_digits=18, decimal_places=2)
+    Porcentaje_Comsion_Flat = models.DecimalField(
+        max_digits=3, decimal_places=2)
+    Monto_Comision_Flat = models.DecimalField(max_digits=18, decimal_places=2)
+    Periodicidad_Pago_Especial_Capital = models.IntegerField()
+    Fecha_Cambio_Status = models.DateField(
+        default=date.fromisoformat('1900-01-01'))
+    Fecha_Reg_Venc_Lit_cast = models.DateField(
+        default=date.fromisoformat('1900-01-01'))
+    Fecha_Exigibilidad_pago_ult_cuota = models.DateField(
+        default=date.fromisoformat('1900-01-01'))
+    Fecha_Fin_Periodo_gracia_Pago_interes = models.DateField(
+        default=date.fromisoformat('1900-01-01'))
+    Capital_Trasferido = models.DecimalField(max_digits=18, decimal_places=2)
+    Fecha_cambio_Capital_Transferido = models.DateField(
+        default=date.fromisoformat('1900-01-01'))
+    Tipo_Vivienda = models.IntegerField()
+    FechaCarga = models.DateField(default=date.fromisoformat('1900-01-01'))
+    Provision = models.DecimalField(max_digits=3, decimal_places=2)
+    SaldoProvision = models.DecimalField(max_digits=18, decimal_places=2)
+    MakerDate = models.DateField(default=date.now)
+    MakerUser = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    CheckerDate = models.DateField(default=date.now)
+    CheckerUser = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.DO_NOTHING,
+    )
+
+    def __str__(self):
+        return self.Acct
+
+
+class FDN(models.Model):
+    """Fecha de Nacimiento resource model"""
+    TipoCliente = models.CharField(max_lenght=2, primary_key=True)
+    IdCliente = models.CharField(max_lenght=20, primary_key=True)
+    FechaNacimiento = models.DateField(
+        default=date.fromisoformat('1900-01-01'))
+    FullName = models.CharField(max_lenght=50)
+    RecordDate = models.DateField(default=date.fromisoformat('1900-01-01'))
+    MakerDate = models.DateField(default=date.now)
+    MakerUser = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    CheckerDate = models.DateField(default=date.now)
+    CheckerUser = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.DO_NOTHING,
+    )
+
+    def __str__(self):
+        return self.TipoCliente & self.IdCliente
+
+
+class VZDWAMBS(models.Model):
+    """VZDWAMBS resource model"""
+    ORG = models.CharField(max_lenght=3)
+    ACCT = models.CharField(max_lenght=19, primary_key=True)
+    CUSTORG = models.CharField(max_lenght=3)
+    CUSTNBR = models.CharField(max_lenght=19)
+    RELORG = models.CharField(max_lenght=3)
+    RELNBR = models.CharField(max_lenght=19)
+    PRICARD = models.CharField(max_lenght=19)
+    LOGO = models.IntegerField()
+    SOURCECODE = models.CharField(max_lenght=15)
+    DATEXFREFF = models.DateField(default=date.fromisoformat)
+    DATEBLOCK1 = models.DateField(default=date.fromisoformat)
+    BLOCKCODE1 = models.CharField(max_lenght=1)
+    BLOCKREASON1 = models.CharField(max_lenght=2)
+    BLOCKCODE2 = models.CharField(max_lenght=1)
+    BLOCKREASON2 = models.CharField(max_lenght=2)
+    DATEBLOCK2 = models.DateField(default=date.fromisoformat)
+    DATECLOSE = models.DateField(default=date.fromisoformat)
+    DATELASTMAINT = models.DateField(default=date.fromisoformat)
+    STATEOFISSUE = models.CharField(max_lenght=3)
+    INTSTATUS = models.CharField(max_lenght=2)
+    DATELASTSTATEX = models.DateField(default=date.fromisoformat)
+    XFRORG = models.CharField(max_lenght=3)
+    XFRLOGO = models.IntegerField()
+    XFRACCT = models.CharField(max_lenght=19)
+    DATECARDEXP = models.DateField(default=date.fromisoformat)
+    DATEOPENED = models.DateField(default=date.fromisoformat)
+    BILLINGCYCLE = models.IntegerField()
+    DATELASTSTM = models.DateField(default=date.fromisoformat)
+    CURRBAL = models.DecimalField(max_digits=18, decimal_places=2)
+    HIBAL = models.DecimalField(max_digits=18, decimal_places=2)
+    DATEHIBAL = models.DateField(default=date.fromisoformat)
+    CRLIM = models.DecimalField(max_digits=18, decimal_places=2)
+    CASHBAL = models.DecimalField(max_digits=18, decimal_places=2)
+    DATECRBAL = models.DateField(default=date.fromisoformat)
+    LASTCRLIM = models.DecimalField(max_digits=18, decimal_places=2)
+    DATELINEDEC = models.DateField(default=date.fromisoformat)
+    DATELINEINC = models.DateField(default=date.fromisoformat)
+    HISTORY = models.CharField(max_lenght=48)
+    FILLER = models.CharField(max_lenght=4)
+    PMTCURRDUE = models.DecimalField(max_digits=18, decimal_places=2)
+    PMTPASTCTR = models.IntegerField()
+    PMTPASTDUE = models.DecimalField(max_digits=18, decimal_places=2)
+    PMT30CTR = models.IntegerField()
+    PMT30 = models.DecimalField(max_digits=18, decimal_places=2)
+    PMT60CTR = models.IntegerField()
+    PMT60 = models.DecimalField(max_digits=18, decimal_places=2)
+    PMT90CTR = models.IntegerField()
+    PMT90 = models.DecimalField(max_digits=18, decimal_places=2)
+    PMT120CTR = models.IntegerField()
+    PMT120 = models.DecimalField(max_digits=18, decimal_places=2)
+    PMT150CTR = models.IntegerField()
+    PMT150 = models.DecimalField(max_digits=18, decimal_places=2)
+    PMT180CTR = models.IntegerField()
+    PMT180 = models.DecimalField(max_digits=18, decimal_places=2)
+    PMT210CTR = models.IntegerField()
+    PMT210 = models.DecimalField(max_digits=18, decimal_places=2)
+    CHGOFFSTATUS = models.CharField(max_lenght=1)
+    DATECGOFF = models.DateField(default=date.fromisoformat)
+    AMTCGOFF = models.DecimalField(max_digits=18, decimal_places=2)
+    CHGOFFRSN1 = models.CharField(max_lenght=1)
+    CHGOFFRSN2 = models.CharField(max_lenght=1)
+    RISKLEVEL = models.CharField(max_lenght=1)
+    NBRUNBLKCARD = models.CharField(max_lenght=6)
+    NBRNSF = models.CharField(max_lenght=4)
+    LASTYTDINT = models.CharField(max_lenght=13)
+    LASTYTDINTPAID = models.CharField(max_lenght=13)
+    CURRYTDINDPAID = models.CharField(max_lenght=13)
+    DATELASTPURCH = models.DateField(default=date.fromisoformat)
+    DATELASTRETURN = models.CharField(max_lenght=8)
+    DATELASTACT = models.CharField(max_lenght=8)
+    CARDUSAGE = models.CharField(max_lenght=1)
+    FITESTDIGITS = models.CharField(max_lenght=2)
+    FIAMTATRISKFACTOR = models.CharField(max_lenght=7)
+    FIAMTATRISK = models.CharField(max_lenght=10)
+    FISPID = models.CharField(max_lenght=2)
+    FIREPRSCENID = models.CharField(max_lenght=4)
+    FIREPRSTRAGID = models.CharField(max_lenght=4)
+    FICOMMSCENID = models.CharField(max_lenght=4)
+    FICOMMSTRAGID = models.CharField(max_lenght=4)
+    FIDELQSCENID = models.CharField(max_lenght=4)
+    FIDELQSTRAGID = models.CharField(max_lenght=4)
+    FIAUTHSCENID = models.CharField(max_lenght=4)
+    FIAUTHSTRAGID = models.CharField(max_lenght=4)
+    FICRLIMSCENID = models.CharField(max_lenght=4)
+    FICRLIMSTRAGID = models.CharField(max_lenght=4)
+    FIOVLMSCENID = models.CharField(max_lenght=4)
+    FIOVLMSTRAGID = models.CharField(max_lenght=4)
+    FICURRBEHAVIORSCORE = models.IntegerField()
+    FICRLIMITCTRLIND = models.CharField(max_lenght=1)
+    OVERLIMNBROFCYCLES = models.CharField(max_lenght=3)
+    TYPEOFACCT = models.CharField(max_lenght=1)
+    DATECARDFEE = models.CharField(max_lenght=8)
+    WAIVFEE = models.CharField(max_lenght=1)
+    DDAACCTNBR = models.CharField(max_lenght=19)
+    EMPLOYEECODE = models.CharField(max_lenght=2)
+    CYCANRBAL = models.CharField(max_lenght=19)
+    CYCANRDAYS = models.CharField(max_lenght=3)
+    MTHANRBAL = models.DecimalField(max_digits=18, decimal_places=2)
+    MTHANRDAYS = models.IntegerField()
+    DATEPMTDUE = models.DateField(default=date.fromisoformat)
+    DATELASTPMT = models.DateField(default=date.fromisoformat)
+    PMTLASTAMT = models.DecimalField(max_digits=18, decimal_places=2)
+    FILLER2 = models.CharField(max_lenght=62)
+    CHANNELID = models.CharField(max_lenght=1)
+    SOURCEID = models.IntegerField()
+    CAMPAIGNID = models.IntegerField()
+    TESTID = models.IntegerField()
+    SEGMENTID = models.IntegerField()
+    DAYSPASTDUE = models.IntegerField()
+    NUMPMTSPASTDUE = models.IntegerField()
+    BUCKETREAL = models.IntegerField()
+    MakerDate = models.DateField(default=date.now)
+    MakerUser = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    CheckerDate = models.DateField(default=date.now)
+    CheckerUser = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.DO_NOTHING,
+    )
+
+    def __str__(self):
+        return self.ACCT
+
+
+# Tablas de Configuracion SB
+
+
+class SB03(models.Model):
+    """SB03 - Pais configuration table model"""
+    Codigo_Pais = models.CharField(max_lenght=2, primary_key=True)
+    Nombre_Pais = models.CharField(max_lenght=50)
+
+    def __str__(self):
+        return self.Codigo_Pais
+
+
+class SB09(models.Model):
+    """SB09 - Tipo_Credito configuration table model"""
+    Tipo_Credito = models.IntegerField(primary_key=True)
+    Nombre_Tipo_Credito = models.CharField(max_lenght=100)
+
+    def __str__(self):
+        return self.Tipo_Credito
+
+
+class SB10(models.Model):
+    """SB10 - Actividad_Economica configuration table model"""
+    Actividad_Economica = models.CharField(max_lenght=50, primary_key=True)
+    Nombre_Actividad = models.CharField(max_lenght=300)
+
+    def __str__(self):
+        return self.Actividad_Economica
+
+
+class SB11(models.Model):
+    """SB11 - Tipo_Garantia configuration table model"""
+    Garantia = models.IntegerField(primary_key=True)
+    NombreGarantia = models.CharField(max_lenght=50)
+    Descripcion = models.CharField(max_lenght=200)
+
+    def __str__(self):
+        return self.Garantia
+
+
+class SB15(models.Model):
+    """SB15 - Moneda configuration table model"""
+    Moneda = models.CharField(max_lenght=3, primary_key=True)
+    Nombre_Moneda = models.CharField(max_lenght=50)
+    Pais = models.CharField(max_lenght=2)
+    Moneda_Secore = models.CharField(max_lenght=5)
+    Moneda_RDWH = models.CharField(max_lenght=5)
+    Moneda_UltraSec = models.CharField(max_lenght=5)
+
+    def __str__(self):
+        return self.Moneda
+
+
+class SB16(models.Model):
+    """SB16 - Tipo_Persona configuration table model"""
+    Codigo_Tipo_Persona = models.CharField(max_lenght=1, primary_key=True)
+    Nombre_Tipo_Persona = models.CharField(max_lenght=100)
+
+    def __str__(self):
+        return self.Codigo_Tipo_Persona
+
+
+class SB19(models.Model):
+    """SB19 - Clasificacion_Riesgo_Credito configuration table model"""
+    Clasificacion_Riesgo = models.CharField(max_lenght=1, primary_key=True)
+    NombreClasificacion_Riesgo = models.CharField(max_lenght=100)
+
+
+    def __str__(self):
+        return self.Clasificacion_Riesgo
+
+
+class SB30(models.Model):
+    """SB30 - Periodicidad configuration table model"""
+    Periodicidad = models.IntegerField(primary_key=True)
+    Nombre_Periodicidad = models.CharField(max_lenght=20)
+
+    def __str__(self):
+        return self.Periodicidad
+
+
+class SB31(models.Model):
+    """SB31 - Codigo_Indicador configuration table model"""
+    Codigo_Indicador = models.IntegerField(primary_key=True)
+    Descripcion_Codigo_Indicador = models.CharField(max_lenght=10)
+
+    def __str__(self):
+        return self.Codigo_Indicador
+
+
+class SB34(models.Model):
+    """SB34 - Estado_Credito configuration table model"""
+    Codigo_Estado_Credito = models.IntegerField(primary_key=True)
+    Nombre_Estado_Credito = models.CharField(max_lenght=30)
+
+    def __str__(self):
+        return self.Codigo_Estado_Credito
+
+
+class SB35(models.Model):
+    """SB35 - Situacion_Credito configuration table model"""
+    Codigo_Situacion_Credito = models.IntegerField(primary_key=True)
+    Nombre_Situacion_Credito = models.CharField(max_lenght=20)
+
+    def __str__(self):
+        return self.Codigo_Situacion_Credito
+
+
+class SB59(models.Model):
+    """SB59 - Genero configuration table model"""
+    Genero = models.IntegerField(primary_key=True)
+    Descripcion_Genero = models.CharField(max_lenght=10)
+
+    def __str__(self):
+        return self.Genero
+
+
+class SB66(models.Model):
+    """SB66 - Codigo_Uso configuration table model"""
+    Codigo_Uso = models.CharField(max_lenght=50, primary_key=True)
+    Descripcion_Codigo_Uso = models.CharField(max_lenght=100)
+
+    def __str__(self):
+        return self.Codigo_Uso
+
+
+class SB67(models.Model):
+    """SB67 - Medida configuration table model"""
+    Codigo_Medida = models.IntegerField(primary_key=True)
+    Unidad_Medida = models.CharField(max_lenght=100)
+
+    def __str__(self):
+        return self.Codigo_Medida
+
+
+class SB68(models.Model):
+    """SB68 - Plazo configuration table model"""
+    Codigo_Plazo = models.CharField(max_lenght=50, primary_key=True)
+    Nombre_Plazo = models.CharField(max_lenght=30)
+
+    def __str__(self):
+        return self.Codigo_Plazo
+
+
+class SB76(models.Model):
+    """SB76 - Naturaleza_Cliente configuration table model"""
+    Codigo_Naturaleza = models.IntegerField(primary_key=True)
+    Descripcion_Naturaleza = models.CharField(max_lenght=100)
+
+    def __str__(self):
+        return self.Codigo_Naturaleza
+
+
+class SB81(models.Model):
+    """SB81 - Modalidad_Microcredito configuration table model"""
+    Codigo_Modalidad = models.IntegerField(primary_key=True)
+    Descripcion_Modalidad = models.CharField(max_lenght=100)
+
+    def __str__(self):
+        return self.Codigo_Modalidad
+
+
+class SB82(models.Model):
+    """SB82 - Uso_Financiero configuration table model"""
+    Codigo_Uso_Financiero = models.IntegerField(primary_key=True)
+    Uso_Financiero = models.CharField(max_lenght=100)
+
+    def __str__(self):
+        return self.Codigo_Uso_Financiero
+
+
+class SB83(models.Model):
+    """SB83 - Destino_Recursos_Microfinancieros configuration table model"""
+    Codigo_Destino = models.IntegerField(primary_key=True)
+    Descripcion_Destino = models.CharField(max_lenght=200)
+
+    def __str__(self):
+        return self.Codigo_Destino
+
+
+class SB85(models.Model):
+    """SB85 - Tipo_Proyecto configuration table model"""
+    Tipo_Proyecto = models.IntegerField(primary_key=True)
+    Descripcion__Tipo_Proyecto = models.CharField(max_lenght=100)
+
+    def __str__(self):
+        return self.Tipo_Proyecto
+
+
+class SB87(models.Model):
+    """SB87 - Sector_Produccion configuration table model"""
+    Codigo_Sector = models.IntegerField(primary_key=True)
+    Descripcion_Sector = models.CharField(max_lenght=150)
+
+    def __str__(self):
+        return self.Codigo_Sector
+
+
+class SB88(models.Model):
+    """SB88 - Rubro configuration table model"""
+    Codigo_Rubro = models.CharField(max_lenght=50, primary_key=True)
+    Clasificacion = models.CharField(max_lenght=200)
+
+    def __str__(self):
+        return self.Codigo_Rubro
+
+
+class SB90(models.Model):
+    """SB90 - Modalidad_Hipotecaria configuration table model"""
+    Codigo_Modalidad = models.IntegerField(primary_key=True)
+    Descripcon_Modalidad = models.CharField(max_lenght=50)
+
+
+    def __str__(self):
+        return self.Codigo_Modalidad
+
+
+class SB92(models.Model):
+    """SB92 - Destino_Manufacturero configuration table model"""
+    Codigo_Destino = models.IntegerField(primary_key=True)
+    Descripcion_Destino = models.CharField(max_lenght=250)
+
+    def __str__(self):
+        return self.Codigo_Destino
+
+
+class SB100(models.Model):
+    """SB100 - Tipo_Operaciones configuration table model"""
+    Tipo_Operaciones = models.IntegerField(primary_key=True)
+    Descripcion_Tipo_Operaciones = models.CharField(max_lenght=100)
+
+    def __str__(self):
+        return self.Tipo_Operaciones
+
+
+class SB101(models.Model):
+    """SB101 - Codigo Segmento configuration table model"""
+    Codigo_Segmento = models.IntegerField(primary_key=True)
+    Descripcion__Segmento = models.CharField(max_lenght=20)
+
+    def __str__(self):
+        return self.Codigo_Segmento
+
+
+class SB102(models.Model):
+    """SB102 - Zona_Interes configuration table model"""
+    Codigo_Zona = models.IntegerField(primary_key=True)
+    Descripcion_Zona = models.CharField(max_lenght=50)
+
+    def __str__(self):
+        return self.Codigo_Zona
+
+
+class SB103(models.Model):
+    """SB103 - Tipo_Subsector configuration table model"""
+    Tipo_Subsector = models.IntegerField(primary_key=True)
+    Descripcion_Tipo_Subsector = models.CharField(max_lenght=50)
+
+    def __str__(self):
+        return self.Tipo_Subsector
+
+
+class SB105(models.Model):
+    """SB105 - Destino_Economico configuration table model"""
+    Codigo_Destino = models.IntegerField(primary_key=True)
+    Descripcion_Destino = models.CharField(max_lenght=100)
+
+    def __str__(self):
+        return self.Codigo_Destino
+
+
+class SB136(models.Model):
+    """SB136 - Tipo_Industria configuration table model"""
+    Codigo_Tipo_Industria = models.IntegerField(primary_key=True)
+    Descripcion_Tipo_Industria = models.CharField(max_lenght=50)
+    Definicion_Tipo_Industria = models.CharField(max_lenght=300)
+
+    def __str__(self):
+        return self.Codigo_Tipo_Industria
+
+
+class SB137(models.Model):
+    """SB137 - Tipo_Beneficiario_Sector_Manufacturero configuration table model"""
+    Codigo_Tipo_Beneficiario = models.IntegerField(primary_key=True)
+    Descripcion_Tipo_Beneficiaio = models.CharField(max_lenght=50)
+    Definicion_Tipo_Beneficiario = models.CharField(max_lenght=300)
+
+    def __str__(self):
+        return self.Codigo_Tipo_Beneficiario
+
+
+class SB138(models.Model):
+    """SB138 - Tipo_Vivienda configuration table model"""
+    Codigo_Tipo_Vivienda = models.IntegerField(primary_key=True)
+    Nombre_Tipo_Vivienda = models.CharField(max_lenght=30)
+
+    def __str__(self):
+        return self.Codigo_Tipo_Vivienda
+
+
+class SB140(models.Model):
+    """SB140 - Tipo_Beneficiario_Sector_Turismo configuration table model"""
+    Codigo_Tipo_Beneficiario = models.IntegerField(primary_key=True)
+    Descripcion_Tipo_Beneficiaio = models.CharField(max_lenght=50)
+    Definicion_Tipo_Beneficiario = models.CharField(max_lenght=300)
+
+    def __str__(self):
+        return self.Codigo_Tipo_Beneficiario
 
 
 # class Tag(models.Model):
