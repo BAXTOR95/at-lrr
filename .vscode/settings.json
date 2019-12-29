@@ -3,8 +3,8 @@
         ".env"
     ],
     "python.venvPath": "/backend/.env",
-    "python.envFile": "${workspaceFolder}/Project/backend/.env",
+    "python.envFile": "${workspaceFolder}/projects/at-lrr/backend/.env",
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
-    "python.pythonPath": "I:\\Projects\\AT-LRR\\backend\\.env\\scripts\\python.exe"
+    "python.pythonPath": "C:\\Users\\brian\\projects\\at-lrr\\backend\\.env\\scripts\\python.exe"
 }
