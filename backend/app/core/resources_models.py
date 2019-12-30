@@ -4,7 +4,6 @@ from django.db import models
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
-
 # Resources
 
 # Manual
@@ -23,7 +22,7 @@ class CorporativoNoDirigida(models.Model):
     Prod_cat_descr = models.CharField(max_length=50)
     Referencia = models.CharField(max_length=20, primary_key=True)
     Descripcion = models.CharField(max_length=50)
-    ClasificacionRiesgo = models.CharField(max_length=2)
+    ClasificacionRiesgo = models.ManyToManyField('core.SB19')
     Provision = models.DecimalField(max_digits=3, decimal_places=2)
     A = models.CharField(max_length=10)
     FechaInicio = models.DateField(default=datetime.datetime(1900, 1, 1))
@@ -49,7 +48,7 @@ class CorporativoNoDirigida(models.Model):
     PorcentajeComisionFLAT = models.DecimalField(
         max_digits=18, decimal_places=2)
     MontoComisionFLAT = models.DecimalField(max_digits=18, decimal_places=2)
-    PeriodicidadPagoEspecialCapital = models.IntegerField()
+    PeriodicidadPagoEspecialCapital = models.ManyToManyField('core.SB30')
     FechaCambioEstatusCredito = models.DateField(
         default=datetime.datetime(1900, 1, 1))
     FechaRegistroVencidaLitigioCastigada = models.DateField(
@@ -74,11 +73,11 @@ class CorporativoNoDirigida(models.Model):
     FechaCambioEstatusCapitalTransferido = models.DateField(
         default=datetime.datetime(1900, 1, 1))
     SaldoProvision = models.DecimalField(max_digits=18, decimal_places=2)
-    ActividadCliente = models.CharField(max_length=10)
-    RifLetra = models.CharField(max_length=2)
+    ActividadCliente = models.ManyToManyField('core.SB10')
+    RifLetra = models.ManyToManyField('core.SB16')
     RifNumerico = models.CharField(max_length=10)
-    GrupoEconomico = models.CharField(max_length=100)
-    TipoGarantiaPrincipal = models.CharField(max_length=10)
+    GrupoEconomico = models.ManyToManyField('core.SB31')
+    TipoGarantiaPrincipal = models.ManyToManyField('core.SB11')
     IsOverdraft = models.BooleanField()
     MakerDate = models.DateField(default=datetime.date.today)
     MakerUser = models.ForeignKey(
@@ -102,7 +101,7 @@ class SobregirosConsumer(models.Model):
     BranchId = models.IntegerField()
     BranchDescription = models.CharField(max_length=20)
     CId = models.CharField(max_length=20)
-    TipoPersona = models.CharField(max_length=20)
+    TipoPersona = models.ManyToManyField('core.SB16')
     Acct = models.CharField(max_length=20, primary_key=True)
     OpenDate = models.DateField(default=datetime.datetime(1900, 1, 1))
     Rate = models.DecimalField(max_digits=18, decimal_places=2)
@@ -139,7 +138,7 @@ class SobregirosConsumer(models.Model):
     Capital_Transferido = models.DecimalField(max_digits=18, decimal_places=2)
     Fecha_Cambio_Capital_Transferido = models.DateField(
         default=datetime.datetime(1900, 1, 1))
-    Riesgo = models.CharField(max_length=20)
+    Riesgo = models.ManyToManyField('core.SB19')
     Provision = models.DecimalField(max_digits=3, decimal_places=2)
     SaldoProvision = models.DecimalField(max_digits=18, decimal_places=2)
     MakerDate = models.DateField(default=datetime.date.today)
@@ -236,8 +235,7 @@ class GavetasCorporativas(models.Model):
     PorcentajeComisionFLAT = models.DecimalField(
         max_digits=3, decimal_places=2)
     MontoComisionFLAT = models.DecimalField(max_digits=18, decimal_places=2)
-    PeriodicidadPagoEspecialCapital = models.DecimalField(
-        max_digits=18, decimal_places=2)
+    PeriodicidadPagoEspecialCapital = models.ManyToManyField('core.SB30')
     FechaExigibilidadPagolaultimaCuotaPagada = models.DateField(
         default=datetime.datetime(1900, 1, 1))
     FechaRegistroVencidaLitigioCastigada = models.DateField(
@@ -313,7 +311,7 @@ class MISProvisiones(models.Model):
     CtaLocal = models.CharField(max_length=20)
     CtaProvCap = models.CharField(max_length=20)
     CtaProvRend = models.CharField(max_length=20)
-    Riesgo = models.CharField(max_length=2)
+    Riesgo = models.ManyToManyField('core.SB19')
     RiskSicri = models.CharField(max_length=20)
     Producto = models.IntegerField()
     DescriptionType = models.CharField(max_length=20)
@@ -347,7 +345,7 @@ class PrestamosPrestacionesRRHH(models.Model):
     """Prestamos sobre Prestaciones Sociales RRHH resource model"""
     GEID = models.CharField(max_length=20, primary_key=True)
     NombreCliente = models.CharField(max_length=20)
-    TipoCliente = models.CharField(max_length=2)
+    TipoCliente = models.ManyToManyField('core.SB16')
     IdentificacionCliente = models.CharField(max_length=20)
     MontoOriginal = models.DecimalField(max_digits=18, decimal_places=2)
     SaldoActual = models.DecimalField(max_digits=18, decimal_places=2)
@@ -405,11 +403,11 @@ class AT04CRE(models.Model):
     ADDRESSEXTRA = models.CharField(max_length=20)
     CTRORG = models.CharField(max_length=20)
     QTDREN = models.CharField(max_length=20)
-    MONEDA = models.CharField(max_length=20)
+    MONEDA = models.ManyToManyField('core.SB15')
     PRODCAT = models.CharField(max_length=20)
     LV = models.CharField(max_length=20)
     STATUS = models.CharField(max_length=20)
-    PLAZO = models.CharField(max_length=20)
+    PLAZO = models.ManyToManyField('core.SB68')
     GENLEDGER = models.CharField(max_length=20)
     CREDITLINE = models.DecimalField(max_digits=18, decimal_places=2)
     INTORIGTASA = models.DecimalField(max_digits=18, decimal_places=2)
@@ -739,13 +737,13 @@ class CarteraDirigida(models.Model):
     NUM_CREDITO = models.CharField(max_length=30, primary_key=True)
     NUM_CREDITO_PRIMER_DESEMBOLSO = models.CharField(max_length=30)
     NUM_DESEMBOLSO = models.CharField(max_length=2)
-    NATURALEZA_CLIENTE = models.IntegerField()
-    TIPO_CLIENTE = models.IntegerField()
+    NATURALEZA_CLIENTE = models.ManyToManyField('core.SB76')
+    TIPO_CLIENTE = models.ManyToManyField('core.SB16')
     NUM_CLIENTE = models.CharField(max_length=19)
     NOMBRE_CLIENTE = models.CharField(max_length=250)
-    GENERO = models.IntegerField()
-    COOPERATIVA = models.IntegerField()
-    CLIENTE_NUEVO = models.IntegerField()
+    GENERO = models.ManyToManyField('core.SB59')
+    COOPERATIVA = models.ManyToManyField('core.SB31', related_name='cooperativa_cd_set')
+    CLIENTE_NUEVO = models.ManyToManyField('core.SB31', related_name='cliente_nuevo_cd_set')
     COD_PARROQUIA = models.IntegerField()
     FECHA_SOLICITUD = models.DateField(
         default=datetime.datetime(1900, 1, 1))
@@ -753,13 +751,13 @@ class CarteraDirigida(models.Model):
         default=datetime.datetime(1900, 1, 1))
     FECHA_LIQUIDACION = models.DateField(
         default=datetime.datetime(1900, 1, 1))
-    TIPO_CREDITO = models.IntegerField()
-    PLAZO_CREDITO = models.IntegerField()
-    CLASE_RIESGO = models.IntegerField()
-    ESTADO_CREDITO = models.IntegerField()
-    SITUACION_CREDITO = models.IntegerField()
-    PERIODO_PAGO_CAPITAL = models.IntegerField()
-    PERIODO_PAGO_INTERES = models.IntegerField()
+    TIPO_CREDITO = models.ManyToManyField('core.SB09')
+    PLAZO_CREDITO = models.ManyToManyField('core.SB68')
+    CLASE_RIESGO = models.ManyToManyField('core.SB19')
+    ESTADO_CREDITO = models.ManyToManyField('core.SB34')
+    SITUACION_CREDITO = models.ManyToManyField('core.SB35')
+    PERIODO_PAGO_CAPITAL = models.ManyToManyField('core.SB30', related_name='ppc_cd_set')
+    PERIODO_PAGO_INTERES = models.ManyToManyField('core.SB30', related_name='ppi_cd_set')
     PERIODO_GRACIA_CAPITAL = models.IntegerField()
     FECHA_VENC_ORIGINAL = models.DateField(
         default=datetime.datetime(1900, 1, 1))
@@ -799,7 +797,7 @@ class CarteraDirigida(models.Model):
     TASA_COMISION = models.DecimalField(max_digits=18, decimal_places=2)
     EROGACIONES_RECUPERABLES = models.DecimalField(
         max_digits=18, decimal_places=2)
-    TIPO_GARANTIA_PRINCIPAL = models.IntegerField()
+    TIPO_GARANTIA_PRINCIPAL = models.ManyToManyField('core.SB11')
     NUM_CUOTAS = models.IntegerField()
     NUM_CUOTAS_VENCIDAS = models.IntegerField()
     MONTO_VENCIDO_30_DIAS = models.DecimalField(
@@ -815,7 +813,7 @@ class CarteraDirigida(models.Model):
     MONTO_VENCIDO_ANUAL = models.DecimalField(max_digits=18, decimal_places=2)
     MONTO_VENCIDO_MAYOR_ANUAL = models.DecimalField(
         max_digits=18, decimal_places=2)
-    BANCA_SOCIAL = models.IntegerField()
+    BANCA_SOCIAL = models.ManyToManyField('core.SB31')
     PRODUCCION_SOCIAL = models.IntegerField()
     MODALIDAD_MICROCREDITO = models.IntegerField()
     USO_FINANCIERO = models.IntegerField()
@@ -864,7 +862,7 @@ class CarteraDirigida(models.Model):
     NUM_BENEFICIARIOS = models.CharField(max_length=4)
     PRIORITARIO = models.CharField(max_length=1)
     DESTINO_MANUFACTURERO = models.CharField(max_length=5)
-    DESTINO_ECONOMICO = models.CharField(max_length=1)
+    DESTINO_ECONOMICO = models.ManyToManyField('core.SB105')
     TIPO_BENEFICIARIO = models.CharField(max_length=1)
     MODALIDAD_HIPOTECARIA = models.CharField(max_length=1)
     INGRESO_FAMILIAR = models.CharField(max_length=1)
@@ -956,13 +954,13 @@ class SIIF(models.Model):
     Rewrite = models.IntegerField()
     CtaLocal = models.CharField(max_length=20)
     Cid = models.CharField(max_length=50)
-    Situacion_Credito = models.IntegerField()
+    Situacion_Credito = models.ManyToManyField('core.SB35')
     SaldoCapital = models.DecimalField(max_digits=18, decimal_places=2)
     SaldoRendimientos = models.DecimalField(max_digits=18, decimal_places=2)
     Mora = models.DecimalField(max_digits=18, decimal_places=2)
-    ClaseRiesgo = models.CharField(max_length=2)
+    ClaseRiesgo = models.ManyToManyField('core.SB19')
     CuotasVencidas = models.IntegerField()
-    EstadoCredito = models.IntegerField()
+    EstadoCredito = models.ManyToManyField('core.SB34')
     OldAcct = models.CharField(max_length=20)
     OrigOpenDate = models.DateField(default=datetime.datetime(1900, 1, 1))
     OrigCreditLimit = models.DecimalField(max_digits=18, decimal_places=2)
@@ -978,7 +976,7 @@ class SIIF(models.Model):
     Porcentaje_Comsion_Flat = models.DecimalField(
         max_digits=3, decimal_places=2)
     Monto_Comision_Flat = models.DecimalField(max_digits=18, decimal_places=2)
-    Periodicidad_Pago_Especial_Capital = models.IntegerField()
+    Periodicidad_Pago_Especial_Capital = models.ManyToManyField('core.SB30')
     Fecha_Cambio_Status = models.DateField(
         default=datetime.datetime(1900, 1, 1))
     Fecha_Reg_Venc_Lit_cast = models.DateField(
@@ -1012,7 +1010,7 @@ class SIIF(models.Model):
 
 class FDN(models.Model):
     """Fecha de Nacimiento resource model"""
-    TipoCliente = models.CharField(max_length=2)
+    TipoCliente = models.ManyToManyField('core.SB16')
     IdCliente = models.CharField(max_length=20)
     FechaNacimiento = models.DateField(
         default=datetime.datetime(1900, 1, 1))
@@ -1030,10 +1028,6 @@ class FDN(models.Model):
         on_delete=models.DO_NOTHING,
         related_name='fdn_checker_user_set'
     )
-
-    class Meta:
-        unique_together = (('TipoCliente', 'IdCliente'),)
-
 
     def __str__(self):
         return self.TipoCliente & self.IdCliente
