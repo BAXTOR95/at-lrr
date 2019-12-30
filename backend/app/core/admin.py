@@ -1,8 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext as _
+from django.apps import apps
 
-from core import models
+from core.models import models as _models
 
 
 class UserAdmin(BaseUserAdmin):
@@ -41,5 +42,18 @@ class UserAdmin(BaseUserAdmin):
     )
 
 
-admin.site.register(models.User, UserAdmin)
-admin.site.register(models.File)
+class ListAdminMixin(object):
+    def __init__(self, model, admin_site):
+        self.list_display = [field.name for field in model._meta.fields]
+        super(ListAdminMixin, self).__init__(model, admin_site)
+
+
+admin.site.register(_models.User, UserAdmin)
+
+models = apps.get_models()
+for model in models:
+    admin_class = type('AdminClass', (ListAdminMixin, admin.ModelAdmin), {})
+    try:
+        admin.site.register(model, admin_class)
+    except admin.sites.AlreadyRegistered:
+        pass
