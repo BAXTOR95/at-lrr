@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext as _
 from django.apps import apps
 
-from core.models import models as _models
+from core import models, resources_models, config_tables_sb_models
 
 
 class UserAdmin(BaseUserAdmin):
@@ -48,10 +48,11 @@ class ListAdminMixin(object):
         super(ListAdminMixin, self).__init__(model, admin_site)
 
 
-admin.site.register(_models.User, UserAdmin)
+admin.site.register(models.User, UserAdmin)
 
-models = apps.get_models()
-for model in models:
+app_models = apps.get_models()
+
+for model in app_models:
     admin_class = type('AdminClass', (ListAdminMixin, admin.ModelAdmin), {})
     try:
         admin.site.register(model, admin_class)

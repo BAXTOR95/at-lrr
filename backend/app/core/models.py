@@ -14,6 +14,7 @@ from django.utils import timezone
 
 from rest_framework.authtoken.models import Token
 
+
 EXPIRE_HOURS = getattr(settings, 'REST_FRAMEWORK_TOKEN_EXPIRE_HOURS', 24)
 
 

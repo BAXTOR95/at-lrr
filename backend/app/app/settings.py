@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
-	'django_extensions',
+    'django_extensions',
     'core',
     'user',
     'upload'
@@ -114,11 +114,10 @@ REST_FRAMEWORK = {
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
-        #'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
         'user.authentication.ExpiringTokenAuthentication',
     ),
 }
-
 
 
 # Internationalization
@@ -153,6 +152,6 @@ CORS_ORIGIN_ALLOW_ALL = True
 REST_FRAMEWORK_TOKEN_EXPIRE_HOURS = 24
 
 GRAPH_MODELS = {
-	'all_applications': True,
-	'group_models': True,
+    'all_applications': True,
+    'group_models': True,
 }
