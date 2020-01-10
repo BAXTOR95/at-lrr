@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 
 # Manual
 
-class CorporativoNoDirigida(models.Model):
+class CorporativoNoDirigida(models.Model): # TODO: JN File
     """CorporativoNoDirigida resource model"""
     Branch = models.CharField(max_length=10)
     LV = models.CharField(max_length=10)
@@ -96,7 +96,7 @@ class CorporativoNoDirigida(models.Model):
         return self.Referencia
 
 
-class SobregirosConsumer(models.Model):
+class SobregirosConsumer(models.Model): # TODO: JN File
     """CorporativoNoDirigida resource model"""
     BranchId = models.IntegerField()
     BranchDescription = models.CharField(max_length=20)
@@ -158,7 +158,7 @@ class SobregirosConsumer(models.Model):
         return self.Acct
 
 
-class RendimientosCorporativos(models.Model):
+class RendimientosCorporativos(models.Model): # TODO: JN File
     """RendimientosCorporativos resource model"""
     Branch = models.IntegerField()
     LV = models.IntegerField()
@@ -204,7 +204,7 @@ class RendimientosCorporativos(models.Model):
         return self.Referencia
 
 
-class MigrateMorgage(models.Model):
+class MigrateMorgage(models.Model): # TODO: JN File
     """MigrateMorgage resource model"""
     NewAcct = models.CharField(max_length=20, primary_key=True)
     OldAcct = models.CharField(max_length=20, unique=True)
@@ -225,7 +225,7 @@ class MigrateMorgage(models.Model):
         return self.NewAcct
 
 
-class GavetasCorporativas(models.Model):
+class GavetasCorporativas(models.Model): # TODO: JN File
     """GavetasCorporativas resource model"""
     RIF = models.CharField(max_length=20)
     NombreRazonSocial = models.CharField(max_length=20)
@@ -271,7 +271,7 @@ class GavetasCorporativas(models.Model):
         return self.NumeroCredito
 
 
-class ModalidadHipotecaria(models.Model):
+class ModalidadHipotecaria(models.Model): # TODO: JN File
     """Modalidad Hipotecaria resource model"""
     Numerocredito = models.CharField(max_length=20, primary_key=True)
     IngresoFamiliar = models.DecimalField(max_digits=18, decimal_places=2)
@@ -341,7 +341,7 @@ class MISProvisiones(models.Model):
         return self.Account
 
 
-class PrestamosPrestacionesRRHH(models.Model):
+class PrestamosPrestacionesRRHH(models.Model): # TODO: JN File
     """Prestamos sobre Prestaciones Sociales RRHH resource model"""
     GEID = models.CharField(max_length=20, primary_key=True)
     NombreCliente = models.CharField(max_length=20)
@@ -1008,7 +1008,7 @@ class SIIF(models.Model):
         return self.Acct
 
 
-class FDN(models.Model):
+class FDN(models.Model): # TODO: JN File
     """Fecha de Nacimiento resource model"""
     TipoCliente = models.ManyToManyField('core.SB16')
     IdCliente = models.CharField(max_length=20)
@@ -1031,133 +1031,3 @@ class FDN(models.Model):
 
     def __str__(self):
         return self.TipoCliente & self.IdCliente
-
-
-class VZDWAMBS(models.Model):
-    """VZDWAMBS resource model"""
-    ORG = models.CharField(max_length=3)
-    ACCT = models.CharField(max_length=19, primary_key=True)
-    CUSTORG = models.CharField(max_length=3)
-    CUSTNBR = models.CharField(max_length=19)
-    RELORG = models.CharField(max_length=3)
-    RELNBR = models.CharField(max_length=19)
-    PRICARD = models.CharField(max_length=19)
-    LOGO = models.IntegerField()
-    SOURCECODE = models.CharField(max_length=15)
-    DATEXFREFF = models.DateField(default=datetime.datetime(1900, 1, 1))
-    DATEBLOCK1 = models.DateField(default=datetime.datetime(1900, 1, 1))
-    BLOCKCODE1 = models.CharField(max_length=1)
-    BLOCKREASON1 = models.CharField(max_length=2)
-    BLOCKCODE2 = models.CharField(max_length=1)
-    BLOCKREASON2 = models.CharField(max_length=2)
-    DATEBLOCK2 = models.DateField(default=datetime.datetime(1900, 1, 1))
-    DATECLOSE = models.DateField(default=datetime.datetime(1900, 1, 1))
-    DATELASTMAINT = models.DateField(default=datetime.datetime(1900, 1, 1))
-    STATEOFISSUE = models.CharField(max_length=3)
-    INTSTATUS = models.CharField(max_length=2)
-    DATELASTSTATEX = models.DateField(default=datetime.datetime(1900, 1, 1))
-    XFRORG = models.CharField(max_length=3)
-    XFRLOGO = models.IntegerField()
-    XFRACCT = models.CharField(max_length=19)
-    DATECARDEXP = models.DateField(default=datetime.datetime(1900, 1, 1))
-    DATEOPENED = models.DateField(default=datetime.datetime(1900, 1, 1))
-    BILLINGCYCLE = models.IntegerField()
-    DATELASTSTM = models.DateField(default=datetime.datetime(1900, 1, 1))
-    CURRBAL = models.DecimalField(max_digits=18, decimal_places=2)
-    HIBAL = models.DecimalField(max_digits=18, decimal_places=2)
-    DATEHIBAL = models.DateField(default=datetime.datetime(1900, 1, 1))
-    CRLIM = models.DecimalField(max_digits=18, decimal_places=2)
-    CASHBAL = models.DecimalField(max_digits=18, decimal_places=2)
-    DATECRBAL = models.DateField(default=datetime.datetime(1900, 1, 1))
-    LASTCRLIM = models.DecimalField(max_digits=18, decimal_places=2)
-    DATELINEDEC = models.DateField(default=datetime.datetime(1900, 1, 1))
-    DATELINEINC = models.DateField(default=datetime.datetime(1900, 1, 1))
-    HISTORY = models.CharField(max_length=48)
-    FILLER = models.CharField(max_length=4)
-    PMTCURRDUE = models.DecimalField(max_digits=18, decimal_places=2)
-    PMTPASTCTR = models.IntegerField()
-    PMTPASTDUE = models.DecimalField(max_digits=18, decimal_places=2)
-    PMT30CTR = models.IntegerField()
-    PMT30 = models.DecimalField(max_digits=18, decimal_places=2)
-    PMT60CTR = models.IntegerField()
-    PMT60 = models.DecimalField(max_digits=18, decimal_places=2)
-    PMT90CTR = models.IntegerField()
-    PMT90 = models.DecimalField(max_digits=18, decimal_places=2)
-    PMT120CTR = models.IntegerField()
-    PMT120 = models.DecimalField(max_digits=18, decimal_places=2)
-    PMT150CTR = models.IntegerField()
-    PMT150 = models.DecimalField(max_digits=18, decimal_places=2)
-    PMT180CTR = models.IntegerField()
-    PMT180 = models.DecimalField(max_digits=18, decimal_places=2)
-    PMT210CTR = models.IntegerField()
-    PMT210 = models.DecimalField(max_digits=18, decimal_places=2)
-    CHGOFFSTATUS = models.CharField(max_length=1)
-    DATECGOFF = models.DateField(default=datetime.datetime(1900, 1, 1))
-    AMTCGOFF = models.DecimalField(max_digits=18, decimal_places=2)
-    CHGOFFRSN1 = models.CharField(max_length=1)
-    CHGOFFRSN2 = models.CharField(max_length=1)
-    RISKLEVEL = models.CharField(max_length=1)
-    NBRUNBLKCARD = models.CharField(max_length=6)
-    NBRNSF = models.CharField(max_length=4)
-    LASTYTDINT = models.CharField(max_length=13)
-    LASTYTDINTPAID = models.CharField(max_length=13)
-    CURRYTDINDPAID = models.CharField(max_length=13)
-    DATELASTPURCH = models.DateField(default=datetime.datetime(1900, 1, 1))
-    DATELASTRETURN = models.CharField(max_length=8)
-    DATELASTACT = models.CharField(max_length=8)
-    CARDUSAGE = models.CharField(max_length=1)
-    FITESTDIGITS = models.CharField(max_length=2)
-    FIAMTATRISKFACTOR = models.CharField(max_length=7)
-    FIAMTATRISK = models.CharField(max_length=10)
-    FISPID = models.CharField(max_length=2)
-    FIREPRSCENID = models.CharField(max_length=4)
-    FIREPRSTRAGID = models.CharField(max_length=4)
-    FICOMMSCENID = models.CharField(max_length=4)
-    FICOMMSTRAGID = models.CharField(max_length=4)
-    FIDELQSCENID = models.CharField(max_length=4)
-    FIDELQSTRAGID = models.CharField(max_length=4)
-    FIAUTHSCENID = models.CharField(max_length=4)
-    FIAUTHSTRAGID = models.CharField(max_length=4)
-    FICRLIMSCENID = models.CharField(max_length=4)
-    FICRLIMSTRAGID = models.CharField(max_length=4)
-    FIOVLMSCENID = models.CharField(max_length=4)
-    FIOVLMSTRAGID = models.CharField(max_length=4)
-    FICURRBEHAVIORSCORE = models.IntegerField()
-    FICRLIMITCTRLIND = models.CharField(max_length=1)
-    OVERLIMNBROFCYCLES = models.CharField(max_length=3)
-    TYPEOFACCT = models.CharField(max_length=1)
-    DATECARDFEE = models.CharField(max_length=8)
-    WAIVFEE = models.CharField(max_length=1)
-    DDAACCTNBR = models.CharField(max_length=19)
-    EMPLOYEECODE = models.CharField(max_length=2)
-    CYCANRBAL = models.CharField(max_length=19)
-    CYCANRDAYS = models.CharField(max_length=3)
-    MTHANRBAL = models.DecimalField(max_digits=18, decimal_places=2)
-    MTHANRDAYS = models.IntegerField()
-    DATEPMTDUE = models.DateField(default=datetime.datetime(1900, 1, 1))
-    DATELASTPMT = models.DateField(default=datetime.datetime(1900, 1, 1))
-    PMTLASTAMT = models.DecimalField(max_digits=18, decimal_places=2)
-    FILLER2 = models.CharField(max_length=62)
-    CHANNELID = models.CharField(max_length=1)
-    SOURCEID = models.IntegerField()
-    CAMPAIGNID = models.IntegerField()
-    TESTID = models.IntegerField()
-    SEGMENTID = models.IntegerField()
-    DAYSPASTDUE = models.IntegerField()
-    NUMPMTSPASTDUE = models.IntegerField()
-    BUCKETREAL = models.IntegerField()
-    MakerDate = models.DateField(default=datetime.date.today)
-    MakerUser = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name='vzdwambs_maker_user_set'
-    )
-    CheckerDate = models.DateField(default=datetime.date.today)
-    CheckerUser = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.DO_NOTHING,
-        related_name='vzdwambs_checker_user_set'
-    )
-
-    def __str__(self):
-        return self.ACCT
