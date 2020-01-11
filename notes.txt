@@ -318,6 +318,14 @@ https://graphviz.gitlab.io/_pages/Download/Download_windows.html
 # Run manage.py graph_models from the environment you may normally use:
 $ python manage.py graph_models -a > output.dot && python manage.py graph_models --pydot -a -g -o output.png
 
+# To change the theme of jupyter notebook do the following
+# HELP: https://github.com/dunovank/jupyter-themes
+$ pip install jupyterthemes
+$ jt -t onedork -fs 95 -altp -tfs 11 -nfs 115 -cellw 88% -T
+
+# Then run the server to see changes
+$ jupyter-notebook
+
 # TODO: Check this links at home
 https://material.angular.io/components/table/examples
 https://stackblitz.com/angular/jeojdkamyqx?file=src%2Fapp%2Ftable-overview-example.ts

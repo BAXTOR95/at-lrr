@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 
 # Manual
 
-class CorporativoNoDirigida(models.Model): # TODO: JN File
+class CorporativoNoDirigida(models.Model):
     """CorporativoNoDirigida resource model"""
     Branch = models.CharField(max_length=10)
     LV = models.CharField(max_length=10)
@@ -96,7 +96,7 @@ class CorporativoNoDirigida(models.Model): # TODO: JN File
         return self.Referencia
 
 
-class SobregirosConsumer(models.Model): # TODO: JN File
+class SobregirosConsumer(models.Model):
     """CorporativoNoDirigida resource model"""
     BranchId = models.IntegerField()
     BranchDescription = models.CharField(max_length=20)
@@ -158,7 +158,7 @@ class SobregirosConsumer(models.Model): # TODO: JN File
         return self.Acct
 
 
-class RendimientosCorporativos(models.Model): # TODO: JN File
+class RendimientosCorporativos(models.Model):
     """RendimientosCorporativos resource model"""
     Branch = models.IntegerField()
     LV = models.IntegerField()
@@ -204,7 +204,7 @@ class RendimientosCorporativos(models.Model): # TODO: JN File
         return self.Referencia
 
 
-class MigrateMorgage(models.Model): # TODO: JN File
+class MigrateMorgage(models.Model):
     """MigrateMorgage resource model"""
     NewAcct = models.CharField(max_length=20, primary_key=True)
     OldAcct = models.CharField(max_length=20, unique=True)
@@ -225,7 +225,7 @@ class MigrateMorgage(models.Model): # TODO: JN File
         return self.NewAcct
 
 
-class GavetasCorporativas(models.Model): # TODO: JN File
+class GavetasCorporativas(models.Model):
     """GavetasCorporativas resource model"""
     RIF = models.CharField(max_length=20)
     NombreRazonSocial = models.CharField(max_length=20)
