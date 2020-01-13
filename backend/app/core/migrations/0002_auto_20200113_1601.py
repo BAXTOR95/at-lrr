@@ -19,7 +19,7 @@ def fill_table_SB(apps, schema_editor):
 
     # SB03
     SB03 = apps.get_model('core', 'SB03')
-    df = pd.read_csv(sb_config_path + 'SB03.txt',
+    df = pd.read_csv(join(sb_config_path, 'SB03.txt'),
                      sep='~',
                      low_memory=False,
                      encoding='latin',)
