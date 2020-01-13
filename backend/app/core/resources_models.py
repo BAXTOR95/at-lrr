@@ -227,6 +227,15 @@ class MigrateMorgage(models.Model):
 
 class GavetasCorporativas(models.Model):
     """GavetasCorporativas resource model"""
+
+
+    class TypeCD(models.IntegerChoices):
+        HCP = 7, _('Hipotecario Corto Plazo')
+        TURISMO = 8, _('Turismo')
+        MANUFACTURA = 10, _('Manufactura')
+        AGRICOLA_ICG = 11, _('Agricola ICG')
+
+
     RIF = models.CharField(max_length=20)
     NombreRazonSocial = models.CharField(max_length=20)
     NumeroCredito = models.CharField(max_length=20, primary_key=True)
@@ -236,6 +245,8 @@ class GavetasCorporativas(models.Model):
         max_digits=3, decimal_places=2)
     MontoComisionFLAT = models.DecimalField(max_digits=18, decimal_places=2)
     PeriodicidadPagoEspecialCapital = models.ManyToManyField('core.SB30')
+    FechaCambioEstatusCredito = models.DateField(
+        default=datetime.datetime(1900, 1, 1))
     FechaExigibilidadPagolaultimaCuotaPagada = models.DateField(
         default=datetime.datetime(1900, 1, 1))
     FechaRegistroVencidaLitigioCastigada = models.DateField(
@@ -252,8 +263,7 @@ class GavetasCorporativas(models.Model):
     CapitalTransferido = models.DecimalField(max_digits=18, decimal_places=2)
     FechaCambioEstatusCapitalTransferido = models.DateField(
         default=datetime.datetime(1900, 1, 1))
-    FechaCambioEstatusCredito = models.DateField(
-        default=datetime.datetime(1900, 1, 1))
+    TypeCD = models.IntegerField(choices=TypeCD.choices)
     MakerDate = models.DateField(default=datetime.date.today)
     MakerUser = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -271,7 +281,7 @@ class GavetasCorporativas(models.Model):
         return self.NumeroCredito
 
 
-class ModalidadHipotecaria(models.Model): # TODO: JN File
+class ModalidadHipotecaria(models.Model):
     """Modalidad Hipotecaria resource model"""
     Numerocredito = models.CharField(max_length=20, primary_key=True)
     IngresoFamiliar = models.DecimalField(max_digits=18, decimal_places=2)
@@ -341,16 +351,16 @@ class MISProvisiones(models.Model):
         return self.Account
 
 
-class PrestamosPrestacionesRRHH(models.Model): # TODO: JN File
+class PrestamosPrestacionesRRHH(models.Model):
     """Prestamos sobre Prestaciones Sociales RRHH resource model"""
     GEID = models.CharField(max_length=20, primary_key=True)
-    NombreCliente = models.CharField(max_length=20)
     TipoCliente = models.ManyToManyField('core.SB16')
     IdentificacionCliente = models.CharField(max_length=20)
-    MontoOriginal = models.DecimalField(max_digits=18, decimal_places=2)
-    SaldoActual = models.DecimalField(max_digits=18, decimal_places=2)
+    NombreCliente = models.CharField(max_length=20)
     FechaOtorgamiento = models.DateField(
         default=datetime.datetime(1900, 1, 1))
+    MontoOriginal = models.DecimalField(max_digits=18, decimal_places=2)
+    SaldoActual = models.DecimalField(max_digits=18, decimal_places=2)
     MakerDate = models.DateField(default=datetime.date.today)
     MakerUser = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -1008,7 +1018,7 @@ class SIIF(models.Model):
         return self.Acct
 
 
-class FDN(models.Model): # TODO: JN File
+class FDN(models.Model):
     """Fecha de Nacimiento resource model"""
     TipoCliente = models.ManyToManyField('core.SB16')
     IdCliente = models.CharField(max_length=20)
@@ -1031,3 +1041,37 @@ class FDN(models.Model): # TODO: JN File
 
     def __str__(self):
         return self.TipoCliente & self.IdCliente
+
+
+class AT07(models.Model):
+    """AT07 resource model"""
+    NumeroCredito = models.CharField(max_length=20, primary_key=True)
+    CodigoBien = models.CharField(max_length=20)
+    FechaLiquidacion = models.DateField(default=datetime.datetime(1900, 1, 1))
+    CodigoContable = models.CharField(max_length=20)
+    ClaseBien = models.CharField(max_length=2)
+    TipoCliente = models.CharField(max_length=2)
+    IdentificacionCliente = models.CharField(max_length=20)
+    NombreRazonSocial = models.CharField(max_length=100)
+    SituacionGarante = models.CharField(max_length=2)
+    MontoInicial = models.DecimalField(max_digits=18, decimal_places=2)
+    MontoActual = models.DecimalField(max_digits=18, decimal_places=2)
+    MontoAvaluo = models.DecimalField(max_digits=18, decimal_places=2)
+    ValorMercado = models.DecimalField(max_digits=18, decimal_places=2)
+    FechaUltimoAvaluo = models.DateField(default=datetime.datetime(1900, 1, 1))
+    CodigoPeritoAvaluador = models.CharField(max_length=20)
+    MakerDate = models.DateField(default=datetime.date.today)
+    MakerUser = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='at07_maker_user_set'
+    )
+    CheckerDate = models.DateField(default=datetime.date.today)
+    CheckerUser = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.DO_NOTHING,
+        related_name='at07_checker_user_set'
+    )
+
+    def __str__(self):
+        return self.NumeroCredito

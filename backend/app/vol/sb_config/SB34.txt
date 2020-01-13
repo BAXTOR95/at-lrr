@@ -1,0 +1,4 @@
+Codigo_Estado_Credito~Nombre_Estado_Credito
+1~ACTIVO
+2~CANCELADO
+3~CASTIGADO

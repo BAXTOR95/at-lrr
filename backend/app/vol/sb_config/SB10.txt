@@ -1,0 +1,91 @@
+Actividad_Economica~Nombre_Actividad
+0~No Aplica
+XXX~No Definido
+A01~Agricultura
+A02~Silvicultura y extracción de madera
+A03~Pesca y Acuicultura
+B05~Extracción de carbón y lignito
+B06~Extracción de petróleo crudo y gas natural
+B07~Extracción de minerales metalíferos
+B08~Explotación de otras minas y canteras
+B09~Actividades de de apoyo a la explotación de minas
+C10~Elaboración de productos alimenticios
+C11~Elaboración de bebidas
+C12~Elaboración de productos de tabaco
+C13~Fabricación de productos textiles
+C14~Fabricación de prendas de vestir
+C15~Fabricación de cueros y productos conexos
+C16~Producción de madera y fabricación de productos de madera y corcho
+C17~Fabricación de papel y de los productos de papel
+C18~Actividades de impresión y reproducción de grabaciones
+C19~Fabricación  de coque y de  productos de la  refinación  del petróleo
+C20~Fabricación de sustancias y  productos químicos
+C21~Fabricación de productos farmacéuticos
+C22~Fabricación de  productos de caucho y  plástico
+C23~Fabricación de otros productos minerales no metálicos
+C24~Fabricación de metales comunes
+C25~Fabricación de  productos derivados del metal
+C26~Fabricación de los productos informáticos
+C27~Fabricación de equipo eléctrico
+C28~Fabricación de la maquinaria y  equipo n.c.p.
+C29~Fabricación de vehículos automotores
+C30~Fabricación de otros tipos de equipo de transporte
+C31~Fabricación de muebles
+C32~Otras industrias manufactureras
+C33~Reparación e instalación de la maquinaria y  equipo
+E36~Captación
+E37~Alcantarillado
+E38~Recolección
+E39~Actividades de saneamiento y otros servicios de gestión de desechos
+F41~Construcción de edificios
+F42~Ingeniería Civil
+F43~Actividades especializadas de la construcción
+G45~Comercio al por mayor y al por menor; reparación de vehículos automotores y motocicletas
+G46~Comercio al por mayor
+G47~Comercio al por menor
+H49~Transporte por vía terrestre; transporte por tuberías.
+H50~Transporte por vía acuática.
+H51~Transporte por vía aérea.
+H52~Depósito y actividades de transporte complementarias.
+H53~Correo y servicios de mensajería
+I55~Alojamiento.
+I56~Servicio de alimento y bebida.
+J58~Actividades de publicación
+J59~Actividades de producción de películas
+J60~Difusión y programación
+J61~Telecomunicaciones.
+J62~Actividades de la tecnología de información y del servicio informativo.
+J63~Actividades del servicio informativo
+K64~Servicios financieros
+K65~Seguros
+K66~Otras actividades finacieras.
+M69~Actividades jurídicas y de contabilidad.
+M70~Actividades de oficinas centrales (sociedades de carteras)
+M71~Actividades de arquitectura e ingeniería; ensayos y análisis técnicos.
+M72~Investigación y desarrollo científicos
+M73~Publicidad e investigación de mercados
+M74~Otras actividades profesionales
+M75~Actividades veterinarias
+N77~Actividades del alquiler y arrendamiento.
+N78~Actividades en el campo del empleo.
+N79~Actividades de las agencias de viajes
+N80~Actividades de investigación y seguridad.
+N81~Servicios para edificios y actividades de jardinería
+N82~Servicios de apoyo administrativo de oficinas
+O84~Administración pública y la defensa; planes de seguridad social de afiliación obligatoria.
+Q86~Actividades relacionadas con la salud humana
+Q87~Instituciones residenciales de cuidado.
+Q88~Servicios sociales sin alojamiento
+R90~Actividades de arte y entretenimiento y creatividad
+R91~Bibliotecas
+R92~Actividades de juego y apuestas
+R93~Actividades deportivas
+S94~Actividades de asociaciones u organizaciones
+S95~Reparación de computadoras y enseres de uso personal y doméstico
+S96~Otras actividades de servicios
+T97~Actividades de los hogares en calidad de empleadores de personal doméstico
+T98~Actividades indiferenciadas de producción de bienes y servicios de los hogares privados para uso propio
+U99~Actividades de organizaciones y órganos extraterritoriales
+D35~Suministro de electricidad
+L68~Actividades inmobiliarias
+P85~Enseñanza

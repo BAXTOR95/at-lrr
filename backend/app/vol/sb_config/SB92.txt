@@ -1,0 +1,185 @@
+Codigo_Destino~Descripcion_Destino
+0~NO APLICA
+~Industrias Manufactureras
+~Elaboración de productos alimenticios
+1010~Procesamiento y conservación de carne
+1020~Procesamiento y conservación de carne, crustáceos y moluscos
+1030~Procesamiento y conservación de frutas y vegetales
+1040~Elaboración de aceites y grasas de origen vegetal y animal
+1050~Elaboración de productos lácteos
+~Elaboración de productos de molinería, almidones y productos derivados del almidón.
+1061~Elaboración de productos de molinería.
+1062~Elaboración de almidones y productos elaborados del almidón.
+~Elaboración de otros productos alimenticios
+1071~Elaboración de productos de panadería
+1072~Elaboración de azúcar
+1073~Elaboración de cacao, chocolate y productos de confitería
+1074~Elaboración de macarrones, fideos, cuscús y productos farináceos similares
+1075~Elaboración de comidas y platos preparados
+1079~Elaboración de otros prroductos alimenticios n.c.p.
+1080~Elaboración de alimentos preparados para animales
+~Elaboración de bebidas
+~Elaboración de bebidas
+1101~Destilación, rectificación y mezcla de bebidas alcohólicas
+1102~Elaboración de vinos
+1103~Elaboración de bebidas malteadas y de malta
+1104~Elaboración de bebidas no alcohólicas; producción de aguas minerales y aguas embotellada
+1200~Elaboración de productos de tabaco
+~Fabricación de productos textiles
+~Hiladura, tejedura y acabados de productos textiles
+1311~Preparación e hiladura de fibras textiles
+1312~Tejedura de productos textiles
+1313~Acabado de productos textiles
+~Fabricación de otros productos textiles
+1321~Fabricación de tejidos y tela de punto (Crocheted o Ganchillo))
+1322~Fabricación de artículos confeccionados con textiles, excepto prendas de vestir
+1323~Fabricación de tapices y alfombras
+1324~Fabricación de cuerdas, cordeles, bramantes y redes
+1329~Fabricación de otros textiles n.c.p.
+~Fabricación de prendas de vestir
+1410~Fabricación de prendas de vestir, excepto prendas de piel
+1420~Fabricación de artículos de piel
+1430~Fabricación de prendas de tejidos y de punto crocheted
+~Fabricación de cueros y productos conexos
+~Curtido y adobo de cueros; fabricación de maletas, bolsos de mano, y artículos de talabartería y guarnicionería; adobo y teñido de pieles
+1511~Curtido y adobo de cueros; adobo y teñido de pieles
+1512~Fabricación de maletas, bolsos de mano, y artículos de talabartería y guarnicionería
+1520~Fabricación de calzado
+~Producción de madera y fabricación de productos de madera y corcho, excepto muebles; fabricación de artículos de paja y de materiales trenzables.
+1610~Aserrados y acepilladura de madera
+~Fabricación de productos de madera, corcho, paja y materiales trenzables.
+1621~Fabricación de hojas de madera para enchapado;fabricación de tableros contrachapados, tableros laminados, tableros de partículas y otros tableros y paneles
+1622~Fabricación de partes y piezas de carpimtería para edificios y construcciones
+1623~Fabricación de recipientes de madera
+1629~Fabricación de otros productos de madera; fabricación de artículos de corcho, paja y materiales trenzables.
+~Fabricación de papel y de los productos de papel
+~Fabricación de papel y de los productos de papel
+1701~Fabricación de pulpa, papel y cartón
+1702~Fabricación del papel y cartón ondulado y de envases de papel y cartón
+1709~Fabricación de otros artículos del papel y cartón
+~Actividades de impresión y reproducción de grabaciones
+~Actividades de impresión y servicios conexos
+1811~Actividades de impresión
+1812~Servicios relacionados con la impresión
+1820~Reproducción de grabaciones
+~Fabricación de coque y de productos de la refinación del petróleo
+1910~Fabricación de productos de horno de coque
+1920~Fabricación de los productos de la refinación del petróleo
+~Fabricación de sustancias y productos químicos
+~Fabricación de sustancias químicas básicas, abonos y compuestos de nitrógeno, plásticos y caucho sintético en formas primarias
+2011~Fabricación de sustancias químicas básicas
+2012~Fabricación abonos y compuestos de nitrógeno
+2013~Fabricación de plásticos y de caucho sintético en formas primarias
+~Fabricación de otros productos químicos
+2021~Fabricación de pesticidas y de otros productos químicos de uso agropecuario
+2022~Fabricación de pinturas, barnices y productos de revestimiento similares, tintas de imprenta y masillas
+2023~Fabricación de jabones y detergentes, preparados para limpiar y pulir, perfumes y preparados de tocador.
+2029~Fabricación de otros productos químicos n.c.p.
+2030~Fabricación de fibras manufacturadas
+2100~Fabricación de productos farmacéuticos, sustancias químicas medicinales y de productos botánicos
+~Fabricación de productos de caucho y plástico
+~Fabricación de productos de caucho
+2211~Fabricación de cubiertas y cámaras de caucho;recauchutado y renovación de cubiertas de caucho
+2219~Fabricación de otros productos de caucho
+2220~Fabricación de productos de plástico
+~Fabricación de otros productos minerales no metálicos
+2310~Fabricación de vidrio y de productos de vidrio
+~Fabricación de productos minerales no metálicos n.c.p.
+2391~Fabricación de productos refractarios
+2392~Fabricación de materiales de arcilla para la construcción
+2393~Fabricación de otros productos de cerámica y porcelana
+2394~Fabricación de cemento, de la cal y del yeso
+2395~Fabricación de artículos de hormigón, de cemento y de yeso
+2396~Corte, tallado y acabado de la piedra
+2399~Fabricación de otros productos minerales no metálicos n.c.p.
+~Fabricación de metales comunes
+2410~Industrias básicas de hierro y acero básicos
+2420~Fabricación de productos primarios de metales preciosos y metales no ferrosos
+~Fundición de metales
+2431~Fundición de hierro y acero
+2432~Fundición de metales no ferrosos
+~Fabricación de productos derivados del metal, excepto maquinaria y equipo
+~Fabricación de productos metálicos para uso estructural, tanques, depósitos y los generadores de vapor
+2511~Fabricación de productos metálicos para uso estructural
+2512~Fabricación de tanques, depósitos y recipientes de metal
+2513~Fabricación de los generadores del vapor, excepto calderas de agua caliente para calefacción central
+2520~Fabricación de armas y municiones
+~Fabricación de otros productos elaborados de metal; actividades de trabajo de metales
+2591~Forja, prensado, estampado y laminado de metales; pulvimetalurgia
+2592~Fabricación,Tratamiento y revestimiento de metales
+2593~Fabricación de artículos de cuchillería, herramientas de mano y artículos de ferretería
+2599~Fabricación de otros productos de metal n.c.p.
+~Fabricación de los productos informáticos, electrónicos y ópticos
+2610~Fabricación de productos electrónicos
+2620~Fabricación de computadoras y equipo periférico
+2630~Fabricación de equipos de comunicaciones
+2640~Fabricación de aparatos electrónicos de consumo
+~Fabricación de equipos para medir, verificar, y navegar y de equpos de control, y relojes de todo tipo
+2651~Fabricación de equipos para medir, verificar, y navegar y de equipos de control
+2652~Fabricación de todo tipo de relojes
+2660~Fabricación de equipos rediológicos, electromédicos y electroterapeúticos
+2670~Fabricación de instrumentos y equipo óptico
+2680~Fabricación de soportes magnéticos y ópticos
+~Fabricación de equipo eléctrico
+2710~Fabricación de motores eléctricos, generadores, transformadores eléctricos, distribución de la electricidad y aparato del control
+2720~Fabricación de baterias y acumuladores
+~Fabricación de cables y dispositivos de cableado
+2731~Fabricación de cables de fibra óptica
+2732~Fabricación de otros cables eléctricos y electrónicos
+2733~Fabricación de dispositivos de cableado
+2740~Fabricación de equipos de iluminación eléctricos
+2750~Fabricación de aparatos de uso doméstico
+2790~Fabricación de otro equipo eléctrico
+~Fabricación de la maquinaria y equipo n.c.p.
+~Fabricación de la maquinaria de uso general
+2811~Fabricación de motores y turbinas, excepto motores para aeronaves, vehículos automotores y motocicletas
+2812~Fabricación de equipos hidráulicos
+2813~Fabricación de bombas, compresores, grifos y válvulas
+2814~Fabricación de cojinetes, engranajes, trenes de engranajes y piezas de transmisión
+2815~Fabricación de hornos, hogares y quemadores
+2816~Fabricación de equipo de elevación y manipulación
+2817~Fabricación de maquinaria y equipo de oficina (excepto computadoras y equipos periféricos)
+2818~Fabricación de herramientas manuales
+2819~Fabricación de otros tipos de maquinaria de uso general
+~Fabricación de maquinaria de uso especial
+2821~Fabricación de maquinaria agropecuaria y forestal
+2822~Fabricación de maquinarias de metal formación y máquinas herramientas
+2823~Fabricación de maquinaria para metalúrgica
+2824~Fabricación de maquinaria para explotación de minas y canteras y para obras de construcción
+2825~Fabricación de maquinaria para la elaboración de alimentos, bebidas y tabaco
+2826~Fabricación de maquinaria para la elaboración de productos textiles, prendas de vestir y cueros
+2829~Fabricación de otros tipos de maquinaria de uso especial
+~Fabricación de vehículos automotores, remolques y semirremolques
+2910~Fabricación de vehículos automotores
+2920~Fabricación de carrocerias para vehículos automotores; fabricación de remolques y semiremolques
+2930~Fabricación de partes y accesorios para motores de vehículos
+~Fabricación de otros tipos de equipo de transporte
+~Construcción de buques y otras embarcaciones
+3011~Construcción de buques y estructuras flotantes
+3012~Construcción de embarcaciones de recreo y deporte
+3020~Fabricación de locomotoras y de material rodante
+3030~Fabricación de aeronaves y naves espaciales y de maquinaria conexa
+3040~Fabricación de vehículos militares de combate
+~Fabricación de tipos de equipo de transporte n.c.p.
+3091~Fabricación de motocicletas
+3092~Fabricación de bicicletas y sillas de ruedas para inválidos
+3099~Fabricación de otros tipos de equipo de transporte n.c.p.
+3100~Fabricación de muebles
+~Otras industrias manufactureras
+~Fabricación de joyas, bisutería y artículos conexos
+3211~Fabricación de joyas y artículos conexos
+3212~Fabricación de joyas de imitación y artículos conexos
+3220~Fabricación de Instrumentos musicales
+3230~Fabricación de artículos de deporte
+3240~Fabricación de juegos y juguetes
+3250~Fabricación de instrumentos y suministros médicos y dentales
+3290~Otras industrias manufactureras n.c.p.
+~Reparación e instalación de la maquinaria y equipo
+~Reparación de productos elaborados de metal, maquinaria y equipos
+3311~Reparación de productos elaborados de metal
+3312~Reparación de maquinaria
+3313~Reparación de equipo electrónico y óptico
+3314~Reparación de equipo eléctrico
+3315~Reparación de equipo de transporte, excepto los vehículos automotores
+3319~Reparación de equipo de otro tipo
+3320~Instalación de maquinaria y equipo industrial

@@ -1,0 +1,18 @@
+Garantia~NombreGarantia~Descripcion
+1~GARANTÍA PRENDARIA~Contrato por el cual el deudor o un tercero dan al acreedor una cosa mueble, en seguridad, del crédito, la cual deberá restituirse al quedar extinguida la obligación (C.C. Art. 1837 y 1843). La prenda, no se perfecciona por el simple consentimiento sino p
+2~GARANTÍA HIPOTECARIA (MOBILIARIA)~Contrato por medio del cual se constituye un gravamen sobre bienes muebles, mediante el registro del documento correspondiente y sin necesidad de que la cosa sea entregada al acreedor o a un tercero. Es oponible incluso frente a los terceros de buena fe q
+3~GARANTÍA HIPOTECARIA (INMOBILIARIA)~Contrato por medio del cual se constituye una seguridad o garantía real e indivisible, que consiste en la afectación de un bien al pago de una obligación, sin que haya desposesión actual del constituyente y que le permite al acreedor hipotecario, vencido 
+4~DOCUMENTOS MERCANTILES~Escritos de diferente naturaleza que demuestran la existencia de una operación mercantil y que a la vez puedan ser cedidos a terceros en garantía.
+5~GARANTÍA DE PRENDA SIN DESPLAZAMIENTO DE POSESIÓN~Contrato por el cual se constituye un gravamen sobre bienes muebles, mediante el registro del documento correspondiente y sin necesidad de que la cosa  sea entregada al acreedor o a un tercero. No es oponible contra terceros. Es de hacer notar, que los bi
+6~GARANTÍA FIDUCIARIA~Negocio por medio del cual se procura la más fácil satisfacción de un derecho de crédito [se transfiere un bien, en lugar de constituir una garantía real, por suministro de dinero recibido).
+7~AVAL~Es una clase especial de garantía personal, que es prestada en forma cambiaria y tiene por finalidad reforzar el crédito de la letra de cambio frente a sus eventuales portadores. El avalista se obliga de la misma manera que aquel por el cual se ha constit
+8~FIANZA~Contrato por el cual una o más personas responden de una obligación ajena, comprometiéndose para con el acreedor a cumplirla en todo o en parte, si el deudor principal no la cumple. En materia mercantil: La Fianza es mercantil aunque  el fiador no sea com
+9~OTRAS GARANTÍAS RECIBIDAS~Cualquier tipo de seguridad contra alguna eventualidad, constituida por un garante, quien tiene la obligación de asegurar el cumplimiento de lo pactado.
+10~SIN GARANTÍAS~Estipulación expresa, mediante la cual denota que la obligación que se está asumiendo no la respalda ningún tipo de seguridad o garantía
+11~GARANTÍA DE INSTITUCIONES FINANCIERAS~Son aquellas garantías, ya sean reales o personales, otorgadas por un Banco, Institución Financiera o Entidad de Ahorro y Préstamo, para responder por la o las obligaciones contraídas por una persona, ya sea natural o jurídica, con otro Banco, Institución
+12~GARANTÍA DE TÍTULOS VALORES~Es aquel tipo de prenda, que se constituye sobre títulos de créditos, ya sean pagarés, cheques, letras de cambio, certificados a plazo, etc.
+13~CO-SOLICITANTE DE CRÉDITO HIPOTECARIO~Cuando existen varias personas naturales o jurídicas en calidad de deudores principales de una misma obligación, se entenderá que existen co-solicitantes o co-deudores, quienes pueden responder cada uno de ellos por toda la deuda.
+14~CO-SOLICITANTE OTROS TIPOS DE CRÉDITOS~-
+15~CO-SOLICITANTE L.P.H.~-
+16~GARANTÍA DE RETENCIONES~-
+17~BIENES EMBARGADOS~-

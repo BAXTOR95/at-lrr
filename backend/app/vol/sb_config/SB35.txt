@@ -1,0 +1,6 @@
+Codigo_Situacion_Credito~Nombre_Situacion_Credito
+0~NO APLICA
+1~VIGENTE
+2~REESTRUCTURADO
+3~VENCIDO
+4~LITIGIO

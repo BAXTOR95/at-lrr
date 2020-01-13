@@ -1,0 +1,6 @@
+Codigo_Zona~Descripcion_Zona
+0~No Aplica
+1~De interés turístico.
+2~Con potencial turístico.
+3~De desarrollo endógeno turístico.
+4~Otros sitios turísticos

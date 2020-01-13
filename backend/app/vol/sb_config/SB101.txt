@@ -1,0 +1,5 @@
+Codigo_Segmento~Descripcion__Segmento
+0~NO APLICA
+1~SEGMENTO A
+2~SEGMENTO B
+3~SEGMENTO C

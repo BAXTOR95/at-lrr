@@ -1,0 +1,116 @@
+Codigo_Destino~Descripcion_Destino
+0~No aplica
+1000~Actividades de comercialización
+1100~Comercio al por mayor
+1102~Producto animal  ganado
+1103~Producto animal aves
+1104~Producto animal pesquero
+1105~Granos, semillas, cereales y oleaginosas
+1106~Alimentos concentrados para animales
+1107~Prendas de vestir y cuero
+1108~Textiles
+1109~Madera, papel y derivados
+1110~Porcelana, loza, vidrio para la construcción
+1111~Productos de tocador y de belleza
+1112~Productos de limpieza
+1113~Artículos del hogar, electrodomésticos  y refrigeración
+1114~Computación
+1115~Juguetes y artículos de diversión
+1116~Artículos deportivos
+1200~Comercio al por menor
+1201~Productos alimentarios procesados , bebidas y tabaco (panaderías, tabaquerías, confiterías, areperas,  servicios de comida rápida)
+1202~Producto animal  ganado (carnicerías, camiones cava para el comercio  de carne en  forma informal)
+1203~Producto animal aves (carnicerías, camiones cava para el comercio  de carne de ave en  forma informal)
+1204~Producto animal pesquero (pescaderías, camiones cava para el comercio  de pescado en  forma informal)
+1205~Granos, semillas, cereales y oleaginosas
+1206~Alimentos concentrados para animales
+1207~Prendas de vestir y cuero
+1208~Calzado
+1209~Textiles
+1210~Madera, papel y derivados (librerías, papelerías, comercio informal de material de papel y derivados, etc )
+1211~Productos de porcelana, loza y vidrio 
+1212~Productos de tocador y de belleza 
+1213~Productos de limpieza
+1214~Artículos del hogar, electrodomésticos  y refrigeración
+1215~Computación
+1216~Juguetes y artículos de diversión
+1217~Artículos deportivos
+1218~Productos de orfebrería (joyas, bisutería, etc)
+1219~Expendio de comidas y bebidas en restaurantes, cafés y otros establecimientos de mesa y /o tocador
+1220~Expendio de comidas y bebidas en  unidades móviles de mesa y /o tocador (léase carritos ambulantes de comida permisados)
+1221~Floristería
+1222~Otros
+2000~Prestación de servicios
+2100~Transporte público para rutas urbanas y troncales
+2101~Compra de unidades de transporte público
+2102~Compra de piezas, partes, repuestos ,etc
+2103~Latonería menor y tapicería de unidades
+2104~Pago de cupo en líneas  de transporte colectivo (cooperativas)
+2105~Servicios conexos con los de transporte
+2106~Otros
+2200~Servicios comunales, sociales y personales
+2201~Servicios médicos
+2202~Servicios odontológicos
+2203~Servicios veterinarios
+2204~Instrucción y enseñanza
+2205~Servicios de saneamiento y similares (recolección de desechos y reciclaje)
+2206~Servicios de tratamiento de belleza (peluquerías, depilación, masajes, limpieza e hidratación,  etc)
+2207~Servicios de telecomunicaciones (centros de comunicaciones y conexos, centros de computación, etc)
+2208~Sastrerías  y costurera (reparación y reciclaje de prendas de vestir)
+2209~Servicio de reparación de artículos del hogar 
+2210~Servicios relacionados con el arte cinematográfico y de televisión
+2211~Servicios relacionados con espectáculos teatrales y musicales
+2212~Servicios de museos y bibliotecas
+2213~Servicio de reparaciones menores en los hogares (plomería, albañilería,  herrería,  jardinería, etc)
+2214~Servicios de reparación de vehículos de transporte (talleres mecánicos)
+2215~Servicios de lavandería
+2216~Servicios domésticos
+2217~Servicios de seguridad y vigilancia
+2218~Servicios funerarios
+2219~Servicios comunales,  sociales y personales no clasificados
+2220~Servicios conexos en el área agrícola
+2221~Otros 
+3000~Transformación y producción industrial
+3001~Fabricación de productos alimentarios, bebidas y tabacos
+3002~Fabricación de textiles, prendas de vestir y cuero 
+3003~Fabricación de productos de madera incluyendo muebles 
+3004~Fabricación de pulpa de madera, papel y cartón
+3005~Fabricación de objetos de barro, loza  y porcelana
+3006~Fabricación de muebles de hierro o metálicos
+3007~Fabricación de productos metálicos
+3008~Fabricación de productos no metálicos  (orfebrería)
+3009~Fabricación de productos de tocador (jabones, perfumes, otros)
+3010~Fabricación de jabones y preparados de limpieza 
+3011~Fabricación de juguetes de plástico, piñatería, y otros. 
+3012~Fabricación de productos de vidrio
+3013~Fabricación de productos de plástico (utensilios, herramientas, envases, etc).
+4000~Agrícola
+4100~Agrícola vegetal
+4101~Siembra y cultivo de cereales
+4102~Siembra y cultivo de hortalizas
+4103~Siembra y cultivo de oleaginosas
+4104~Siembra y cultivo de raíces y tubérculos
+4105~Siembra y cultivo de leguminosas
+4106~Siembra y cultivo de frutales
+4107~Siembra y cultivo de algodón y sisal
+4108~Otros cultivos
+4200~Agrícola animal
+4201~Cría de aves
+4202~Cría de animal bovino
+4203~Cría de animal porcino
+4204~Cría  de animal ovino
+4300~Agrícola pesquero
+4301~Cría  de animales acuáticos
+4302~Cría  de animales acuáticos de forma artesanal
+4303~Pesca marítima artesanal
+4400~Agrícola  forestal
+4401~Siembra de árboles para la producción de madera
+4500~Unidades productivas mixtas
+4501~Conuco
+5000~Artesanal
+5001~Fabricación de productos alimentarios, bebidas y tabacos de forma artesanal
+5002~Fabricación de productos de madera incluyendo muebles de forma artesanal
+5003~Fabricación de productos de tocador (jabones, perfumes, otros) de forma artesanal
+5004~Fabricación de jabones y preparados de limpieza de forma artesanal
+5005~Otros
+1101~Productos alimentarios procesados , bebidas y tabaco

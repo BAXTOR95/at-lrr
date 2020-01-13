@@ -1,0 +1,5 @@
+Codigo_Plazo~Nombre_Plazo
+0~NO APLICA
+C~CORTO
+M~MEDIANO
+L~LARGO

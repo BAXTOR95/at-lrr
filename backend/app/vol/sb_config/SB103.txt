@@ -1,0 +1,7 @@
+Tipo_Subsector~Descripcion_Tipo_Subsector
+0~No aplica
+1~Vegetal
+2~Pecuario
+3~Forestal
+4~Pesquero y acuícola
+5~Servicio

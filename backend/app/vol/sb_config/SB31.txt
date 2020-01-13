@@ -1,0 +1,4 @@
+Codigo_Indicador~Descripcion_Codigo_Indicador
+0~NO APLICA
+1~NO
+2~SI

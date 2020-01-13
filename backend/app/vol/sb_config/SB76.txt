@@ -1,0 +1,4 @@
+Codigo_Naturaleza~Descripcion_Naturaleza
+1~PERSONA NATURAL
+2~PERSONA JURÍDICA
+3~ORGANISMO OFICIAL
