@@ -27,7 +27,10 @@ def fill_table_SB(apps, schema_editor):
 
     objs = [
 
-        SB03()
+        SB03(
+            Codigo_Pais=row['Codigo_Pais'],
+            Nombre_Pais=row['Nombre_Pais']
+        )
 
         for index, row in row_iter
 
