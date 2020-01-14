@@ -1,4 +1,4 @@
-Codigo_Segmento~Descripcion__Segmento
+Codigo_Segmento~Descripcion_Segmento
 0~NO APLICA
 1~SEGMENTO A
 2~SEGMENTO B

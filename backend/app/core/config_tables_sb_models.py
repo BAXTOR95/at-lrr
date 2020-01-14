@@ -9,7 +9,7 @@ class SB03(models.Model):
     Nombre_Pais = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.Codigo_Pais
+        return str(self.Codigo_Pais)
 
 
 class SB09(models.Model):
@@ -18,7 +18,7 @@ class SB09(models.Model):
     Nombre_Tipo_Credito = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.Tipo_Credito
+        return str(self.Tipo_Credito)
 
 
 class SB10(models.Model):
@@ -27,7 +27,7 @@ class SB10(models.Model):
     Nombre_Actividad = models.CharField(max_length=300)
 
     def __str__(self):
-        return self.Actividad_Economica
+        return str(self.Actividad_Economica)
 
 
 class SB11(models.Model):
@@ -37,20 +37,23 @@ class SB11(models.Model):
     Descripcion = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.Garantia
+        return str(self.Garantia)
 
 
 class SB15(models.Model):
     """SB15 - Moneda configuration table model"""
-    Moneda = models.CharField(max_length=3, primary_key=True)
+    Moneda = models.CharField(max_length=3, null=False)
     Nombre_Moneda = models.CharField(max_length=50)
-    Pais = models.CharField(max_length=2)
+    Pais = models.CharField(max_length=2, null=False)
     Moneda_Secore = models.CharField(max_length=5)
     Moneda_RDWH = models.CharField(max_length=5)
     Moneda_UltraSec = models.CharField(max_length=5)
 
+    class Meta:
+        unique_together = (('Moneda', 'Nombre_Moneda', 'Pais'),)
+
     def __str__(self):
-        return self.Moneda
+        return str(self.Moneda)
 
 
 class SB16(models.Model):
@@ -59,7 +62,7 @@ class SB16(models.Model):
     Nombre_Tipo_Persona = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.Codigo_Tipo_Persona
+        return str(self.Codigo_Tipo_Persona)
 
 
 class SB19(models.Model):
@@ -68,7 +71,7 @@ class SB19(models.Model):
     NombreClasificacion_Riesgo = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.Clasificacion_Riesgo
+        return str(self.Clasificacion_Riesgo)
 
 
 class SB30(models.Model):
@@ -77,7 +80,7 @@ class SB30(models.Model):
     Nombre_Periodicidad = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.Periodicidad
+        return str(self.Periodicidad)
 
 
 class SB31(models.Model):
@@ -86,7 +89,7 @@ class SB31(models.Model):
     Descripcion_Codigo_Indicador = models.CharField(max_length=10)
 
     def __str__(self):
-        return self.Codigo_Indicador
+        return str(self.Codigo_Indicador)
 
 
 class SB34(models.Model):
@@ -95,7 +98,7 @@ class SB34(models.Model):
     Nombre_Estado_Credito = models.CharField(max_length=30)
 
     def __str__(self):
-        return self.Codigo_Estado_Credito
+        return str(self.Codigo_Estado_Credito)
 
 
 class SB35(models.Model):
@@ -104,7 +107,7 @@ class SB35(models.Model):
     Nombre_Situacion_Credito = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.Codigo_Situacion_Credito
+        return str(self.Codigo_Situacion_Credito)
 
 
 class SB59(models.Model):
@@ -113,7 +116,7 @@ class SB59(models.Model):
     Descripcion_Genero = models.CharField(max_length=10)
 
     def __str__(self):
-        return self.Genero
+        return str(self.Genero)
 
 
 class SB66(models.Model):
@@ -122,7 +125,7 @@ class SB66(models.Model):
     Descripcion_Codigo_Uso = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.Codigo_Uso
+        return str(self.Codigo_Uso)
 
 
 class SB67(models.Model):
@@ -131,7 +134,7 @@ class SB67(models.Model):
     Unidad_Medida = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.Codigo_Medida
+        return str(self.Codigo_Medida)
 
 
 class SB68(models.Model):
@@ -140,7 +143,7 @@ class SB68(models.Model):
     Nombre_Plazo = models.CharField(max_length=30)
 
     def __str__(self):
-        return self.Codigo_Plazo
+        return str(self.Codigo_Plazo)
 
 
 class SB76(models.Model):
@@ -149,7 +152,7 @@ class SB76(models.Model):
     Descripcion_Naturaleza = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.Codigo_Naturaleza
+        return str(self.Codigo_Naturaleza)
 
 
 class SB81(models.Model):
@@ -158,7 +161,7 @@ class SB81(models.Model):
     Descripcion_Modalidad = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.Codigo_Modalidad
+        return str(self.Codigo_Modalidad)
 
 
 class SB82(models.Model):
@@ -167,7 +170,7 @@ class SB82(models.Model):
     Uso_Financiero = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.Codigo_Uso_Financiero
+        return str(self.Codigo_Uso_Financiero)
 
 
 class SB83(models.Model):
@@ -176,7 +179,7 @@ class SB83(models.Model):
     Descripcion_Destino = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.Codigo_Destino
+        return str(self.Codigo_Destino)
 
 
 class SB85(models.Model):
@@ -185,7 +188,7 @@ class SB85(models.Model):
     Descripcion_Tipo_Proyecto = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.Tipo_Proyecto
+        return str(self.Tipo_Proyecto)
 
 
 class SB87(models.Model):
@@ -194,7 +197,7 @@ class SB87(models.Model):
     Descripcion_Sector = models.CharField(max_length=150)
 
     def __str__(self):
-        return self.Codigo_Sector
+        return str(self.Codigo_Sector)
 
 
 class SB88(models.Model):
@@ -212,7 +215,7 @@ class SB90(models.Model):
     Descripcon_Modalidad = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.Codigo_Modalidad
+        return str(self.Codigo_Modalidad)
 
 
 class SB92(models.Model):
@@ -221,7 +224,7 @@ class SB92(models.Model):
     Descripcion_Destino = models.CharField(max_length=250)
 
     def __str__(self):
-        return self.Codigo_Destino
+        return str(self.Codigo_Destino)
 
 
 class SB100(models.Model):
@@ -230,7 +233,7 @@ class SB100(models.Model):
     Descripcion_Tipo_Operaciones = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.Tipo_Operaciones
+        return str(self.Tipo_Operaciones)
 
 
 class SB101(models.Model):
@@ -239,7 +242,7 @@ class SB101(models.Model):
     Descripcion_Segmento = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.Codigo_Segmento
+        return str(self.Codigo_Segmento)
 
 
 class SB102(models.Model):
@@ -248,7 +251,7 @@ class SB102(models.Model):
     Descripcion_Zona = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.Codigo_Zona
+        return str(self.Codigo_Zona)
 
 
 class SB103(models.Model):
@@ -257,7 +260,7 @@ class SB103(models.Model):
     Descripcion_Tipo_Subsector = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.Tipo_Subsector
+        return str(self.Tipo_Subsector)
 
 
 class SB105(models.Model):
@@ -266,7 +269,7 @@ class SB105(models.Model):
     Descripcion_Destino = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.Codigo_Destino
+        return str(self.Codigo_Destino)
 
 
 class SB136(models.Model):
@@ -276,7 +279,7 @@ class SB136(models.Model):
     Definicion_Tipo_Industria = models.CharField(max_length=300)
 
     def __str__(self):
-        return self.Codigo_Tipo_Industria
+        return str(self.Codigo_Tipo_Industria)
 
 
 class SB137(models.Model):
@@ -286,7 +289,7 @@ class SB137(models.Model):
     Definicion_Tipo_Beneficiario = models.CharField(max_length=300)
 
     def __str__(self):
-        return self.Codigo_Tipo_Beneficiario
+        return str(self.Codigo_Tipo_Beneficiario)
 
 
 class SB138(models.Model):
@@ -295,7 +298,7 @@ class SB138(models.Model):
     Nombre_Tipo_Vivienda = models.CharField(max_length=30)
 
     def __str__(self):
-        return self.Codigo_Tipo_Vivienda
+        return str(self.Codigo_Tipo_Vivienda)
 
 
 class SB140(models.Model):
@@ -305,4 +308,4 @@ class SB140(models.Model):
     Definicion_Tipo_Beneficiario = models.CharField(max_length=300)
 
     def __str__(self):
-        return self.Codigo_Tipo_Beneficiario
+        return str(self.Codigo_Tipo_Beneficiario)

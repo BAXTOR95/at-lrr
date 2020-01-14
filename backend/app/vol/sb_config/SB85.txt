@@ -1,4 +1,4 @@
-Tipo_Proyecto~Descripcion__Tipo_Proyecto
+Tipo_Proyecto~Descripcion_Tipo_Proyecto
 0~NO APLICA
 1~NUEVOS EMPRENDEDORES
 2~HOTEL
