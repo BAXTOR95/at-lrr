@@ -14,6 +14,8 @@ from django.utils import timezone
 
 from rest_framework.authtoken.models import Token
 
+from django.utils.translation import gettext_lazy as _
+
 
 EXPIRE_HOURS = getattr(settings, 'REST_FRAMEWORK_TOKEN_EXPIRE_HOURS', 24)
 
@@ -80,7 +82,33 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class File(models.Model):
     """Custom file model that supports uploading a file"""
+
+    class TypeCD(models.TextChoices):
+        AH = 'AH', _('Account History')
+        AT04CRE = 'AT04CRE', _('AT04 CRE')
+        AT07 = 'AT07', _('AT07')
+        BBAT = 'BBAT', _('Bal By Acct Transformada')
+        CND = 'CND', _('Cartera No Dirigida')
+        CD = 'CD', _('Cartera Dirigida')
+        FDN = 'FDN', _('Fecha de Nacimiento')
+        GICG = 'GICG', _('Gavetas ICG')
+        LNP860 = 'LNP860', _('LNP860')
+        MM = 'MM', _('Migrate Mortgage')
+        MISP = 'MISP', _('MIS Provisiones')
+        PPRRHH = 'PPRRHH', _('Prestamos sobre Prestaciones RRHH')
+        RICG = 'RICG', _('Rendimientos ICG')
+        SIIF = 'SIIF', _('SIIF')
+        SC = 'SC', _('Sobregiros Consumer')
+        VNP003T = 'VNP003T', _('VNP003T')
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        default=None
+    )
     file = models.FileField(blank=False, null=False)
+    resource_name = models.CharField(
+        max_length=50, choices=TypeCD.choices, default='')
 
     def __str__(self):
         return self.file.name
