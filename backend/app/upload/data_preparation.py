@@ -183,5 +183,8 @@ class DataPreparation():
         at04cre.MA1AMONTOAVENCER = at04cre.MA1AMONTOAVENCER.apply(
             lambda x: x/100)
 
+        at04cre['MakerDate'] = datetime.date.today
+        at04cre['MakerUser'] = user
+
         # TODO: Make it so the file is always saved as .txt
         at04cre.to_csv(path, sep='~', date_format='%d/%m/%Y', index=False)
