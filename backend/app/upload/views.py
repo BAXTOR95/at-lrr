@@ -1,17 +1,16 @@
-from rest_framework.decorators import action
+# from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework import viewsets, mixins, status, generics, permissions
+from rest_framework import viewsets, mixins, status  # , generics, permissions
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import FileUploadParser
-from rest_framework.views import APIView
+# from rest_framework.views import APIView
 
 from upload.serializers import FileSerializer
 
 from core.models import File
-from upload import serializers
 
-import pandas as pd
+# import pandas as pd
 
 
 class BaseFileAttr(viewsets.GenericViewSet,
@@ -67,6 +66,19 @@ class FileUploadView(viewsets.ModelViewSet):
         #     return serializers.FileSerializer
 
         return self.serializer_class
+
+    def post(self, request, *args, **kwargs):
+        """POST method for uploading the file"""
+        file_serializer = self.serializer_class(data=request.data)
+
+        if file_serializer.is_valid():
+            file_serializer.save()
+            # print('URL: ', file_serializer.url)
+            print('Path: ', file_serializer.data['file'])
+            # print('User: ', request.user)
+            return Response(file_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # @action(methods=['POST'], detail=True, url_path='upload-file')
     # def upload_file(self, request):

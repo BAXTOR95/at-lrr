@@ -82,7 +82,7 @@ export class ResourcesUploadComponent implements OnInit {
       this.form.get('resource').setValue(file);
     }
   }
-
+  // TODO: Add support for multiple file upload
   submitFile() {
     this.inQuery = true;
     this.resource = this.resourceService.getSelectedResource();

@@ -15,6 +15,7 @@
                 formControlName="resource"
                 placeholder="Resource File Path"
                 required
+                multiple
               ></ngx-mat-file-input>
               <mat-icon matSuffix>folder</mat-icon>
               <mat-error *ngIf="form.get('resource').hasError('required')">
