@@ -4,7 +4,6 @@ from os.path import join
 from django.conf import settings
 
 import pandas as pd
-import numpy as np
 
 
 HLP = 6 # Hipotecario Largo Plazo
@@ -840,3 +839,336 @@ class DataPreparation():
 
         # TODO: Make so it saves the new file on the same path but with different name and extention
         mispf[columns].to_csv(path, sep='~', date_format='%d/%m/%Y', index=False)
+
+
+    def prestamo_prestaciones_hr(self, data, user):
+        """Prestamos para las Prestaciones RRHH resource Data Preparation"""
+
+        # TODO: Add a function that substracts the path, file name and extension of the path given
+        path = join(settings.WEB_ROOT, data['file'])
+
+        names = [
+            'GEID',
+            'IdentificacionCliente',
+            'NombreCliente',
+            'FechaOtorgamiento',
+            'MontoOriginal',
+            'SaldoActual',
+        ]
+
+        parse_dates = [
+            'FechaOtorgamiento',
+        ]
+
+        pphr = pd.read_excel(path,
+                             usecols='B:G',
+                             header=3,
+                             names=names,)
+
+        pphr.dropna(axis=0, subset=['MontoOriginal'], how="any", inplace=True)
+
+        pphr[parse_dates] = pphr[parse_dates].apply(
+            lambda x: pd.to_datetime(x, format='%Y%m%d', errors='coerce'))
+
+        pphr.insert(loc=1, column='TipoCliente', value='V')
+
+        # TODO: Make so it saves the new file on the same path but with different name and extention
+        pphr.to_csv(path, sep='~', date_format='%d/%m/%Y', index=False)
+
+
+    def rendimientos_icg(self, data, user):
+        """Rendimientos ICG resource Data Preparation"""
+
+        # TODO: Add a function that substracts the path, file name and extension of the path given
+        path = join(settings.WEB_ROOT, data['file'])
+
+        names = [
+            'Branch',
+            'LV',
+            'NombreVehiculo',
+            'Cuenta',
+            'DescripcionDeLaCuenta',
+            'Grupo',
+            'Pal',
+            'pal_cat_descr',
+            'Prod',
+            'prod_cat_descr',
+            'Referencia',
+            'Descripcion',
+            'A',
+            'FechaInicio',
+            'FechaFinal',
+            'B',
+            'C',
+            'BCV',
+            'Tasa',
+            'Debito',
+            'Credito',
+            'Saldo',
+            'Type',
+            'Type3dig',
+            'CuentaSIF',
+            'PorcentajeProvision',
+            'MontoProvision',
+        ]
+
+        parse_dates = [
+            'FechaCambioEstatusCredito',
+            'FechaRegistroVencidaLitigioCastigada',
+            'FechaExigibilidadPagoUltimaCuotaPagada',
+            'FechaEmisionCertificacionBeneficiarioEspecial',
+            'FechaFinPeriodoGraciaPagoInteres',
+            'FechaCambioEstatusCapitalTransferido'
+        ]
+
+        na_values = {
+            'ActividadCliente': '0',
+            'TipoGarantiaPrincipal': '0',
+        }
+
+        rend_icg = pd.read_excel(path, names=names)
+
+        rend_icg.FechaInicio =  pd.to_datetime(rend_icg.FechaInicio, format='%y%m%d')
+
+        # TODO: Make so it saves the new file on the same path but with different name and extention
+        rend_icg.to_csv(path, sep='~', date_format='%d/%m/%Y', index=False)
+
+
+    def siif(self, data, user):
+        """SIIF resource Data Preparation"""
+
+        # TODO: Add a function that substracts the path, file name and extension of the path given
+        path = join(settings.WEB_ROOT, data['file'])
+
+        converters = {
+            'BranchId':str,
+        }
+
+        parse_dates = [
+            'OpenDate',
+            'RecordDate',
+            'MaturityDate',
+            'CloseDate',
+            'BlockCode1Date',
+            'OrigOpenDate',
+            'Fecha_Cambio_Status',
+            'Fecha_Reg_Venc_Lit_cast',
+            'Fecha_Exigibilidad_pago_ult_cuota',
+            'Fecha_Fin_Periodo_gracia_Pago_interes',
+            'Fecha_cambio_Capital_Transferido'
+        ]
+
+        siif_df = pd.read_csv(path,
+                              sep='	',
+                              low_memory=False,
+                              encoding = "latin",
+                              parse_dates=parse_dates,
+                              converters=converters,)
+
+        siif_df.CreditLimit.replace(to_replace='Bs.S', value='', inplace=True, regex=True)
+        siif_df.Amt30DPD.replace(to_replace='Bs.S', value='', inplace=True, regex=True)
+        siif_df.Amt60DPD.replace(to_replace='Bs.S', value='', inplace=True, regex=True)
+        siif_df.Amt90DPD.replace(to_replace='Bs.S', value='', inplace=True, regex=True)
+        siif_df.Amt120DPD.replace(to_replace='Bs.S', value='', inplace=True, regex=True)
+        siif_df.Amt150DPD.replace(to_replace='Bs.S', value='', inplace=True, regex=True)
+        siif_df.Amt180DPD.replace(to_replace='Bs.S', value='', inplace=True, regex=True)
+        siif_df.Amt210DPD.replace(to_replace='Bs.S', value='', inplace=True, regex=True)
+        siif_df.SaldoCastigado.replace(to_replace='Bs.S', value='', inplace=True, regex=True)
+        siif_df.PrincipalBalance.replace(to_replace='Bs.S', value='', inplace=True, regex=True)
+
+        siif_df.CreditLimit = pd.to_numeric(siif_df.CreditLimit, errors='coerce')
+        siif_df.Amt30DPD = pd.to_numeric(siif_df.Amt30DPD, errors='coerce')
+        siif_df.Amt60DPD = pd.to_numeric(siif_df.Amt60DPD, errors='coerce')
+        siif_df.Amt90DPD = pd.to_numeric(siif_df.Amt90DPD, errors='coerce')
+        siif_df.Amt120DPD = pd.to_numeric(siif_df.Amt120DPD, errors='coerce')
+        siif_df.Amt150DPD = pd.to_numeric(siif_df.Amt150DPD, errors='coerce')
+        siif_df.Amt180DPD = pd.to_numeric(siif_df.Amt180DPD, errors='coerce')
+        siif_df.Amt210DPD = pd.to_numeric(siif_df.Amt210DPD, errors='coerce')
+        siif_df.SaldoCastigado = pd.to_numeric(siif_df.SaldoCastigado, errors='coerce')
+        siif_df.PrincipalBalance = pd.to_numeric(siif_df.PrincipalBalance, errors='coerce')
+
+        # TODO: Make it so the file is always saved as .txt
+        siif_df.to_csv(path, sep='~', date_format='%d/%m/%Y', index=False)
+
+
+    def sobregiros_consumer(self, data, user):
+        """Sobregiros Consumer resource Data Preparation"""
+
+        # TODO: Add a function that substracts the path, file name and extension of the path given
+        path = join(settings.WEB_ROOT, data['file'])
+
+        names = [
+            'BranchId',
+            'BranchDescription',
+            'CId',
+            'TipoPersona',
+            'Acct',
+            'OpenDate',
+            'Rate',
+            'MinBalance',
+            'Producto',
+            'Remunerada',
+            'TermDays',
+            'StatusId',
+            'StatusDescription',
+            'Balance',
+            'Overdraft',
+            'Nombre',
+            'MaturityDate',
+            'TypeId',
+            'DescriptionType',
+            'Opened',
+            'RecordDate',
+            'NA2',
+            'NA1',
+            'NTID',
+            'SEX',
+            'BDTE',
+            'CRCD',
+            'CPREF',
+            'OPDT',
+            'ACTI',
+            'OCCP',
+            'Fecha_Cambio_Estatus_Credito',
+            'Fecha_Registro_Vencida_Litigio_Castigada',
+            'Fecha_Exigibilidad_Pago_ultima_cuota_pagada',
+            'Capital_Transferido',
+            'Fecha_Cambio_Capital_Transferido',
+            'Riesgo',
+            'Provision',
+            'SaldoProvision',
+        ]
+
+        na_values = {
+            'MaturityDate': pd.to_datetime('1900-01-01'),
+        }
+
+        sobregiros_gcg = pd.read_excel(path, sheet_name=1, names=names)
+
+        sobregiros_gcg.fillna(value=na_values, inplace=True)
+
+        # TODO: Make so it saves the new file on the same path but with different name and extention
+        sobregiros_gcg.to_csv(path, sep='~', date_format='%d/%m/%Y', index=False)
+
+
+    def vnp003t(self, data, user):
+        """VNP003T resource Data Preparation"""
+
+        # TODO: Add a function that substracts the path, file name and extension of the path given
+        path = join(settings.WEB_ROOT, data['file'])
+
+        labels = [
+            'DBKA',
+            'DAPPNA',
+            'DACCTA',
+            'DSTATA',
+            'DTYPEA',
+            'DBRCHA',
+            'DOPDTA',
+            'DOFFA',
+            'DCBALA',
+            'DAVBLA',
+            'DRATEA',
+            'DCPRTA',
+            'LNBILA',
+            'LNACAA',
+            'LNFACA',
+            'LNDLRA',
+            'LNPDLA',
+            'LNMTDA',
+            'LNIDUA',
+            'LNPDTA',
+            'TMNXMA',
+            'TMTDYA',
+            'LND30A',
+            'LND60A',
+            'LND90A',
+            'LNACTA',
+            'LNPMPA',
+            'LNF11A',
+            'LNTRMA',
+            'LNFRTA',
+            'LNEONA',
+            'LNPAMA',
+            'DOY2AA',
+            'LNY2AA',
+            'TMY2AA',
+            'DMMBLA',
+            'DMMACA',
+            'DMSCOA',
+            'LNINBA',
+            'LNIVAA',
+            'LNLFDA',
+            'LY2ABA',
+            'LY2ACA',
+            'LXBI1A',
+            'LXBI2A',
+            'LXBP1A',
+            'LXBP2A',
+            'LNB12A',
+            'LY2ASA',
+            'LNASTA',
+            'LNTERF',
+            'LNCONF',
+            'LXCDTA',
+            'LXCPBL',
+            'LXCCPR',
+            'LXTREC',
+            'LXBLPR',
+            'LXBLIN',
+            'LXY2AJ',
+            'DXMTDA',
+            'LXY2AO',
+            'LNBLTY',
+            'DXDDRP',
+            'DXDDRA',
+            'DXSCDT',
+            'LXRENA',
+            'LXREFA',
+            'LXREBA',
+            'LXREPA',
+            'LXREOA',
+            'LXREIA',
+            'LXRIBA',
+            'VNDUEA',
+            'DEMPA',
+            'TNBFEE',
+            'TNCFEE',
+            'LXFLDO',
+            'LXINGF',
+            'LXFECC',
+            'LXUSRC',
+            'LXINGU',
+            'LXFECU',
+            'LXUSRU',
+            'LXAPRA',
+            'LXSALD',
+            'LXVAIN',
+            'LXADTE',
+            'LXAUSR',
+            'LXAPRU',
+            'LXSALU',
+            'LXVAIU',
+            'LXADTU',
+            'LXAUSU',
+            ]
+
+        fwidths = [3, 2, 12, 1, 3, 3, 7, 3, 14, 14, 8, 7, 1, 15, 14, 3, 3, 6, 14,
+                   2, 6, 5, 3, 3, 3, 16, 14, 14, 3, 7, 2, 16, 8, 8, 8, 12, 14, 3,
+                   2, 8, 12, 8, 8, 14, 14, 14, 14, 1, 8, 3, 3, 31, 8, 14, 14, 14,
+                   14, 14, 8, 14, 8, 1, 14, 14, 8, 12, 12, 12, 12, 3, 3, 3, 14, 1,
+                   15, 15, 1, 14, 8, 10, 14, 8, 10, 14, 14, 14, 8, 10, 14, 14, 14, 8, 10,]
+
+        vnp003t_df = pd.read_fwf(path, widths = fwidths, names = labels)
+
+        vnp003t_df.TNBFEE.replace(to_replace=' ', value='', inplace=True, regex=True)
+
+        vnp003t_df.TNBFEE = vnp003t_df.TNBFEE.astype('float64')
+
+        vnp003t_df.DOY2AA =  pd.to_datetime(vnp003t_df.DOY2AA, format='%Y%m%d', errors='coerce')
+        vnp003t_df.TMY2AA =  pd.to_datetime(vnp003t_df.TMY2AA, format='%Y%m%d', errors='coerce')
+        vnp003t_df.DOY2AA.fillna(pd.to_datetime('1900-01-01'), inplace=True)
+        vnp003t_df.TMY2AA.fillna(pd.to_datetime('1900-01-01'), inplace=True)
+
+        # TODO: Make so it saves the new file on the same path but with different name and extention
+        vnp003t_df.to_csv(path, sep='~', date_format='%d/%m/%Y', index=False)
