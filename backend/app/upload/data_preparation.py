@@ -1,6 +1,9 @@
-import datetime
+"""Data Preparation module"""
 
-from os.path import join
+import datetime
+import ntpath
+
+from os.path import join, dirname, abspath
 from django.conf import settings
 
 import pandas as pd
@@ -14,13 +17,31 @@ MANUFACTURA = 10 # Manufactura
 AGRICOLA_ICG = 11 # Agricola ICG
 AGRICOLA_OTHER_ICG = 12 # Agricola Other ICG
 
+
 class DataPreparation():
     """Data Preparation Class for every resource file"""
+
+    def path_leaf(self, path):
+        """Gets the name of the file (with its extention) from a given full path"""
+        head, tail = ntpath.split(path)
+        return tail or ntpath.basename(head)
+
+
+    def get_path_file(self, path):
+        """Gets the absolute path, file name and extension of the given full path to file"""
+
+        abs_dir = dirname(abspath(path))
+        f_name, f_ext = self.path_leaf(path).split('.')
+
+        return abs_dir, f_name, f_ext
+
 
     def account_history(self, data, user):
         """Account History resource Data Preparation"""
 
         path = join(settings.WEB_ROOT, data['file'])
+
+        abs_dir, f_name, _ = self.get_path_file(path)
 
         a_h = pd.read_csv(path, sep='~', low_memory=False)
 
@@ -71,76 +92,32 @@ class DataPreparation():
         a_h['MakerUser'] = user
 
         a_h.to_csv(
-            path, sep='~', date_format='%d/%m/%Y', index=False)
+            join(abs_dir, f_name + '.txt'),
+            sep='~', date_format='%d/%m/%Y', index=False)
 
     def at04_cre(self, data, user):
         """AT04CRE resource Data Preparation"""
 
         path = join(settings.WEB_ROOT, data['file'])
 
+        abs_dir, f_name, _ = self.get_path_file(path)
+
         labels = [
-            'BRANCH',
-            'REFERNO',
-            'LIQUFECHA',
-            'SOLIFECHA',
-            'APROFECHA',
-            'VCTOFECHA',
-            'VCTOULTINTER',
-            'VCTOULTPRINC',
-            'ORIGFECHA',
-            'PGTOULTCAPITAL',
-            'PGTOULTINTERES',
-            'BASECLI',
-            'RIFCLI',
-            'NOMECLI',
-            'SICVENCLI',
-            'SICUSACLI',
-            'NACICLI',
-            'DOMICLI',
-            'FECHACLI',
-            'LIABICLI',
-            'LIABNOMCLI',
-            'RIESGOCLI',
-            'ADDRESS1',
-            'ADDRESS2',
-            'ADDRESS3',
-            'ADDRESS4',
-            'ADDRESS5',
-            'ADDRESS6',
-            'ADDRESSEXTRA',
-            'CTRORG',
-            'QTDREN',
-            'MONEDA',
-            'PRODCAT',
-            'LV',
-            'STATUS',
-            'PLAZO',
-            'GENLEDGER',
-            'CREDITLINE',
-            'INTORIGTASA',
-            'CAMBIOTASA',
-            'COMISTASA',
-            'ORIGIMONTO',
-            'PAGOMESMONTO',
-            'PAGOTOTAL',
-            'SALDOMONTO',
-            'TOTALCUOTAS',
-            'PAGASCUOTAS',
-            'VENCIDACUOTAS',
-            'N030DMONTOVENCIDO',
-            'N060DMONTOVENCIDO',
-            'N090DMONTOVENCIDO',
-            'N120DMONTOVENCIDO',
-            'N180DMONTOVENCIDO',
-            'N360DMONTOVENCIDO',
-            'MA1AMONTOVENCIDO',
-            'N030DMONTOAVENCER',
-            'N060DMONTOAVENCER',
-            'N090DMONTOAVENCER',
-            'N120DMONTOAVENCER',
-            'N180DMONTOAVENCER',
-            'N360DMONTOAVENCER',
-            'MA1AMONTOAVENCER',
+            'BRANCH', 'REFERNO', 'LIQUFECHA', 'SOLIFECHA', 'APROFECHA',
+            'VCTOFECHA', 'VCTOULTINTER', 'VCTOULTPRINC', 'ORIGFECHA',
+            'PGTOULTCAPITAL', 'PGTOULTINTERES', 'BASECLI', 'RIFCLI',
+            'NOMECLI', 'SICVENCLI', 'SICUSACLI', 'NACICLI', 'DOMICLI',
+            'FECHACLI', 'LIABICLI', 'LIABNOMCLI', 'RIESGOCLI', 'ADDRESS1',
+            'ADDRESS2', 'ADDRESS3', 'ADDRESS4', 'ADDRESS5', 'ADDRESS6',
+            'ADDRESSEXTRA', 'CTRORG', 'QTDREN', 'MONEDA', 'PRODCAT',
+            'LV', 'STATUS', 'PLAZO', 'GENLEDGER', 'CREDITLINE', 'INTORIGTASA',
+            'CAMBIOTASA', 'COMISTASA', 'ORIGIMONTO', 'PAGOMESMONTO',
+            'PAGOTOTAL', 'SALDOMONTO', 'TOTALCUOTAS', 'PAGASCUOTAS',
+            'VENCIDACUOTAS', 'N030DMONTOVENCIDO', 'N060DMONTOVENCIDO',
+            'N090DMONTOVENCIDO', 'N120DMONTOVENCIDO', 'N180DMONTOVENCIDO',
+            'N360DMONTOVENCIDO', 'MA1AMONTOVENCIDO', 'N030DMONTOAVENCER',
+            'N060DMONTOAVENCER', 'N090DMONTOAVENCER', 'N120DMONTOAVENCER',
+            'N180DMONTOAVENCER', 'N360DMONTOAVENCER', 'MA1AMONTOAVENCER',
             'FILLER',
         ]
 
@@ -191,29 +168,23 @@ class DataPreparation():
         at04cre['MakerDate'] = datetime.date.today
         at04cre['MakerUser'] = user
 
-        # TODO: Make it so the file is always saved as .txt
-        at04cre.to_csv(path, sep='~', date_format='%d/%m/%Y', index=False)
+        at04cre.to_csv(
+            join(abs_dir, f_name + '.txt'),
+            sep='~', date_format='%d/%m/%Y', index=False)
 
     def at07(self, data, user):
         """AT07 resource Data Preparation"""
 
         path = join(settings.WEB_ROOT, data['file'])
 
+        abs_dir, f_name, _ = self.get_path_file(path)
+
         names = [
-            'NumeroCredito',
-            'CodigoBien',
-            'FechaLiquidacion',
-            'CodigoContable',
-            'ClaseBien',
-            'TipoCliente',
-            'IdentificacionCliente',
-            'NombreRazonSocial',
-            'SituacionGarante',
-            'MontoInicial',
-            'MontoActual',
-            'MontoAvaluo',
-            'ValorMercado',
-            'FechaUltimoAvaluo',
+            'NumeroCredito', 'CodigoBien', 'FechaLiquidacion',
+            'CodigoContable', 'ClaseBien', 'TipoCliente',
+            'IdentificacionCliente', 'NombreRazonSocial',
+            'SituacionGarante', 'MontoInicial', 'MontoActual',
+            'MontoAvaluo', 'ValorMercado', 'FechaUltimoAvaluo',
             'CodigoPeritoAvaluador',
         ]
 
@@ -251,12 +222,16 @@ class DataPreparation():
         at07_df['MakerDate'] = datetime.date.today
         at07_df['MakerUser'] = user
 
-        at07_df.to_csv(path, sep='~', date_format='%d/%m/%Y', index=False)
+        at07_df.to_csv(
+            join(abs_dir, f_name + '.txt'),
+            sep='~', date_format='%d/%m/%Y', index=False)
 
     def bal_by_acct_transformada(self, data, user):
         """BalByAcct Transformada resource Data Preparation"""
 
         path = join(settings.WEB_ROOT, data['file'])
+
+        abs_dir, f_name, _ = self.get_path_file(path)
 
         bbat = pd.read_csv(path, sep='	', low_memory=False)
 
@@ -280,66 +255,37 @@ class DataPreparation():
         bbat['MakerDate'] = datetime.date.today
         bbat['MakerUser'] = user
 
-        bbat.to_csv(path, sep='~', index=False)
+        bbat.to_csv(
+            join(abs_dir, f_name + '.txt'), sep='~', index=False)
 
     def cartera_no_dirigida(self, data, user):
         """Cartera No Dirigida resource Data Preparation"""
 
-        # TODO: Add a function that substracts the path, file name and extension of the path given
         path = join(settings.WEB_ROOT, data['file'])
 
+        abs_dir, f_name, _ = self.get_path_file(path)
+
         names = [
-            'Branch',
-            'LV',
-            'NombreVehiculo',
-            'Cuenta',
-            'Grupo',
-            'Pal',
-            'Pal_cat_descr',
-            'Prod',
-            'Prod_cat_descr',
-            'Referencia',
-            'Descripcion',
-            'ClasificacionRiesgo',
-            'Provision',
-            'A',
-            'FechaInicio',
-            'FechaFinal',
-            'B',
-            'C',
-            'BCV',
-            'Tasa',
-            'Debito',
-            'Credito',
-            'Saldo',
-            'Type',
-            'Type3dig',
-            'CuentaSIF',
-            'RendimientosCobrarReestructurados',
-            'RendimientosCobrarEfectosReporto',
-            'RendimientosCobrarLitigio',
-            'InteresesEfectivamenteCobrados',
-            'PorcentajeComisionFLAT',
-            'MontoComisionFLAT',
-            'PeriodicidadPagoEspecialCapital',
-            'FechaCambioEstatusCredito',
-            'FechaRegistroVencidaLitigioCastigada',
+            'Branch', 'LV', 'NombreVehiculo', 'Cuenta', 'Grupo',
+            'Pal', 'Pal_cat_descr', 'Prod', 'Prod_cat_descr',
+            'Referencia', 'Descripcion', 'ClasificacionRiesgo',
+            'Provision', 'A', 'FechaInicio', 'FechaFinal', 'B', 'C',
+            'BCV', 'Tasa', 'Debito', 'Credito', 'Saldo', 'Type',
+            'Type3dig', 'CuentaSIF', 'RendimientosCobrarReestructurados',
+            'RendimientosCobrarEfectosReporto', 'RendimientosCobrarLitigio',
+            'InteresesEfectivamenteCobrados', 'PorcentajeComisionFLAT',
+            'MontoComisionFLAT', 'PeriodicidadPagoEspecialCapital',
+            'FechaCambioEstatusCredito', 'FechaRegistroVencidaLitigioCastigada',
             'FechaExigibilidadPagoUltimaCuotaPagada',
             'CuentaContableProvisionEspecifica',
             'CuentaContableProvisionRendimiento',
             'CuentaContableInteresCuentaOrden',
-            'MontoInteresCuentaOrden',
-            'TipoBeneficiarioSectorManufacturero',
-            'TipoBeneficiarioSectorTurismo',
-            'BeneficiarioEspecial',
+            'MontoInteresCuentaOrden', 'TipoBeneficiarioSectorManufacturero',
+            'TipoBeneficiarioSectorTurismo', 'BeneficiarioEspecial',
             'FechaEmisionCertificacionBeneficiarioEspecial',
-            'TipoVivienda',
-            'FechaFinPeriodoGraciaPagoInteres',
-            'CapitalTransferido',
-            'FechaCambioEstatusCapitalTransferido',
-            'SaldoProvision',
-            'ActividadCliente',
-            'TipoGarantiaPrincipal',
+            'TipoVivienda', 'FechaFinPeriodoGraciaPagoInteres',
+            'CapitalTransferido', 'FechaCambioEstatusCapitalTransferido',
+            'SaldoProvision', 'ActividadCliente', 'TipoGarantiaPrincipal',
         ]
 
         parse_dates = [
@@ -366,37 +312,28 @@ class DataPreparation():
         cnd['MakerDate'] = datetime.date.today
         cnd['MakerUser'] = user
 
-        # TODO: Make it so the file is always saved as .txt
-        cnd.to_csv(path, sep='~', date_format='%d/%m/%Y', index=False)
+        cnd.to_csv(
+            join(abs_dir, f_name + '.txt'),
+            sep='~', date_format='%d/%m/%Y', index=False)
 
 
     def cartera_dirigida(self, data, user):
         """Cartera Dirigida resource Data Preparation"""
 
-        # TODO: Add a function that substracts the path, file name and extension of the path given
         paths = [path for path in data['file']]
         paths.sort()
 
+        abs_dir, _, _ = self.get_path_file(paths[0])
+
         parse_dates = [
-            'FECHA_SOLICITUD',
-            'FECHA_APROBACION',
-            'FECHA_LIQUIDACION',
-            'FECHA_VENC_ORIGINAL',
-            'FECHA_VENC_ACTUAL',
-            'FECHA_REESTRUCTURACION',
-            'FECHA_PRORROGA',
-            'FECHA_ULTIMA_RENOVACION',
-            'FECHA_CANCEL',
-            'FECHA_VENC_ULTIMA_CUOTA_CAPITAL',
-            'ULTIMA_FECHA_CANCEL_CUOTA_CAPITAL',
-            'FECHA_VENC_ULTIMA_CUOTA_INTERES',
-            'ULTIMA_FECHA_CANCEL_CUOTA_INTERES',
-            'FECHA_ESTADO_FINANCIERO',
-            'FECHA_EMISION_FACTIBILIDAD_TECNICA',
-            'FECHA_AUTENTICACION',
-            'FECHA_ULTIMA_INSPECCION',
-            'FECHA_VENC_REGISTRO',
-            'Upd_Date'
+            'FECHA_SOLICITUD', 'FECHA_APROBACION', 'FECHA_LIQUIDACION',
+            'FECHA_VENC_ORIGINAL', 'FECHA_VENC_ACTUAL', 'FECHA_REESTRUCTURACION',
+            'FECHA_PRORROGA', 'FECHA_ULTIMA_RENOVACION', 'FECHA_CANCEL',
+            'FECHA_VENC_ULTIMA_CUOTA_CAPITAL', 'ULTIMA_FECHA_CANCEL_CUOTA_CAPITAL',
+            'FECHA_VENC_ULTIMA_CUOTA_INTERES', 'ULTIMA_FECHA_CANCEL_CUOTA_INTERES',
+            'FECHA_ESTADO_FINANCIERO', 'FECHA_EMISION_FACTIBILIDAD_TECNICA',
+            'FECHA_AUTENTICACION', 'FECHA_ULTIMA_INSPECCION',
+            'FECHA_VENC_REGISTRO', 'Upd_Date'
         ]
 
         cd_agricola_gcg = pd.read_csv(paths[0], sep='	', low_memory=False, parse_dates=parse_dates)
@@ -437,15 +374,17 @@ class DataPreparation():
         c_d['MakerDate'] = datetime.date.today
         c_d['MakerUser'] = user
 
-        # TODO: Make so it saves the new file on the same path but with different name and extention
-        c_d.to_csv(paths[0], sep='~', date_format='%d/%m/%Y', index=False)
+        c_d.to_csv(
+            join(abs_dir, 'RPT_STG_Dirigidas.txt'),
+            sep='~', date_format='%d/%m/%Y', index=False)
 
 
     def fdn(self, data, user):
         """Fecha de Nacimiento resource Data Preparation"""
 
-        # TODO: Add a function that substracts the path, file name and extension of the path given
         path = join(settings.WEB_ROOT, data['file'])
+
+        abs_dir, f_name, _ = self.get_path_file(path)
 
         parse_dates = [
             'RecordDate',
@@ -454,7 +393,7 @@ class DataPreparation():
         fdn_df = pd.read_csv(path,
                              sep='~',
                              low_memory=False,
-                             encoding = "latin",
+                             encoding="latin",
                              parse_dates=parse_dates)
 
         fdn_df.FechaNacimiento = pd.to_datetime(
@@ -465,36 +404,31 @@ class DataPreparation():
         fdn_df['MakerDate'] = datetime.date.today
         fdn_df['MakerUser'] = user
 
-        fdn_df.to_csv(path, sep='~', date_format='%d/%m/%Y', index=False)
+        fdn_df.to_csv(
+            join(abs_dir, f_name + '.txt'),
+            sep='~', date_format='%d/%m/%Y', index=False)
 
 
     def gavetas_icg(self, data, user):
         """Gavetas ICG resource Data Preparation"""
 
-        # TODO: Add a function that substracts the path, file name and extension of the path given
         paths = [path for path in data['file']]
         paths.sort()
 
+        abs_dir, _, _ = self.get_path_file(paths[0])
+
         names = [
-            'RIF',
-            'NombreRazonSocial',
-            'NumeroCredito',
-            'InteresesEfectivamenteCobrados',
-            'PorcentajeComisionFLAT',
-            'MontoComisionFLAT',
-            'PeriodicidadPagoEspecialCapital',
+            'RIF', 'NombreRazonSocial', 'NumeroCredito',
+            'InteresesEfectivamenteCobrados', 'PorcentajeComisionFLAT',
+            'MontoComisionFLAT', 'PeriodicidadPagoEspecialCapital',
             'FechaCambioEstatusCredito',
             'FechaExigibilidadPagolaultimaCuotaPagada',
             'FechaRegistroVencidaLitigioCastigada',
-            'TipoIndustria',
-            'TipoBeneficiarioSectorManufacturero',
-            'TipoBeneficiarioSectorTurismo',
-            'BeneficiarioEspecial',
+            'TipoIndustria', 'TipoBeneficiarioSectorManufacturero',
+            'TipoBeneficiarioSectorTurismo', 'BeneficiarioEspecial',
             'FechaEmisionCertificacionBeneficiarioEspecial',
-            'TipoVivienda',
-            'FechaFinPeriodoGraciaPagoInteres',
-            'CapitalTransferido',
-            'FechaCambioEstatusCapitalTransferido',
+            'TipoVivienda', 'FechaFinPeriodoGraciaPagoInteres',
+            'CapitalTransferido', 'FechaCambioEstatusCapitalTransferido',
         ]
 
         parse_dates = [
@@ -582,38 +516,23 @@ class DataPreparation():
         gavetas['MakerDate'] = datetime.date.today
         gavetas['MakerUser'] = user
 
-        # TODO: Make so it saves the new file on the same path but with different name and extention
-        gavetas.to_csv(paths[0], sep='~', date_format='%d/%m/%Y', index=False)
+        gavetas.to_csv(
+            join(abs_dir, 'AT04_Gavetas.txt'),
+            sep='~', date_format='%d/%m/%Y', index=False)
 
 
     def lnp860(self, data, user):
         """LNP860 resource Data Preparation"""
 
-        # TODO: Add a function that substracts the path, file name and extension of the path given
         path = join(settings.WEB_ROOT, data['file'])
 
+        abs_dir, f_name, _ = self.get_path_file(path)
+
         labels = [
-            'P8NOTE',
-            'P8TINC',
-            'P8FVUC',
-            'P8FCCC',
-            'P8FVUI',
-            'P8FCCI',
-            'P8NRCV',
-            'P8MV30',
-            'P8MV60',
-            'P8MV90',
-            'P8MV12',
-            'P8MV18',
-            'P8MV1A',
-            'P8MVM1',
-            'P8RPCV',
-            'P8LINT',
-            'P8FCTC',
-            'P8MOCA',
-            'P8MOIN',
-            'P8TRXN',
-            'P8PRAN',
+            'P8NOTE', 'P8TINC', 'P8FVUC', 'P8FCCC', 'P8FVUI', 'P8FCCI',
+            'P8NRCV', 'P8MV30', 'P8MV60', 'P8MV90', 'P8MV12', 'P8MV18',
+            'P8MV1A', 'P8MVM1', 'P8RPCV', 'P8LINT', 'P8FCTC', 'P8MOCA',
+            'P8MOIN', 'P8TRXN', 'P8PRAN',
             ]
 
         fwidths = [11, 13, 8, 8, 8, 8, 8, 13, 13, 13, 13, 13, 13,
@@ -638,21 +557,23 @@ class DataPreparation():
         lnp860_df.P8NRCV.fillna(0, inplace=True)
         lnp860_df.P8NRCV = lnp860_df.P8NRCV.astype("int64")
 
-        lnp860_df[fields] = lnp860_df[fields].apply(lambda x:x/100)
-        lnp860_df.P8TINC = lnp860_df.P8TINC.apply(lambda x:x/1000000)
+        lnp860_df[fields] = lnp860_df[fields].apply(lambda x: x/100)
+        lnp860_df.P8TINC = lnp860_df.P8TINC.apply(lambda x: x/1000000)
 
         lnp860_df['MakerDate'] = datetime.date.today
         lnp860_df['MakerUser'] = user
 
-        # TODO: Make it so the file is always saved as .txt
-        lnp860_df.to_csv(path, sep='~', date_format='%d/%m/%Y', index=False)
+        lnp860_df.to_csv(
+            join(abs_dir, f_name + '.txt'),
+            sep='~', date_format='%d/%m/%Y', index=False)
 
 
     def migrate_mortgage(self, data, user):
         """Migrate Mortgage resource Data Preparation"""
 
-        # TODO: Add a function that substracts the path, file name and extension of the path given
         path = join(settings.WEB_ROOT, data['file'])
+
+        abs_dir, f_name, _ = self.get_path_file(path)
 
         converters = {
             'TypeId':str,
@@ -663,60 +584,44 @@ class DataPreparation():
             'OrigOpenDate',
         ]
 
-        mm = pd.read_csv(path,
-                         sep='~',
-                         low_memory=False,
-                         parse_dates=parse_dates,
-                         converters=converters)
+        mm_df = pd.read_csv(path,
+                            sep='~',
+                            low_memory=False,
+                            parse_dates=parse_dates,
+                            converters=converters)
 
-        mm.OrigCreditLimit.replace(to_replace='Bs.S', value='', inplace=True, regex=True)
-        mm.OrigCreditLimit = pd.to_numeric(mm.OrigCreditLimit, errors='coerce')
-        mm.TypeId = pd.to_numeric(mm.TypeId)
-        mm.TypeId = mm.TypeId.astype('int32')
-        mm.fillna(value={'Num30':0, 'Num60':0, 'Num90':0,}, inplace=True)
+        mm_df.OrigCreditLimit.replace(to_replace='Bs.S', value='', inplace=True, regex=True)
+        mm_df.OrigCreditLimit = pd.to_numeric(mm_df.OrigCreditLimit, errors='coerce')
+        mm_df.TypeId = pd.to_numeric(mm_df.TypeId)
+        mm_df.TypeId = mm_df.TypeId.astype('int32')
+        mm_df.fillna(value={'Num30':0, 'Num60':0, 'Num90':0,}, inplace=True)
 
-        mm['MakerDate'] = datetime.date.today
-        mm['MakerUser'] = user
+        mm_df['MakerDate'] = datetime.date.today
+        mm_df['MakerUser'] = user
 
-        # TODO: Make it so the file is always saved as .txt
-        mm.to_csv(path, sep='~', date_format='%d/%m/%Y', index=False)
+        mm_df.to_csv(
+            join(abs_dir, f_name + '.txt'),
+            sep='~', date_format='%d/%m/%Y', index=False)
 
 
     def mis_provisiones(self, data, user):
         """MIS Provisiones resource Data Preparation"""
 
-        # TODO: Add a function that substracts the path, file name and extension of the path given
         path = join(settings.WEB_ROOT, data['file'])
 
-        columns = ['Cid',
-                   'Account',
-                   'AccountNew',
-                   'ProdType',
-                   'Provision',
-                   'SumSaldo',
-                   'Saldo_Provision',
-                   'SaldoRendXcobrar',
-                   'SaldoRendXcobrarVenc',
-                   'ProvisionREND',
-                   'Saldo_Provision_REND',
-                   'Overdraft',
-                   'MaxOfCantCuotasVencidas',
-                   'CtaLocal',
-                   'CtaProvCap',
-                   'CtaProvRend',
-                   'Riesgo',
-                   'RiskSicri',
-                   'Producto',
-                   'DescriptionType',
-                   'RecordDate',
-                   'HDelinquency',
-                   'BlockCode1Date',
-                   'BlockCodeId1',
-                   'BlockReason1',
-                   'BlockCode2Date',
-                   'BlockCodeId2',
-                   'BlockReason2',
-                   ]
+        abs_dir, f_name, _ = self.get_path_file(path)
+
+        columns = [
+            'Cid', 'Account', 'AccountNew', 'ProdType', 'Provision',
+            'SumSaldo', 'Saldo_Provision', 'SaldoRendXcobrar',
+            'SaldoRendXcobrarVenc', 'ProvisionREND',
+            'Saldo_Provision_REND', 'Overdraft',
+            'MaxOfCantCuotasVencidas', 'CtaLocal', 'CtaProvCap',
+            'CtaProvRend', 'Riesgo', 'RiskSicri', 'Producto',
+            'DescriptionType', 'RecordDate', 'HDelinquency',
+            'BlockCode1Date', 'BlockCodeId1', 'BlockReason1',
+            'BlockCode2Date', 'BlockCodeId2', 'BlockReason2',
+            ]
 
         na_values = {
             'SumSaldo': 0,
@@ -837,28 +742,26 @@ class DataPreparation():
         mispf['MakerDate'] = datetime.date.today
         mispf['MakerUser'] = user
 
-        # TODO: Make so it saves the new file on the same path but with different name and extention
-        mispf[columns].to_csv(path, sep='~', date_format='%d/%m/%Y', index=False)
+        mispf[columns].to_csv(
+            join(abs_dir, f_name + '.txt'),
+            sep='~', date_format='%d/%m/%Y', index=False)
 
 
     def prestamo_prestaciones_hr(self, data, user):
         """Prestamos para las Prestaciones RRHH resource Data Preparation"""
 
-        # TODO: Add a function that substracts the path, file name and extension of the path given
         path = join(settings.WEB_ROOT, data['file'])
 
         names = [
-            'GEID',
-            'IdentificacionCliente',
-            'NombreCliente',
-            'FechaOtorgamiento',
-            'MontoOriginal',
-            'SaldoActual',
+            'GEID', 'IdentificacionCliente', 'NombreCliente',
+            'FechaOtorgamiento', 'MontoOriginal', 'SaldoActual',
         ]
 
         parse_dates = [
             'FechaOtorgamiento',
         ]
+
+        abs_dir, f_name, _ = self.get_path_file(path)
 
         pphr = pd.read_excel(path,
                              usecols='B:G',
@@ -872,74 +775,56 @@ class DataPreparation():
 
         pphr.insert(loc=1, column='TipoCliente', value='V')
 
-        # TODO: Make so it saves the new file on the same path but with different name and extention
-        pphr.to_csv(path, sep='~', date_format='%d/%m/%Y', index=False)
+        pphr['MakerDate'] = datetime.date.today
+        pphr['MakerUser'] = user
+
+        pphr.to_csv(
+            join(abs_dir, f_name + '.txt'),
+            sep='~', date_format='%d/%m/%Y', index=False)
 
 
     def rendimientos_icg(self, data, user):
         """Rendimientos ICG resource Data Preparation"""
 
-        # TODO: Add a function that substracts the path, file name and extension of the path given
         path = join(settings.WEB_ROOT, data['file'])
 
+        abs_dir, f_name, _ = self.get_path_file(path)
+
         names = [
-            'Branch',
-            'LV',
-            'NombreVehiculo',
-            'Cuenta',
-            'DescripcionDeLaCuenta',
-            'Grupo',
-            'Pal',
-            'pal_cat_descr',
-            'Prod',
-            'prod_cat_descr',
-            'Referencia',
-            'Descripcion',
-            'A',
-            'FechaInicio',
-            'FechaFinal',
-            'B',
-            'C',
-            'BCV',
-            'Tasa',
-            'Debito',
-            'Credito',
-            'Saldo',
-            'Type',
-            'Type3dig',
-            'CuentaSIF',
-            'PorcentajeProvision',
-            'MontoProvision',
+            'Branch', 'LV', 'NombreVehiculo', 'Cuenta', 'DescripcionDeLaCuenta',
+            'Grupo', 'Pal', 'pal_cat_descr', 'Prod', 'prod_cat_descr',
+            'Referencia', 'Descripcion', 'A', 'FechaInicio', 'FechaFinal',
+            'B', 'C', 'BCV', 'Tasa', 'Debito', 'Credito', 'Saldo', 'Type',
+            'Type3dig', 'CuentaSIF', 'PorcentajeProvision', 'MontoProvision',
         ]
 
         rend_icg = pd.read_excel(path, names=names)
 
-        rend_icg.FechaInicio =  pd.to_datetime(rend_icg.FechaInicio, format='%y%m%d')
+        rend_icg.FechaInicio = pd.to_datetime(rend_icg.FechaInicio, format='%y%m%d')
 
-        # TODO: Make so it saves the new file on the same path but with different name and extention
-        rend_icg.to_csv(path, sep='~', date_format='%d/%m/%Y', index=False)
+        rend_icg['MakerDate'] = datetime.date.today
+        rend_icg['MakerUser'] = user
+
+        rend_icg.to_csv(
+            join(abs_dir, f_name + '.txt'),
+            sep='~', date_format='%d/%m/%Y', index=False)
 
 
     def siif(self, data, user):
         """SIIF resource Data Preparation"""
 
-        # TODO: Add a function that substracts the path, file name and extension of the path given
         path = join(settings.WEB_ROOT, data['file'])
+
+        abs_dir, f_name, _ = self.get_path_file(path)
 
         converters = {
             'BranchId':str,
         }
 
         parse_dates = [
-            'OpenDate',
-            'RecordDate',
-            'MaturityDate',
-            'CloseDate',
-            'BlockCode1Date',
-            'OrigOpenDate',
-            'Fecha_Cambio_Status',
-            'Fecha_Reg_Venc_Lit_cast',
-            'Fecha_Exigibilidad_pago_ult_cuota',
+            'OpenDate', 'RecordDate', 'MaturityDate', 'CloseDate',
+            'BlockCode1Date', 'OrigOpenDate', 'Fecha_Cambio_Status',
+            'Fecha_Reg_Venc_Lit_cast', 'Fecha_Exigibilidad_pago_ult_cuota',
             'Fecha_Fin_Periodo_gracia_Pago_interes',
             'Fecha_cambio_Capital_Transferido'
         ]
@@ -947,7 +832,7 @@ class DataPreparation():
         siif_df = pd.read_csv(path,
                               sep='	',
                               low_memory=False,
-                              encoding = "latin",
+                              encoding='latin',
                               parse_dates=parse_dates,
                               converters=converters,)
 
@@ -973,56 +858,32 @@ class DataPreparation():
         siif_df.SaldoCastigado = pd.to_numeric(siif_df.SaldoCastigado, errors='coerce')
         siif_df.PrincipalBalance = pd.to_numeric(siif_df.PrincipalBalance, errors='coerce')
 
-        # TODO: Make it so the file is always saved as .txt
-        siif_df.to_csv(path, sep='~', date_format='%d/%m/%Y', index=False)
+        siif_df['MakerDate'] = datetime.date.today
+        siif_df['MakerUser'] = user
+
+        siif_df.to_csv(
+            join(abs_dir, f_name + '.txt'),
+            sep='~', date_format='%d/%m/%Y', index=False)
 
 
     def sobregiros_consumer(self, data, user):
         """Sobregiros Consumer resource Data Preparation"""
 
-        # TODO: Add a function that substracts the path, file name and extension of the path given
         path = join(settings.WEB_ROOT, data['file'])
 
+        abs_dir, f_name, _ = self.get_path_file(path)
+
         names = [
-            'BranchId',
-            'BranchDescription',
-            'CId',
-            'TipoPersona',
-            'Acct',
-            'OpenDate',
-            'Rate',
-            'MinBalance',
-            'Producto',
-            'Remunerada',
-            'TermDays',
-            'StatusId',
-            'StatusDescription',
-            'Balance',
-            'Overdraft',
-            'Nombre',
-            'MaturityDate',
-            'TypeId',
-            'DescriptionType',
-            'Opened',
-            'RecordDate',
-            'NA2',
-            'NA1',
-            'NTID',
-            'SEX',
-            'BDTE',
-            'CRCD',
-            'CPREF',
-            'OPDT',
-            'ACTI',
-            'OCCP',
-            'Fecha_Cambio_Estatus_Credito',
+            'BranchId', 'BranchDescription', 'CId', 'TipoPersona', 'Acct',
+            'OpenDate', 'Rate', 'MinBalance', 'Producto', 'Remunerada',
+            'TermDays', 'StatusId', 'StatusDescription', 'Balance', 'Overdraft',
+            'Nombre', 'MaturityDate', 'TypeId', 'DescriptionType', 'Opened',
+            'RecordDate', 'NA2', 'NA1', 'NTID', 'SEX', 'BDTE', 'CRCD', 'CPREF',
+            'OPDT', 'ACTI', 'OCCP', 'Fecha_Cambio_Estatus_Credito',
             'Fecha_Registro_Vencida_Litigio_Castigada',
             'Fecha_Exigibilidad_Pago_ultima_cuota_pagada',
-            'Capital_Transferido',
-            'Fecha_Cambio_Capital_Transferido',
-            'Riesgo',
-            'Provision',
-            'SaldoProvision',
+            'Capital_Transferido', 'Fecha_Cambio_Capital_Transferido',
+            'Riesgo', 'Provision', 'SaldoProvision',
         ]
 
         na_values = {
@@ -1033,110 +894,36 @@ class DataPreparation():
 
         sobregiros_gcg.fillna(value=na_values, inplace=True)
 
-        # TODO: Make so it saves the new file on the same path but with different name and extention
-        sobregiros_gcg.to_csv(path, sep='~', date_format='%d/%m/%Y', index=False)
+        sobregiros_gcg['MakerDate'] = datetime.date.today
+        sobregiros_gcg['MakerUser'] = user
+
+        sobregiros_gcg.to_csv(
+            join(abs_dir, f_name + '.txt'),
+            sep='~', date_format='%d/%m/%Y', index=False)
 
 
     def vnp003t(self, data, user):
         """VNP003T resource Data Preparation"""
 
-        # TODO: Add a function that substracts the path, file name and extension of the path given
         path = join(settings.WEB_ROOT, data['file'])
 
+        abs_dir, f_name, _ = self.get_path_file(path)
+
         labels = [
-            'DBKA',
-            'DAPPNA',
-            'DACCTA',
-            'DSTATA',
-            'DTYPEA',
-            'DBRCHA',
-            'DOPDTA',
-            'DOFFA',
-            'DCBALA',
-            'DAVBLA',
-            'DRATEA',
-            'DCPRTA',
-            'LNBILA',
-            'LNACAA',
-            'LNFACA',
-            'LNDLRA',
-            'LNPDLA',
-            'LNMTDA',
-            'LNIDUA',
-            'LNPDTA',
-            'TMNXMA',
-            'TMTDYA',
-            'LND30A',
-            'LND60A',
-            'LND90A',
-            'LNACTA',
-            'LNPMPA',
-            'LNF11A',
-            'LNTRMA',
-            'LNFRTA',
-            'LNEONA',
-            'LNPAMA',
-            'DOY2AA',
-            'LNY2AA',
-            'TMY2AA',
-            'DMMBLA',
-            'DMMACA',
-            'DMSCOA',
-            'LNINBA',
-            'LNIVAA',
-            'LNLFDA',
-            'LY2ABA',
-            'LY2ACA',
-            'LXBI1A',
-            'LXBI2A',
-            'LXBP1A',
-            'LXBP2A',
-            'LNB12A',
-            'LY2ASA',
-            'LNASTA',
-            'LNTERF',
-            'LNCONF',
-            'LXCDTA',
-            'LXCPBL',
-            'LXCCPR',
-            'LXTREC',
-            'LXBLPR',
-            'LXBLIN',
-            'LXY2AJ',
-            'DXMTDA',
-            'LXY2AO',
-            'LNBLTY',
-            'DXDDRP',
-            'DXDDRA',
-            'DXSCDT',
-            'LXRENA',
-            'LXREFA',
-            'LXREBA',
-            'LXREPA',
-            'LXREOA',
-            'LXREIA',
-            'LXRIBA',
-            'VNDUEA',
-            'DEMPA',
-            'TNBFEE',
-            'TNCFEE',
-            'LXFLDO',
-            'LXINGF',
-            'LXFECC',
-            'LXUSRC',
-            'LXINGU',
-            'LXFECU',
-            'LXUSRU',
-            'LXAPRA',
-            'LXSALD',
-            'LXVAIN',
-            'LXADTE',
-            'LXAUSR',
-            'LXAPRU',
-            'LXSALU',
-            'LXVAIU',
-            'LXADTU',
-            'LXAUSU',
+            'DBKA', 'DAPPNA', 'DACCTA', 'DSTATA', 'DTYPEA', 'DBRCHA', 'DOPDTA',
+            'DOFFA', 'DCBALA', 'DAVBLA', 'DRATEA', 'DCPRTA', 'LNBILA', 'LNACAA',
+            'LNFACA', 'LNDLRA', 'LNPDLA', 'LNMTDA', 'LNIDUA', 'LNPDTA', 'TMNXMA',
+            'TMTDYA', 'LND30A', 'LND60A', 'LND90A', 'LNACTA', 'LNPMPA', 'LNF11A',
+            'LNTRMA', 'LNFRTA', 'LNEONA', 'LNPAMA', 'DOY2AA', 'LNY2AA', 'TMY2AA',
+            'DMMBLA', 'DMMACA', 'DMSCOA', 'LNINBA', 'LNIVAA', 'LNLFDA', 'LY2ABA',
+            'LY2ACA', 'LXBI1A', 'LXBI2A', 'LXBP1A', 'LXBP2A', 'LNB12A', 'LY2ASA',
+            'LNASTA', 'LNTERF', 'LNCONF', 'LXCDTA', 'LXCPBL', 'LXCCPR', 'LXTREC',
+            'LXBLPR', 'LXBLIN', 'LXY2AJ', 'DXMTDA', 'LXY2AO', 'LNBLTY', 'DXDDRP',
+            'DXDDRA', 'DXSCDT', 'LXRENA', 'LXREFA', 'LXREBA', 'LXREPA', 'LXREOA',
+            'LXREIA', 'LXRIBA', 'VNDUEA', 'DEMPA', 'TNBFEE', 'TNCFEE', 'LXFLDO',
+            'LXINGF', 'LXFECC', 'LXUSRC', 'LXINGU', 'LXFECU', 'LXUSRU', 'LXAPRA',
+            'LXSALD', 'LXVAIN', 'LXADTE', 'LXAUSR', 'LXAPRU', 'LXSALU', 'LXVAIU',
+            'LXADTU', 'LXAUSU',
             ]
 
         fwidths = [3, 2, 12, 1, 3, 3, 7, 3, 14, 14, 8, 7, 1, 15, 14, 3, 3, 6, 14,
@@ -1145,16 +932,20 @@ class DataPreparation():
                    14, 14, 8, 14, 8, 1, 14, 14, 8, 12, 12, 12, 12, 3, 3, 3, 14, 1,
                    15, 15, 1, 14, 8, 10, 14, 8, 10, 14, 14, 14, 8, 10, 14, 14, 14, 8, 10,]
 
-        vnp003t_df = pd.read_fwf(path, widths = fwidths, names = labels)
+        vnp003t_df = pd.read_fwf(path, widths=fwidths, names=labels)
 
         vnp003t_df.TNBFEE.replace(to_replace=' ', value='', inplace=True, regex=True)
 
         vnp003t_df.TNBFEE = vnp003t_df.TNBFEE.astype('float64')
 
-        vnp003t_df.DOY2AA =  pd.to_datetime(vnp003t_df.DOY2AA, format='%Y%m%d', errors='coerce')
-        vnp003t_df.TMY2AA =  pd.to_datetime(vnp003t_df.TMY2AA, format='%Y%m%d', errors='coerce')
+        vnp003t_df.DOY2AA = pd.to_datetime(vnp003t_df.DOY2AA, format='%Y%m%d', errors='coerce')
+        vnp003t_df.TMY2AA = pd.to_datetime(vnp003t_df.TMY2AA, format='%Y%m%d', errors='coerce')
         vnp003t_df.DOY2AA.fillna(pd.to_datetime('1900-01-01'), inplace=True)
         vnp003t_df.TMY2AA.fillna(pd.to_datetime('1900-01-01'), inplace=True)
 
-        # TODO: Make so it saves the new file on the same path but with different name and extention
-        vnp003t_df.to_csv(path, sep='~', date_format='%d/%m/%Y', index=False)
+        vnp003t_df['MakerDate'] = datetime.date.today
+        vnp003t_df['MakerUser'] = user
+
+        vnp003t_df.to_csv(
+            join(abs_dir, f_name + '.txt'),
+            sep='~', date_format='%d/%m/%Y', index=False)
