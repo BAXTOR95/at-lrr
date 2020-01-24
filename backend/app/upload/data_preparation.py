@@ -23,6 +23,7 @@ class DataPreparation():
 
     def path_leaf(self, path):
         """Gets the name of the file (with its extention) from a given full path"""
+
         head, tail = ntpath.split(path)
         return tail or ntpath.basename(head)
 
@@ -94,6 +95,7 @@ class DataPreparation():
         a_h.to_csv(
             join(abs_dir, f_name + '.txt'),
             sep='~', date_format='%d/%m/%Y', index=False)
+
 
     def at04_cre(self, data, user):
         """AT04CRE resource Data Preparation"""
@@ -172,6 +174,7 @@ class DataPreparation():
             join(abs_dir, f_name + '.txt'),
             sep='~', date_format='%d/%m/%Y', index=False)
 
+
     def at07(self, data, user):
         """AT07 resource Data Preparation"""
 
@@ -226,6 +229,7 @@ class DataPreparation():
             join(abs_dir, f_name + '.txt'),
             sep='~', date_format='%d/%m/%Y', index=False)
 
+
     def bal_by_acct_transformada(self, data, user):
         """BalByAcct Transformada resource Data Preparation"""
 
@@ -257,6 +261,7 @@ class DataPreparation():
 
         bbat.to_csv(
             join(abs_dir, f_name + '.txt'), sep='~', index=False)
+
 
     def cartera_no_dirigida(self, data, user):
         """Cartera No Dirigida resource Data Preparation"""
