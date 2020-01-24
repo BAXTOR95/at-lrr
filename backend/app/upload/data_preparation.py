@@ -912,20 +912,6 @@ class DataPreparation():
             'MontoProvision',
         ]
 
-        parse_dates = [
-            'FechaCambioEstatusCredito',
-            'FechaRegistroVencidaLitigioCastigada',
-            'FechaExigibilidadPagoUltimaCuotaPagada',
-            'FechaEmisionCertificacionBeneficiarioEspecial',
-            'FechaFinPeriodoGraciaPagoInteres',
-            'FechaCambioEstatusCapitalTransferido'
-        ]
-
-        na_values = {
-            'ActividadCliente': '0',
-            'TipoGarantiaPrincipal': '0',
-        }
-
         rend_icg = pd.read_excel(path, names=names)
 
         rend_icg.FechaInicio =  pd.to_datetime(rend_icg.FechaInicio, format='%y%m%d')
