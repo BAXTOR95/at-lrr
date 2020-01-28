@@ -20,11 +20,18 @@ from django.utils.translation import gettext_lazy as _
 EXPIRE_HOURS = getattr(settings, 'REST_FRAMEWORK_TOKEN_EXPIRE_HOURS', 24)
 
 
-def resource_file_path(instance, filename):
-    """Generate file path for new resource file"""
-    ext = filename.split('.')[-1]
-    filename = f'{uuid.uuid4()}.{ext}'
+# def resource_file_path(instance, filename):
+#     """Generate file path for new resource file"""
+#     ext = filename.split('.')[-1]
+#     filename = f'{uuid.uuid4()}.{ext}'
 
+#     return os.path.join(settings.MEDIA_ROOT, filename)
+
+def path_and_rename(instance, filename):
+    ext = filename.split('.')[-1]
+    user_id = instance.user.id
+    resource_name = instance.resource_name
+    filename = f'{user_id}_{resource_name}_{uuid.uuid4()}.{ext}'
     return os.path.join(settings.MEDIA_ROOT, filename)
 
 
@@ -106,9 +113,9 @@ class File(models.Model):
         on_delete=models.CASCADE,
         default=None
     )
-    file = models.FileField(blank=False, null=False)
     resource_name = models.CharField(
         max_length=50, choices=TypeCD.choices, default='')
+    file = models.FileField(upload_to=path_and_rename, blank=False, null=False)
 
     def __str__(self):
         return self.file.name

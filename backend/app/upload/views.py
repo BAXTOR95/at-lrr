@@ -1,4 +1,4 @@
-# from rest_framework.decorators import action
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import viewsets, mixins, status  # , generics, permissions
 from rest_framework.authentication import TokenAuthentication
@@ -67,6 +67,7 @@ class FileUploadView(viewsets.ModelViewSet):
 
         return self.serializer_class
 
+    @action(methods=['POST'], detail=True, url_path='resource')
     def post(self, request, *args, **kwargs):
         """POST method for uploading the file"""
         file_serializer = self.serializer_class(data=request.data)
@@ -74,13 +75,14 @@ class FileUploadView(viewsets.ModelViewSet):
         if file_serializer.is_valid():
             file_serializer.save()
             # print('URL: ', file_serializer.url)
-            print('Path: ', file_serializer.data['file'])
+            # print('Path: ', file_serializer.data['file'])
+            # print('Data: ', file_serializer.data)
             # print('User: ', request.user)
             return Response(file_serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    # @action(methods=['POST'], detail=True, url_path='upload-file')
+    # @action(methods=['POST'], detail=True, url_path='resource')
     # def upload_file(self, request):
     #     """Upload file"""
     #     file_serializer = self.serializer_class(data=request.data)
@@ -89,6 +91,7 @@ class FileUploadView(viewsets.ModelViewSet):
     #         file_serializer.save()
     #         # print('URL: ', file_serializer.url)
     #         print('Path: ', file_serializer.data['file'])
+    #         print('Data: ', file_serializer.data)
     #         # print('User: ', request.user)
     #         return Response(file_serializer.data, status=status.HTTP_201_CREATED)
     #     else:

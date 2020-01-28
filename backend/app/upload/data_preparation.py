@@ -2,11 +2,11 @@
 
 import datetime
 import ntpath
+import pandas as pd
 
 from os.path import join, dirname, abspath
+from os import remove
 from django.conf import settings
-
-import pandas as pd
 
 
 HLP = 6 # Hipotecario Largo Plazo
@@ -16,6 +16,25 @@ MICROFINANCIERO = 9 # Microfinanciero
 MANUFACTURA = 10 # Manufactura
 AGRICOLA_ICG = 11 # Agricola ICG
 AGRICOLA_OTHER_ICG = 12 # Agricola Other ICG
+
+RESOURCE_CHOICES = [
+    'AH',
+    'AT04CRE'
+    'AT07'
+    'BBAT',
+    'CND',
+    'CD',
+    'FDN',
+    'GICG',
+    'LNP860',
+    'MM',
+    'MISP',
+    'PPRRHH',
+    'RICG',
+    'SIIF',
+    'SC',
+    'VNP003T',
+]
 
 
 class DataPreparation():
@@ -42,7 +61,7 @@ class DataPreparation():
 
         path = join(settings.WEB_ROOT, data['file'])
 
-        abs_dir, f_name, _ = self.get_path_file(path)
+        abs_dir, f_name, f_ext = self.get_path_file(path)
 
         a_h = pd.read_csv(path, sep='~', low_memory=False)
 
@@ -92,9 +111,15 @@ class DataPreparation():
         a_h['MakerDate'] = datetime.date.today
         a_h['MakerUser'] = user
 
+        out_path = join(abs_dir, f_name + '.txt')
+
         a_h.to_csv(
-            join(abs_dir, f_name + '.txt'),
+            out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
+
+        remove(join(abs_dir, f_name, f_ext))
+
+        return out_path  # TODO: Maybe add the relative path
 
 
     def at04_cre(self, data, user):
@@ -170,9 +195,13 @@ class DataPreparation():
         at04cre['MakerDate'] = datetime.date.today
         at04cre['MakerUser'] = user
 
+        out_path = join(abs_dir, f_name + '.txt')
+
         at04cre.to_csv(
-            join(abs_dir, f_name + '.txt'),
+            out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
+
+        return out_path
 
 
     def at07(self, data, user):
@@ -225,9 +254,13 @@ class DataPreparation():
         at07_df['MakerDate'] = datetime.date.today
         at07_df['MakerUser'] = user
 
+        out_path = join(abs_dir, f_name + '.txt')
+
         at07_df.to_csv(
-            join(abs_dir, f_name + '.txt'),
+            out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
+
+        return out_path
 
 
     def bal_by_acct_transformada(self, data, user):
@@ -259,8 +292,12 @@ class DataPreparation():
         bbat['MakerDate'] = datetime.date.today
         bbat['MakerUser'] = user
 
+        out_path = join(abs_dir, f_name + '.txt')
+
         bbat.to_csv(
-            join(abs_dir, f_name + '.txt'), sep='~', index=False)
+            out_path, sep='~', index=False)
+
+        return out_path
 
 
     def cartera_no_dirigida(self, data, user):
@@ -317,9 +354,13 @@ class DataPreparation():
         cnd['MakerDate'] = datetime.date.today
         cnd['MakerUser'] = user
 
+        out_path = join(abs_dir, f_name + '.txt')
+
         cnd.to_csv(
-            join(abs_dir, f_name + '.txt'),
+            out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
+
+        return out_path
 
 
     def cartera_dirigida(self, data, user):
@@ -379,9 +420,13 @@ class DataPreparation():
         c_d['MakerDate'] = datetime.date.today
         c_d['MakerUser'] = user
 
+        out_path = join(abs_dir, 'RPT_STG_Dirigidas.txt')
+
         c_d.to_csv(
-            join(abs_dir, 'RPT_STG_Dirigidas.txt'),
+            out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
+
+        return out_path
 
 
     def fdn(self, data, user):
@@ -409,9 +454,13 @@ class DataPreparation():
         fdn_df['MakerDate'] = datetime.date.today
         fdn_df['MakerUser'] = user
 
+        out_path = join(abs_dir, f_name + '.txt')
+
         fdn_df.to_csv(
-            join(abs_dir, f_name + '.txt'),
+            out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
+
+        return out_path
 
 
     def gavetas_icg(self, data, user):
@@ -521,9 +570,13 @@ class DataPreparation():
         gavetas['MakerDate'] = datetime.date.today
         gavetas['MakerUser'] = user
 
+        out_path = join(abs_dir, 'AT04_Gavetas.txt')
+
         gavetas.to_csv(
-            join(abs_dir, 'AT04_Gavetas.txt'),
+            out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
+
+        return out_path
 
 
     def lnp860(self, data, user):
@@ -568,9 +621,13 @@ class DataPreparation():
         lnp860_df['MakerDate'] = datetime.date.today
         lnp860_df['MakerUser'] = user
 
+        out_path = join(abs_dir, f_name + '.txt')
+
         lnp860_df.to_csv(
-            join(abs_dir, f_name + '.txt'),
+            out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
+
+        return out_path
 
 
     def migrate_mortgage(self, data, user):
@@ -604,9 +661,13 @@ class DataPreparation():
         mm_df['MakerDate'] = datetime.date.today
         mm_df['MakerUser'] = user
 
+        out_path = join(abs_dir, f_name + '.txt')
+
         mm_df.to_csv(
-            join(abs_dir, f_name + '.txt'),
+            out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
+
+        return out_path
 
 
     def mis_provisiones(self, data, user):
@@ -747,9 +808,13 @@ class DataPreparation():
         mispf['MakerDate'] = datetime.date.today
         mispf['MakerUser'] = user
 
+        out_path = join(abs_dir, f_name + '.txt')
+
         mispf[columns].to_csv(
-            join(abs_dir, f_name + '.txt'),
+            out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
+
+        return out_path
 
 
     def prestamo_prestaciones_hr(self, data, user):
@@ -783,9 +848,13 @@ class DataPreparation():
         pphr['MakerDate'] = datetime.date.today
         pphr['MakerUser'] = user
 
+        out_path = join(abs_dir, f_name + '.txt')
+
         pphr.to_csv(
-            join(abs_dir, f_name + '.txt'),
+            out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
+
+        return out_path
 
 
     def rendimientos_icg(self, data, user):
@@ -810,9 +879,13 @@ class DataPreparation():
         rend_icg['MakerDate'] = datetime.date.today
         rend_icg['MakerUser'] = user
 
+        out_path = join(abs_dir, f_name + '.txt')
+
         rend_icg.to_csv(
-            join(abs_dir, f_name + '.txt'),
+            out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
+
+        return out_path
 
 
     def siif(self, data, user):
@@ -866,9 +939,13 @@ class DataPreparation():
         siif_df['MakerDate'] = datetime.date.today
         siif_df['MakerUser'] = user
 
+        out_path = join(abs_dir, f_name + '.txt')
+
         siif_df.to_csv(
-            join(abs_dir, f_name + '.txt'),
+            out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
+
+        return out_path
 
 
     def sobregiros_consumer(self, data, user):
@@ -902,9 +979,13 @@ class DataPreparation():
         sobregiros_gcg['MakerDate'] = datetime.date.today
         sobregiros_gcg['MakerUser'] = user
 
+        out_path = join(abs_dir, f_name + '.txt')
+
         sobregiros_gcg.to_csv(
-            join(abs_dir, f_name + '.txt'),
+            out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
+
+        return out_path
 
 
     def vnp003t(self, data, user):
@@ -951,6 +1032,55 @@ class DataPreparation():
         vnp003t_df['MakerDate'] = datetime.date.today
         vnp003t_df['MakerUser'] = user
 
+        out_path = join(abs_dir, f_name + '.txt')
+
         vnp003t_df.to_csv(
-            join(abs_dir, f_name + '.txt'),
+            out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
+
+        return out_path
+
+
+    def call_method(self, resource_name, data, user):
+        """Call the method corresponding to the resource_name provided"""
+
+        data_path = ''
+
+        if resource_name in RESOURCE_CHOICES:
+
+            if resource_name == 'AH':
+                data_path = self.account_history(data, user)
+            elif resource_name == 'AT04CRE':
+                data_path = self.at04_cre(data, user)
+            elif resource_name == 'AT07':
+                data_path = self.at07(data, user)
+            elif resource_name == 'BBAT':
+                data_path = self.bal_by_acct_transformada(data, user)
+            elif resource_name == 'CND':
+                data_path = self.cartera_no_dirigida(data, user)
+            elif resource_name == 'CD':
+                data_path = self.cartera_dirigida(data, user)
+            elif resource_name == 'FDN':
+                data_path = self.fdn(data, user)
+            elif resource_name == 'GICG':
+                data_path = self.gavetas_icg(data, user)
+            elif resource_name == 'LNP860':
+                data_path = self.lnp860(data, user)
+            elif resource_name == 'MM':
+                data_path = self.migrate_mortgage(data, user)
+            elif resource_name == 'MISP':
+                data_path = self.mis_provisiones(data, user)
+            elif resource_name == 'PPRRHH':
+                data_path = self.prestamo_prestaciones_hr(data, user)
+            elif resource_name == 'RICG':
+                data_path = self.rendimientos_icg(data, user)
+            elif resource_name == 'SIIF':
+                data_path = self.siif(data, user)
+            elif resource_name == 'SC':
+                data_path = self.sobregiros_consumer(data, user)
+            elif resource_name == 'VNP003T':
+                data_path = self.vnp003t(data, user)
+            else:
+                pass
+
+            return data_path
