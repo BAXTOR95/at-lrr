@@ -68,7 +68,7 @@ class DataPreparation():
     def account_history(self, data):
         """Account History resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
+        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -119,7 +119,7 @@ class DataPreparation():
 
         a_h['MakerDate'] = datetime.date.today()
         a_h.MakerDate = pd.to_datetime(a_h.MakerDate)
-        a_h['MakerUser'] = data['user']
+        a_h['MakerUser'] = data[0]['user']
 
         out_path = join(abs_dir, self._out_folder, f_name + '.txt')
 
@@ -137,7 +137,7 @@ class DataPreparation():
     def at04_cre(self, data):
         """AT04CRE resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
+        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -192,7 +192,7 @@ class DataPreparation():
 
         at04cre['MakerDate'] = datetime.date.today()
         at04cre.MakerDate = pd.to_datetime(at04cre.MakerDate)
-        at04cre['MakerUser'] = data['user']
+        at04cre['MakerUser'] = data[0]['user']
 
         out_path = join(abs_dir, self._out_folder, f_name + '.txt')
 
@@ -210,7 +210,7 @@ class DataPreparation():
     def at07(self, data):
         """AT07 resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
+        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -275,7 +275,7 @@ class DataPreparation():
     def bal_by_acct_transformada(self, data):
         """BalByAcct Transformada resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
+        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -301,7 +301,7 @@ class DataPreparation():
 
         bbat['MakerDate'] = datetime.date.today()
         bbat.MakerDate = pd.to_datetime(bbat.MakerDate)
-        bbat['MakerUser'] = data['user']
+        bbat['MakerUser'] = data[0]['user']
 
         out_path = join(abs_dir, self._out_folder, f_name + '.txt')
 
@@ -318,7 +318,7 @@ class DataPreparation():
     def cartera_no_dirigida(self, data):
         """Cartera No Dirigida resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
+        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -368,7 +368,7 @@ class DataPreparation():
 
         cnd['MakerDate'] = datetime.date.today()
         cnd.MakerDate = pd.to_datetime(cnd.MakerDate)
-        cnd['MakerUser'] = data['user']
+        cnd['MakerUser'] = data[0]['user']
 
         out_path = join(abs_dir, self._out_folder, f_name + '.txt')
 
@@ -386,7 +386,10 @@ class DataPreparation():
     def cartera_dirigida(self, data):
         """Cartera Dirigida resource Data Preparation"""
 
-        paths = [path for path in normpath(data['file'])[1:]]
+        paths = [
+            join(settings.WEB_ROOT, normpath(path['file'])[1:])
+            for path in data
+            ]
         paths.sort()
 
         abs_dir, f_name, f_ext = self.get_path_file(paths[0])
@@ -440,7 +443,7 @@ class DataPreparation():
 
         c_d['MakerDate'] = datetime.date.today()
         c_d.MakerDate = pd.to_datetime(c_d.MakerDate)
-        c_d['MakerUser'] = data['user']
+        c_d['MakerUser'] = data[0]['user']
 
         out_path = join(abs_dir, self._out_folder, 'RPT_STG_Dirigidas.txt')  # TODO: Think of a better file name
 
@@ -458,7 +461,7 @@ class DataPreparation():
     def fdn(self, data):
         """Fecha de Nacimiento resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
+        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -480,7 +483,7 @@ class DataPreparation():
 
         fdn_df['MakerDate'] = datetime.date.today()
         fdn_df.MakerDate = pd.to_datetime(fdn_df.MakerDate)
-        fdn_df['MakerUser'] = data['user']
+        fdn_df['MakerUser'] = data[0]['user']
 
         out_path = join(abs_dir, self._out_folder, f_name + '.txt')
 
@@ -498,7 +501,10 @@ class DataPreparation():
     def gavetas_icg(self, data):
         """Gavetas ICG resource Data Preparation"""
 
-        paths = [path for path in normpath(data['file'])[1:]]
+        paths = [
+            join(settings.WEB_ROOT, normpath(path['file'])[1:])
+            for path in data
+            ]
         paths.sort()
 
         abs_dir, f_name, f_ext = self.get_path_file(paths[0])
@@ -601,7 +607,7 @@ class DataPreparation():
 
         gavetas['MakerDate'] = datetime.date.today()
         gavetas.MakerDate = pd.to_datetime(gavetas.MakerDate)
-        gavetas['MakerUser'] = data['user']
+        gavetas['MakerUser'] = data[0]['user']
 
         out_path = join(abs_dir, self._out_folder, 'AT04_Gavetas.txt')  # TODO: Think of a better file name
 
@@ -619,7 +625,7 @@ class DataPreparation():
     def lnp860(self, data):
         """LNP860 resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
+        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -657,7 +663,7 @@ class DataPreparation():
 
         lnp860_df['MakerDate'] = datetime.date.today()
         lnp860_df.MakerDate = pd.to_datetime(lnp860_df.MakerDate)
-        lnp860_df['MakerUser'] = data['user']
+        lnp860_df['MakerUser'] = data[0]['user']
 
         out_path = join(abs_dir, self._out_folder, f_name + '.txt')
 
@@ -675,7 +681,7 @@ class DataPreparation():
     def migrate_mortgage(self, data):
         """Migrate Mortgage resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
+        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -702,7 +708,7 @@ class DataPreparation():
 
         mm_df['MakerDate'] = datetime.date.today()
         mm_df.MakerDate = pd.to_datetime(mm_df.MakerDate)
-        mm_df['MakerUser'] = data['user']
+        mm_df['MakerUser'] = data[0]['user']
 
         out_path = join(abs_dir, self._out_folder, f_name + '.txt')
 
@@ -720,7 +726,7 @@ class DataPreparation():
     def mis_provisiones(self, data):
         """MIS Provisiones resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
+        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -854,7 +860,7 @@ class DataPreparation():
 
         mispf['MakerDate'] = datetime.date.today()
         mispf.MakerDate = pd.to_datetime(mispf.MakerDate)
-        mispf['MakerUser'] = data['user']
+        mispf['MakerUser'] = data[0]['user']
 
         out_path = join(abs_dir, self._out_folder, f_name + '.txt')
 
@@ -872,7 +878,7 @@ class DataPreparation():
     def prestamo_prestaciones_hr(self, data):
         """Prestamos para las Prestaciones RRHH resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
+        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
 
         names = [
             'GEID', 'IdentificacionCliente', 'NombreCliente',
@@ -899,7 +905,7 @@ class DataPreparation():
 
         pphr['MakerDate'] = datetime.date.today()
         pphr.MakerDate = pd.to_datetime(pphr.MakerDate)
-        pphr['MakerUser'] = data['user']
+        pphr['MakerUser'] = data[0]['user']
 
         out_path = join(abs_dir, self._out_folder, f_name + '.txt')
 
@@ -917,7 +923,7 @@ class DataPreparation():
     def rendimientos_icg(self, data):
         """Rendimientos ICG resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
+        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -935,7 +941,7 @@ class DataPreparation():
 
         rend_icg['MakerDate'] = datetime.date.today()
         rend_icg.MakerDate = pd.to_datetime(rend_icg.MakerDate)
-        rend_icg['MakerUser'] = data['user']
+        rend_icg['MakerUser'] = data[0]['user']
 
         out_path = join(abs_dir, self._out_folder, f_name + '.txt')
 
@@ -953,7 +959,7 @@ class DataPreparation():
     def siif(self, data):
         """SIIF resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
+        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -1000,7 +1006,7 @@ class DataPreparation():
 
         siif_df['MakerDate'] = datetime.date.today()
         siif_df.MakerDate = pd.to_datetime(siif_df.MakerDate)
-        siif_df['MakerUser'] = data['user']
+        siif_df['MakerUser'] = data[0]['user']
 
         out_path = join(abs_dir, self._out_folder, f_name + '.txt')
 
@@ -1018,7 +1024,7 @@ class DataPreparation():
     def sobregiros_consumer(self, data):
         """Sobregiros Consumer resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
+        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -1045,7 +1051,7 @@ class DataPreparation():
 
         sobregiros_gcg['MakerDate'] = datetime.date.today()
         sobregiros_gcg.MakerDate = pd.to_datetime(sobregiros_gcg.MakerDate)
-        sobregiros_gcg['MakerUser'] = data['user']
+        sobregiros_gcg['MakerUser'] = data[0]['user']
 
         out_path = join(abs_dir, self._out_folder, f_name + '.txt')
 
@@ -1063,7 +1069,7 @@ class DataPreparation():
     def vnp003t(self, data):
         """VNP003T resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
+        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -1103,7 +1109,7 @@ class DataPreparation():
 
         vnp003t_df['MakerDate'] = datetime.date.today()
         vnp003t_df.MakerDate = pd.to_datetime(vnp003t_df.MakerDate)
-        vnp003t_df['MakerUser'] = data['user']
+        vnp003t_df['MakerUser'] = data[0]['user']
 
         out_path = join(abs_dir, self._out_folder, f_name + '.txt')
 
@@ -1122,7 +1128,7 @@ class DataPreparation():
         """Call the method corresponding to the data's resource name provided"""
 
         data_path = ''
-        resource_name = data['resource_name']
+        resource_name = data[0]['resource_name']
 
         if resource_name in RESOURCE_CHOICES:
 

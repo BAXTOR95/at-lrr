@@ -72,26 +72,64 @@ class FileUploadView(viewsets.ModelViewSet):
     @action(methods=['POST'], detail=True, url_path='resource')
     def post(self, request, *args, **kwargs):
         """POST method for uploading the file"""
+
+        files = []
+        data = []
+
         response_data = {
             'id': None,
             'resource_name': None,
             'file': None,
             'user': None
         }
-        # TODO: Make it so it can handle multiple files
-        file_serializer = self.serializer_class(data=request.data)
+        request_data = {
+            'file': {},
+            'resource_name': '',
+            'user': '',
+            'encoding': '',
+            '_encoding': '',
+            '_mutable': True,
+            '__len__': 0,
+        }
+
         dp_obj = dp.DataPreparation()
 
-        if file_serializer.is_valid():
-            file_serializer.save()
-            out_path = dp_obj.call_method(file_serializer.data)
-            response_data['id'] = file_serializer.data['id']
-            response_data['resource_name'] = file_serializer.data['resource_name']
-            response_data['file'] = out_path
-            response_data['user'] = file_serializer.data['user']
-            return Response(response_data, status=status.HTTP_201_CREATED)
+        if request.FILES:
+            for f in request.FILES.getlist('file'):
+                request_data = request.data
+                request_data['file'] = f
+                files.append(request_data.copy())
         else:
-            return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            files.append(request.data)
+
+        for f in files:
+            file_serializer = self.serializer_class(data=f)
+            if file_serializer.is_valid():
+                file_serializer.save()
+                data.append(file_serializer.data.copy())
+            else:
+                return Response(file_serializer.errors,
+                                status=status.HTTP_400_BAD_REQUEST)
+
+        out_path = dp_obj.call_method(data)
+        response_data['id'] = file_serializer.data['id']
+        response_data['resource_name'] = file_serializer.data['resource_name']
+        response_data['file'] = out_path
+        response_data['user'] = file_serializer.data['user']
+        return Response(response_data, status=status.HTTP_201_CREATED)
+
+        # file_serializer = self.serializer_class(data=request.data)
+
+        # if file_serializer.is_valid():
+        #     file_serializer.save()
+        #     out_path = dp_obj.call_method(file_serializer.data)
+        #     response_data['id'] = file_serializer.data['id']
+        #     response_data['resource_name'] = file_serializer.data['resource_name']
+        #     response_data['file'] = out_path
+        #     response_data['user'] = file_serializer.data['user']
+        #     return Response(response_data, status=status.HTTP_201_CREATED)
+        # else:
+        #     return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # @action(methods=['POST'], detail=True, url_path='resource')
     # def upload_file(self, request):

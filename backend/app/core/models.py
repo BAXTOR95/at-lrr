@@ -29,9 +29,10 @@ EXPIRE_HOURS = getattr(settings, 'REST_FRAMEWORK_TOKEN_EXPIRE_HOURS', 24)
 
 def path_and_rename(instance, filename):
     ext = filename.split('.')[-1]
+    f_name = filename.split('.')[0]
     user_id = instance.user.id
     resource_name = instance.resource_name
-    filename = f'{user_id}_{resource_name}_{uuid.uuid4()}.{ext}'
+    filename = f'{user_id}_{resource_name}_{f_name}_{uuid.uuid4()}.{ext}'
     # path = os.path.join(settings.MEDIA_ROOT, filename)
     return filename
 
