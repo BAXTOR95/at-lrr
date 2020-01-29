@@ -32,7 +32,8 @@ def path_and_rename(instance, filename):
     user_id = instance.user.id
     resource_name = instance.resource_name
     filename = f'{user_id}_{resource_name}_{uuid.uuid4()}.{ext}'
-    return os.path.join(settings.MEDIA_ROOT, filename)
+    # path = os.path.join(settings.MEDIA_ROOT, filename)
+    return filename
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

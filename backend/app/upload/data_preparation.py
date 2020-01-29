@@ -2,25 +2,31 @@
 
 import datetime
 import ntpath
+
+from os.path import join, dirname, abspath, normpath
+from os import remove, unlink
+
+from pathlib import Path
+
 import pandas as pd
 
-from os.path import join, dirname, abspath
-from os import remove
 from django.conf import settings
 
 
-HLP = 6 # Hipotecario Largo Plazo
-HCP = 7 # Hipotecario Corto Plazo
-TURISMO = 8 # Turismo
-MICROFINANCIERO = 9 # Microfinanciero
-MANUFACTURA = 10 # Manufactura
-AGRICOLA_ICG = 11 # Agricola ICG
-AGRICOLA_OTHER_ICG = 12 # Agricola Other ICG
+CD_CHOICES = {
+    'HLP': 6, # Hipotecario Largo Plazo
+    'HCP': 7, # Hipotecario Corto Plazo
+    'TURISMO': 8, # Turismo
+    'MICROFINANCIERO': 9, # Microfinanciero
+    'MANUFACTURA': 10, # Manufactura
+    'AGRICOLA_ICG': 11, # Agricola ICG
+    'AGRICOLA_OTHER_ICG': 12, # Agricola Other ICG
+}
 
 RESOURCE_CHOICES = [
     'AH',
-    'AT04CRE'
-    'AT07'
+    'AT04CRE',
+    'AT07',
     'BBAT',
     'CND',
     'CD',
@@ -40,6 +46,8 @@ RESOURCE_CHOICES = [
 class DataPreparation():
     """Data Preparation Class for every resource file"""
 
+    _out_folder = 'resources'
+
     def path_leaf(self, path):
         """Gets the name of the file (with its extention) from a given full path"""
 
@@ -51,15 +59,16 @@ class DataPreparation():
         """Gets the absolute path, file name and extension of the given full path to file"""
 
         abs_dir = dirname(abspath(path))
+        Path(abs_dir).mkdir(parents=True, exist_ok=True)
         f_name, f_ext = self.path_leaf(path).split('.')
 
         return abs_dir, f_name, f_ext
 
 
-    def account_history(self, data, user):
+    def account_history(self, data):
         """Account History resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, data['file'])
+        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -108,26 +117,29 @@ class DataPreparation():
         a_h.ExpirationDate.fillna(
             pd.to_datetime('1900-01-01'), inplace=True)
 
-        a_h['MakerDate'] = datetime.date.today
-        a_h['MakerUser'] = user
+        a_h['MakerDate'] = datetime.date.today()
+        a_h.MakerDate = pd.to_datetime(a_h.MakerDate)
+        a_h['MakerUser'] = data['user']
 
-        out_path = join(abs_dir, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+
+        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
         a_h.to_csv(
             out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
 
-        remove(join(abs_dir, f_name, f_ext))
+        unlink(join(abs_dir, f_name + '.' + f_ext))
 
         return out_path  # TODO: Maybe add the relative path
 
 
-    def at04_cre(self, data, user):
+    def at04_cre(self, data):
         """AT04CRE resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, data['file'])
+        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
 
-        abs_dir, f_name, _ = self.get_path_file(path)
+        abs_dir, f_name, f_ext = self.get_path_file(path)
 
         labels = [
             'BRANCH', 'REFERNO', 'LIQUFECHA', 'SOLIFECHA', 'APROFECHA',
@@ -153,6 +165,13 @@ class DataPreparation():
                    9, 18, 18, 18, 18, 4, 4, 4, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
                    18, 18, 18, 18, 4, ]
 
+        num_fields = [
+            'CREDITLINE', 'INTORIGTASA', 'CAMBIOTASA', 'COMISTASA', 'ORIGIMONTO',
+            'PAGOMESMONTO', 'PAGOTOTAL', 'SALDOMONTO', 'PAGOTOTAL', 'N030DMONTOAVENCER',
+            'N060DMONTOAVENCER', 'N090DMONTOAVENCER', 'N120DMONTOAVENCER',
+            'N180DMONTOAVENCER', 'N360DMONTOAVENCER', 'MA1AMONTOAVENCER'
+        ]
+
         at04cre = pd.read_fwf(path, widths=fwidths, names=labels)
 
         at04cre.LIQUFECHA = pd.to_datetime(at04cre.LIQUFECHA, format='%Y%m%d')
@@ -168,48 +187,32 @@ class DataPreparation():
         at04cre.PGTOULTINTERES = pd.to_datetime(
             at04cre.PGTOULTINTERES, format='%Y%m%d')
 
-        at04cre.CREDITLINE = at04cre.CREDITLINE.apply(lambda x: x/100)
-        at04cre.INTORIGTASA = at04cre.INTORIGTASA.apply(lambda x: x/100)
-        at04cre.CAMBIOTASA = at04cre.CAMBIOTASA.apply(lambda x: x/100)
-        at04cre.COMISTASA = at04cre.COMISTASA.apply(lambda x: x/100)
-        at04cre.ORIGIMONTO = at04cre.ORIGIMONTO.apply(lambda x: x/100)
-        at04cre.PAGOMESMONTO = at04cre.PAGOMESMONTO.apply(lambda x: x/100)
-        at04cre.PAGOTOTAL = at04cre.PAGOTOTAL.apply(lambda x: x/100)
-        at04cre.SALDOMONTO = at04cre.SALDOMONTO.apply(lambda x: x/100)
-        at04cre.PAGOTOTAL = at04cre.PAGOTOTAL.apply(lambda x: x/100)
-        at04cre.N030DMONTOAVENCER = at04cre.N030DMONTOAVENCER.apply(
-            lambda x: x/100)
-        at04cre.N060DMONTOAVENCER = at04cre.N060DMONTOAVENCER.apply(
-            lambda x: x/100)
-        at04cre.N090DMONTOAVENCER = at04cre.N090DMONTOAVENCER.apply(
-            lambda x: x/100)
-        at04cre.N120DMONTOAVENCER = at04cre.N120DMONTOAVENCER.apply(
-            lambda x: x/100)
-        at04cre.N180DMONTOAVENCER = at04cre.N180DMONTOAVENCER.apply(
-            lambda x: x/100)
-        at04cre.N360DMONTOAVENCER = at04cre.N360DMONTOAVENCER.apply(
-            lambda x: x/100)
-        at04cre.MA1AMONTOAVENCER = at04cre.MA1AMONTOAVENCER.apply(
+        at04cre[num_fields] = at04cre[num_fields].apply(
             lambda x: x/100)
 
-        at04cre['MakerDate'] = datetime.date.today
-        at04cre['MakerUser'] = user
+        at04cre['MakerDate'] = datetime.date.today()
+        at04cre.MakerDate = pd.to_datetime(at04cre.MakerDate)
+        at04cre['MakerUser'] = data['user']
 
-        out_path = join(abs_dir, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+
+        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
         at04cre.to_csv(
             out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
 
+        unlink(join(abs_dir, f_name + '.' + f_ext))
+
         return out_path
 
 
-    def at07(self, data, user):
+    def at07(self, data):
         """AT07 resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, data['file'])
+        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
 
-        abs_dir, f_name, _ = self.get_path_file(path)
+        abs_dir, f_name, f_ext = self.get_path_file(path)
 
         names = [
             'NumeroCredito', 'CodigoBien', 'FechaLiquidacion',
@@ -251,24 +254,30 @@ class DataPreparation():
             at07_df.MontoAvaluo, errors='coerce', downcast='float')
         at07_df.ValorMercado = pd.to_numeric(
             at07_df.ValorMercado, errors='coerce', downcast='float')
-        at07_df['MakerDate'] = datetime.date.today
-        at07_df['MakerUser'] = user
 
-        out_path = join(abs_dir, f_name + '.txt')
+        at07_df['MakerDate'] = datetime.date.today()
+        at07_df.MakerDate = pd.to_datetime(at07_df.MakerDate)
+        at07_df['MakerUser'] = data['user']
+
+        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+
+        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
         at07_df.to_csv(
             out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
 
+        unlink(join(abs_dir, f_name + '.' + f_ext))
+
         return out_path
 
 
-    def bal_by_acct_transformada(self, data, user):
+    def bal_by_acct_transformada(self, data):
         """BalByAcct Transformada resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, data['file'])
+        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
 
-        abs_dir, f_name, _ = self.get_path_file(path)
+        abs_dir, f_name, f_ext = self.get_path_file(path)
 
         bbat = pd.read_csv(path, sep='	', low_memory=False)
 
@@ -289,23 +298,29 @@ class DataPreparation():
             bbat.SaldoRendCuentaOrden, errors='coerce')
         bbat.SaldoRendXMora = pd.to_numeric(
             bbat.SaldoRendXMora, errors='coerce')
-        bbat['MakerDate'] = datetime.date.today
-        bbat['MakerUser'] = user
 
-        out_path = join(abs_dir, f_name + '.txt')
+        bbat['MakerDate'] = datetime.date.today()
+        bbat.MakerDate = pd.to_datetime(bbat.MakerDate)
+        bbat['MakerUser'] = data['user']
+
+        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+
+        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
         bbat.to_csv(
-            out_path, sep='~', index=False)
+            out_path, sep='~', date_format='%d/%m/%Y', index=False)
+
+        unlink(join(abs_dir, f_name + '.' + f_ext))
 
         return out_path
 
 
-    def cartera_no_dirigida(self, data, user):
+    def cartera_no_dirigida(self, data):
         """Cartera No Dirigida resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, data['file'])
+        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
 
-        abs_dir, f_name, _ = self.get_path_file(path)
+        abs_dir, f_name, f_ext = self.get_path_file(path)
 
         names = [
             'Branch', 'LV', 'NombreVehiculo', 'Cuenta', 'Grupo',
@@ -351,25 +366,30 @@ class DataPreparation():
 
         cnd.fillna(value=na_values, inplace=True)
 
-        cnd['MakerDate'] = datetime.date.today
-        cnd['MakerUser'] = user
+        cnd['MakerDate'] = datetime.date.today()
+        cnd.MakerDate = pd.to_datetime(cnd.MakerDate)
+        cnd['MakerUser'] = data['user']
 
-        out_path = join(abs_dir, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+
+        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
         cnd.to_csv(
             out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
 
+        unlink(join(abs_dir, f_name + '.' + f_ext))
+
         return out_path
 
 
-    def cartera_dirigida(self, data, user):
+    def cartera_dirigida(self, data):
         """Cartera Dirigida resource Data Preparation"""
 
-        paths = [path for path in data['file']]
+        paths = [path for path in normpath(data['file'])[1:]]
         paths.sort()
 
-        abs_dir, _, _ = self.get_path_file(paths[0])
+        abs_dir, f_name, f_ext = self.get_path_file(paths[0])
 
         parse_dates = [
             'FECHA_SOLICITUD', 'FECHA_APROBACION', 'FECHA_LIQUIDACION',
@@ -404,37 +424,43 @@ class DataPreparation():
         cd_micro.drop(cd_micro.columns[len(cd_micro.columns)-1], axis=1, inplace=True)
         cd_turismo.drop(cd_turismo.columns[len(cd_turismo.columns)-1], axis=1, inplace=True)
 
-        cd_agricola_gcg['TYPE_CD'] = AGRICOLA_OTHER_ICG
-        cd_agricola_icg['TYPE_CD'] = AGRICOLA_ICG
-        cd_hlp['TYPE_CD'] = HLP
-        cd_hcp['TYPE_CD'] = HCP
-        cd_manufactura['TYPE_CD'] = MANUFACTURA
-        cd_micro['TYPE_CD'] = MICROFINANCIERO
-        cd_turismo['TYPE_CD'] = TURISMO
+        cd_agricola_gcg['TYPE_CD'] = CD_CHOICES.get('AGRICOLA_OTHER_ICG')
+        cd_agricola_icg['TYPE_CD'] = CD_CHOICES.get('AGRICOLA_ICG')
+        cd_hlp['TYPE_CD'] = CD_CHOICES.get('HLP')
+        cd_hcp['TYPE_CD'] = CD_CHOICES.get('HCP')
+        cd_manufactura['TYPE_CD'] = CD_CHOICES.get('MANUFACTURA')
+        cd_micro['TYPE_CD'] = CD_CHOICES.get('MICROFINANCIERO')
+        cd_turismo['TYPE_CD'] = CD_CHOICES.get('TURISMO')
 
         c_d = pd.concat([cd_agricola_gcg,
                          cd_agricola_icg,
                          cd_hcp, cd_hlp,
                          cd_manufactura,
                          cd_micro, cd_turismo], ignore_index=True)
-        c_d['MakerDate'] = datetime.date.today
-        c_d['MakerUser'] = user
 
-        out_path = join(abs_dir, 'RPT_STG_Dirigidas.txt')
+        c_d['MakerDate'] = datetime.date.today()
+        c_d.MakerDate = pd.to_datetime(c_d.MakerDate)
+        c_d['MakerUser'] = data['user']
+
+        out_path = join(abs_dir, self._out_folder, 'RPT_STG_Dirigidas.txt')  # TODO: Think of a better file name
+
+        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
         c_d.to_csv(
             out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
 
+        unlink(join(abs_dir, f_name + '.' + f_ext))
+
         return out_path
 
 
-    def fdn(self, data, user):
+    def fdn(self, data):
         """Fecha de Nacimiento resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, data['file'])
+        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
 
-        abs_dir, f_name, _ = self.get_path_file(path)
+        abs_dir, f_name, f_ext = self.get_path_file(path)
 
         parse_dates = [
             'RecordDate',
@@ -451,25 +477,31 @@ class DataPreparation():
             format='%Y%m%d',
             errors='coerce'
             )
-        fdn_df['MakerDate'] = datetime.date.today
-        fdn_df['MakerUser'] = user
 
-        out_path = join(abs_dir, f_name + '.txt')
+        fdn_df['MakerDate'] = datetime.date.today()
+        fdn_df.MakerDate = pd.to_datetime(fdn_df.MakerDate)
+        fdn_df['MakerUser'] = data['user']
+
+        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+
+        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
         fdn_df.to_csv(
             out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
 
+        unlink(join(abs_dir, f_name + '.' + f_ext))
+
         return out_path
 
 
-    def gavetas_icg(self, data, user):
+    def gavetas_icg(self, data):
         """Gavetas ICG resource Data Preparation"""
 
-        paths = [path for path in data['file']]
+        paths = [path for path in normpath(data['file'])[1:]]
         paths.sort()
 
-        abs_dir, _, _ = self.get_path_file(paths[0])
+        abs_dir, f_name, f_ext = self.get_path_file(paths[0])
 
         names = [
             'RIF', 'NombreRazonSocial', 'NumeroCredito',
@@ -539,52 +571,57 @@ class DataPreparation():
         g_construccion[parse_dates] = g_construccion[parse_dates].apply(
             lambda x: pd.to_datetime(x, format='%Y%m%d', errors='coerce'))
         g_construccion.fillna(value=na_values, inplace=True)
-        g_construccion['TypeCD'] = HCP
+        g_construccion['TypeCD'] = CD_CHOICES.get('HCP')
 
         # Gaveta Agricola
 
         g_agricola[parse_dates] = g_agricola[parse_dates].apply(
             lambda x: pd.to_datetime(x, format='%Y/%m/%d', errors='coerce'))
         g_agricola.fillna(value=na_values, inplace=True)
-        g_agricola['TypeCD'] = AGRICOLA_ICG
+        g_agricola['TypeCD'] = CD_CHOICES.get('AGRICOLA_ICG')
 
         # Gaveta Manufactura
 
         g_manufactura[parse_dates] = g_manufactura[parse_dates].apply(
             lambda x: pd.to_datetime(x, format='%Y/%m/%d', errors='coerce'))
         g_manufactura.fillna(value=na_values, inplace=True)
-        g_manufactura['TypeCD'] = MANUFACTURA
+        g_manufactura['TypeCD'] = CD_CHOICES.get('MANUFACTURA')
 
         # Gaveta Turismo
 
         g_turismo[parse_dates] = g_turismo[parse_dates].apply(
             lambda x: pd.to_datetime(x, format='%Y%m%d', errors='coerce'))
         g_turismo.fillna(value=na_values, inplace=True)
-        g_turismo['TypeCD'] = TURISMO
+        g_turismo['TypeCD'] = CD_CHOICES.get('TURISMO')
 
         # Concatenating Them All
 
         gavetas = pd.concat([g_agricola, g_construccion, g_manufactura, g_turismo],
                             ignore_index=True)
 
-        gavetas['MakerDate'] = datetime.date.today
-        gavetas['MakerUser'] = user
+        gavetas['MakerDate'] = datetime.date.today()
+        gavetas.MakerDate = pd.to_datetime(gavetas.MakerDate)
+        gavetas['MakerUser'] = data['user']
 
-        out_path = join(abs_dir, 'AT04_Gavetas.txt')
+        out_path = join(abs_dir, self._out_folder, 'AT04_Gavetas.txt')  # TODO: Think of a better file name
+
+        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
         gavetas.to_csv(
             out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
 
+        unlink(join(abs_dir, f_name + '.' + f_ext))
+
         return out_path
 
 
-    def lnp860(self, data, user):
+    def lnp860(self, data):
         """LNP860 resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, data['file'])
+        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
 
-        abs_dir, f_name, _ = self.get_path_file(path)
+        abs_dir, f_name, f_ext = self.get_path_file(path)
 
         labels = [
             'P8NOTE', 'P8TINC', 'P8FVUC', 'P8FCCC', 'P8FVUI', 'P8FCCI',
@@ -618,24 +655,29 @@ class DataPreparation():
         lnp860_df[fields] = lnp860_df[fields].apply(lambda x: x/100)
         lnp860_df.P8TINC = lnp860_df.P8TINC.apply(lambda x: x/1000000)
 
-        lnp860_df['MakerDate'] = datetime.date.today
-        lnp860_df['MakerUser'] = user
+        lnp860_df['MakerDate'] = datetime.date.today()
+        lnp860_df.MakerDate = pd.to_datetime(lnp860_df.MakerDate)
+        lnp860_df['MakerUser'] = data['user']
 
-        out_path = join(abs_dir, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+
+        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
         lnp860_df.to_csv(
             out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
 
+        unlink(join(abs_dir, f_name + '.' + f_ext))
+
         return out_path
 
 
-    def migrate_mortgage(self, data, user):
+    def migrate_mortgage(self, data):
         """Migrate Mortgage resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, data['file'])
+        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
 
-        abs_dir, f_name, _ = self.get_path_file(path)
+        abs_dir, f_name, f_ext = self.get_path_file(path)
 
         converters = {
             'TypeId':str,
@@ -658,24 +700,29 @@ class DataPreparation():
         mm_df.TypeId = mm_df.TypeId.astype('int32')
         mm_df.fillna(value={'Num30':0, 'Num60':0, 'Num90':0,}, inplace=True)
 
-        mm_df['MakerDate'] = datetime.date.today
-        mm_df['MakerUser'] = user
+        mm_df['MakerDate'] = datetime.date.today()
+        mm_df.MakerDate = pd.to_datetime(mm_df.MakerDate)
+        mm_df['MakerUser'] = data['user']
 
-        out_path = join(abs_dir, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+
+        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
         mm_df.to_csv(
             out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
 
+        unlink(join(abs_dir, f_name + '.' + f_ext))
+
         return out_path
 
 
-    def mis_provisiones(self, data, user):
+    def mis_provisiones(self, data):
         """MIS Provisiones resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, data['file'])
+        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
 
-        abs_dir, f_name, _ = self.get_path_file(path)
+        abs_dir, f_name, f_ext = self.get_path_file(path)
 
         columns = [
             'Cid', 'Account', 'AccountNew', 'ProdType', 'Provision',
@@ -805,22 +852,27 @@ class DataPreparation():
 
         mispf.reset_index(drop=False, inplace=True)
 
-        mispf['MakerDate'] = datetime.date.today
-        mispf['MakerUser'] = user
+        mispf['MakerDate'] = datetime.date.today()
+        mispf.MakerDate = pd.to_datetime(mispf.MakerDate)
+        mispf['MakerUser'] = data['user']
 
-        out_path = join(abs_dir, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+
+        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
         mispf[columns].to_csv(
             out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
 
+        unlink(join(abs_dir, f_name + '.' + f_ext))
+
         return out_path
 
 
-    def prestamo_prestaciones_hr(self, data, user):
+    def prestamo_prestaciones_hr(self, data):
         """Prestamos para las Prestaciones RRHH resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, data['file'])
+        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
 
         names = [
             'GEID', 'IdentificacionCliente', 'NombreCliente',
@@ -831,7 +883,7 @@ class DataPreparation():
             'FechaOtorgamiento',
         ]
 
-        abs_dir, f_name, _ = self.get_path_file(path)
+        abs_dir, f_name, f_ext = self.get_path_file(path)
 
         pphr = pd.read_excel(path,
                              usecols='B:G',
@@ -845,24 +897,29 @@ class DataPreparation():
 
         pphr.insert(loc=1, column='TipoCliente', value='V')
 
-        pphr['MakerDate'] = datetime.date.today
-        pphr['MakerUser'] = user
+        pphr['MakerDate'] = datetime.date.today()
+        pphr.MakerDate = pd.to_datetime(pphr.MakerDate)
+        pphr['MakerUser'] = data['user']
 
-        out_path = join(abs_dir, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+
+        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
         pphr.to_csv(
             out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
 
+        unlink(join(abs_dir, f_name + '.' + f_ext))
+
         return out_path
 
 
-    def rendimientos_icg(self, data, user):
+    def rendimientos_icg(self, data):
         """Rendimientos ICG resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, data['file'])
+        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
 
-        abs_dir, f_name, _ = self.get_path_file(path)
+        abs_dir, f_name, f_ext = self.get_path_file(path)
 
         names = [
             'Branch', 'LV', 'NombreVehiculo', 'Cuenta', 'DescripcionDeLaCuenta',
@@ -876,24 +933,29 @@ class DataPreparation():
 
         rend_icg.FechaInicio = pd.to_datetime(rend_icg.FechaInicio, format='%y%m%d')
 
-        rend_icg['MakerDate'] = datetime.date.today
-        rend_icg['MakerUser'] = user
+        rend_icg['MakerDate'] = datetime.date.today()
+        rend_icg.MakerDate = pd.to_datetime(rend_icg.MakerDate)
+        rend_icg['MakerUser'] = data['user']
 
-        out_path = join(abs_dir, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+
+        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
         rend_icg.to_csv(
             out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
 
+        unlink(join(abs_dir, f_name + '.' + f_ext))
+
         return out_path
 
 
-    def siif(self, data, user):
+    def siif(self, data):
         """SIIF resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, data['file'])
+        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
 
-        abs_dir, f_name, _ = self.get_path_file(path)
+        abs_dir, f_name, f_ext = self.get_path_file(path)
 
         converters = {
             'BranchId':str,
@@ -936,24 +998,29 @@ class DataPreparation():
         siif_df.SaldoCastigado = pd.to_numeric(siif_df.SaldoCastigado, errors='coerce')
         siif_df.PrincipalBalance = pd.to_numeric(siif_df.PrincipalBalance, errors='coerce')
 
-        siif_df['MakerDate'] = datetime.date.today
-        siif_df['MakerUser'] = user
+        siif_df['MakerDate'] = datetime.date.today()
+        siif_df.MakerDate = pd.to_datetime(siif_df.MakerDate)
+        siif_df['MakerUser'] = data['user']
 
-        out_path = join(abs_dir, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+
+        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
         siif_df.to_csv(
             out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
 
+        unlink(join(abs_dir, f_name + '.' + f_ext))
+
         return out_path
 
 
-    def sobregiros_consumer(self, data, user):
+    def sobregiros_consumer(self, data):
         """Sobregiros Consumer resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, data['file'])
+        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
 
-        abs_dir, f_name, _ = self.get_path_file(path)
+        abs_dir, f_name, f_ext = self.get_path_file(path)
 
         names = [
             'BranchId', 'BranchDescription', 'CId', 'TipoPersona', 'Acct',
@@ -976,24 +1043,29 @@ class DataPreparation():
 
         sobregiros_gcg.fillna(value=na_values, inplace=True)
 
-        sobregiros_gcg['MakerDate'] = datetime.date.today
-        sobregiros_gcg['MakerUser'] = user
+        sobregiros_gcg['MakerDate'] = datetime.date.today()
+        sobregiros_gcg.MakerDate = pd.to_datetime(sobregiros_gcg.MakerDate)
+        sobregiros_gcg['MakerUser'] = data['user']
 
-        out_path = join(abs_dir, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+
+        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
         sobregiros_gcg.to_csv(
             out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
 
+        unlink(join(abs_dir, f_name + '.' + f_ext))
+
         return out_path
 
 
-    def vnp003t(self, data, user):
+    def vnp003t(self, data):
         """VNP003T resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, data['file'])
+        path = join(settings.WEB_ROOT, normpath(data['file'])[1:])
 
-        abs_dir, f_name, _ = self.get_path_file(path)
+        abs_dir, f_name, f_ext = self.get_path_file(path)
 
         labels = [
             'DBKA', 'DAPPNA', 'DACCTA', 'DSTATA', 'DTYPEA', 'DBRCHA', 'DOPDTA',
@@ -1029,58 +1101,62 @@ class DataPreparation():
         vnp003t_df.DOY2AA.fillna(pd.to_datetime('1900-01-01'), inplace=True)
         vnp003t_df.TMY2AA.fillna(pd.to_datetime('1900-01-01'), inplace=True)
 
-        vnp003t_df['MakerDate'] = datetime.date.today
-        vnp003t_df['MakerUser'] = user
+        vnp003t_df['MakerDate'] = datetime.date.today()
+        vnp003t_df.MakerDate = pd.to_datetime(vnp003t_df.MakerDate)
+        vnp003t_df['MakerUser'] = data['user']
 
-        out_path = join(abs_dir, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+
+        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
         vnp003t_df.to_csv(
             out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
 
+        unlink(join(abs_dir, f_name + '.' + f_ext))
+
         return out_path
 
 
-    def call_method(self, resource_name, data, user):
-        """Call the method corresponding to the resource_name provided"""
+    def call_method(self, data):
+        """Call the method corresponding to the data's resource name provided"""
 
         data_path = ''
+        resource_name = data['resource_name']
 
         if resource_name in RESOURCE_CHOICES:
 
             if resource_name == 'AH':
-                data_path = self.account_history(data, user)
+                data_path = self.account_history(data)
             elif resource_name == 'AT04CRE':
-                data_path = self.at04_cre(data, user)
+                data_path = self.at04_cre(data)
             elif resource_name == 'AT07':
-                data_path = self.at07(data, user)
+                data_path = self.at07(data)
             elif resource_name == 'BBAT':
-                data_path = self.bal_by_acct_transformada(data, user)
+                data_path = self.bal_by_acct_transformada(data)
             elif resource_name == 'CND':
-                data_path = self.cartera_no_dirigida(data, user)
+                data_path = self.cartera_no_dirigida(data)
             elif resource_name == 'CD':
-                data_path = self.cartera_dirigida(data, user)
+                data_path = self.cartera_dirigida(data)
             elif resource_name == 'FDN':
-                data_path = self.fdn(data, user)
+                data_path = self.fdn(data)
             elif resource_name == 'GICG':
-                data_path = self.gavetas_icg(data, user)
+                data_path = self.gavetas_icg(data)
             elif resource_name == 'LNP860':
-                data_path = self.lnp860(data, user)
+                data_path = self.lnp860(data)
             elif resource_name == 'MM':
-                data_path = self.migrate_mortgage(data, user)
+                data_path = self.migrate_mortgage(data)
             elif resource_name == 'MISP':
-                data_path = self.mis_provisiones(data, user)
+                data_path = self.mis_provisiones(data)
             elif resource_name == 'PPRRHH':
-                data_path = self.prestamo_prestaciones_hr(data, user)
+                data_path = self.prestamo_prestaciones_hr(data)
             elif resource_name == 'RICG':
-                data_path = self.rendimientos_icg(data, user)
+                data_path = self.rendimientos_icg(data)
             elif resource_name == 'SIIF':
-                data_path = self.siif(data, user)
+                data_path = self.siif(data)
             elif resource_name == 'SC':
-                data_path = self.sobregiros_consumer(data, user)
+                data_path = self.sobregiros_consumer(data)
             elif resource_name == 'VNP003T':
-                data_path = self.vnp003t(data, user)
-            else:
-                pass
+                data_path = self.vnp003t(data)
 
-            return data_path
+        return data_path

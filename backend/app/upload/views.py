@@ -10,6 +10,8 @@ from upload.serializers import FileSerializer
 
 from core.models import File
 
+from upload import data_preparation as dp
+
 # import pandas as pd
 
 
@@ -70,15 +72,24 @@ class FileUploadView(viewsets.ModelViewSet):
     @action(methods=['POST'], detail=True, url_path='resource')
     def post(self, request, *args, **kwargs):
         """POST method for uploading the file"""
+        response_data = {
+            'id': None,
+            'resource_name': None,
+            'file': None,
+            'user': None
+        }
+        # TODO: Make it so it can handle multiple files
         file_serializer = self.serializer_class(data=request.data)
+        dp_obj = dp.DataPreparation()
 
         if file_serializer.is_valid():
             file_serializer.save()
-            # print('URL: ', file_serializer.url)
-            # print('Path: ', file_serializer.data['file'])
-            # print('Data: ', file_serializer.data)
-            # print('User: ', request.user)
-            return Response(file_serializer.data, status=status.HTTP_201_CREATED)
+            out_path = dp_obj.call_method(file_serializer.data)
+            response_data['id'] = file_serializer.data['id']
+            response_data['resource_name'] = file_serializer.data['resource_name']
+            response_data['file'] = out_path
+            response_data['user'] = file_serializer.data['user']
+            return Response(response_data, status=status.HTTP_201_CREATED)
         else:
             return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
