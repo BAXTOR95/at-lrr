@@ -453,7 +453,8 @@ class DataPreparation():
             out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
 
-        unlink(join(abs_dir, f_name + '.' + f_ext))
+        for p in paths:
+            unlink(p)
 
         return out_path
 
@@ -617,7 +618,8 @@ class DataPreparation():
             out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
 
-        unlink(join(abs_dir, f_name + '.' + f_ext))
+        for p in paths:
+            unlink(p)
 
         return out_path
 
@@ -975,6 +977,19 @@ class DataPreparation():
             'Fecha_cambio_Capital_Transferido'
         ]
 
+        num_fields = [
+            'CreditLimit',
+            'Amt30DPD',
+            'Amt60DPD',
+            'Amt90DPD',
+            'Amt120DPD',
+            'Amt150DPD',
+            'Amt180DPD',
+            'Amt210DPD',
+            'SaldoCastigado',
+            'PrincipalBalance'
+        ]
+
         siif_df = pd.read_csv(path,
                               sep='	',
                               low_memory=False,
@@ -982,16 +997,12 @@ class DataPreparation():
                               parse_dates=parse_dates,
                               converters=converters,)
 
-        siif_df.CreditLimit.replace(to_replace='Bs.S', value='', inplace=True, regex=True)
-        siif_df.Amt30DPD.replace(to_replace='Bs.S', value='', inplace=True, regex=True)
-        siif_df.Amt60DPD.replace(to_replace='Bs.S', value='', inplace=True, regex=True)
-        siif_df.Amt90DPD.replace(to_replace='Bs.S', value='', inplace=True, regex=True)
-        siif_df.Amt120DPD.replace(to_replace='Bs.S', value='', inplace=True, regex=True)
-        siif_df.Amt150DPD.replace(to_replace='Bs.S', value='', inplace=True, regex=True)
-        siif_df.Amt180DPD.replace(to_replace='Bs.S', value='', inplace=True, regex=True)
-        siif_df.Amt210DPD.replace(to_replace='Bs.S', value='', inplace=True, regex=True)
-        siif_df.SaldoCastigado.replace(to_replace='Bs.S', value='', inplace=True, regex=True)
-        siif_df.PrincipalBalance.replace(to_replace='Bs.S', value='', inplace=True, regex=True)
+        siif_df[num_fields] = siif_df[num_fields].replace(
+            to_replace='Bs.S',
+            value='',
+            inplace=True,
+            regex=True
+            )
 
         siif_df.CreditLimit = pd.to_numeric(siif_df.CreditLimit, errors='coerce')
         siif_df.Amt30DPD = pd.to_numeric(siif_df.Amt30DPD, errors='coerce')
