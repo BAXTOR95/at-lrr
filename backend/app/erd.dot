@@ -1,4 +1,265 @@
-[0m[0K      <FONT FACE="Roboto">expire_date</FONT>[0K[?25l
+[0m[0Kdigraph model_graph {[0K[?25l
+  // Dotfile by Django-Extensions graph_models[0K
+  // Created: 2020-01-30 08:21[0K
+  // Cli Options: -a[0K
+[0K
+  fontname = "Roboto"[0K
+  fontsize = 8[0K
+  splines  = true[0K
+[0K
+  node [[0K
+    fontname = "Roboto"[0K
+    fontsize = 8[0K
+    shape = "plaintext"[0K
+  ][0K
+[0K
+  edge [[0K
+    fontname = "Roboto"[0K
+    fontsize = 8[0K
+  ][0K
+[0K
+  // Labels[0K
+  subgraph cluster_django_contrib_admin {[0K
+    label=<[0K
+          <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">[0K
+          <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER">[0K
+          <FONT FACE="Roboto" COLOR="Black" POINT-SIZE="10">[0K
+          <B>django.contrib.admin</B>[0K
+          </FONT>[0K
+          </TD></TR>[0K
+          </TABLE>[0K
+          >[0K
+    color=olivedrab4[0K
+    style="rounded"[0K
+[0K
+    django_contrib_admin_models_LogEntry [label=<[0K
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">[0K
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>[0K
+      LogEntry[0K
+      </B></FONT></TD></TR>[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto"><B>id</B></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><B>AutoField</B></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT COLOR="#7B7B7B" FACE="Roboto"><B>content_type</B></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT COLOR="#7B7B7B" FACE="Roboto"><B>ForeignKey (id)</B></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto"><B>user</B></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">action_flag</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">PositiveSmallIntegerField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">action_time</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DateTimeField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT COLOR="#7B7B7B" FACE="Roboto">change_message</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT COLOR="#7B7B7B" FACE="Roboto">TextField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT COLOR="#7B7B7B" FACE="Roboto">object_id</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT COLOR="#7B7B7B" FACE="Roboto">TextField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">object_repr</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+      </TABLE>[0K
+      >][0K
+[0K
+  }[0K
+  subgraph cluster_django_contrib_auth {[0K
+    label=<[0K
+          <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">[0K
+          <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER">[0K
+          <FONT FACE="Roboto" COLOR="Black" POINT-SIZE="10">[0K
+          <B>django.contrib.auth</B>[0K
+          </FONT>[0K
+          </TD></TR>[0K
+          </TABLE>[0K
+          >[0K
+    color=olivedrab4[0K
+    style="rounded"[0K
+[0K
+    django_contrib_auth_models_Permission [label=<[0K
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">[0K
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>[0K
+      Permission[0K
+      </B></FONT></TD></TR>[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto"><B>id</B></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><B>AutoField</B></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto"><B>content_type</B></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">codename</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">name</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+      </TABLE>[0K
+      >][0K
+[0K
+    django_contrib_auth_models_Group [label=<[0K
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">[0K
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>[0K
+      Group[0K
+      </B></FONT></TD></TR>[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto"><B>id</B></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><B>AutoField</B></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">name</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+      </TABLE>[0K
+      >][0K
+[0K
+  }[0K
+  subgraph cluster_django_contrib_contenttypes {[0K
+    label=<[0K
+          <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">[0K
+          <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER">[0K
+          <FONT FACE="Roboto" COLOR="Black" POINT-SIZE="10">[0K
+          <B>django.contrib.contenttypes</B>[0K
+          </FONT>[0K
+          </TD></TR>[0K
+          </TABLE>[0K
+          >[0K
+    color=olivedrab4[0K
+    style="rounded"[0K
+[0K
+    django_contrib_contenttypes_models_ContentType [label=<[0K
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">[0K
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>[0K
+      ContentType[0K
+      </B></FONT></TD></TR>[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto"><B>id</B></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><B>AutoField</B></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">app_label</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">model</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+      </TABLE>[0K
+      >][0K
+[0K
+  }[0K
+  subgraph cluster_django_contrib_sessions {[0K
+    label=<[0K
+          <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">[0K
+          <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER">[0K
+          <FONT FACE="Roboto" COLOR="Black" POINT-SIZE="10">[0K
+          <B>django.contrib.sessions</B>[0K
+          </FONT>[0K
+          </TD></TR>[0K
+          </TABLE>[0K
+          >[0K
+    color=olivedrab4[0K
+    style="rounded"[0K
+[0K
+    django_contrib_sessions_base_session_AbstractBaseSession [label=<[0K
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">[0K
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>[0K
+      AbstractBaseSession[0K
+      </B></FONT></TD></TR>[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">expire_date</FONT>[0K
       </TD><TD ALIGN="LEFT">[0K
       <FONT FACE="Roboto">DateTimeField</FONT>[0K
       </TD></TR>[0K
@@ -111,24 +372,6 @@
     color=olivedrab4[0K
     style="rounded"[0K
 [0K
-    django_contrib_auth_models_PermissionsMixin [label=<[0K
-      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">[0K
-      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
-      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>[0K
-      PermissionsMixin[0K
-      </B></FONT></TD></TR>[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">is_superuser</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">BooleanField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-      </TABLE>[0K
-      >][0K
-[0K
     django_contrib_auth_base_user_AbstractBaseUser [label=<[0K
       <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">[0K
       <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
@@ -149,6 +392,24 @@
       <FONT FACE="Roboto">password</FONT>[0K
       </TD><TD ALIGN="LEFT">[0K
       <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+      </TABLE>[0K
+      >][0K
+[0K
+    django_contrib_auth_models_PermissionsMixin [label=<[0K
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">[0K
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>[0K
+      PermissionsMixin[0K
+      </B></FONT></TD></TR>[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">is_superuser</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">BooleanField</FONT>[0K
       </TD></TR>[0K
 [0K
 [0K
@@ -1734,55 +1995,231 @@
       <TR><TD ALIGN="LEFT" BORDER="0">[0K
       <FONT FACE="Roboto">CheckerDate</FONT>[0K
       </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DateField</FONT>[0K[21G[?25h[0m[1;1H[2J[?25l[0m[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">PRODUCCION_SOCIAL</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">IntegerField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BOR[0K[1G[?25h      <TR><TD ALIGN="LEFT" BORDER="0">[0K[?25l
+      <FONT FACE="Roboto">PROVISION_ESPECIFICA</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">PROVISION_RENDIMIENTO_X_COBRAR</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">RENDIMIENTOS_X_COBRAR</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">RENDIMIENTOS_X_COBRAR_VENCIDOS</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">RUBRO</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">SALDO</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">SALDO_CREDITO_31_12</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">SECTOR_PRODUCCION</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">SUPERFICIE_TOTAL</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">TASA_COMISION</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">TASA_INCENTIVO</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">TASA_INTERES_ACTUAL</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">TASA_INTERES_COBRADA</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">TIPO_BENEFICIARIO</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">TIPO_REGISTRO</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">TIPO_SUBSECTOR</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">TIPO_ZONA</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">IntegerField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">TYPE_CD</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">IntegerField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">ULTIMA_FECHA_CANCEL_CUOTA_CAPITAL</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
       <FONT FACE="Roboto">DateField</FONT>[0K
       </TD></TR>[0K
 [0K
 [0K
 [0K
       <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">Cid</FONT>[0K
+      <FONT FACE="Roboto">ULTIMA_FECHA_CANCEL_CUOTA_INTERES</FONT>[0K
       </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
+      <FONT FACE="Roboto">DateField</FONT>[0K
       </TD></TR>[0K
 [0K
 [0K
 [0K
       <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">CtaLocal</FONT>[0K
+      <FONT FACE="Roboto">USO_FINANCIERO</FONT>[0K
       </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
+      <FONT FACE="Roboto">IntegerField</FONT>[0K
       </TD></TR>[0K
 [0K
 [0K
 [0K
       <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">CtaProvCap</FONT>[0K
+      <FONT FACE="Roboto">VENTAS_ANUALES</FONT>[0K
       </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+      </TABLE>[0K
+      >][0K
+[0K
+    core_resources_models_RendimientosCobrarConsumer [label=<[0K
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">[0K
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>[0K
+      RendimientosCobrarConsumer[0K
+      </B></FONT></TD></TR>[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto"><B>Acct</B></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><B>CharField</B></FONT>[0K
       </TD></TR>[0K
 [0K
 [0K
 [0K
       <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">CtaProvRend</FONT>[0K
+      <FONT FACE="Roboto"><B>CheckerUser</B></FONT>[0K
       </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
+      <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>[0K
       </TD></TR>[0K
 [0K
 [0K
 [0K
       <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">DescriptionType</FONT>[0K
+      <FONT FACE="Roboto"><B>MakerUser</B></FONT>[0K
       </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
+      <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>[0K
       </TD></TR>[0K
 [0K
 [0K
 [0K
       <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">HDelinquency</FONT>[0K
+      <FONT FACE="Roboto">CheckerDate</FONT>[0K
       </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
+      <FONT FACE="Roboto">DateField</FONT>[0K
       </TD></TR>[0K
 [0K
 [0K
@@ -1796,54 +2233,6 @@
 [0K
 [0K
       <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">MaxOfCantCuotasVencidas</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">IntegerField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">Old_Acct</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">Overdraft</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">ProdType</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">IntegerField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">Producto</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">IntegerField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">Provision</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
       <FONT FACE="Roboto">ProvisionREND</FONT>[0K
       </TD><TD ALIGN="LEFT">[0K
       <FONT FACE="Roboto">DecimalField</FONT>[0K
@@ -1852,17 +2241,17 @@
 [0K
 [0K
       <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">RecordDate</FONT>[0K
+      <FONT FACE="Roboto">SaldoRendCuentaOrden</FONT>[0K
       </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DateField</FONT>[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
       </TD></TR>[0K
 [0K
 [0K
 [0K
       <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">RiskSicri</FONT>[0K
+      <FONT FACE="Roboto">SaldoRendXMora</FONT>[0K
       </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
       </TD></TR>[0K
 [0K
 [0K
@@ -1884,43 +2273,581 @@
 [0K
 [0K
       <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">Saldo_Provision</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
       <FONT FACE="Roboto">Saldo_Provision_REND</FONT>[0K
       </TD><TD ALIGN="LEFT">[0K
       <FONT FACE="Roboto">DecimalField</FONT>[0K
       </TD></TR>[0K
 [0K
 [0K
+      </TABLE>[0K
+      >][0K
+[0K
+    core_resources_models_SIIF [label=<[0K
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">[0K
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>[0K
+      SIIF[0K
+      </B></FONT></TD></TR>[0K
+[0K
 [0K
       <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">SumSaldo</FONT>[0K
+      <FONT FACE="Roboto"><B>Acct</B></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><B>CharField</B></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto"><B>CheckerUser</B></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto"><B>MakerUser</B></FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">ActivityId</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">IntegerField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Agro</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">IntegerField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Amt120DPD</FONT>[0K
       </TD><TD ALIGN="LEFT">[0K
       <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Amt150DPD</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Amt180DPD</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Amt210DPD</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Amt30DPD</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Amt60DPD</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Amt90DPD</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">AmtPmtPastDue</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">BlockCode1Date</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DateField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">BlockCodeId1</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">BlockReason1</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">BranchId</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">IntegerField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Capital_Trasferido</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">CheckerDate</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DateField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Cid</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">CloseDate</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DateField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">CreditLimit</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">CtaLocal</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">CuotasVencidas</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">IntegerField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">DaysPastDue</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">IntegerField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">DireccionB</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">DireccionH</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">DireccionO</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">DivisionTypeId</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Fecha_Cambio_Status</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DateField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Fecha_Exigibilidad_pago_ult_cuota</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DateField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Fecha_Fin_Periodo_gracia_Pago_interes</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DateField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Fecha_Reg_Venc_Lit_cast</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DateField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Fecha_cambio_Capital_Transferido</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DateField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">FeePaid</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">FondoEstadal</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">IntegerField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">FullName</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Gender</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Int_Efectivamente_Cobrado</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">LoanStatus</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">MakerDate</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DateField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">MaturityDate</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DateField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Micro</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">IntegerField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Monto_Comision_Flat</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Mora</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">NumPmtsPastDue</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">IntegerField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">OccupationId</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">IntegerField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">OldAcct</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">OpenDate</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DateField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">OrigCreditLimit</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">OrigOpenDate</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DateField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">OrigTypeId</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">IntegerField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Porcentaje_Comsion_Flat</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">PrincipalBalance</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">ProfessionId</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">IntegerField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Provision</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Purchases</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Rate</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">RecordDate</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DateField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">RelId</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">IntegerField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Rewrite</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">IntegerField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">SaldoCapital</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">SaldoCastigado</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">SaldoProvision</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">SaldoRendimientos</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">DecimalField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Staff</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">IntegerField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">Tipo_Vivienda</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">IntegerField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">TypeId</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">IntegerField</FONT>[0K
       </TD></TR>[0K
 [0K
 [0K
       </TABLE>[0K
       >][0K
 [0K
-    core_resources_models_PrestamosPrestacionesRRHH [label=<[0K
+    core_resources_models_FDN [label=<[0K
       <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">[0K
       <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
       <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>[0K
-      PrestamosPrestacionesRRHH[0K
+      FDN[0K
       </B></FONT></TD></TR>[0K
 [0K
 [0K
       <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto"><B>GEID</B></FONT>[0K
+      <FONT FACE="Roboto"><B>id</B></FONT>[0K
       </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto"><B>CharField</B></FONT>[0K
+      <FONT FACE="Roboto"><B>AutoField</B></FONT>[0K
       </TD></TR>[0K
 [0K
 [0K
@@ -1950,7 +2877,7 @@
 [0K
 [0K
       <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">FechaOtorgamiento</FONT>[0K
+      <FONT FACE="Roboto">FechaNacimiento</FONT>[0K
       </TD><TD ALIGN="LEFT">[0K
       <FONT FACE="Roboto">DateField</FONT>[0K
       </TD></TR>[0K
@@ -1958,7 +2885,15 @@
 [0K
 [0K
       <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">IdentificacionCliente</FONT>[0K
+      <FONT FACE="Roboto">FullName</FONT>[0K
+      </TD><TD ALIGN="LEFT">[0K
+      <FONT FACE="Roboto">CharField</FONT>[0K
+      </TD></TR>[0K
+[0K
+[0K
+[0K
+      <TR><TD ALIGN="LEFT" BORDER="0">[0K
+      <FONT FACE="Roboto">IdCliente</FONT>[0K
       </TD><TD ALIGN="LEFT">[0K
       <FONT FACE="Roboto">CharField</FONT>[0K
       </TD></TR>[0K
@@ -1974,471 +2909,7 @@
 [0K
 [0K
       <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">MontoOriginal</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">NombreCliente</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">SaldoActual</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-      </TABLE>[0K
-      >][0K
-[0K
-    core_resources_models_AT04CRE [label=<[0K
-      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">[0K
-      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
-      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>[0K
-      AT04CRE[0K
-      </B></FONT></TD></TR>[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto"><B>REFERNO</B></FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto"><B>CharField</B></FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto"><B>CheckerUser</B></FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto"><B>MakerUser</B></FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">ADDRESS1</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">ADDRESS2</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">ADDRESS3</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">ADDRESS4</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">ADDRESS5</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">ADDRESS6</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">ADDRESSEXTRA</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">APROFECHA</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DateField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">BASECLI</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">BRANCH</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">IntegerField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">CAMBIOTASA</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">COMISTASA</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">CREDITLINE</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">CTRORG</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">CheckerDate</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DateField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">DOMICLI</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">EsNoDirigido</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">IntegerField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">FECHACLI</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DateField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">FILLER</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">GENLEDGER</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">INTORIGTASA</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">LIABICLI</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">LIABNOMCLI</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">LIQUFECHA</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DateField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">LV</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">MA1AMONTOAVENCER</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">MA1AMONTOVENCIDO</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">MakerDate</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DateField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">N030DMONTOAVENCER</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">N030DMONTOVENCIDO</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">N060DMONTOAVENCER</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">N060DMONTOVENCIDO</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">N090DMONTOAVENCER</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">N090DMONTOVENCIDO</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">N120DMONTOAVENCER</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">N120DMONTOVENCIDO</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">N180DMONTOAVENCER</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">N180DMONTOVENCIDO</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">N360DMONTOAVENCER</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">N360DMONTOVENCIDO</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">NACICLI</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">NOMECLI</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">ORIGFECHA</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DateField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">ORIGIMONTO</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">PAGASCUOTAS</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">PAGOMESMONTO</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">PAGOTOTAL</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">DecimalField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">PGTOULTCAPITAL</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">PGTOULTINTERES</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">PRODCAT</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K
-      <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">QTDREN</FONT>[0K
-      </TD><TD ALIGN="LEFT">[0K
-      <FONT FACE="Roboto">CharField</FONT>[0K
-      </TD></TR>[0K
-[0K
-[0K
-[0K[3G[?25h[0m[1;1H[2J[?25l[0m      <FONT FACE="Roboto">RecordDate</FONT>[0K
+      <FONT FACE="Roboto">RecordDate</FONT>[0K
       </TD><TD ALIGN="LEFT">[0K
       <FONT FACE="Roboto">DateField</FONT>[0K
       </TD></TR>[0K
@@ -2449,7 +2920,7 @@
 [0K
     core_resources_models_AT07 [label=<[0K
       <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">[0K
-[0K[31G[?25h[?25l      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">[0K
       <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>[0K
       AT07[0K
       </B></FONT></TD></TR>[0K
@@ -4004,7 +4475,7 @@
 [0K
 [0K
       <TR><TD ALIGN="LEFT" BORDER="0">[0K
-      <FONT FACE="Roboto">MontoInteresCuentaOrden</FONT>[0K
+      <FONT FACE="Roboto">MontoInteresCuentaOrden</FONT[0K[17G[?25h[?25l      <FONT FACE="Roboto">MontoInteresCuentaOrden</FONT>[0K
       </TD><TD ALIGN="LEFT">[0K
       <FONT FACE="Roboto">DecimalField</FONT>[0K
       </TD></TR>[0K
@@ -4513,8 +4984,7 @@
 [0K
 [0K
 [0K
-  django_contrib_sessions_models_Session -> django_contrib_sessions_base_session_AbstractBa[0Ks
-eSession[0K
+  django_contrib_sessions_models_Session -> django_contrib_sessions_base_session_AbstractBaseSession[0K
   [label=" abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];[0K
 [0K
 [0K
@@ -4538,43 +5008,34 @@ eSession[0K
   [label=" user (file)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_CorporativoNoDirigida -> core_models_User[0K
-  [label=" MakerUser (corporativo_no_dirigida_maker_user_set)"] [arrowhead=none, arrowtail=[0Kd
-ot, dir=both];[0K
+  [label=" MakerUser (corporativo_no_dirigida_maker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_CorporativoNoDirigida -> core_models_User[0K
-  [label=" CheckerUser (corporativo_no_dirigida_checker_user_set)"] [arrowhead=none, arrowt[0Ka
-il=dot, dir=both];[0K
+  [label=" CheckerUser (corporativo_no_dirigida_checker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_CorporativoNoDirigida -> core_config_tables_sb_models_SB19[0K
-  [label=" ClasificacionRiesgo (corporativonodirigida)"] [arrowhead=dot arrowtail=dot, dir=[0Kb
-oth];[0K
+  [label=" ClasificacionRiesgo (corporativonodirigida)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_CorporativoNoDirigida -> core_config_tables_sb_models_SB30[0K
-  [label=" PeriodicidadPagoEspecialCapital (corporativonodirigida)"] [arrowhead=dot arrowta[0Ki
-l=dot, dir=both];[0K
+  [label=" PeriodicidadPagoEspecialCapital (corporativonodirigida)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_CorporativoNoDirigida -> core_config_tables_sb_models_SB10[0K
-  [label=" ActividadCliente (corporativonodirigida)"] [arrowhead=dot arrowtail=dot, dir=bot[0Kh
-];[0K
+  [label=" ActividadCliente (corporativonodirigida)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_CorporativoNoDirigida -> core_config_tables_sb_models_SB16[0K
   [label=" RifLetra (corporativonodirigida)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_CorporativoNoDirigida -> core_config_tables_sb_models_SB31[0K
-  [label=" GrupoEconomico (corporativonodirigida)"] [arrowhead=dot arrowtail=dot, dir=both][0K;
-[0K
+  [label=" GrupoEconomico (corporativonodirigida)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_CorporativoNoDirigida -> core_config_tables_sb_models_SB11[0K
-  [label=" TipoGarantiaPrincipal (corporativonodirigida)"] [arrowhead=dot arrowtail=dot, di[0Kr
-=both];[0K
+  [label=" TipoGarantiaPrincipal (corporativonodirigida)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_SobregirosConsumer -> core_models_User[0K
-  [label=" MakerUser (sobregiros_consumer_maker_user_set)"] [arrowhead=none, arrowtail=dot,[0K
-dir=both];[0K
+  [label=" MakerUser (sobregiros_consumer_maker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_SobregirosConsumer -> core_models_User[0K
-  [label=" CheckerUser (sobregiros_consumer_checker_user_set)"] [arrowhead=none, arrowtail=[0Kd
-ot, dir=both];[0K
+  [label=" CheckerUser (sobregiros_consumer_checker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_SobregirosConsumer -> core_config_tables_sb_models_SB16[0K
   [label=" TipoPersona (sobregirosconsumer)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
@@ -4583,70 +5044,55 @@ ot, dir=both];[0K
   [label=" Riesgo (sobregirosconsumer)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_RendimientosCorporativos -> core_models_User[0K
-  [label=" MakerUser (rendimientos_icg_maker_user_set)"] [arrowhead=none, arrowtail=dot, di[0Kr
-=both];[0K
+  [label=" MakerUser (rendimientos_icg_maker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_RendimientosCorporativos -> core_models_User[0K
-  [label=" CheckerUser (rendimientos_icg_checker_user_set)"] [arrowhead=none, arrowtail=dot[0K,
- dir=both];[0K
+  [label=" CheckerUser (rendimientos_icg_checker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_MigrateMorgage -> core_models_User[0K
-  [label=" MakerUser (migrate_morgage_maker_user_set)"] [arrowhead=none, arrowtail=dot, dir[0K=
-both];[0K
+  [label=" MakerUser (migrate_morgage_maker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_MigrateMorgage -> core_models_User[0K
-  [label=" CheckerUser (migrate_morgage_checker_user_set)"] [arrowhead=none, arrowtail=dot,[0K
-dir=both];[0K
+  [label=" CheckerUser (migrate_morgage_checker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_GavetasCorporativas -> core_models_User[0K
-  [label=" MakerUser (gavetas_icg_maker_user_set)"] [arrowhead=none, arrowtail=dot, dir=bot[0Kh
-];[0K
+  [label=" MakerUser (gavetas_icg_maker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_GavetasCorporativas -> core_models_User[0K
-  [label=" CheckerUser (gavetas_icg_checker_user_set)"] [arrowhead=none, arrowtail=dot, dir[0K=
-both];[0K
+  [label=" CheckerUser (gavetas_icg_checker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_GavetasCorporativas -> core_config_tables_sb_models_SB30[0K
-  [label=" PeriodicidadPagoEspecialCapital (gavetascorporativas)"] [arrowhead=dot arrowtail[0K=
-dot, dir=both];[0K
+  [label=" PeriodicidadPagoEspecialCapital (gavetascorporativas)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_ModalidadHipotecaria -> core_models_User[0K
-  [label=" MakerUser (modalidad_hipotecaria_maker_user_set)"] [arrowhead=none, arrowtail=do[0Kt
-, dir=both];[0K
+  [label=" MakerUser (modalidad_hipotecaria_maker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_ModalidadHipotecaria -> core_models_User[0K
-  [label=" CheckerUser (modalidad_hipotecaria_checker_user_set)"] [arrowhead=none, arrowtai[0Kl
-=dot, dir=both];[0K
+  [label=" CheckerUser (modalidad_hipotecaria_checker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_MISProvisiones -> core_models_User[0K
-  [label=" MakerUser (mis_provisiones_maker_user_set)"] [arrowhead=none, arrowtail=dot, dir[0K=
-both];[0K
+  [label=" MakerUser (mis_provisiones_maker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_MISProvisiones -> core_models_User[0K
-  [label=" CheckerUser (mis_provisiones_checker_user_set)"] [arrowhead=none, arrowtail=dot,[0K
-dir=both];[0K
+  [label=" CheckerUser (mis_provisiones_checker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_MISProvisiones -> core_config_tables_sb_models_SB19[0K
   [label=" Riesgo (misprovisiones)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_PrestamosPrestacionesRRHH -> core_models_User[0K
-  [label=" MakerUser (prestamos_prestaciones_hr_maker_user_set)"] [arrowhead=none, arrowtai[0Kl
-=dot, dir=both];[0K
+  [label=" MakerUser (prestamos_prestaciones_hr_maker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_PrestamosPrestacionesRRHH -> core_models_User[0K
-  [label=" CheckerUser (prestamos_prestaciones_hr_checker_user_set)"] [arrowhead=none, arro[0Kw
-tail=dot, dir=both];[0K
+  [label=" CheckerUser (prestamos_prestaciones_hr_checker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_PrestamosPrestacionesRRHH -> core_config_tables_sb_models_SB16[0K
-  [label=" TipoCliente (prestamosprestacionesrrhh)"] [arrowhead=dot arrowtail=dot, dir=both[0K]
-;[0K
+  [label=" TipoCliente (prestamosprestacionesrrhh)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_AT04CRE -> core_models_User[0K
   [label=" MakerUser (at04cre_maker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_AT04CRE -> core_models_User[0K
-  [label=" CheckerUser (at04cre_checker_user_set)"] [arrowhead=none, arrowtail=dot, dir=bot[0Kh
-];[0K
+  [label=" CheckerUser (at04cre_checker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_AT04CRE -> core_config_tables_sb_models_SB15[0K
   [label=" MONEDA (at04cre)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
@@ -4658,15 +5104,13 @@ tail=dot, dir=both];[0K
   [label=" MakerUser (lnp860_maker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_LNP860 -> core_models_User[0K
-  [label=" CheckerUser (lnp860_checker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both[0K]
-;[0K
+  [label=" CheckerUser (lnp860_checker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_VNP003T -> core_models_User[0K
   [label=" MakerUser (vnp003t_maker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_VNP003T -> core_models_User[0K
-  [label=" CheckerUser (vnp003t_checker_user_set)"] [arrowhead=none, arrowtail=dot, dir=bot[0Kh
-];[0K
+  [label=" CheckerUser (vnp003t_checker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_AccountHistory -> core_models_User[0K
   [label=" MakerUser (ah_maker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
@@ -4717,8 +5161,7 @@ tail=dot, dir=both];[0K
   [label=" PERIODO_PAGO_INTERES (ppi_cd_set)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_CarteraDirigida -> core_config_tables_sb_models_SB11[0K
-  [label=" TIPO_GARANTIA_PRINCIPAL (carteradirigida)"] [arrowhead=dot arrowtail=dot, dir=bo[0Kt
-h];[0K
+  [label=" TIPO_GARANTIA_PRINCIPAL (carteradirigida)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_CarteraDirigida -> core_config_tables_sb_models_SB31[0K
   [label=" BANCA_SOCIAL (carteradirigida)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
@@ -4727,12 +5170,10 @@ h];[0K
   [label=" DESTINO_ECONOMICO (carteradirigida)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_RendimientosCobrarConsumer -> core_models_User[0K
-  [label=" MakerUser (rend_other_icg_maker_user_set)"] [arrowhead=none, arrowtail=dot, dir=[0Kb
-oth];[0K
+  [label=" MakerUser (rend_other_icg_maker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_RendimientosCobrarConsumer -> core_models_User[0K
-  [label=" CheckerUser (rend_other_icg_checker_user_set)"] [arrowhead=none, arrowtail=dot, [0Kd
-ir=both];[0K
+  [label=" CheckerUser (rend_other_icg_checker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_SIIF -> core_models_User[0K
   [label=" MakerUser (siif_maker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
@@ -4750,8 +5191,7 @@ ir=both];[0K
   [label=" EstadoCredito (siif)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_SIIF -> core_config_tables_sb_models_SB30[0K
-  [label=" Periodicidad_Pago_Especial_Capital (siif)"] [arrowhead=dot arrowtail=dot, dir=bo[0Kt
-h];[0K
+  [label=" Periodicidad_Pago_Especial_Capital (siif)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_resources_models_FDN -> core_models_User[0K
   [label=" MakerUser (fdn_maker_user_set)"] [arrowhead=none, arrowtail=dot, dir=both];[0K
@@ -4823,23 +5263,19 @@ h];[0K
   [label=" RelacionCrediticia (rc_at04_set)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_reports_models_AT04 -> core_config_tables_sb_models_SB31[0K
-  [label=" GrupoEconomicoFinanciero (gef_at04_set)"] [arrowhead=dot arrowtail=dot, dir=both[0K]
-;[0K
+  [label=" GrupoEconomicoFinanciero (gef_at04_set)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_reports_models_AT04 -> core_config_tables_sb_models_SB30[0K
-  [label=" PeriodicidadPagoCapital (ppc_at04_set)"] [arrowhead=dot arrowtail=dot, dir=both][0K;
-[0K
+  [label=" PeriodicidadPagoCapital (ppc_at04_set)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_reports_models_AT04 -> core_config_tables_sb_models_SB30[0K
-  [label=" PeriodicidadPagoInteresCredito (ppi_at04_set)"] [arrowhead=dot arrowtail=dot, di[0Kr
-=both];[0K
+  [label=" PeriodicidadPagoInteresCredito (ppi_at04_set)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_reports_models_AT04 -> core_config_tables_sb_models_SB15[0K
   [label=" Moneda (at04)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_reports_models_AT04 -> core_config_tables_sb_models_SB31[0K
-  [label=" IndicadorTasaPreferencial (itp_at04_set)"] [arrowhead=dot arrowtail=dot, dir=bot[0Kh
-];[0K
+  [label=" IndicadorTasaPreferencial (itp_at04_set)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_reports_models_AT04 -> core_config_tables_sb_models_SB11[0K
   [label=" TipoGarantiaPrincipal (at04)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
@@ -4857,15 +5293,13 @@ h];[0K
   [label=" UsoFinanciero (at04)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_reports_models_AT04 -> core_config_tables_sb_models_SB83[0K
-  [label=" DestinoRecursosMicrofinancieros (at04)"] [arrowhead=dot arrowtail=dot, dir=both][0K;
-[0K
+  [label=" DestinoRecursosMicrofinancieros (at04)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_reports_models_AT04 -> core_config_tables_sb_models_SB85[0K
   [label=" CodigoTipoProyecto (at04)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_reports_models_AT04 -> core_config_tables_sb_models_SB100[0K
-  [label=" CodigoTipoOperacionesFinanciamiento (at04)"] [arrowhead=dot arrowtail=dot, dir=b[0Ko
-th];[0K
+  [label=" CodigoTipoOperacionesFinanciamiento (at04)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_reports_models_AT04 -> core_config_tables_sb_models_SB101[0K
   [label=" CodigoSegmento (at04)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
@@ -4913,8 +5347,7 @@ th];[0K
   [label=" TipoIndustria (at04)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_reports_models_AT04 -> core_config_tables_sb_models_SB137[0K
-  [label=" TipoBeneficiarioSectorManufacturero (at04)"] [arrowhead=dot arrowtail=dot, dir=b[0Ko
-th];[0K
+  [label=" TipoBeneficiarioSectorManufacturero (at04)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
 [0K
   core_reports_models_AT04 -> core_config_tables_sb_models_SB140[0K
   [label=" TipoBeneficiarioSectorTurismo (at04)"] [arrowhead=dot arrowtail=dot, dir=both];[0K
@@ -4924,4 +5357,4 @@ th];[0K
 [0K
 [0K
 }[0K
-[0K[22G[?25h[1G
+[0K[?25h
