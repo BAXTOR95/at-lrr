@@ -131,7 +131,14 @@ class DataPreparation():
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
-        return out_path  # TODO: Maybe add the relative path
+        return {
+            'out_path': out_path,
+            'data': a_h.head(100).to_json(
+                orient='records',
+                date_format='iso',
+                double_precision=2
+                )
+            }
 
 
     def at04_cre(self, data):
@@ -204,7 +211,14 @@ class DataPreparation():
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
-        return out_path
+        return {
+            'out_path': out_path,
+            'data': at04cre.head(100).to_json(
+                orient='records',
+                date_format='iso',
+                double_precision=2
+                )
+            }
 
 
     def at07(self, data):
@@ -269,7 +283,14 @@ class DataPreparation():
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
-        return out_path
+        return {
+            'out_path': out_path,
+            'data': at07_df.head(100).to_json(
+                orient='records',
+                date_format='iso',
+                double_precision=2
+                )
+            }
 
 
     def bal_by_acct_transformada(self, data):
@@ -312,7 +333,14 @@ class DataPreparation():
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
-        return out_path
+        return {
+            'out_path': out_path,
+            'data': bbat.head(100).to_json(
+                orient='records',
+                date_format='iso',
+                double_precision=2
+                )
+            }
 
 
     def cartera_no_dirigida(self, data):
@@ -380,7 +408,14 @@ class DataPreparation():
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
-        return out_path
+        return {
+            'out_path': out_path,
+            'data': cnd.head(100).to_json(
+                orient='records',
+                date_format='iso',
+                double_precision=2
+                )
+            }
 
 
     def cartera_dirigida(self, data):
@@ -456,7 +491,14 @@ class DataPreparation():
         for p in paths:
             unlink(p)
 
-        return out_path
+        return {
+            'out_path': out_path,
+            'data': c_d.head(100).to_json(
+                orient='records',
+                date_format='iso',
+                double_precision=2
+                )
+            }
 
 
     def fdn(self, data):
@@ -496,7 +538,14 @@ class DataPreparation():
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
-        return out_path
+        return {
+            'out_path': out_path,
+            'data': fdn_df.head(100).to_json(
+                orient='records',
+                date_format='iso',
+                double_precision=2
+                )
+            }
 
 
     def gavetas_icg(self, data):
@@ -621,7 +670,14 @@ class DataPreparation():
         for p in paths:
             unlink(p)
 
-        return out_path
+        return {
+            'out_path': out_path,
+            'data': gavetas.head(100).to_json(
+                orient='records',
+                date_format='iso',
+                double_precision=2
+                )
+            }
 
 
     def lnp860(self, data):
@@ -677,7 +733,14 @@ class DataPreparation():
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
-        return out_path
+        return {
+            'out_path': out_path,
+            'data': lnp860_df.head(100).to_json(
+                orient='records',
+                date_format='iso',
+                double_precision=2
+                )
+            }
 
 
     def migrate_mortgage(self, data):
@@ -722,7 +785,14 @@ class DataPreparation():
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
-        return out_path
+        return {
+            'out_path': out_path,
+            'data': mm_df.head(100).to_json(
+                orient='records',
+                date_format='iso',
+                double_precision=2
+                )
+            }
 
 
     def mis_provisiones(self, data):
@@ -874,7 +944,14 @@ class DataPreparation():
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
-        return out_path
+        return {
+            'out_path': out_path,
+            'data': mispf.head(100).to_json(
+                orient='records',
+                date_format='iso',
+                double_precision=2
+                )
+            }
 
 
     def prestamo_prestaciones_hr(self, data):
@@ -919,7 +996,14 @@ class DataPreparation():
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
-        return out_path
+        return {
+            'out_path': out_path,
+            'data': pphr.head(100).to_json(
+                orient='records',
+                date_format='iso',
+                double_precision=2
+                )
+            }
 
 
     def rendimientos_icg(self, data):
@@ -955,7 +1039,14 @@ class DataPreparation():
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
-        return out_path
+        return {
+            'out_path': out_path,
+            'data': rend_icg.head(100).to_json(
+                orient='records',
+                date_format='iso',
+                double_precision=2
+                )
+            }
 
 
     def siif(self, data):
@@ -1029,7 +1120,14 @@ class DataPreparation():
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
-        return out_path
+        return {
+            'out_path': out_path,
+            'data': siif_df.head(100).to_json(
+                orient='records',
+                date_format='iso',
+                double_precision=2
+                )
+            }
 
 
     def sobregiros_consumer(self, data):
@@ -1074,7 +1172,14 @@ class DataPreparation():
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
-        return out_path
+        return {
+            'out_path': out_path,
+            'data': sobregiros_gcg.head(100).to_json(
+                orient='records',
+                date_format='iso',
+                double_precision=2
+                )
+            }
 
 
     def vnp003t(self, data):
@@ -1132,48 +1237,55 @@ class DataPreparation():
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
-        return out_path
+        return {
+            'out_path': out_path,
+            'data': vnp003t_df.head(100).to_json(
+                orient='records',
+                date_format='iso',
+                double_precision=2
+                )
+            }
 
 
     def call_method(self, data):
         """Call the method corresponding to the data's resource name provided"""
 
-        data_path = ''
+        data_results = {}
         resource_name = data[0]['resource_name']
 
         if resource_name in RESOURCE_CHOICES:
 
             if resource_name == 'AH':
-                data_path = self.account_history(data)
+                data_results = self.account_history(data)
             elif resource_name == 'AT04CRE':
-                data_path = self.at04_cre(data)
+                data_results = self.at04_cre(data)
             elif resource_name == 'AT07':
-                data_path = self.at07(data)
+                data_results = self.at07(data)
             elif resource_name == 'BBAT':
-                data_path = self.bal_by_acct_transformada(data)
+                data_results = self.bal_by_acct_transformada(data)
             elif resource_name == 'CND':
-                data_path = self.cartera_no_dirigida(data)
+                data_results = self.cartera_no_dirigida(data)
             elif resource_name == 'CD':
-                data_path = self.cartera_dirigida(data)
+                data_results = self.cartera_dirigida(data)
             elif resource_name == 'FDN':
-                data_path = self.fdn(data)
+                data_results = self.fdn(data)
             elif resource_name == 'GICG':
-                data_path = self.gavetas_icg(data)
+                data_results = self.gavetas_icg(data)
             elif resource_name == 'LNP860':
-                data_path = self.lnp860(data)
+                data_results = self.lnp860(data)
             elif resource_name == 'MM':
-                data_path = self.migrate_mortgage(data)
+                data_results = self.migrate_mortgage(data)
             elif resource_name == 'MISP':
-                data_path = self.mis_provisiones(data)
+                data_results = self.mis_provisiones(data)
             elif resource_name == 'PPRRHH':
-                data_path = self.prestamo_prestaciones_hr(data)
+                data_results = self.prestamo_prestaciones_hr(data)
             elif resource_name == 'RICG':
-                data_path = self.rendimientos_icg(data)
+                data_results = self.rendimientos_icg(data)
             elif resource_name == 'SIIF':
-                data_path = self.siif(data)
+                data_results = self.siif(data)
             elif resource_name == 'SC':
-                data_path = self.sobregiros_consumer(data)
+                data_results = self.sobregiros_consumer(data)
             elif resource_name == 'VNP003T':
-                data_path = self.vnp003t(data)
+                data_results = self.vnp003t(data)
 
-        return data_path
+        return data_results

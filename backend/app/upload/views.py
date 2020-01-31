@@ -80,7 +80,8 @@ class FileUploadView(viewsets.ModelViewSet):
             'id': None,
             'resource_name': None,
             'file': None,
-            'user': None
+            'user': None,
+            'data': ''
         }
         request_data = {
             'file': {},
@@ -95,12 +96,13 @@ class FileUploadView(viewsets.ModelViewSet):
         dp_obj = dp.DataPreparation()
 
         if request.FILES:
-            for f in request.FILES.getlist('file'):
-                request_data = request.data
-                request_data['file'] = f
-                files.append(request_data.copy())
-        else:
-            files.append(request.data)
+            if len(request.FILES.getlist('file')) > 1:
+                for f in request.FILES.getlist('file'):
+                    request_data = request.data
+                    request_data['file'] = f
+                    files.append(request_data.copy())
+            else:
+                files.append(request.data)
 
         for f in files:
             file_serializer = self.serializer_class(data=f)
@@ -111,11 +113,14 @@ class FileUploadView(viewsets.ModelViewSet):
                 return Response(file_serializer.errors,
                                 status=status.HTTP_400_BAD_REQUEST)
 
-        out_path = dp_obj.call_method(data)
+        data_result = dp_obj.call_method(data)
+
         response_data['id'] = file_serializer.data['id']
         response_data['resource_name'] = file_serializer.data['resource_name']
-        response_data['file'] = out_path
+        response_data['file'] = data_result['out_path']
         response_data['user'] = file_serializer.data['user']
+        response_data['data'] = data_result['data']
+
         return Response(response_data, status=status.HTTP_201_CREATED)
 
         # file_serializer = self.serializer_class(data=request.data)
