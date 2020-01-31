@@ -16,14 +16,11 @@ export interface ResourceGroup {
   names: ResourceValue[];
 }
 
-
 export const _filter = (opt: ResourceValue[], value: string): ResourceValue[] => {
   const filterValue = value.toLowerCase();
 
   return opt.filter(item => item.value.toLowerCase().indexOf(filterValue) === 0);
 };
-
-
 
 @Component({
   selector: 'app-resources-select',
