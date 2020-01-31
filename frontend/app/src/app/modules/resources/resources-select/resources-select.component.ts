@@ -5,15 +5,22 @@ import { startWith, map } from 'rxjs/operators';
 
 import { ResourceService } from '../resources.service';
 
-export interface ResourceGroup {
-  type: string;
-  names: string[];
+
+export interface ResourceValue {
+  value: string;
+  viewValue: string;
 }
 
-export const _filter = (opt: string[], value: string): string[] => {
+export interface ResourceGroup {
+  type: string;
+  names: ResourceValue[];
+}
+
+
+export const _filter = (opt: ResourceValue[], value: string): ResourceValue[] => {
   const filterValue = value.toLowerCase();
 
-  return opt.filter(item => item.toLowerCase().indexOf(filterValue) === 0);
+  return opt.filter(item => item.value.toLowerCase().indexOf(filterValue) === 0);
 };
 
 
@@ -33,44 +40,38 @@ export class ResourcesSelectComponent implements OnInit {
   resourceGroups: ResourceGroup[] = [ {
     type: 'Manual',
     names: [
-      'CORPORATIVO NO DIRIGIDA.XLS',
-      'PlantillaTMPCorporativoNoDirEnlazado.xlsx',
-      'SOBREGIROS_ICG.XLS',
-      'TMP_SobregirosConsumer.txt',
-      'Rendimientos_Corporativo.xls',
-      'Migrated Mortgage',
-      'Insumo Gaveta (Agricola, Turismo, Manufactura e Hipotecario)',
-      'RPT_STG_Dirigidas_AGRICOLA_CONSUMER.txt',
-      'RPT_STG_Dirigidas_AGRICOLA_CORPORATE.txt',
-      'RPT_STG_Dirigidas_HIPOTECARIO_CORTO_PLAZO.txt',
-      'RPT_STG_Dirigidas_HIPOTECARIO_LARGO_PLAZO.txt',
-      'RPT_STG_Dirigidas_MANUFACTURA.txt',
-      'RPT_STG_Dirigidas_MICROFINANCIERO.txt',
-      'RPT_STG_Dirigidas_TURISMO.txt',
-      'CITIBANK  AT-04 MES AÑO.xlsx(IngresoFamModalidadHipo)',
-      'MIS Provisiones',
-      'Préstamos Sobre Prestaciones - Sudeban.xls'
+      { value: 'CND', viewValue: 'CORPORATIVO NO DIRIGIDA.XLS' },
+      // {value: '', viewValue: 'PlantillaTMPCorporativoNoDirEnlazado.xlsx'},
+      // {value: '', viewValue: 'SOBREGIROS_ICG.XLS'},
+      { value: 'SC', viewValue: 'TMP_SobregirosConsumer.txt' },
+      { value: 'RICG', viewValue: 'Rendimientos_Corporativo.xls' },
+      { value: 'MM', viewValue: 'Migrated Mortgage' },
+      { value: 'GICG', viewValue: 'Insumo Gaveta (Agricola, Turismo, Manufactura e Hipotecario)' },
+      { value: 'CD', viewValue: 'RPT_STG_Dirigidas' },
+      // 'RPT_STG_Dirigidas_AGRICOLA_CONSUMER.txt',
+      // 'RPT_STG_Dirigidas_AGRICOLA_CORPORATE.txt',
+      // 'RPT_STG_Dirigidas_HIPOTECARIO_CORTO_PLAZO.txt',
+      // 'RPT_STG_Dirigidas_HIPOTECARIO_LARGO_PLAZO.txt',
+      // 'RPT_STG_Dirigidas_MANUFACTURA.txt',
+      // 'RPT_STG_Dirigidas_MICROFINANCIERO.txt',
+      // 'RPT_STG_Dirigidas_TURISMO.txt',
+      // {value: '', viewValue: 'CITIBANK  AT-04 MES AÑO.xlsx(IngresoFamModalidadHipo)'},
+      { value: 'MISP', viewValue: 'MIS Provisiones' },
+      { value: 'PPRRHH', viewValue: 'Préstamos Sobre Prestaciones - Sudeban.xls' },
     ]
   }, {
     type: 'Automatic',
     names: [
-      'AT04CRE(cosmos)',
-      'Lnp860',
-      'VNP003T',
-      'ACCOUNT HISTORY.txt',
-      'STMT_ATAR.txt',
-      'STMT_CARD_ACCOUNT.txt',
-      'STATEMENT COMPLEMENTO 10.000_CANCELACION_CAPITAL_10000.txt',
-      'STATEMENT COMPLEMENTO 11.110_CANCELACION_INTER_11110.txt',
-      'STATEMENT.txt',
-      'BalByAcctTransformada.txt',
-      'Reporte_SIIF.txt',
-      'clientesconsumer_05.txt',
-      'TB_FDN.txt'
+      { value: 'AT04CRE', viewValue: 'AT04CRE(cosmos)' },
+      { value: 'LNP860', viewValue: 'Lnp860' },
+      { value: 'VNP003T', viewValue: 'VNP003T' },
+      { value: 'AH', viewValue: 'ACCOUNT HISTORY.txt' },
+      { value: 'BBAT', viewValue: 'BalByAcctTransformada.txt' },
+      { value: 'SIIF', viewValue: 'Reporte_SIIF.txt' },
+      // 'clientesconsumer_05.txt',
+      { value: 'FDN', viewValue: 'TB_FDN.txt' },
+      { value: 'AT07', viewValue: 'AT07.txt' },
     ]
-  }, {
-    type: 'DTS',
-    names: [ 'VZDWAMBS.pven' ]
   }
   ];
 
@@ -90,12 +91,12 @@ export class ResourcesSelectComponent implements OnInit {
       );
   }
 
-  private _filterGroup(value: string): ResourceGroup[] {
+  private _filterGroup(value: ResourceValue): ResourceGroup[] {
     if (value) {
-      this.resourceSelected.emit(value);
-      this.resourceService.setResourceSelected(value);
+      this.resourceSelected.emit(value.value);
+      this.resourceService.setResourceSelected(value.value);
       return this.resourceGroups
-        .map(group => ({ type: group.type, names: _filter(group.names, value) }))
+        .map(group => ({ type: group.type, names: _filter(group.names, value.viewValue) }))
         .filter(group => group.names.length > 0);
     }
 

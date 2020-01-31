@@ -17,7 +17,7 @@ export class ResourceService {
   constructor (private http: HttpClient) { }
 
   public upload(formData) {
-    return this.http.post(`${ this.DJANGO_SERVER }/api/upload/`, formData, {
+    return this.http.post(`${ this.DJANGO_SERVER }/api/upload/file/resource/`, formData, {
       reportProgress: true,
       observe: 'events'
     }).pipe(

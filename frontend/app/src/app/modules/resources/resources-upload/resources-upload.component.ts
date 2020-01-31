@@ -12,6 +12,14 @@ import { SnackbarService } from '../../../shared/services/snackbar.service';
 
 // import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
+interface Response {
+  'id': number;
+  'resource_name': string;
+  'file': string;
+  'user': string;
+  'data': object;
+}
+
 @Component({
   selector: 'app-resources-upload',
   templateUrl: './resources-upload.component.html',
@@ -24,7 +32,6 @@ export class ResourcesUploadComponent implements OnInit {
 
   DJANGO_SERVER = 'http://127.0.0.1:8000';
   progress = 0;
-  response;
   resourceURL;
   inQuery = false;
   hasStartedUploading = false;
@@ -86,11 +93,12 @@ export class ResourcesUploadComponent implements OnInit {
   submitFile() {
     this.inQuery = true;
     this.resource = this.resourceService.getSelectedResource();
-
+    // TODO: Check why it stop submitting the file
     if (this.resource.length !== 0) {
       const formData = new FormData();
       const value = this.form.get('resource').value._files[ 0 ];
       formData.append('file', value);
+      formData.append('resource_name', this.resourceService.resourceSelected);
 
       this.file.lastModified = value.lastModified;
       this.file.lastModifiedDate = value.lastModifiedDate;
@@ -131,7 +139,7 @@ export class ResourcesUploadComponent implements OnInit {
               this.durationInSeconds
             );
             // this.response = 'File successfully uploaded! ' + `${ this.DJANGO_SERVER }${ event.body.file }`;
-            // console.log('File successfully uploaded!', event.body);
+            console.log('File successfully uploaded!', event.body);
             setTimeout(() => {
               this.progress = 0;
               this.hasStartedUploading = false;

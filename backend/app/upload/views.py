@@ -76,6 +76,10 @@ class FileUploadView(viewsets.ModelViewSet):
         files = []
         data = []
 
+        def user_view(request):
+            current_user = request.user
+            return current_user.id
+
         response_data = {
             'id': None,
             'resource_name': None,
@@ -86,7 +90,6 @@ class FileUploadView(viewsets.ModelViewSet):
         request_data = {
             'file': {},
             'resource_name': '',
-            'user': '',
             'encoding': '',
             '_encoding': '',
             '_mutable': True,
@@ -99,6 +102,7 @@ class FileUploadView(viewsets.ModelViewSet):
             if len(request.FILES.getlist('file')) > 1:
                 for f in request.FILES.getlist('file'):
                     request_data = request.data
+                    request_data['user'] = user_view(request)
                     request_data['file'] = f
                     files.append(request_data.copy())
             else:
@@ -118,7 +122,7 @@ class FileUploadView(viewsets.ModelViewSet):
         response_data['id'] = file_serializer.data['id']
         response_data['resource_name'] = file_serializer.data['resource_name']
         response_data['file'] = data_result['out_path']
-        response_data['user'] = file_serializer.data['user']
+        response_data['user'] = user_view(request)
         response_data['data'] = data_result['data']
 
         return Response(response_data, status=status.HTTP_201_CREATED)

@@ -4,7 +4,7 @@ import datetime
 import ntpath
 
 from os.path import join, dirname, abspath, normpath
-from os import remove, unlink
+from os import unlink
 
 from pathlib import Path
 
@@ -121,7 +121,7 @@ class DataPreparation():
         a_h.MakerDate = pd.to_datetime(a_h.MakerDate)
         a_h['MakerUser'] = data[0]['user']
 
-        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, 'AH' + '.txt')
 
         Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
@@ -201,7 +201,7 @@ class DataPreparation():
         at04cre.MakerDate = pd.to_datetime(at04cre.MakerDate)
         at04cre['MakerUser'] = data[0]['user']
 
-        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, 'AT04CRE' + '.txt')
 
         Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
@@ -273,7 +273,7 @@ class DataPreparation():
         at07_df.MakerDate = pd.to_datetime(at07_df.MakerDate)
         at07_df['MakerUser'] = data['user']
 
-        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, 'AT07' + '.txt')
 
         Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
@@ -324,7 +324,7 @@ class DataPreparation():
         bbat.MakerDate = pd.to_datetime(bbat.MakerDate)
         bbat['MakerUser'] = data[0]['user']
 
-        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, 'BBAT' + '.txt')
 
         Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
@@ -398,7 +398,7 @@ class DataPreparation():
         cnd.MakerDate = pd.to_datetime(cnd.MakerDate)
         cnd['MakerUser'] = data[0]['user']
 
-        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, 'CND' + '.txt')
 
         Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
@@ -480,7 +480,7 @@ class DataPreparation():
         c_d.MakerDate = pd.to_datetime(c_d.MakerDate)
         c_d['MakerUser'] = data[0]['user']
 
-        out_path = join(abs_dir, self._out_folder, 'RPT_STG_Dirigidas.txt')  # TODO: Think of a better file name
+        out_path = join(abs_dir, self._out_folder, 'CD.txt')
 
         Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
@@ -528,7 +528,7 @@ class DataPreparation():
         fdn_df.MakerDate = pd.to_datetime(fdn_df.MakerDate)
         fdn_df['MakerUser'] = data[0]['user']
 
-        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, 'FDN' + '.txt')
 
         Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
@@ -557,7 +557,7 @@ class DataPreparation():
             ]
         paths.sort()
 
-        abs_dir, f_name, f_ext = self.get_path_file(paths[0])
+        abs_dir, _, _ = self.get_path_file(paths[0])
 
         names = [
             'RIF', 'NombreRazonSocial', 'NumeroCredito',
@@ -659,7 +659,8 @@ class DataPreparation():
         gavetas.MakerDate = pd.to_datetime(gavetas.MakerDate)
         gavetas['MakerUser'] = data[0]['user']
 
-        out_path = join(abs_dir, self._out_folder, 'AT04_Gavetas.txt')  # TODO: Think of a better file name
+        # TODO: Think of a better file name
+        out_path = join(abs_dir, self._out_folder, 'GICG' + '.txt')
 
         Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
@@ -723,7 +724,7 @@ class DataPreparation():
         lnp860_df.MakerDate = pd.to_datetime(lnp860_df.MakerDate)
         lnp860_df['MakerUser'] = data[0]['user']
 
-        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, 'LNP860' + '.txt')
 
         Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
@@ -775,7 +776,7 @@ class DataPreparation():
         mm_df.MakerDate = pd.to_datetime(mm_df.MakerDate)
         mm_df['MakerUser'] = data[0]['user']
 
-        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, 'MM' + '.txt')
 
         Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
@@ -934,7 +935,7 @@ class DataPreparation():
         mispf.MakerDate = pd.to_datetime(mispf.MakerDate)
         mispf['MakerUser'] = data[0]['user']
 
-        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, 'MISP' + '.txt')
 
         Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
@@ -986,7 +987,7 @@ class DataPreparation():
         pphr.MakerDate = pd.to_datetime(pphr.MakerDate)
         pphr['MakerUser'] = data[0]['user']
 
-        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, 'PPRRHH' + '.txt')
 
         Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
@@ -1029,7 +1030,7 @@ class DataPreparation():
         rend_icg.MakerDate = pd.to_datetime(rend_icg.MakerDate)
         rend_icg['MakerUser'] = data[0]['user']
 
-        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, 'RICG' + '.txt')
 
         Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
@@ -1110,7 +1111,7 @@ class DataPreparation():
         siif_df.MakerDate = pd.to_datetime(siif_df.MakerDate)
         siif_df['MakerUser'] = data[0]['user']
 
-        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, 'SIIF' + '.txt')
 
         Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
@@ -1162,7 +1163,7 @@ class DataPreparation():
         sobregiros_gcg.MakerDate = pd.to_datetime(sobregiros_gcg.MakerDate)
         sobregiros_gcg['MakerUser'] = data[0]['user']
 
-        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, 'SC' + '.txt')
 
         Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
@@ -1227,7 +1228,7 @@ class DataPreparation():
         vnp003t_df.MakerDate = pd.to_datetime(vnp003t_df.MakerDate)
         vnp003t_df['MakerUser'] = data[0]['user']
 
-        out_path = join(abs_dir, self._out_folder, f_name + '.txt')
+        out_path = join(abs_dir, self._out_folder, 'VNP003T' + '.txt')
 
         Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
