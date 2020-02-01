@@ -659,7 +659,6 @@ class DataPreparation():
         gavetas.MakerDate = pd.to_datetime(gavetas.MakerDate)
         gavetas['MakerUser'] = data[0]['user']
 
-        # TODO: Think of a better file name
         out_path = join(abs_dir, self._out_folder, 'GICG' + '.txt')
 
         Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)

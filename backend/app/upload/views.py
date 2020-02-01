@@ -99,14 +99,14 @@ class FileUploadView(viewsets.ModelViewSet):
         dp_obj = dp.DataPreparation()
 
         if request.FILES:
-            if len(request.FILES.getlist('file')) > 1:
+            if len(request.FILES.getlist('file')) > 0:
                 for f in request.FILES.getlist('file'):
                     request_data = request.data
                     request_data['user'] = user_view(request)
                     request_data['file'] = f
                     files.append(request_data.copy())
             else:
-                files.append(request.data)
+                pass
 
         for f in files:
             file_serializer = self.serializer_class(data=f)

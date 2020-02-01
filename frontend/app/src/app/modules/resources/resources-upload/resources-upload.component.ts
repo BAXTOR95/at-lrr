@@ -20,6 +20,15 @@ interface Response {
   'data': object;
 }
 
+interface File {
+  'lastModified': number;
+  'lastModifiedDate': Date;
+  'name': string;
+  'size': number;
+  'type': string;
+  'webkitRelativePath': string;
+}
+
 @Component({
   selector: 'app-resources-upload',
   templateUrl: './resources-upload.component.html',
@@ -38,12 +47,7 @@ export class ResourcesUploadComponent implements OnInit {
   durationInSeconds = 5;
   resource = '';
 
-  file = {
-    lastModified: null,
-    lastModifiedDate: null,
-    name: null,
-    size: null,
-  };
+
   // files = [
   //   'Blade Runner',
   //   'Cool Hand Luke',
@@ -96,43 +100,57 @@ export class ResourcesUploadComponent implements OnInit {
     // TODO: Check why it stop submitting the file
     if (this.resource.length !== 0) {
       const formData = new FormData();
+      const files = this.form.get('resource').value._files;
       const value = this.form.get('resource').value._files[ 0 ];
-      formData.append('file', value);
-      formData.append('resource_name', this.resourceService.resourceSelected);
 
-      this.file.lastModified = value.lastModified;
-      this.file.lastModifiedDate = value.lastModifiedDate;
-      this.file.name = value.name;
-      this.file.size = value.size;
+      const filesDetail: File[] = [];
+      let fileSize = 0.00;
+      let fileName = '';
+      let fileDate: Date;
+
+      const fileCounts = files.length;
+      const multipleFiles = (fileCounts > 1);
+
+      for (const file of files) {
+        formData.append('file', file);
+        filesDetail.push(value);
+      }
+      formData.append('resource_name', this.resource);
+
+      for (const file of filesDetail) {
+        fileSize += file.size;
+        fileName += (multipleFiles ? file.name + ', ' : file.name);
+        if (!multipleFiles) { fileDate = file.lastModifiedDate; }
+      }
 
       this.hasStartedUploading = true;
       this.snackbarService.openSnackBar(
-        'Uploading file ' +
-        `${ this.file.name } ` + ' | ' +
-        `${ this.datePipe.transform(this.file.lastModifiedDate, 'yyyy-MM-dd') }` + ' | ' +
-        `${ this.fileSizePipe.transform(this.file.size) }`,
+        `Uploading (${ fileCounts }) file ${ (multipleFiles ? 's' : '') }` +
+        `${ fileName } ` + ' | ' +
+        (multipleFiles ? '' : `${ this.datePipe.transform(fileDate, 'yyyy-MM-dd') }` + ' | ') +
+        `${ this.fileSizePipe.transform(fileSize) }`,
         'OK',
         this.durationInSeconds
       );
 
       this.resourceService.upload(formData).subscribe((event: HttpEvent<any>) => {
         switch (event.type) {
-          case HttpEventType.Sent:
-            // this.snackbarService.openSnackBar('Request has been made!', 'Close', this.durationInSeconds);
-            // this.response = 'Request has been made!';
-            // console.log('Request has been made!');
-            break;
-          case HttpEventType.ResponseHeader:
-            // this.snackbarService.openSnackBar('Response header has been received!', 'Close', this.durationInSeconds);
-            // this.response = 'Response header has been received!';
-            // console.log('Response header has been received!');
-            break;
+          // case HttpEventType.Sent:
+          //   this.snackbarService.openSnackBar('Request has been made!', 'Close', this.durationInSeconds);
+          //   this.response = 'Request has been made!';
+          //   console.log('Request has been made!');
+          //   break;
+          // case HttpEventType.ResponseHeader:
+          //   this.snackbarService.openSnackBar('Response header has been received!', 'Close', this.durationInSeconds);
+          //   this.response = 'Response header has been received!';
+          //   console.log('Response header has been received!');
+          //   break;
           case HttpEventType.UploadProgress:
             this.inQuery = false;
             this.progress = Math.round(event.loaded / event.total * 100);
             // console.log(`Uploaded! ${ this.progress }%`);
             break;
-          case HttpEventType.Response:
+          case HttpEventType.Response: // TODO: Make it possible to obtain the resource data and show it on screen
             this.snackbarService.openSnackBar(
               'File successfully uploaded! ' + `${ this.DJANGO_SERVER }${ event.body.file }`,
               'OK',

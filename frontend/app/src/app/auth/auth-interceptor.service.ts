@@ -4,6 +4,7 @@ import {
   HttpRequest,
   HttpHandler,
   HttpParams,
+  HttpHeaders,
 } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { take, exhaustMap, map } from 'rxjs/operators';
@@ -13,10 +14,10 @@ import * as fromApp from '../store/app.reducer';
 
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
-  constructor(
+  constructor (
     private authService: AuthService,
     private store: Store<fromApp.AppState>,
-  ) {}
+  ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     return this.store.select('auth').pipe(
@@ -29,8 +30,14 @@ export class AuthInterceptorService implements HttpInterceptor {
           return next.handle(req);
         }
         const modifiedReq = req.clone({
-          params: new HttpParams().set('auth', user.token),
+          // params: new HttpParams().set('token', user.token),
+          setHeaders: {
+            // ...req.headers,
+            Authorization: `token ${ user.token }`
+          }
         });
+        // modifiedReq.headers.append('Authorization', `token ${ user.token }`);
+        // modifiedReq.headers.append('Content-Type', 'application/x-www-form-urlencoded');
         return next.handle(modifiedReq);
       }),
     );
