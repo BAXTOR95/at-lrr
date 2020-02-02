@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { ReporteSiif } from '../resources.model';
+import { ResourceService } from '../resources.service';
 
 // const ELEMENT_DATA: ReporteSiif[] = [
 //   {
@@ -79,6 +80,8 @@ import { ReporteSiif } from '../resources.model';
 // ];
 
 
+const ELEMENT_DATA = [];
+
 @Component({
   selector: 'app-resources-view',
   templateUrl: './resources-view.component.html',
@@ -87,40 +90,36 @@ import { ReporteSiif } from '../resources.model';
 })
 export class ResourcesViewComponent implements OnInit {
 
-  ngOnInit() {
+  displayedColumns: any[] = this.getKeyValues();
+  dataSource: MatTableDataSource<JSON>;
 
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+  constructor (private resourceService: ResourceService) {
+    this.dataSource = new MatTableDataSource(this.resourceService.getResourceData());
+  }
+  // TODO: Add resource store (action, reducer) and core store (app reducer with resource state and reducer) to then subscribe to store changes
+  ngOnInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
-  // displayedColumns: any[] = this.getKeyValues();
-  // dataSource: MatTableDataSource<ReporteSiif>;
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-  // @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  // @ViewChild(MatSort, { static: true }) sort: MatSort;
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 
-  // constructor () {
-  //   this.dataSource = new MatTableDataSource(ELEMENT_DATA);
-  // }
+  getKeyValues() {
+    const values = (Object.keys(ELEMENT_DATA[ 0 ]) as Array<keyof typeof ELEMENT_DATA[ 0 ]>).reduce((accumulator, current) => {
+      this.displayedColumns.push(current);
+      return this.displayedColumns;
+    }, [] as (typeof ELEMENT_DATA[ 0 ][ keyof typeof ELEMENT_DATA[ 0 ] ])[]);
 
-  // ngOnInit() {
-  //   this.dataSource.paginator = this.paginator;
-  //   this.dataSource.sort = this.sort;
-  // }
-
-  // applyFilter(filterValue: string) {
-  //   this.dataSource.filter = filterValue.trim().toLowerCase();
-
-  //   if (this.dataSource.paginator) {
-  //     this.dataSource.paginator.firstPage();
-  //   }
-  // }
-
-  // getKeyValues() {
-  //   let values = (Object.keys(ELEMENT_DATA[ 0 ]) as Array<keyof typeof ELEMENT_DATA[ 0 ]>).reduce((accumulator, current) => {
-  //     this.displayedColumns.push(current);
-  //     return this.displayedColumns;
-  //   }, [] as (typeof ELEMENT_DATA[ 0 ][ keyof typeof ELEMENT_DATA[ 0 ] ])[]);
-
-  //   return values;
-  // }
+    return values;
+  }
 
 }

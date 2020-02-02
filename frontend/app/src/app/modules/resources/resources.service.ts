@@ -14,6 +14,8 @@ export class ResourceService {
 
   resourceSelected = '';
 
+  resourceData: JSON[];
+
   constructor (private http: HttpClient) { }
 
   public upload(formData) {
@@ -32,6 +34,14 @@ export class ResourceService {
 
   getSelectedResource() {
     return this.resourceSelected;
+  }
+
+  setResourceData(jsonData: string) {
+    this.resourceData = JSON.parse(jsonData);
+  }
+
+  getResourceData() {
+    return this.resourceData;
   }
 
   errorMgmt(error: HttpErrorResponse) {

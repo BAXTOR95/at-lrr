@@ -150,12 +150,13 @@ export class ResourcesUploadComponent implements OnInit {
             this.progress = Math.round(event.loaded / event.total * 100);
             // console.log(`Uploaded! ${ this.progress }%`);
             break;
-          case HttpEventType.Response: // TODO: Make it possible to obtain the resource data and show it on screen
+          case HttpEventType.Response:
             this.snackbarService.openSnackBar(
               'File successfully uploaded! ' + `${ this.DJANGO_SERVER }${ event.body.file }`,
               'OK',
               this.durationInSeconds
             );
+            this.resourceService.setResourceData(event.body.data);
             // this.response = 'File successfully uploaded! ' + `${ this.DJANGO_SERVER }${ event.body.file }`;
             console.log('File successfully uploaded!', event.body);
             setTimeout(() => {
