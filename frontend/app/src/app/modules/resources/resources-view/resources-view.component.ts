@@ -1,10 +1,14 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import {Component, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+import {Store} from '@ngrx/store';
+import {Subscription} from 'rxjs';
+import {map} from 'rxjs/operators';
 
-import { ReporteSiif } from '../resources.model';
-import { ResourceService } from '../resources.service';
+import {ReporteSiif} from '../resources.model';
+import {ResourceService} from '../resources.service';
+import * as fromApp from '../../../store/app.reducer';
 
 // const ELEMENT_DATA: ReporteSiif[] = [
 //   {
@@ -85,22 +89,32 @@ const ELEMENT_DATA = [];
 @Component({
   selector: 'app-resources-view',
   templateUrl: './resources-view.component.html',
-  styleUrls: [ './resources-view.component.scss' ],
+  styleUrls: ['./resources-view.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class ResourcesViewComponent implements OnInit {
 
   displayedColumns: any[] = this.getKeyValues();
+
   dataSource: MatTableDataSource<JSON>;
+  subscription: Subscription;
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor (private resourceService: ResourceService) {
-    this.dataSource = new MatTableDataSource(this.resourceService.getResourceData());
-  }
+  constructor(
+    private resourceService: ResourceService,
+    private store: Store<fromApp.AppState>,
+  ) {}
+
   // TODO: Add resource store (action, reducer) and core store (app reducer with resource state and reducer) to then subscribe to store changes
   ngOnInit() {
+    this.subscription = this.store
+      .select('resources')
+      .pipe(map(resourcesState => resourcesState.resource))
+      .subscribe((resource: JSON[]) => {
+        this.dataSource = new MatTableDataSource(resource);
+      });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -114,10 +128,10 @@ export class ResourcesViewComponent implements OnInit {
   }
 
   getKeyValues() {
-    const values = (Object.keys(ELEMENT_DATA[ 0 ]) as Array<keyof typeof ELEMENT_DATA[ 0 ]>).reduce((accumulator, current) => {
+    const values = (Object.keys(ELEMENT_DATA[0]) as Array<keyof typeof ELEMENT_DATA[0]>).reduce((accumulator, current) => {
       this.displayedColumns.push(current);
       return this.displayedColumns;
-    }, [] as (typeof ELEMENT_DATA[ 0 ][ keyof typeof ELEMENT_DATA[ 0 ] ])[]);
+    }, [] as (typeof ELEMENT_DATA[0][keyof typeof ELEMENT_DATA[0]])[]);
 
     return values;
   }

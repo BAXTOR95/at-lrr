@@ -1,14 +1,18 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpEvent, HttpEventType } from '@angular/common/http';
-import { DatePipe } from '@angular/common';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {HttpEvent, HttpEventType} from '@angular/common/http';
+import {DatePipe} from '@angular/common';
+import {Store} from '@ngrx/store';
 // import { MediaMatcher } from '@angular/cdk/layout';
 
-import { FileValidator } from 'ngx-material-file-input';
+import {FileValidator} from 'ngx-material-file-input';
 
-import { FileSizePipe } from '../../../shared/pipes/filesize.pipe';
-import { ResourceService } from '../resources.service';
-import { SnackbarService } from '../../../shared/services/snackbar.service';
+import * as fromApp from '../../../store/app.reducer';
+import * as ResourceActions from '../store/resources.actions';
+
+import {FileSizePipe} from '../../../shared/pipes/filesize.pipe';
+import {ResourceService} from '../resources.service';
+import {SnackbarService} from '../../../shared/services/snackbar.service';
 
 // import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
@@ -32,7 +36,7 @@ interface File {
 @Component({
   selector: 'app-resources-upload',
   templateUrl: './resources-upload.component.html',
-  styleUrls: [ './resources-upload.component.scss' ],
+  styleUrls: ['./resources-upload.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class ResourcesUploadComponent implements OnInit {
@@ -70,12 +74,14 @@ export class ResourcesUploadComponent implements OnInit {
   // ];
   // filesSelected = [];
 
-  constructor (
+  constructor(
     private formBuilder: FormBuilder,
     private resourceService: ResourceService,
     private snackbarService: SnackbarService,
     private datePipe: DatePipe,
-    private fileSizePipe: FileSizePipe) {
+    private fileSizePipe: FileSizePipe,
+    private store: Store<fromApp.AppState>,
+  ) {
     // this.mobileQuery = media.matchMedia('(max-width: 665px)');
   }
 
@@ -83,13 +89,13 @@ export class ResourcesUploadComponent implements OnInit {
     this.form = this.formBuilder.group({
       resource: [
         undefined,
-        [ Validators.required, ] ]
+        [Validators.required,]]
     });
   }
 
   onChange(event) {
     if (event.target.files.length > 0) {
-      const file = event.target.files[ 0 ];
+      const file = event.target.files[0];
       this.form.get('resource').setValue(file);
     }
   }
@@ -101,7 +107,7 @@ export class ResourcesUploadComponent implements OnInit {
     if (this.resource.length !== 0) {
       const formData = new FormData();
       const files = this.form.get('resource').value._files;
-      const value = this.form.get('resource').value._files[ 0 ];
+      const value = this.form.get('resource').value._files[0];
 
       const filesDetail: File[] = [];
       let fileSize = 0.00;
@@ -120,15 +126,15 @@ export class ResourcesUploadComponent implements OnInit {
       for (const file of filesDetail) {
         fileSize += file.size;
         fileName += (multipleFiles ? file.name + ', ' : file.name);
-        if (!multipleFiles) { fileDate = file.lastModifiedDate; }
+        if (!multipleFiles) {fileDate = file.lastModifiedDate;}
       }
 
       this.hasStartedUploading = true;
       this.snackbarService.openSnackBar(
-        `Uploading (${ fileCounts }) file ${ (multipleFiles ? 's' : '') }` +
-        `${ fileName } ` + ' | ' +
-        (multipleFiles ? '' : `${ this.datePipe.transform(fileDate, 'yyyy-MM-dd') }` + ' | ') +
-        `${ this.fileSizePipe.transform(fileSize) }`,
+        `Uploading (${fileCounts}) file ${(multipleFiles ? 's' : '')}` +
+        `${fileName} ` + ' | ' +
+        (multipleFiles ? '' : `${this.datePipe.transform(fileDate, 'yyyy-MM-dd')}` + ' | ') +
+        `${this.fileSizePipe.transform(fileSize)}`,
         'OK',
         this.durationInSeconds
       );
@@ -152,11 +158,12 @@ export class ResourcesUploadComponent implements OnInit {
             break;
           case HttpEventType.Response:
             this.snackbarService.openSnackBar(
-              'File successfully uploaded! ' + `${ this.DJANGO_SERVER }${ event.body.file }`,
+              'File successfully uploaded! ' + `${this.DJANGO_SERVER}${event.body.file}`,
               'OK',
               this.durationInSeconds
             );
             this.resourceService.setResourceData(event.body.data);
+
             // this.response = 'File successfully uploaded! ' + `${ this.DJANGO_SERVER }${ event.body.file }`;
             console.log('File successfully uploaded!', event.body);
             setTimeout(() => {
