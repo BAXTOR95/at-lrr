@@ -1,8 +1,10 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, OnDestroy} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpEvent, HttpEventType} from '@angular/common/http';
 import {DatePipe} from '@angular/common';
 import {Store} from '@ngrx/store';
+import {Subscription} from 'rxjs';
+import {map} from 'rxjs/operators';
 // import { MediaMatcher } from '@angular/cdk/layout';
 
 import {FileValidator} from 'ngx-material-file-input';
@@ -39,8 +41,9 @@ interface File {
   styleUrls: ['./resources-upload.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ResourcesUploadComponent implements OnInit {
+export class ResourcesUploadComponent implements OnInit, OnDestroy {
   form: FormGroup;
+  subscription: Subscription;
   // mobileQuery: MediaQueryList;
 
   DJANGO_SERVER = 'http://127.0.0.1:8000';
@@ -91,6 +94,12 @@ export class ResourcesUploadComponent implements OnInit {
         undefined,
         [Validators.required,]]
     });
+    this.subscription = this.store
+      .select('resources')
+      .pipe(map(resourcesState => resourcesState.selectedResource))
+      .subscribe((selectedResource: string) => {
+        this.resource = selectedResource;
+      });
   }
 
   onChange(event) {
@@ -102,7 +111,7 @@ export class ResourcesUploadComponent implements OnInit {
 
   submitFile() {
     this.inQuery = true;
-    this.resource = this.resourceService.getSelectedResource();
+    // this.resource = this.resourceService.getSelectedResource();
 
     if (this.resource.length !== 0) {
       const formData = new FormData();
@@ -180,6 +189,10 @@ export class ResourcesUploadComponent implements OnInit {
     } else {
       this.snackbarService.openSnackBar('Please select a resource', 'OK', this.durationInSeconds);
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   // drop(event: CdkDragDrop<string[]>) {

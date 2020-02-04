@@ -1,4 +1,4 @@
-import { Action } from '@ngrx/store';
+import {Action} from '@ngrx/store';
 
 export const SET_RESOURCE = '[Resource] Set Resource';
 export const SELECT_RESOURCE = '[Resource] Select Resource';
@@ -7,13 +7,13 @@ export const SELECT_RESOURCE = '[Resource] Select Resource';
 export class SetResource implements Action {
   readonly type = SET_RESOURCE;
 
-  constructor (public payload: JSON[]) { }
+  constructor(public payload: JSON[]) {}
 }
 
 export class SelectResource implements Action {
   readonly type = SELECT_RESOURCE;
 
-  constructor (public payload: string) { }
+  constructor(public payload: string) {}
 }
 
 export type ResourceActions =

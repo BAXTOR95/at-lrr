@@ -103,7 +103,6 @@ export class ResourcesViewComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(
-    private resourceService: ResourceService,
     private store: Store<fromApp.AppState>,
   ) {}
 
