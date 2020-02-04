@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, ViewChild, OnDestroy} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -84,7 +84,7 @@ import * as fromApp from '../../../store/app.reducer';
 // ];
 
 
-const ELEMENT_DATA = [];
+let ELEMENT_DATA: JSON[] = [];
 
 @Component({
   selector: 'app-resources-view',
@@ -92,9 +92,9 @@ const ELEMENT_DATA = [];
   styleUrls: ['./resources-view.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ResourcesViewComponent implements OnInit {
+export class ResourcesViewComponent implements OnInit, OnDestroy {
 
-  displayedColumns: any[] = this.getKeyValues();
+  displayedColumns = [];
 
   dataSource: MatTableDataSource<JSON>;
   subscription: Subscription;
@@ -107,13 +107,16 @@ export class ResourcesViewComponent implements OnInit {
     private store: Store<fromApp.AppState>,
   ) {}
 
-  // TODO: Add resource store (action, reducer) and core store (app reducer with resource state and reducer) to then subscribe to store changes
   ngOnInit() {
+    ELEMENT_DATA.push(JSON.parse('{"field1": "", "field2": ""}'));
+    this.displayedColumns = this.getKeyValues();
     this.subscription = this.store
       .select('resources')
       .pipe(map(resourcesState => resourcesState.resource))
       .subscribe((resource: JSON[]) => {
-        this.dataSource = new MatTableDataSource(resource);
+        ELEMENT_DATA = (resource.length > 0 ? resource : ELEMENT_DATA);
+        this.dataSource = new MatTableDataSource(ELEMENT_DATA);
+        this.displayedColumns = this.getKeyValues();
       });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -128,12 +131,19 @@ export class ResourcesViewComponent implements OnInit {
   }
 
   getKeyValues() {
+    console.log(ELEMENT_DATA);
+    console.log(Object.keys(`keys: ${ELEMENT_DATA}`));
+    const columnsToDisplay = [];
     const values = (Object.keys(ELEMENT_DATA[0]) as Array<keyof typeof ELEMENT_DATA[0]>).reduce((accumulator, current) => {
-      this.displayedColumns.push(current);
-      return this.displayedColumns;
+      columnsToDisplay.push(current);
+      return columnsToDisplay;
     }, [] as (typeof ELEMENT_DATA[0][keyof typeof ELEMENT_DATA[0]])[]);
 
     return values;
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

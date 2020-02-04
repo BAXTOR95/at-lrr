@@ -163,7 +163,7 @@ export class ResourcesUploadComponent implements OnInit {
               this.durationInSeconds
             );
             this.resourceService.setResourceData(event.body.data);
-            this.store.dispatch(new ResourceActions.SetResource(event.body.data));
+            this.store.dispatch(new ResourceActions.SetResource(JSON.parse(event.body.data)));
             // this.response = 'File successfully uploaded! ' + `${ this.DJANGO_SERVER }${ event.body.file }`;
             console.log('File successfully uploaded!', event.body);
             setTimeout(() => {
