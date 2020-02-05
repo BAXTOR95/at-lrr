@@ -4,6 +4,8 @@ from rest_framework import viewsets, mixins, status  # , generics, permissions
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import FileUploadParser
+
+import copy
 # from rest_framework.views import APIView
 
 from upload.serializers import FileSerializer
@@ -104,7 +106,8 @@ class FileUploadView(viewsets.ModelViewSet):
                     request_data = request.data
                     request_data['user'] = user_view(request)
                     request_data['file'] = f
-                    files.append(request_data.copy())
+                    # files.append(request_data.copy())
+                    files.append(copy.copy(request_data))
             else:
                 pass
 

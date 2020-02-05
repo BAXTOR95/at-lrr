@@ -271,7 +271,7 @@ class DataPreparation():
 
         at07_df['MakerDate'] = datetime.date.today()
         at07_df.MakerDate = pd.to_datetime(at07_df.MakerDate)
-        at07_df['MakerUser'] = data['user']
+        at07_df['MakerUser'] = data[0]['user']
 
         out_path = join(abs_dir, self._out_folder, 'AT07' + '.txt')
 
