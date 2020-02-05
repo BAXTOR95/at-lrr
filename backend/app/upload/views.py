@@ -102,10 +102,10 @@ class FileUploadView(viewsets.ModelViewSet):
 
         if request.FILES:
             if len(request.FILES.getlist('file')) > 0:
-                for f in request.FILES.getlist('file'):
+                for file in request.FILES.getlist('file'):
                     request_data = request.data
                     request_data['user'] = user_view(request)
-                    request_data['file'] = f
+                    request_data['file'] = file
                     # files.append(request_data.copy())
                     files.append(copy.copy(request_data))
             else:
