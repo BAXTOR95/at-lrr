@@ -111,8 +111,8 @@ class FileUploadView(viewsets.ModelViewSet):
             else:
                 pass
 
-        for f in files:
-            file_serializer = self.serializer_class(data=f)
+        for file in files:
+            file_serializer = self.serializer_class(data=file)
             if file_serializer.is_valid():
                 file_serializer.save()
                 data.append(file_serializer.data.copy())
