@@ -89,6 +89,7 @@ class FileUploadView(viewsets.ModelViewSet):
             'user': None,
             'data': ''
         }
+
         request_data = {
             'file': {},
             'resource_name': '',

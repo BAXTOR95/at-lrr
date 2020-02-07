@@ -27,3 +27,22 @@
     }
   }
 }
+
+@mixin mat-table-columns($columns) {
+  .mat-column- {
+    @each $colName, $props in $columns {
+      $width: map-get($props, "width");
+      $padding: map-get($props, "padding");
+
+      &#{$colName} {
+        flex: $width;
+        min-width: $width;
+        padding-right: $padding;
+
+        @if map-has-key($props, "color") {
+          color: map-get($props, "color");
+        }
+      }
+    }
+  }
+}

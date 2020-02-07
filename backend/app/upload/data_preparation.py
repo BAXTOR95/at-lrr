@@ -715,6 +715,9 @@ class DataPreparation():
         lnp860_df.P8NRCV = pd.to_numeric(lnp860_df.P8NRCV, errors='coerce')
         lnp860_df.P8NRCV.fillna(0, inplace=True)
         lnp860_df.P8NRCV = lnp860_df.P8NRCV.astype("int64")
+        lnp860_df.P8MOIN = pd.to_numeric(lnp860_df.P8MOIN, errors='coerce')
+        lnp860_df.P8MOIN.fillna(0, inplace=True)
+        lnp860_df.P8MOIN = lnp860_df.P8MOIN.astype("int64")
 
         lnp860_df[fields] = lnp860_df[fields].apply(lambda x: x/100)
         lnp860_df.P8TINC = lnp860_df.P8TINC.apply(lambda x: x/1000000)
