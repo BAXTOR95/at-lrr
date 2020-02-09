@@ -2,10 +2,12 @@
 @import "../app/auth/auth.component";
 @import "../app/modules/resources/resources.component";
 @import "../app/header/header.component";
+@import "../app/modules/workflow/workflow.component";
 
 @mixin component-themes($theme) {
   @include footer-theme($theme);
   @include auth-theme($theme);
   @include resource-theme($theme);
   @include header-theme($theme);
+  @include workflow-theme($theme);
 }

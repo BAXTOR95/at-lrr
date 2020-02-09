@@ -1,0 +1,40 @@
+<div class="workflow-select">
+  <mat-card class="box mat-elevation-z6" color="foreground">
+    <mat-card-header>
+      <mat-card-title>
+        Select Report
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <!-- <form [formGroup]="workflowForm">
+        <mat-form-field class="full-width">
+          <input
+            type="text"
+            matInput
+            placeholder="Resource Group"
+            formControlName="resourceGroup"
+            required
+            [matAutocomplete]="autoGroup"
+          />
+          <mat-autocomplete
+            #autoGroup="matAutocomplete"
+            panelWidth="auto"
+            class="extended"
+          >
+            <mat-optgroup
+              *ngFor="let group of workflowGroupOptions | async"
+              [label]="group.type"
+            >
+              <mat-option
+                *ngFor="let name of group.names"
+                [value]="name.viewValue"
+              >
+                {{ name.viewValue }}
+              </mat-option>
+            </mat-optgroup>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form> -->
+    </mat-card-content>
+  </mat-card>
+</div>

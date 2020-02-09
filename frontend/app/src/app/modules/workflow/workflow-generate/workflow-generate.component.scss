@@ -1,0 +1,42 @@
+@import "~@angular/material/theming";
+
+@mixin workflow-generate-theme($theme) {
+  $primary: map-get($theme, primary);
+  $secundary: map-get($theme, foreground);
+  $accent: map-get($theme, accent);
+  $background: map-get($theme, background);
+  $background-color: mat-color($background, card);
+
+  .workflow-generate {
+    mat-card-header {
+      text-align: center;
+      width: 100%;
+      display: block;
+      font-weight: 700;
+    }
+
+    mat-card {
+      padding: 40px 70px 50px;
+    }
+
+    .box {
+      position: relative;
+      top: 0;
+      opacity: 1;
+      float: left;
+      width: 100%;
+      background: mat-color($secundary);
+      border-radius: 5px;
+      transform: scale(1);
+      -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+      z-index: 5;
+    }
+
+    .full-width,
+    .btn-block {
+      width: 100%;
+      margin: 5px 0 5px 0;
+    }
+  }
+}

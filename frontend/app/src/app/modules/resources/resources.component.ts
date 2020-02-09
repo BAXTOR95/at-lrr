@@ -9,7 +9,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 export class ResourcesComponent implements OnInit {
   mobileQuery: MediaQueryList;
 
-  constructor (media: MediaMatcher) {
+  constructor(media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 730px)');
   }
 

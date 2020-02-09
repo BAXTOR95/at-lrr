@@ -1,4 +1,4 @@
-import {Action} from '@ngrx/store';
+import { Action } from '@ngrx/store';
 
 export const SET_RESOURCE = '[Resource] Set Resource';
 export const SELECT_RESOURCE = '[Resource] Select Resource';

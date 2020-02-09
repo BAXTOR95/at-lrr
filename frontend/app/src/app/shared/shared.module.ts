@@ -1,6 +1,12 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
+import { DemoMaterialModule } from './material-design/material-module';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 import { MaterialDesignModule } from './material-design/material-design.module';
 
 import { FileSizePipe } from '../shared/pipes/filesize.pipe';
@@ -29,6 +35,12 @@ import { DropdownDirective } from './dropdown.directive';
     PlaceholderDirective,
     DropdownDirective,
     MaterialDesignModule,
+    DemoMaterialModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
   entryComponents: [ AlertComponent, ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],

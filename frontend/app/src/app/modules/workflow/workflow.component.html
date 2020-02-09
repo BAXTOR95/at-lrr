@@ -1,1 +1,22 @@
-<p>workflow works!</p>
+<div class="resource">
+  <div class="wrapper">
+    <div class="row">
+      <div class="col s12">
+        <h1>Workflow</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col l6 m12 s12">
+        <app-workflow-select></app-workflow-select>
+      </div>
+      <div class="col l6 m12 s12" [ngClass]="mobileQuery.matches ? 'mt-4' : ''">
+        <app-workflow-generate></app-workflow-generate>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col m12 s12">
+        <app-workflow-view></app-workflow-view>
+      </div>
+    </div>
+  </div>
+</div>
