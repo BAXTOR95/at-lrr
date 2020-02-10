@@ -427,7 +427,7 @@ class DataPreparation():
             ]
         paths.sort()
 
-        abs_dir, f_name, f_ext = self.get_path_file(paths[0])
+        abs_dir, _, _ = self.get_path_file(paths[0])
 
         parse_dates = [
             'FECHA_SOLICITUD', 'FECHA_APROBACION', 'FECHA_LIQUIDACION',
@@ -488,8 +488,8 @@ class DataPreparation():
             out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
 
-        for p in paths:
-            unlink(p)
+        for path in paths:
+            unlink(path)
 
         return {
             'out_path': out_path,
@@ -667,8 +667,8 @@ class DataPreparation():
             out_path,
             sep='~', date_format='%d/%m/%Y', index=False)
 
-        for p in paths:
-            unlink(p)
+        for path in paths:
+            unlink(path)
 
         return {
             'out_path': out_path,

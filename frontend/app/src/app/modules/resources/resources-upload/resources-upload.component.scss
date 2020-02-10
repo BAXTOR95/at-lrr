@@ -2,7 +2,7 @@
 
 @mixin resource-upload-theme($theme) {
   $primary: map-get($theme, primary);
-  $secundary: map-get($theme, foreground);
+  $secondary: map-get($theme, foreground);
   $accent: map-get($theme, accent);
   $background: map-get($theme, background);
   $background-color: mat-color($background, card);
@@ -31,7 +31,7 @@
       float: left;
       // padding: 60px 50px 40px 50px;
       width: 100%;
-      background: mat-color($secundary);
+      background: mat-color($secondary);
       border-radius: 5px;
       transform: scale(1);
       -webkit-transform: scale(1);
@@ -58,7 +58,7 @@
     //   border: solid 1px #ccc;
     //   min-height: 60px;
     //   display: inline-block;
-    //   background: mat-color($secundary);
+    //   background: mat-color($secondary);
     //   border-radius: 4px;
     //   overflow: hidden;
     //   margin-top: 25px;
@@ -74,7 +74,7 @@
     //   justify-content: space-between;
     //   box-sizing: border-box;
     //   cursor: move;
-    //   background: mat-color($secundary);
+    //   background: mat-color($secondary);
     //   font-size: 14px;
     // }
 

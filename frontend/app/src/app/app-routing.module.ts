@@ -1,12 +1,17 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/resources', pathMatch: 'full' },
+  {path: '', redirectTo: '/resources', pathMatch: 'full'},
   {
     path: 'resources',
     loadChildren: () =>
       import('./modules/resources/resources.module').then(m => m.ResourcesModule),
+  },
+  {
+    path: 'workflow',
+    loadChildren: () =>
+      import('./modules/workflow/workflow.module').then(m => m.WorkflowModule),
   },
   {
     path: 'checker',
@@ -21,8 +26,8 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules }),
+    RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules}),
   ],
-  exports: [ RouterModule ],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

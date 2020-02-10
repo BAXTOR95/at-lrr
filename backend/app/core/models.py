@@ -4,6 +4,8 @@ from datetime import date
 import uuid
 import os
 
+import unidecode
+
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
     PermissionsMixin
@@ -28,13 +30,23 @@ EXPIRE_HOURS = getattr(settings, 'REST_FRAMEWORK_TOKEN_EXPIRE_HOURS', 24)
 #     return os.path.join(settings.MEDIA_ROOT, filename)
 
 def path_and_rename(instance, filename):
-    ext = filename.split('.')[-1]
-    f_name = filename.split('.')[0]
+    """Creates a proper file name with the given file name
+
+    Arguments:
+        instance {[object]} -- the instance
+        filename {[str]} -- the file name
+
+    Returns:
+        [str] -- the final file name
+    """
+    mod_filename = unidecode.unidecode(filename)
+    ext = mod_filename.split('.')[-1]
+    f_name = mod_filename.split('.')[0]
     user_id = instance.user.id
     resource_name = instance.resource_name
-    filename = f'{user_id}_{resource_name}_{f_name}_{uuid.uuid4()}.{ext}'
+    final_filename = f'{user_id}_{resource_name}_{f_name}_{uuid.uuid4()}.{ext}'
     # path = os.path.join(settings.MEDIA_ROOT, filename)
-    return filename
+    return final_filename
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

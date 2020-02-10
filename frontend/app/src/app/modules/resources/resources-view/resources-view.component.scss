@@ -12,7 +12,7 @@
   // );
 
   $primary: map-get($theme, primary);
-  $secundary: map-get($theme, foreground);
+  $secondary: map-get($theme, foreground);
   $accent: map-get($theme, accent);
   $background: map-get($theme, background);
   $background-color: mat-color($background, card);
@@ -80,7 +80,7 @@
       float: left;
       // padding: 60px 50px 40px 50px;
       width: 100%;
-      background: mat-color($secundary);
+      background: mat-color($secondary);
       border-radius: 5px;
       transform: scale(1);
       -webkit-transform: scale(1);
