@@ -14,13 +14,13 @@ from django.conf import settings
 
 
 CD_CHOICES = {
-    'HLP': 6, # Hipotecario Largo Plazo
-    'HCP': 7, # Hipotecario Corto Plazo
-    'TURISMO': 8, # Turismo
-    'MICROFINANCIERO': 9, # Microfinanciero
-    'MANUFACTURA': 10, # Manufactura
-    'AGRICOLA_ICG': 11, # Agricola ICG
-    'AGRICOLA_OTHER_ICG': 12, # Agricola Other ICG
+    'HLP': 6,  # Hipotecario Largo Plazo
+    'HCP': 7,  # Hipotecario Corto Plazo
+    'TURISMO': 8,  # Turismo
+    'MICROFINANCIERO': 9,  # Microfinanciero
+    'MANUFACTURA': 10,  # Manufactura
+    'AGRICOLA_ICG': 11,  # Agricola ICG
+    'AGRICOLA_OTHER_ICG': 12,  # Agricola Other ICG
 }
 
 RESOURCE_CHOICES = [
@@ -54,7 +54,6 @@ class DataPreparation():
         head, tail = ntpath.split(path)
         return tail or ntpath.basename(head)
 
-
     def get_path_file(self, path):
         """Gets the absolute path, file name and extension of the given full path to file"""
 
@@ -63,7 +62,6 @@ class DataPreparation():
         f_name, f_ext = self.path_leaf(path).split('.')
 
         return abs_dir, f_name, f_ext
-
 
     def account_history(self, data):
         """Account History resource Data Preparation"""
@@ -137,9 +135,8 @@ class DataPreparation():
                 orient='records',
                 date_format='iso',
                 double_precision=2
-                )
-            }
-
+            )
+        }
 
     def at04_cre(self, data):
         """AT04CRE resource Data Preparation"""
@@ -217,9 +214,8 @@ class DataPreparation():
                 orient='records',
                 date_format='iso',
                 double_precision=2
-                )
-            }
-
+            )
+        }
 
     def at07(self, data):
         """AT07 resource Data Preparation"""
@@ -289,9 +285,8 @@ class DataPreparation():
                 orient='records',
                 date_format='iso',
                 double_precision=2
-                )
-            }
-
+            )
+        }
 
     def bal_by_acct_transformada(self, data):
         """BalByAcct Transformada resource Data Preparation"""
@@ -339,9 +334,8 @@ class DataPreparation():
                 orient='records',
                 date_format='iso',
                 double_precision=2
-                )
-            }
-
+            )
+        }
 
     def cartera_no_dirigida(self, data):
         """Cartera No Dirigida resource Data Preparation"""
@@ -414,9 +408,8 @@ class DataPreparation():
                 orient='records',
                 date_format='iso',
                 double_precision=2
-                )
-            }
-
+            )
+        }
 
     def cartera_dirigida(self, data):
         """Cartera Dirigida resource Data Preparation"""
@@ -424,7 +417,7 @@ class DataPreparation():
         paths = [
             join(settings.WEB_ROOT, normpath(path['file'])[1:])
             for path in data
-            ]
+        ]
         paths.sort()
 
         abs_dir, _, _ = self.get_path_file(paths[0])
@@ -440,13 +433,20 @@ class DataPreparation():
             'FECHA_VENC_REGISTRO', 'Upd_Date'
         ]
 
-        cd_agricola_gcg = pd.read_csv(paths[0], sep='	', low_memory=False, parse_dates=parse_dates)
-        cd_agricola_icg = pd.read_csv(paths[1], sep='	', low_memory=False, parse_dates=parse_dates)
-        cd_hcp = pd.read_csv(paths[2], sep='	', low_memory=False, parse_dates=parse_dates)
-        cd_hlp = pd.read_csv(paths[3], sep='	', low_memory=False, parse_dates=parse_dates)
-        cd_manufactura = pd.read_csv(paths[4], sep='	', low_memory=False, parse_dates=parse_dates)
-        cd_micro = pd.read_csv(paths[5], sep='	', low_memory=False, parse_dates=parse_dates)
-        cd_turismo = pd.read_csv(paths[6], sep='	', low_memory=False, parse_dates=parse_dates)
+        cd_agricola_gcg = pd.read_csv(
+            paths[0], sep='	', low_memory=False, parse_dates=parse_dates)
+        cd_agricola_icg = pd.read_csv(
+            paths[1], sep='	', low_memory=False, parse_dates=parse_dates)
+        cd_hcp = pd.read_csv(
+            paths[2], sep='	', low_memory=False, parse_dates=parse_dates)
+        cd_hlp = pd.read_csv(
+            paths[3], sep='	', low_memory=False, parse_dates=parse_dates)
+        cd_manufactura = pd.read_csv(
+            paths[4], sep='	', low_memory=False, parse_dates=parse_dates)
+        cd_micro = pd.read_csv(
+            paths[5], sep='	', low_memory=False, parse_dates=parse_dates)
+        cd_turismo = pd.read_csv(
+            paths[6], sep='	', low_memory=False, parse_dates=parse_dates)
 
         cd_agricola_gcg.drop(cd_agricola_gcg.columns[len(cd_agricola_gcg.columns)-1],
                              axis=1,
@@ -454,13 +454,17 @@ class DataPreparation():
         cd_agricola_icg.drop(cd_agricola_icg.columns[len(cd_agricola_icg.columns)-1],
                              axis=1,
                              inplace=True)
-        cd_hlp.drop(cd_hlp.columns[len(cd_hlp.columns)-1], axis=1, inplace=True)
-        cd_hcp.drop(cd_hcp.columns[len(cd_hcp.columns)-1], axis=1, inplace=True)
+        cd_hlp.drop(
+            cd_hlp.columns[len(cd_hlp.columns)-1], axis=1, inplace=True)
+        cd_hcp.drop(
+            cd_hcp.columns[len(cd_hcp.columns)-1], axis=1, inplace=True)
         cd_manufactura.drop(cd_manufactura.columns[len(cd_manufactura.columns)-1],
                             axis=1,
                             inplace=True)
-        cd_micro.drop(cd_micro.columns[len(cd_micro.columns)-1], axis=1, inplace=True)
-        cd_turismo.drop(cd_turismo.columns[len(cd_turismo.columns)-1], axis=1, inplace=True)
+        cd_micro.drop(cd_micro.columns[len(
+            cd_micro.columns)-1], axis=1, inplace=True)
+        cd_turismo.drop(cd_turismo.columns[len(
+            cd_turismo.columns)-1], axis=1, inplace=True)
 
         cd_agricola_gcg['TYPE_CD'] = CD_CHOICES.get('AGRICOLA_OTHER_ICG')
         cd_agricola_icg['TYPE_CD'] = CD_CHOICES.get('AGRICOLA_ICG')
@@ -497,9 +501,8 @@ class DataPreparation():
                 orient='records',
                 date_format='iso',
                 double_precision=2
-                )
-            }
-
+            )
+        }
 
     def fdn(self, data):
         """Fecha de Nacimiento resource Data Preparation"""
@@ -522,7 +525,7 @@ class DataPreparation():
             fdn_df.FechaNacimiento,
             format='%Y%m%d',
             errors='coerce'
-            )
+        )
 
         fdn_df['MakerDate'] = datetime.date.today()
         fdn_df.MakerDate = pd.to_datetime(fdn_df.MakerDate)
@@ -544,9 +547,8 @@ class DataPreparation():
                 orient='records',
                 date_format='iso',
                 double_precision=2
-                )
-            }
-
+            )
+        }
 
     def gavetas_icg(self, data):
         """Gavetas ICG resource Data Preparation"""
@@ -554,7 +556,7 @@ class DataPreparation():
         paths = [
             join(settings.WEB_ROOT, normpath(path['file'])[1:])
             for path in data
-            ]
+        ]
         paths.sort()
 
         abs_dir, _, _ = self.get_path_file(paths[0])
@@ -614,12 +616,13 @@ class DataPreparation():
         g_turismo = pd.read_excel(paths[3],
                                   usecols='B:T',
                                   names=names,
-                                  converters={7:str, 8:str})
+                                  converters={7: str, 8: str})
 
         # Gaveta Construccion
 
         cols = list(g_construccion.columns.values)
-        order = [0, 1, 2, 3, 4, 5, 6, 18, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+        order = [0, 1, 2, 3, 4, 5, 6, 18, 7, 8,
+                 9, 10, 11, 12, 13, 14, 15, 16, 17]
         cols = [cols[i] for i in order]
 
         g_construccion = g_construccion[cols].copy()
@@ -676,9 +679,8 @@ class DataPreparation():
                 orient='records',
                 date_format='iso',
                 double_precision=2
-                )
-            }
-
+            )
+        }
 
     def lnp860(self, data):
         """LNP860 resource Data Preparation"""
@@ -692,10 +694,10 @@ class DataPreparation():
             'P8NRCV', 'P8MV30', 'P8MV60', 'P8MV90', 'P8MV12', 'P8MV18',
             'P8MV1A', 'P8MVM1', 'P8RPCV', 'P8LINT', 'P8FCTC', 'P8MOCA',
             'P8MOIN', 'P8TRXN', 'P8PRAN',
-            ]
+        ]
 
         fwidths = [11, 13, 8, 8, 8, 8, 8, 13, 13, 13, 13, 13, 13,
-                   13, 13, 13, 8, 13, 13, 2, 11,]
+                   13, 13, 13, 8, 13, 13, 2, 11, ]
 
         names = ['P8FVUC', 'P8FCCC', 'P8FVUI', 'P8FCCI', 'P8FCTC']
         fields = ['P8MV30', 'P8MV60', 'P8MV90', 'P8MV12', 'P8MV18',
@@ -704,13 +706,19 @@ class DataPreparation():
 
         lnp860_df = pd.read_fwf(path, widths=fwidths, names=labels)
 
-        lnp860_df.P8FVUC = pd.to_datetime(lnp860_df.P8FVUC, format='%d%m%Y', errors='coerce')
-        lnp860_df.P8FCCC = pd.to_datetime(lnp860_df.P8FCCC, format='%d%m%Y', errors='coerce')
-        lnp860_df.P8FVUI = pd.to_datetime(lnp860_df.P8FVUI, format='%d%m%Y', errors='coerce')
-        lnp860_df.P8FCCI = pd.to_datetime(lnp860_df.P8FCCI, format='%d%m%Y', errors='coerce')
-        lnp860_df.P8FCTC = pd.to_datetime(lnp860_df.P8FCTC, format='%d%m%Y', errors='coerce')
+        lnp860_df.P8FVUC = pd.to_datetime(
+            lnp860_df.P8FVUC, format='%d%m%Y', errors='coerce')
+        lnp860_df.P8FCCC = pd.to_datetime(
+            lnp860_df.P8FCCC, format='%d%m%Y', errors='coerce')
+        lnp860_df.P8FVUI = pd.to_datetime(
+            lnp860_df.P8FVUI, format='%d%m%Y', errors='coerce')
+        lnp860_df.P8FCCI = pd.to_datetime(
+            lnp860_df.P8FCCI, format='%d%m%Y', errors='coerce')
+        lnp860_df.P8FCTC = pd.to_datetime(
+            lnp860_df.P8FCTC, format='%d%m%Y', errors='coerce')
 
-        lnp860_df[names] = lnp860_df[names].fillna(pd.to_datetime('1900-01-01'))
+        lnp860_df[names] = lnp860_df[names].fillna(
+            pd.to_datetime('1900-01-01'))
 
         lnp860_df.P8NRCV = pd.to_numeric(lnp860_df.P8NRCV, errors='coerce')
         lnp860_df.P8NRCV.fillna(0, inplace=True)
@@ -742,9 +750,8 @@ class DataPreparation():
                 orient='records',
                 date_format='iso',
                 double_precision=2
-                )
-            }
-
+            )
+        }
 
     def migrate_mortgage(self, data):
         """Migrate Mortgage resource Data Preparation"""
@@ -754,7 +761,7 @@ class DataPreparation():
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
         converters = {
-            'TypeId':str,
+            'TypeId': str,
         }
 
         parse_dates = [
@@ -768,11 +775,14 @@ class DataPreparation():
                             parse_dates=parse_dates,
                             converters=converters)
 
-        mm_df.OrigCreditLimit.replace(to_replace='Bs.S', value='', inplace=True, regex=True)
-        mm_df.OrigCreditLimit = pd.to_numeric(mm_df.OrigCreditLimit, errors='coerce')
+        mm_df.OrigCreditLimit.replace(
+            to_replace='Bs.S', value='', inplace=True, regex=True)
+        mm_df.OrigCreditLimit = pd.to_numeric(
+            mm_df.OrigCreditLimit, errors='coerce')
         mm_df.TypeId = pd.to_numeric(mm_df.TypeId)
         mm_df.TypeId = mm_df.TypeId.astype('int32')
-        mm_df.fillna(value={'Num30':0, 'Num60':0, 'Num90':0,}, inplace=True)
+        mm_df.fillna(value={'Num30': 0, 'Num60': 0,
+                            'Num90': 0, }, inplace=True)
 
         mm_df['MakerDate'] = datetime.date.today()
         mm_df.MakerDate = pd.to_datetime(mm_df.MakerDate)
@@ -794,9 +804,8 @@ class DataPreparation():
                 orient='records',
                 date_format='iso',
                 double_precision=2
-                )
-            }
-
+            )
+        }
 
     def mis_provisiones(self, data):
         """MIS Provisiones resource Data Preparation"""
@@ -815,7 +824,7 @@ class DataPreparation():
             'DescriptionType', 'RecordDate', 'HDelinquency',
             'BlockCode1Date', 'BlockCodeId1', 'BlockReason1',
             'BlockCode2Date', 'BlockCodeId2', 'BlockReason2',
-            ]
+        ]
 
         na_values = {
             'SumSaldo': 0,
@@ -841,30 +850,32 @@ class DataPreparation():
 
         misp_cap = pd.read_excel(path, sheet_name='Cliente Data_CAP',
                                  converters={
-                                     'Account':str,
-                                     'CtaLocal':str,
-                                     'CtaProv':str,
-                                     'Old_Acct':str,
-                                     })
+                                     'Account': str,
+                                     'CtaLocal': str,
+                                     'CtaProv': str,
+                                     'Old_Acct': str,
+                                 })
         misp_rend = pd.read_excel(path, sheet_name='Cliente Data_REND',
                                   converters={
-                                      'Account':str,
-                                      'CtaLocal':str,
-                                      'Old_Acct':str,
-                                      })
+                                      'Account': str,
+                                      'CtaLocal': str,
+                                      'Old_Acct': str,
+                                  })
         misp_od = pd.read_excel(path, sheet_name='Cliente_Data_Sobregiro',
                                 converters={
-                                    'Acct':str,
-                                    'CtaLocal':str,
-                                    })
+                                    'Acct': str,
+                                    'CtaLocal': str,
+                                })
 
-        misp_cap.rename({'CtaProv':'CtaProvCap'}, axis='columns', inplace=True)
-        misp_rend.rename({'CtaLocal':'CtaProvRend'}, axis='columns', inplace=True)
+        misp_cap.rename({'CtaProv': 'CtaProvCap'},
+                        axis='columns', inplace=True)
+        misp_rend.rename({'CtaLocal': 'CtaProvRend'},
+                         axis='columns', inplace=True)
         misp_od.rename({
-            'Acct':'Account',
-            'CtaLocal':'CtaProvCap',
-            'CId':'Cid'
-            }, axis='columns', inplace=True)
+            'Acct': 'Account',
+            'CtaLocal': 'CtaProvCap',
+            'CId': 'Cid'
+        }, axis='columns', inplace=True)
 
         misp_cap.dropna(axis=0, subset=['Account'], how="any", inplace=True)
         misp_rend.dropna(axis=0, subset=['Account'], how="any", inplace=True)
@@ -889,7 +900,8 @@ class DataPreparation():
                         suffixes=('', '_y'))
 
         misp.Cid.fillna(misp.Cid_y, inplace=True)
-        misp.MaxOfCantCuotasVencidas.fillna(misp.MaxOfCantCuotasVencidas_y, inplace=True)
+        misp.MaxOfCantCuotasVencidas.fillna(
+            misp.MaxOfCantCuotasVencidas_y, inplace=True)
         misp.ProdType.fillna(misp.ProdType_y, inplace=True)
         misp.Riesgo.fillna(misp.Riesgo_y, inplace=True)
         misp.RecordDate.fillna(misp.RecordDate_y, inplace=True)
@@ -953,9 +965,8 @@ class DataPreparation():
                 orient='records',
                 date_format='iso',
                 double_precision=2
-                )
-            }
-
+            )
+        }
 
     def prestamo_prestaciones_hr(self, data):
         """Prestamos para las Prestaciones RRHH resource Data Preparation"""
@@ -1005,9 +1016,8 @@ class DataPreparation():
                 orient='records',
                 date_format='iso',
                 double_precision=2
-                )
-            }
-
+            )
+        }
 
     def rendimientos_icg(self, data):
         """Rendimientos ICG resource Data Preparation"""
@@ -1026,7 +1036,8 @@ class DataPreparation():
 
         rend_icg = pd.read_excel(path, names=names)
 
-        rend_icg.FechaInicio = pd.to_datetime(rend_icg.FechaInicio, format='%y%m%d')
+        rend_icg.FechaInicio = pd.to_datetime(
+            rend_icg.FechaInicio, format='%y%m%d')
 
         rend_icg['MakerDate'] = datetime.date.today()
         rend_icg.MakerDate = pd.to_datetime(rend_icg.MakerDate)
@@ -1048,9 +1059,8 @@ class DataPreparation():
                 orient='records',
                 date_format='iso',
                 double_precision=2
-                )
-            }
-
+            )
+        }
 
     def siif(self, data):
         """SIIF resource Data Preparation"""
@@ -1060,7 +1070,7 @@ class DataPreparation():
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
         converters = {
-            'BranchId':str,
+            'BranchId': str,
         }
 
         parse_dates = [
@@ -1096,9 +1106,10 @@ class DataPreparation():
             value='',
             inplace=True,
             regex=True
-            )
+        )
 
-        siif_df.CreditLimit = pd.to_numeric(siif_df.CreditLimit, errors='coerce')
+        siif_df.CreditLimit = pd.to_numeric(
+            siif_df.CreditLimit, errors='coerce')
         siif_df.Amt30DPD = pd.to_numeric(siif_df.Amt30DPD, errors='coerce')
         siif_df.Amt60DPD = pd.to_numeric(siif_df.Amt60DPD, errors='coerce')
         siif_df.Amt90DPD = pd.to_numeric(siif_df.Amt90DPD, errors='coerce')
@@ -1106,8 +1117,10 @@ class DataPreparation():
         siif_df.Amt150DPD = pd.to_numeric(siif_df.Amt150DPD, errors='coerce')
         siif_df.Amt180DPD = pd.to_numeric(siif_df.Amt180DPD, errors='coerce')
         siif_df.Amt210DPD = pd.to_numeric(siif_df.Amt210DPD, errors='coerce')
-        siif_df.SaldoCastigado = pd.to_numeric(siif_df.SaldoCastigado, errors='coerce')
-        siif_df.PrincipalBalance = pd.to_numeric(siif_df.PrincipalBalance, errors='coerce')
+        siif_df.SaldoCastigado = pd.to_numeric(
+            siif_df.SaldoCastigado, errors='coerce')
+        siif_df.PrincipalBalance = pd.to_numeric(
+            siif_df.PrincipalBalance, errors='coerce')
 
         siif_df['MakerDate'] = datetime.date.today()
         siif_df.MakerDate = pd.to_datetime(siif_df.MakerDate)
@@ -1129,9 +1142,8 @@ class DataPreparation():
                 orient='records',
                 date_format='iso',
                 double_precision=2
-                )
-            }
-
+            )
+        }
 
     def sobregiros_consumer(self, data):
         """Sobregiros Consumer resource Data Preparation"""
@@ -1181,9 +1193,8 @@ class DataPreparation():
                 orient='records',
                 date_format='iso',
                 double_precision=2
-                )
-            }
-
+            )
+        }
 
     def vnp003t(self, data):
         """VNP003T resource Data Preparation"""
@@ -1207,22 +1218,25 @@ class DataPreparation():
             'LXINGF', 'LXFECC', 'LXUSRC', 'LXINGU', 'LXFECU', 'LXUSRU', 'LXAPRA',
             'LXSALD', 'LXVAIN', 'LXADTE', 'LXAUSR', 'LXAPRU', 'LXSALU', 'LXVAIU',
             'LXADTU', 'LXAUSU',
-            ]
+        ]
 
         fwidths = [3, 2, 12, 1, 3, 3, 7, 3, 14, 14, 8, 7, 1, 15, 14, 3, 3, 6, 14,
                    2, 6, 5, 3, 3, 3, 16, 14, 14, 3, 7, 2, 16, 8, 8, 8, 12, 14, 3,
                    2, 8, 12, 8, 8, 14, 14, 14, 14, 1, 8, 3, 3, 31, 8, 14, 14, 14,
                    14, 14, 8, 14, 8, 1, 14, 14, 8, 12, 12, 12, 12, 3, 3, 3, 14, 1,
-                   15, 15, 1, 14, 8, 10, 14, 8, 10, 14, 14, 14, 8, 10, 14, 14, 14, 8, 10,]
+                   15, 15, 1, 14, 8, 10, 14, 8, 10, 14, 14, 14, 8, 10, 14, 14, 14, 8, 10, ]
 
         vnp003t_df = pd.read_fwf(path, widths=fwidths, names=labels)
 
-        vnp003t_df.TNBFEE.replace(to_replace=' ', value='', inplace=True, regex=True)
+        vnp003t_df.TNBFEE.replace(
+            to_replace=' ', value='', inplace=True, regex=True)
 
         vnp003t_df.TNBFEE = vnp003t_df.TNBFEE.astype('float64')
 
-        vnp003t_df.DOY2AA = pd.to_datetime(vnp003t_df.DOY2AA, format='%Y%m%d', errors='coerce')
-        vnp003t_df.TMY2AA = pd.to_datetime(vnp003t_df.TMY2AA, format='%Y%m%d', errors='coerce')
+        vnp003t_df.DOY2AA = pd.to_datetime(
+            vnp003t_df.DOY2AA, format='%Y%m%d', errors='coerce')
+        vnp003t_df.TMY2AA = pd.to_datetime(
+            vnp003t_df.TMY2AA, format='%Y%m%d', errors='coerce')
         vnp003t_df.DOY2AA.fillna(pd.to_datetime('1900-01-01'), inplace=True)
         vnp003t_df.TMY2AA.fillna(pd.to_datetime('1900-01-01'), inplace=True)
 
@@ -1246,9 +1260,8 @@ class DataPreparation():
                 orient='records',
                 date_format='iso',
                 double_precision=2
-                )
-            }
-
+            )
+        }
 
     def call_method(self, data):
         """Call the method corresponding to the data's resource name provided"""

@@ -18,7 +18,7 @@ import * as AuthActions from './auth/store/auth.actions';
 export class AppComponent implements OnInit {
   isDarkTheme: Observable<boolean>;
 
-  constructor (
+  constructor(
     private store: Store<fromApp.AppState>,
     private loggingService: LoggingService,
     private themeService: ThemeService,
