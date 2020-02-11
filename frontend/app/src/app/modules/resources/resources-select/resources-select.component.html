@@ -6,9 +6,8 @@
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form [formGroup]="resourceForm">
-        <mat-form-field class="full-width">
-          <input
+      <mat-form-field class="full-width">
+        <!-- <input
             type="text"
             matInput
             placeholder="Resource Group"
@@ -32,9 +31,26 @@
                 {{ name.viewValue }}
               </mat-option>
             </mat-optgroup>
-          </mat-autocomplete>
-        </mat-form-field>
-      </form>
+          </mat-autocomplete> -->
+        <mat-label>Select Resource</mat-label>
+        <mat-select [formControl]="resourceControl" required>
+          <mat-option>-- None --</mat-option>
+          <mat-optgroup
+            *ngFor="let group of resourceGroups"
+            [label]="group.type"
+          >
+            <mat-option
+              *ngFor="let resource of group.names"
+              [value]="resource.value"
+            >
+              {{ resource.viewValue }}
+            </mat-option>
+          </mat-optgroup>
+        </mat-select>
+        <mat-error *ngIf="resourceControl.hasError('required')"
+          >Please choose a resource</mat-error
+        >
+      </mat-form-field>
     </mat-card-content>
   </mat-card>
 </div>

@@ -6,8 +6,7 @@ import {Store} from '@ngrx/store';
 import {Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
 
-import {ReporteSiif} from '../resources.model';
-import {ResourceService} from '../resources.service';
+// import {ResourceService} from '../resources.service';
 import * as fromApp from '../../../store/app.reducer';
 
 
@@ -61,8 +60,8 @@ export class ResourcesViewComponent implements OnInit, OnDestroy {
   }
 
   getKeyValues() {
-    console.log(ELEMENT_DATA);
-    console.log(Object.keys(`keys: ${ ELEMENT_DATA }`));
+    // console.log(ELEMENT_DATA);
+    // console.log(Object.keys(`keys: ${ ELEMENT_DATA }`));
     const columnsToDisplay = [];
     const values = (Object.keys(ELEMENT_DATA[0]) as Array<keyof typeof ELEMENT_DATA[0]>).reduce((accumulator, current) => {
       columnsToDisplay.push(current);

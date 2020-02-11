@@ -1,10 +1,10 @@
 import {Component, OnInit, ViewEncapsulation, EventEmitter, Output} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {startWith, map} from 'rxjs/operators';
 
-import {ResourceService} from '../resources.service';
+// import {ResourceService} from '../resources.service';
 import * as fromApp from '../../../store/app.reducer';
 import * as ResourceActions from '../store/resources.actions';
 
@@ -19,11 +19,11 @@ export interface ResourceGroup {
   names: ResourceValue[];
 }
 
-export const _filter = (opt: ResourceValue[], value: string): ResourceValue[] => {
-  const filterValue = value.toLowerCase();
+// export const _filter = (opt: ResourceValue[], value: string): ResourceValue[] => {
+//   const filterValue = value.toLowerCase();
 
-  return opt.filter(item => item.value.toLowerCase().indexOf(filterValue) === 0);
-};
+//   return opt.filter(item => item.value.toLowerCase().indexOf(filterValue) === 0);
+// };
 
 @Component({
   selector: 'app-resources-select',
@@ -33,9 +33,7 @@ export const _filter = (opt: ResourceValue[], value: string): ResourceValue[] =>
 })
 export class ResourcesSelectComponent implements OnInit {
 
-  resourceForm: FormGroup = this._formBuilder.group({
-    resourceGroup: '',
-  });
+  resourceControl = new FormControl('', Validators.required);
 
   resourceGroups: ResourceGroup[] = [{
     type: 'Manual',
@@ -75,46 +73,48 @@ export class ResourcesSelectComponent implements OnInit {
   }
   ];
 
-  resourceGroupOptions: Observable<ResourceGroup[]>;
-
   @Output() resourceSelected = new EventEmitter<string>();
 
   constructor(
-    private _formBuilder: FormBuilder,
-    private resourceService: ResourceService,
+    // private resourceService: ResourceService,
     private store: Store<fromApp.AppState>,
   ) {}
 
   ngOnInit() {
-    this.resourceGroupOptions = this.resourceForm.get('resourceGroup').valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filterGroup(value))
-      );
+    this.onValueChanges();
   }
 
-  private _search(nameKey: string, resourceGroup: ResourceGroup[]) {
-    for (const group of resourceGroup) {
-      for (const name of group.names) {
-        if (name.viewValue === nameKey) {
-          return name;
-        }
-      }
-    }
+  onValueChanges(): void {
+    this.resourceControl.valueChanges.subscribe(value => this._setValue(value));
   }
 
-  private _filterGroup(value: string): ResourceGroup[] {
-    if (value) {
-      const result = this._search(value, this.resourceGroups);
-      this.resourceSelected.emit(result.value);
-      this.resourceService.setResourceSelected(result.value);
-      this.store.dispatch(new ResourceActions.SelectResource(result.value));
-      return this.resourceGroups
-        .map(group => ({type: group.type, names: _filter(group.names, value)}))
-        .filter(group => group.names.length > 0);
-    }
-
-    return this.resourceGroups;
+  private _setValue(value: string) {
+    this.store.dispatch(new ResourceActions.SelectResource(value));
+    // console.log(value);
   }
+
+  // private _search(nameKey: string, resourceGroup: ResourceGroup[]) {
+  //   for (const group of resourceGroup) {
+  //     for (const name of group.names) {
+  //       if (name.viewValue === nameKey) {
+  //         return name;
+  //       }
+  //     }
+  //   }
+  // }
+
+  // private _filterGroup(value: string): ResourceGroup[] {
+  //   if (value) {
+  //     const result = this._search(value, this.resourceGroups);
+  //     this.resourceSelected.emit(result.value);
+  //     this.resourceService.setResourceSelected(result.value);
+  //     this.store.dispatch(new ResourceActions.SelectResource(result.value));
+  //     return this.resourceGroups
+  //       .map(group => ({type: group.type, names: _filter(group.names, value)}))
+  //       .filter(group => group.names.length > 0);
+  //   }
+
+  //   return this.resourceGroups;
+  // }
 
 }

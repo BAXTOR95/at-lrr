@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
 
 const appRoutes: Routes = [
-  {path: '', redirectTo: '/resources', pathMatch: 'full'},
+  // {path: '', redirectTo: '/resources', pathMatch: 'full'},
   {
     path: 'resources',
     loadChildren: () =>
