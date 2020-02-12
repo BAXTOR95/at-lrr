@@ -96,7 +96,7 @@ class AT04(models.Model):
     RendimientosCobrarMora = models.DecimalField(
         max_digits=18, decimal_places=2)
     ProvisionEspecifica = models.DecimalField(max_digits=18, decimal_places=2)
-    PocentajeProvisionEspecifica = models.DecimalField(
+    PorcentajeProvisionEspecifica = models.DecimalField(
         max_digits=18, decimal_places=4)
     ProvisionRendimientoCobrar = models.DecimalField(
         max_digits=18, decimal_places=2)
