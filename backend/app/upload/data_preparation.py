@@ -125,7 +125,7 @@ class DataPreparation():
 
         a_h.to_csv(
             out_path,
-            sep='~', date_format='%d/%m/%Y', index=False)
+            sep='~', date_format='%Y-%m-%d', index=False)
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
@@ -204,7 +204,7 @@ class DataPreparation():
 
         at04cre.to_csv(
             out_path,
-            sep='~', date_format='%d/%m/%Y', index=False)
+            sep='~', date_format='%Y-%m-%d', index=False)
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
@@ -275,7 +275,7 @@ class DataPreparation():
 
         at07_df.to_csv(
             out_path,
-            sep='~', date_format='%d/%m/%Y', index=False)
+            sep='~', date_format='%Y-%m-%d', index=False)
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
@@ -324,7 +324,7 @@ class DataPreparation():
         Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
 
         bbat.to_csv(
-            out_path, sep='~', date_format='%d/%m/%Y', index=False)
+            out_path, sep='~', date_format='%Y-%m-%d', index=False)
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
@@ -398,7 +398,7 @@ class DataPreparation():
 
         cnd.to_csv(
             out_path,
-            sep='~', date_format='%d/%m/%Y', index=False)
+            sep='~', date_format='%Y-%m-%d', index=False)
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
@@ -490,7 +490,7 @@ class DataPreparation():
 
         c_d.to_csv(
             out_path,
-            sep='~', date_format='%d/%m/%Y', index=False)
+            sep='~', date_format='%Y-%m-%d', index=False)
 
         for path in paths:
             unlink(path)
@@ -537,7 +537,7 @@ class DataPreparation():
 
         fdn_df.to_csv(
             out_path,
-            sep='~', date_format='%d/%m/%Y', index=False)
+            sep='~', date_format='%Y-%m-%d', index=False)
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
@@ -566,7 +566,7 @@ class DataPreparation():
             'InteresesEfectivamenteCobrados', 'PorcentajeComisionFLAT',
             'MontoComisionFLAT', 'PeriodicidadPagoEspecialCapital',
             'FechaCambioEstatusCredito',
-            'FechaExigibilidadPagolaultimaCuotaPagada',
+            'FechaExigibilidadPagoUltimaCuotaPagada',
             'FechaRegistroVencidaLitigioCastigada',
             'TipoIndustria', 'TipoBeneficiarioSectorManufacturero',
             'TipoBeneficiarioSectorTurismo', 'BeneficiarioEspecial',
@@ -668,7 +668,7 @@ class DataPreparation():
 
         gavetas.to_csv(
             out_path,
-            sep='~', date_format='%d/%m/%Y', index=False)
+            sep='~', date_format='%Y-%m-%d', index=False)
 
         for path in paths:
             unlink(path)
@@ -740,7 +740,7 @@ class DataPreparation():
 
         lnp860_df.to_csv(
             out_path,
-            sep='~', date_format='%d/%m/%Y', index=False)
+            sep='~', date_format='%Y-%m-%d', index=False)
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
@@ -794,7 +794,7 @@ class DataPreparation():
 
         mm_df.to_csv(
             out_path,
-            sep='~', date_format='%d/%m/%Y', index=False)
+            sep='~', date_format='%Y-%m-%d', index=False)
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
@@ -955,7 +955,7 @@ class DataPreparation():
 
         mispf[columns].to_csv(
             out_path,
-            sep='~', date_format='%d/%m/%Y', index=False)
+            sep='~', date_format='%Y-%m-%d', index=False)
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
@@ -1006,7 +1006,7 @@ class DataPreparation():
 
         pphr.to_csv(
             out_path,
-            sep='~', date_format='%d/%m/%Y', index=False)
+            sep='~', date_format='%Y-%m-%d', index=False)
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
@@ -1049,7 +1049,7 @@ class DataPreparation():
 
         rend_icg.to_csv(
             out_path,
-            sep='~', date_format='%d/%m/%Y', index=False)
+            sep='~', date_format='%Y-%m-%d', index=False)
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
@@ -1132,7 +1132,7 @@ class DataPreparation():
 
         siif_df.to_csv(
             out_path,
-            sep='~', date_format='%d/%m/%Y', index=False)
+            sep='~', date_format='%Y-%m-%d', index=False)
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
@@ -1183,7 +1183,7 @@ class DataPreparation():
 
         sobregiros_gcg.to_csv(
             out_path,
-            sep='~', date_format='%d/%m/%Y', index=False)
+            sep='~', date_format='%Y-%m-%d', index=False)
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
@@ -1250,7 +1250,7 @@ class DataPreparation():
 
         vnp003t_df.to_csv(
             out_path,
-            sep='~', date_format='%d/%m/%Y', index=False)
+            sep='~', date_format='%Y-%m-%d', index=False)
 
         unlink(join(abs_dir, f_name + '.' + f_ext))
 
