@@ -706,6 +706,12 @@ class DataPreparation():
 
         lnp860_df = pd.read_fwf(path, widths=fwidths, names=labels)
 
+        lnp860_df.P8FVUC = lnp860_df.P8FVUC.apply(lambda x: str(x).zfill(8))
+        lnp860_df.P8FCCC = lnp860_df.P8FCCC.apply(lambda x: str(x).zfill(8))
+        lnp860_df.P8FVUI = lnp860_df.P8FVUI.apply(lambda x: str(x).zfill(8))
+        lnp860_df.P8FCCI = lnp860_df.P8FCCI.apply(lambda x: str(x).zfill(8))
+        lnp860_df.P8FCTC = lnp860_df.P8FCTC.apply(lambda x: str(x).zfill(8))
+
         lnp860_df.P8FVUC = pd.to_datetime(
             lnp860_df.P8FVUC, format='%d%m%Y', errors='coerce')
         lnp860_df.P8FCCC = pd.to_datetime(
