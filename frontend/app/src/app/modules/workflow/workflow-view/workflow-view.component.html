@@ -5,6 +5,38 @@
         View Resource
       </mat-card-title>
     </mat-card-header>
-    <mat-card-content> </mat-card-content>
+    <mat-card-content>
+      <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Filter" />
+      </mat-form-field>
+      <div class="table-container mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+          <ng-container
+            [matColumnDef]="column"
+            *ngFor="let column of displayedColumns"
+          >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{ column }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element[column] }}
+            </td>
+          </ng-container>
+
+          <tr
+            mat-header-row
+            *matHeaderRowDef="displayedColumns; sticky: true"
+          ></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <mat-paginator
+          fixed
+          [pageSize]="5"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+        ></mat-paginator>
+      </div>
+    </mat-card-content>
   </mat-card>
 </div>

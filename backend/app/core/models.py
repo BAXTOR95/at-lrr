@@ -2,7 +2,6 @@ import datetime
 from datetime import date
 
 import uuid
-import os
 
 import unidecode
 
@@ -133,6 +132,65 @@ class File(models.Model):
 
     def __str__(self):
         return self.file.name
+
+
+class Workflow(models.Model):
+    """Custom workflow model that supports starting the construction of a report"""
+
+    class Reports(models.TextChoices):
+        AT01 = 'AT01', _('AT01 - Accionistas del Ente Supervisado')
+        AT02 = 'AT02', _('AT02 - Bienes Recibidos en Pago')
+        AT03 = 'AT03', _('AT03 - Contable')
+        AT04 = 'AT04', _('AT04 - Cartera de Creditos')
+        AT05 = 'AT05', _('AT05 - Captaciones')
+        AT06 = 'AT06', _('AT06 - Transacciones Financieras')
+        AT07 = 'AT07', _('AT07 - Garantias Recibidas')
+        AT08 = 'AT08', _('AT08 - Agencias y Oficinas')
+        AT09 = 'AT09', _(
+            'AT09 - Compra y Venta de Inversiones en Titulos Valores')
+        AT10 = 'AT10', _('AT10 - Inversiones')
+        AT11 = 'AT11', _(
+            'AT11 - Conformacion de las Disponibilidades, Inversiones y Custodios a Terceros')
+        AT12 = 'AT12', _('AT12 - Consumos de Tarjetas')
+        AT13 = 'AT13', _('AT13 - Reclamos')
+        AT14 = 'AT14', _('AT14 - Instrumentos')
+        AT15 = 'AT15', _('AT15 - Notificacion de Transpaso de Acciones')
+        AT16 = 'AT16', _('AT16 - Empresas Accionistas del Ente Supervisado')
+        AT17 = 'AT17', _('AT17 - Agricola Semanal')
+        AT18 = 'AT18', _('AT18 - Variaciones de las tasas de Credito')
+        AT19 = 'AT19', _('AT19 - Transacciones de Pago')
+        AT20 = 'AT20', _('AT20 - Notas al Pie del Balance')
+        AT21 = 'AT21', _('AT21 - Garantes')
+        AT23 = 'AT23', _('AT23 - Personal')
+        AT24 = 'AT24', _('AT24 - Balance General de Publicacion')
+        AT25 = 'AT25', _('AT25 - Estado de Resultados')
+        AT26 = 'AT26', _('AT26 - Fraude Bancario')
+        AT27 = 'AT27', _(
+            'AT27 - Composicion Activa-Pasiva de Organismos Oficiales, P. Juridicas y Naturales')
+        AT29 = 'AT29', _('AT29 - Gravamen')
+        AT30 = 'AT30', _(
+            'AT30 - Adquisicion y Venta de Bienes Recibidos en Pago')
+        AT31 = 'AT31', _(
+            'AT31 - Movimientos de credito y debito de las operaciones Activas y Pasivas')
+        AT32 = 'AT32', _(
+            'AT32 - Fondo de Ahorro Obligatorio para la Viviendaa (FAOV)')
+        AT33 = 'AT33', _('AT33 - Convenio Cambiario')
+        AT34 = 'AT34', _('AT34 - Grupo Junta Directiva del Ente')
+        AT35 = 'AT35', _(
+            'AT35 - 100 Mayores Depositantes de personas Naturales y Juridicas')
+        AT36 = 'AT36', _('AT36 - Lineas de Credito de Utilizacion Automatica')
+        AT37 = 'AT37', _('AT37 - Transferencias Electronicas')
+        AT38 = 'AT38', _(
+            'AT38 - Impuesto a las Grandes Transacciones Financieras')
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        default=None
+    )
+    report_name = models.CharField(
+        max_length=50, choices=Reports.choices, default='')
+    book_data = models.DateField(default=date.today)
 
 
 # class Tag(models.Model):
