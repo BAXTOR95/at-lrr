@@ -34,6 +34,16 @@
           </button>
         </div>
       </div>
+      <div class="row m-0">
+        <div class="col m12 s12" *ngIf="workStarted">
+          <mat-progress-bar
+            [mode]="inQuery && progress != 100 ? 'query' : 'determinate'"
+            value="{{ progress }}"
+            color="accent"
+            class="my-6"
+          ></mat-progress-bar>
+        </div>
+      </div>
     </mat-card-content>
   </mat-card>
 </div>

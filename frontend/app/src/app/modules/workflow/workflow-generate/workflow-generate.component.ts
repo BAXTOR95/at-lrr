@@ -37,6 +37,9 @@ export class WorkflowGenerateComponent implements OnInit, OnDestroy {
   report = '';
   bookDate = new Date();
   durationInSeconds = 5;
+  progress = 0;
+  inQuery = false;
+  workStarted = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -60,6 +63,8 @@ export class WorkflowGenerateComponent implements OnInit, OnDestroy {
   }
 
   startWorkflow() {
+    this.inQuery = true;
+
     if (this.report.length !== 0) {
       const formData = new FormData();
       const dateStr = this.datePipe.transform(this.bookDate, 'yyyy-MM-dd');
@@ -67,6 +72,7 @@ export class WorkflowGenerateComponent implements OnInit, OnDestroy {
       formData.append('report_name', this.report);
       formData.append('book_date', dateStr);
 
+      this.workStarted = true;
       this.snackbarService.openSnackBar(
         `Starting Construction of Report (${ this.report }) on ` +
         `${ dateStr }`,
@@ -77,6 +83,7 @@ export class WorkflowGenerateComponent implements OnInit, OnDestroy {
       this.workflowService.start_workflow(formData).subscribe((event: HttpEvent<any>) => {
         switch (event.type) {
           case HttpEventType.Response:
+            this.progress = 100;
             this.snackbarService.openSnackBar(
               'File successfully uploaded! ' + `${ this.DJANGO_SERVER }${ event.body.report_name }`,
               'OK',
@@ -85,10 +92,15 @@ export class WorkflowGenerateComponent implements OnInit, OnDestroy {
             this.workflowService.setResourceData(event.body.data);
             this.store.dispatch(new WorkflowActions.SetReport(JSON.parse(event.body.data)));
             console.log('Report successfully created!', event.body);
+            setTimeout(() => {
+              this.progress = 0;
+              this.workStarted = false;
+            }, 1500);
             break;
         }
       },
         (err) => {
+          this.workStarted = false;
           this.snackbarService.openSnackBar(err, 'Close', this.durationInSeconds);
         });
     } else {
