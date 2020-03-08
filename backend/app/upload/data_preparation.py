@@ -480,6 +480,9 @@ class DataPreparation():
                          cd_manufactura,
                          cd_micro, cd_turismo], ignore_index=True)
 
+        filter_df = c_d.NUM_EXPEDIENTE_CONFORMIDAD_TURISTICA == 'No aplica'
+        c_d.loc[filter_df, 'NUM_EXPEDIENTE_CONFORMIDAD_TURISTICA'] = 0
+
         c_d['MakerDate'] = datetime.date.today()
         c_d.MakerDate = pd.to_datetime(c_d.MakerDate)
         c_d['MakerUser'] = data[0]['user']
@@ -576,7 +579,7 @@ class DataPreparation():
         ]
 
         parse_dates = [
-            'FechaExigibilidadPagolaultimaCuotaPagada',
+            'FechaExigibilidadPagoUltimaCuotaPagada',
             'FechaRegistroVencidaLitigioCastigada',
             'FechaEmisionCertificacionBeneficiarioEspecial',
             'FechaFinPeriodoGraciaPagoInteres',
@@ -589,7 +592,7 @@ class DataPreparation():
             'PorcentajeComisionFLAT': 0,
             'MontoComisionFLAT': 0,
             'PeriodicidadPagoEspecialCapital': 0,
-            'FechaExigibilidadPagolaultimaCuotaPagada': pd.to_datetime('1900-01-01'),
+            'FechaExigibilidadPagoUltimaCuotaPagada': pd.to_datetime('1900-01-01'),
             'FechaRegistroVencidaLitigioCastigada': pd.to_datetime('1900-01-01'),
             'TipoIndustria': 0,
             'TipoBeneficiarioSectorManufacturero': 0,
@@ -1107,6 +1110,12 @@ class DataPreparation():
                               parse_dates=parse_dates,
                               converters=converters,)
 
+        rate_filter = siif_df.Rate == 1.000000e-07
+
+        siif_df.loc[rate_filter, 'Rate'] = siif_df[rate_filter].Rate.apply(
+            lambda x: '%.7f' % x
+        )
+
         siif_df[num_fields] = siif_df[num_fields].replace(
             to_replace='Bs.S',
             value='',
@@ -1127,6 +1136,14 @@ class DataPreparation():
             siif_df.SaldoCastigado, errors='coerce')
         siif_df.PrincipalBalance = pd.to_numeric(
             siif_df.PrincipalBalance, errors='coerce')
+
+        siif_df.Staff.replace(to_replace=1, value=2, inplace=True)  # Si
+        siif_df.Staff.replace(to_replace=0, value=1, inplace=True)  # No
+
+        siif_df.Gender.replace(to_replace='M', value=2,
+                               inplace=True)  # Masculino
+        siif_df.Gender.replace(to_replace='F', value=1,
+                               inplace=True)  # Femenino
 
         siif_df['MakerDate'] = datetime.date.today()
         siif_df.MakerDate = pd.to_datetime(siif_df.MakerDate)
