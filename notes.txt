@@ -132,6 +132,8 @@ npm cache clean
 
 [sudo] npm install -g @angular/cli 
 
+Visit https://update.angular.io/ for a more in-depth help
+
 If having problems with lock issues, do this
 Add the following lines to your ~/.npmrc and run npm install again.
 
