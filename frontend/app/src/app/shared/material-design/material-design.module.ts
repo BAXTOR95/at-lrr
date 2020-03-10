@@ -43,9 +43,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {
-  MAT_LABEL_GLOBAL_OPTIONS, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher
-} from '@angular/material';
+import { MAT_LABEL_GLOBAL_OPTIONS, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
