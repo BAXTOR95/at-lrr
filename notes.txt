@@ -141,7 +141,7 @@ cache-lock-retries=10
 cache-lock-stale=300000  
 
 If this doesn't work, Navigate to the directory your node was installed in
-rename your npm.cmd and npm files
+rename your npm.cmd, npm, npx.cmd and npx files
 Try run the installation again
 If successful..delete the files you renamed earlier npm and npm.cmd
 
