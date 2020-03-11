@@ -32,7 +32,7 @@
         <div class="row m-0">
           <div class="col m12 s12" *ngIf="hasStartedUploading">
             <mat-progress-bar
-              [mode]="!inQuery && progress === 0 ? 'query' : 'determinate'"
+              [mode]="inQuery ? 'query' : 'determinate'"
               value="{{ progress }}"
               color="accent"
               class="my-6"
