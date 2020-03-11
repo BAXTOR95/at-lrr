@@ -8,6 +8,7 @@ from django.utils.translation import gettext_lazy as _
 
 # Manual
 
+
 class CorporativoNoDirigida(models.Model):
     """CorporativoNoDirigida resource model"""
     Branch = models.CharField(max_length=10)
@@ -228,13 +229,11 @@ class MigrateMorgage(models.Model):
 class GavetasCorporativas(models.Model):
     """GavetasCorporativas resource model"""
 
-
     class TypeCD(models.IntegerChoices):
         HCP = 7, _('Hipotecario Corto Plazo')
         TURISMO = 8, _('Turismo')
         MANUFACTURA = 10, _('Manufactura')
         AGRICOLA_ICG = 11, _('Agricola ICG')
-
 
     RIF = models.CharField(max_length=20)
     NombreRazonSocial = models.CharField(max_length=20)
@@ -752,8 +751,10 @@ class CarteraDirigida(models.Model):
     NUM_CLIENTE = models.CharField(max_length=19)
     NOMBRE_CLIENTE = models.CharField(max_length=250)
     GENERO = models.ManyToManyField('core.SB59')
-    COOPERATIVA = models.ManyToManyField('core.SB31', related_name='cooperativa_cd_set')
-    CLIENTE_NUEVO = models.ManyToManyField('core.SB31', related_name='cliente_nuevo_cd_set')
+    COOPERATIVA = models.ManyToManyField(
+        'core.SB31', related_name='cooperativa_cd_set')
+    CLIENTE_NUEVO = models.ManyToManyField(
+        'core.SB31', related_name='cliente_nuevo_cd_set')
     COD_PARROQUIA = models.IntegerField()
     FECHA_SOLICITUD = models.DateField(
         default=datetime.datetime(1900, 1, 1))
@@ -766,8 +767,10 @@ class CarteraDirigida(models.Model):
     CLASE_RIESGO = models.ManyToManyField('core.SB19')
     ESTADO_CREDITO = models.ManyToManyField('core.SB34')
     SITUACION_CREDITO = models.ManyToManyField('core.SB35')
-    PERIODO_PAGO_CAPITAL = models.ManyToManyField('core.SB30', related_name='ppc_cd_set')
-    PERIODO_PAGO_INTERES = models.ManyToManyField('core.SB30', related_name='ppi_cd_set')
+    PERIODO_PAGO_CAPITAL = models.ManyToManyField(
+        'core.SB30', related_name='ppc_cd_set')
+    PERIODO_PAGO_INTERES = models.ManyToManyField(
+        'core.SB30', related_name='ppi_cd_set')
     PERIODO_GRACIA_CAPITAL = models.IntegerField()
     FECHA_VENC_ORIGINAL = models.DateField(
         default=datetime.datetime(1900, 1, 1))
