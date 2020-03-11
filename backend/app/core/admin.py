@@ -3,7 +3,9 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext as _
 from django.apps import apps
 
-from core import models, resources_models, config_tables_sb_models, reports_models
+# from core import models, resources_models, config_tables_sb_models, reports_models
+
+from core import models
 
 
 class UserAdmin(BaseUserAdmin):
