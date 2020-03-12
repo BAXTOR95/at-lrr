@@ -124,6 +124,11 @@ Updating npm:
 
 Run [sudo] npm install -g npm  (sudo  is only required on Mac/ Linux)
 
+Another and better way to update npm on windows, run PowerShell as Administrator:
+$ Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force
+$ npm install -g npm-windows-upgrade
+$ npm-windows-upgrade
+
 Updating the CLI
 
 [sudo] npm uninstall -g angular-cli @angular/cli 
