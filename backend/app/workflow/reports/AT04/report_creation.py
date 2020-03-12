@@ -59,13 +59,14 @@ CD_CHOICES = {
     'RRHH': 17,  # Prestaciones Recursos Humanos
 }
 
+DEFAULT_DATE = pd.to_datetime('1900-01-01')
 
 class ReportCreation():
     """Data Preparation Class for every resource file"""
     _out_folder = 'reports'
     _out_path = os.path.join(settings.MEDIA_ROOT, _out_folder)
 
-    _fecha_reportar = pd.to_datetime('1900-01-01')
+    _fecha_reportar = DEFAULT_DATE
 
     _labels = [
         'NumeroCredito',
@@ -263,8 +264,8 @@ class ReportCreation():
     vnp003t_mod_df = pd.DataFrame()
     cc_mod_df = pd.DataFrame()
     ah_mod_df = pd.DataFrame()
-    ah_pils_mod_df = pd.DataFrame()
     at04cre_cnd_df = pd.DataFrame()
+    ricg_mod_df = pd.DataFrame()
 
     at04_df = pd.DataFrame()
 
@@ -415,17 +416,17 @@ class ReportCreation():
         self.cc_mod_df = self.cc_df.set_index('IdentificadorCliente')
 
         # CREATING AH WITH NEW INDEX
-        self.ah_mod_df = self.ah_df.set_index('Acct')
-
-        # CREATING AH MOD FILTERED FOR PILS
-        self.ah_pils_mod_df = self.ah_mod_df.loc[((self.ah_mod_df['TypeId'].isin([25, 27, 52, 56, 57, 597, 20,
-                                                                                  21, 22, 23, 24, 26, 28, 29, 30,
-                                                                                  31, 34, 40, 41])) &
-                                                  (self.ah_mod_df['AppId'] == 50))]
+        self.ah_mod_df = self.ah_df.loc[(self.ah_df['AppId'] == 50)].set_index('Acct')
 
         # CREATING UNION BETWEEN AT04CRE & CND
         self.at04cre_cnd_df = self.at04cre_df.set_index('REFERNO').join(self.cnd_df.set_index(
             'Referencia'), lsuffix='_at04cre', rsuffix='_cnd').reset_index()
+
+        # CREATING NEW RENDIMIENTOS CORPORATIVOS
+        self.ricg_mod_df = self.ricg_df.copy()
+        self.ricg_mod_df['Status'] = self.ricg_mod_df['DescripcionDeLaCuenta'].apply(
+            lambda x: str(x).upper().strip().split()[-1])
+        self.ricg_mod_df = self.ricg_mod_df.set_index('Referencia')
 
         return True
 
@@ -476,7 +477,9 @@ class ReportCreation():
 
     def get_domicilio_fiscal(self, num_credito, type_dc, is_in_dom_fis_field):
         """Gets the Domicilio Fiscal Value"""
-        if type_dc in [CD_CHOICES.get('TURISMO'), CD_CHOICES.get('AGRICOLA_ICG')] or is_in_dom_fis_field:
+        if type_dc in [
+            CD_CHOICES.get('TURISMO'), CD_CHOICES.get('AGRICOLA_ICG')
+            ] or is_in_dom_fis_field:
             return self.at04cre_mod_df.at[
                 int(num_credito),
                 'ADDRESS'
@@ -710,7 +713,7 @@ class ReportCreation():
         self,
         num_credito,
         type_dc,
-        fecha_liquidacion=pd.to_datetime('1900-01-01')
+        fecha_liquidacion=DEFAULT_DATE
     ):
         """Gets Comisiones Cobradas Value"""
         if type_dc == CD_CHOICES.get('MICROFINANCIERO'):
@@ -780,7 +783,7 @@ class ReportCreation():
         if str(division_type).upper() == 'E' and (date_diff/36) > 0:
             return pd.to_datetime(open_date) + pd.DateOffset(months=(date_diff/36)*36)
         else:
-            return pd.to_datetime('1900-01-01')
+            return DEFAULT_DATE
 
     def get_lnp860_values(self, num_credito, campo):
         """Gets LNP860 Values"""
@@ -836,8 +839,8 @@ class ReportCreation():
         """Gets Account History Values"""
         if type_cd in [CD_CHOICES.get('CARROS'), CD_CHOICES.get('SEGUROS')]:
             if campo in ['CapitalCastigado', ]:
-                ah_value = self.ah_pils_mod_df.at[int(num_credito), campo] if int(
-                    num_credito) in self.ah_pils_mod_df.index else False
+                ah_value = self.ah_mod_df.at[int(num_credito), campo] if int(
+                    num_credito) in self.ah_mod_df.index else False
                 return self.is_nan(ah_value, 0.00) or 0.00
             else:
                 sys.exit(f'The field ({campo}) is invalid or not supported!')
@@ -881,9 +884,9 @@ class ReportCreation():
     def get_fecha_cancelacion_total(self, num_credito, block_code_date, block_code_id, type_cd):
         """Gets Fecha Cancelacion Total Value"""
         if type_cd in [CD_CHOICES.get('CARROS'), CD_CHOICES.get('SEGUROS'), ]:
-            return pd.to_datetime('1900-01-01')
+            return DEFAULT_DATE
         elif type_cd in [CD_CHOICES.get('TDC'), ]:
-            return block_code_date if str(block_code_id) == 'A' else pd.to_datetime('1900-01-01')
+            return block_code_date if str(block_code_id) == 'A' else DEFAULT_DATE
         else:
             return self.get_lnp860_values(num_credito, 'P8FCTC')
 
@@ -892,7 +895,7 @@ class ReportCreation():
         if type_cd in [CD_CHOICES.get('CARROS'), CD_CHOICES.get('SEGUROS'), ]:
             return self.is_nan(orig_open_date, open_date)
         elif type_cd in [CD_CHOICES.get('TDC'), ]:
-            return pd.to_datetime('1900-01-01')
+            return DEFAULT_DATE
         else:
             return self.get_lnp860_values(num_credito, 'P8FVUC' if is_capital else 'P8FVUI')
 
@@ -978,7 +981,7 @@ class ReportCreation():
         elif pd.isnull(vcto_fecha):
             return liq_fecha if ctrorg == 0 else orig_fecha
         elif saldo_monto == orig_monto:
-            return pd.to_datetime('1900-01-01')
+            return DEFAULT_DATE
         else:
             return vcto_fecha
 
@@ -1000,9 +1003,20 @@ class ReportCreation():
         elif pd.isnull(vcto_fecha):
             return liq_fecha if ctrorg == 0 else orig_fecha
         elif saldo_monto == orig_monto and not pd.isnull(float(plazo_days)/float(total_cuotas)):
-            return pd.to_datetime('1900-01-01')
+            return DEFAULT_DATE
         else:
             return vcto_fecha
+
+    def get_ricg_values(self, num_credito, campo):
+        """Gets Rendimientos Corportavios Values"""
+        if campo in ['Saldo',]:
+            ricg_value = self.ricg_mod_df.at[int(num_credito), campo] if int(num_credito) in self.ricg_mod_df.index else False
+            return is_nan(ricg_value, 0.00) or 0.00
+        elif campo in ['Status',]:
+            ricg_value = self.ricg_mod_df.at[int(num_credito), campo] if int(num_credito) in self.ricg_mod_df.index else False
+            return is_nan(ricg_value, '') or ''
+        else:
+            sys.exit(f'The field ({campo}) is invalid or not supported!')
 
     # %%
     def create_report(self, user, book_date):
@@ -1025,6 +1039,8 @@ class ReportCreation():
         # INITIALIZING AT04 DATAFRAME
         self.at04_df = pd.DataFrame(columns=self._labels)
 
+        # %%
+        # Filling the base DataFrame with the necessary registries
         # ALL OF CD ICG
 
         print(datetime.date.today(), ': Adding CD ICG...')
@@ -1099,7 +1115,8 @@ class ReportCreation():
             'Saldo': row.SALDO,
             'RendimientosCobrar': row.RENDIMIENTOS_X_COBRAR,
             'RendimientosCobrarVencidos': row.RENDIMIENTOS_X_COBRAR_VENCIDOS,
-            'RendimientosCobrarMora': 0.00,
+            'RendimientosCobrarMora': self.get_ricg_values(row.NUM_CREDITO, 'Saldo')
+            if self.get_ricg_values(row.NUM_CREDITO, 'Status') == 'MORA' else 0.00,
             'ProvisionEspecifica': row.PROVISION_ESPECIFICA,
             'PorcentajeProvisionEspecifica': row.PORCENTAJE_PROVISION_ESPECIFICA,
             'ProvisionRendimientoCobrar': row.PROVISION_RENDIMIENTO_X_COBRAR,
@@ -1130,7 +1147,8 @@ class ReportCreation():
             'BancaSocial': row.BANCA_SOCIAL,
             'UnidadProduccionSocial': row.PRODUCCION_SOCIAL,
             'ModalidadMicrocredito': 0,
-            'UsoFinanciero': row.USO_FINANCIERO if row.TYPE_CD == CD_CHOICES.get('MANUFACTURA') else 0,
+            'UsoFinanciero': row.USO_FINANCIERO
+            if row.TYPE_CD == CD_CHOICES.get('MANUFACTURA') else 0,
             'DestinoRecursosMicrofinancieros': 0,
             'CantidadTrabajadores': row.CANT_TRABAJADORES if row.TYPE_CD == CD_CHOICES.get(
                 'MANUFACTURA'
@@ -1235,9 +1253,12 @@ class ReportCreation():
             if row.TYPE_CD == CD_CHOICES.get('HCP') else 0.00,
             'CantidadViviendasConstruir': row.CANT_VIVIENDAS
             if row.TYPE_CD == CD_CHOICES.get('HCP') else 0,
-            'RendimientosCobrarReestructurados': 0.00,
-            'RendimientosCobrarAfectosReporto': 0.00,
-            'RendimientosCobrarLitigio': 0.00,
+            'RendimientosCobrarReestructurados': self.get_ricg_values(row.NUM_CREDITO, 'Saldo')
+            if self.get_ricg_values(row.NUM_CREDITO, 'Status') == 'RESTRUCTURADOS' else 0.00,
+            'RendimientosCobrarAfectosReporto': self.get_ricg_values(row.NUM_CREDITO, 'Saldo')
+            if self.get_ricg_values(row.NUM_CREDITO, 'Status') == 'EFECTOS' else 0.00,
+            'RendimientosCobrarLitigio': self.get_ricg_values(row.NUM_CREDITO, 'Saldo')
+            if self.get_ricg_values(row.NUM_CREDITO, 'Status') == 'LITIGIO' else 0.00,
             'InteresEfectivamenteCobrado': self.get_gicg_cnd_values(
                 row.NUM_CREDITO,
                 'InteresesEfectivamenteCobrados'
@@ -1305,7 +1326,7 @@ class ReportCreation():
             ),
             'FechaNacimiento': pd.to_datetime('01/01/1900'),
             'UnidadValoracionAT04': 0.00,
-            'TipoDC': row.TYPE_CD,
+            'TipoCD': row.TYPE_CD,
         } for row in self.cd_df.loc[filter_df].itertuples())],
             ignore_index=True,
             sort=True)
@@ -1570,7 +1591,7 @@ class ReportCreation():
             ),
             'FechaNacimiento': pd.to_datetime('01/01/1900'),
             'UnidadValoracionAT04': 0.00,
-            'TipoDC': row.TYPE_CD,
+            'TipoCD': row.TYPE_CD,
         } for row in self.cd_df.loc[filter_df].itertuples())],
             ignore_index=True,
             sort=True)
@@ -1677,9 +1698,9 @@ class ReportCreation():
                 ),
                 row.TypeCD
             ),
-            'FechaReestructuracion': pd.to_datetime('1900-01-01'),
+            'FechaReestructuracion': DEFAULT_DATE,
             'CantidadProrroga': 0,
-            'FechaProrroga': pd.to_datetime('1900-01-01'),
+            'FechaProrroga': DEFAULT_DATE,
             'CantidadRenovaciones': self.get_cant_renovaciones(
                 row.DivisionTypeId,
                 row.OpenDate,
@@ -1703,7 +1724,7 @@ class ReportCreation():
                 row.TypeCD,
                 True
             ),
-            'UltimaFechaCancelacionCuotaCapital': pd.to_datetime('1900-01-01')
+            'UltimaFechaCancelacionCuotaCapital': DEFAULT_DATE
             if row.TypeCD in [
                 CD_CHOICES.get('TDC'),
                 CD_CHOICES.get('CARROS'),
@@ -1716,7 +1737,7 @@ class ReportCreation():
                 row.TypeCD,
                 False
             ),
-            'UltimaFechaCancelacionCuotaIntereses': pd.to_datetime('1900-01-01')
+            'UltimaFechaCancelacionCuotaIntereses': DEFAULT_DATE
             if row.TypeCD in [
                 CD_CHOICES.get('TDC'),
                 CD_CHOICES.get('CARROS'),
@@ -1890,7 +1911,7 @@ class ReportCreation():
             ),
             'FechaNacimiento': pd.to_datetime('01/01/1900'),
             'UnidadValoracionAT04': 0.00,
-            'TipoDC': row.TypeCD,
+            'TipoCD': row.TypeCD,
         } for row in self.siif_df.loc[filter_df].itertuples())], ignore_index=True, sort=True)
 
         #  RRHH
@@ -1937,12 +1958,12 @@ class ReportCreation():
             'PeriodicidadPagoInteresCredito': 8,
             'FechaVencimientoOriginal': pd.to_datetime(row.FechaOtorgamiento) + pd.DateOffset(months=12),
             'FechaVencimientoActual': pd.to_datetime(row.FechaOtorgamiento) + pd.DateOffset(months=12),
-            'FechaReestructuracion': pd.to_datetime('1900-01-01'),
+            'FechaReestructuracion': DEFAULT_DATE,
             'CantidadProrroga': 0,
-            'FechaProrroga': pd.to_datetime('1900-01-01'),
+            'FechaProrroga': DEFAULT_DATE,
             'CantidadRenovaciones': 0,
-            'FechaUltimaRenovacion': pd.to_datetime('1900-01-01'),
-            'FechaCancelacionTotal': pd.to_datetime('1900-01-01'),
+            'FechaUltimaRenovacion': DEFAULT_DATE,
+            'FechaCancelacionTotal': DEFAULT_DATE,
             'FechaVencimientoUltimaCoutaCapital': self._fecha_reportar,
             'UltimaFechaCancelacionCuotaCapital': self._fecha_reportar,
             'FechaVencimientoUltimaCuotaInteres': self._fecha_reportar,
@@ -2059,7 +2080,7 @@ class ReportCreation():
             'FechaCambioEstatusCapitalTransferido': pd.to_datetime('01/01/1900'),
             'FechaNacimiento': pd.to_datetime('01/01/1900'),
             'UnidadValoracionAT04': 0.00,
-            'TipoDC': CD_CHOICES.get('RRHH'),
+            'TipoCD': CD_CHOICES.get('RRHH'),
         } for row in self.pprrhh_df.itertuples())], ignore_index=True, sort=True)
 
         #  Corporativa No Dirigida
@@ -2113,13 +2134,13 @@ class ReportCreation():
             'FechaVencimientoOriginal': row.LIQUFECHA if row.QTDREN != 0 else row.VCTOFECHA,
             'FechaVencimientoActual': row.VCTOFECHA,
             'FechaReestructuracion': row.LIQUFECHA
-            if str(row.GENLEDGER).startswith('132') else pd.to_datetime('1900-01-01'),
+            if str(row.GENLEDGER).startswith('132') else DEFAULT_DATE,
             'CantidadProrroga': row.QTDREN,
-            'FechaProrroga': pd.to_datetime('1900-01-01')
+            'FechaProrroga': DEFAULT_DATE
             if int(row.QTDREN) == 0 else pd.to_datetime(row.LIQUFECHA) + pd.DateOffset(days=1),
             'CantidadRenovaciones': row.QTDREN,
             'FechaUltimaRenovacion': row.LIQUFECHA if row.QTDREN > 0 else row.VCTOFECHA,
-            'FechaCancelacionTotal': pd.to_datetime('1900-01-01'),
+            'FechaCancelacionTotal': DEFAULT_DATE,
             'FechaVencimientoUltimaCoutaCapital': row.VCTOFECHA,
             'UltimaFechaCancelacionCuotaCapital': self.get_fecha_canc_cuota_cap(
                 row.VCTOFECHA,
@@ -2267,7 +2288,7 @@ class ReportCreation():
             ),
             'FechaNacimiento': pd.to_datetime('01/01/1900'),
             'UnidadValoracionAT04': 0.00,
-            'TipoDC': CD_CHOICES.get('ICG_NO_DIRIGIDA'),
+            'TipoCD': CD_CHOICES.get('ICG_NO_DIRIGIDA'),
         } for row in self.at04cre_cnd_df[filter_df].itertuples()]), ignore_index=True, sort=True)
 
         #  Sobregiros Other ICG
@@ -2314,16 +2335,16 @@ class ReportCreation():
             'PeriodicidadPagoInteresCredito': 8,
             'FechaVencimientoOriginal': row.RecordDate,
             'FechaVencimientoActual': row.RecordDate,
-            'FechaReestructuracion': pd.to_datetime('1900-01-01'),
+            'FechaReestructuracion': DEFAULT_DATE,
             'CantidadProrroga': 0,
-            'FechaProrroga': pd.to_datetime('1900-01-01'),
+            'FechaProrroga': DEFAULT_DATE,
             'CantidadRenovaciones': 0,
-            'FechaUltimaRenovacion': pd.to_datetime('1900-01-01'),
-            'FechaCancelacionTotal': pd.to_datetime('1900-01-01'),
+            'FechaUltimaRenovacion': DEFAULT_DATE,
+            'FechaCancelacionTotal': DEFAULT_DATE,
             'FechaVencimientoUltimaCoutaCapital': row.RecordDate,
-            'UltimaFechaCancelacionCuotaCapital': pd.to_datetime('1900-01-01'),
+            'UltimaFechaCancelacionCuotaCapital': DEFAULT_DATE,
             'FechaVencimientoUltimaCuotaInteres': row.RecordDate,
-            'UltimaFechaCancelacionCuotaIntereses': pd.to_datetime('1900-01-01'),
+            'UltimaFechaCancelacionCuotaIntereses': DEFAULT_DATE,
             'Moneda': 'VES',
             'TipoCambioOriginal': 1,
             'TipoCambioCierreMes': 1,
@@ -2436,13 +2457,60 @@ class ReportCreation():
             'FechaCambioEstatusCapitalTransferido': pd.to_datetime('01/01/1900'),
             'FechaNacimiento': pd.to_datetime('01/01/1900'),
             'UnidadValoracionAT04': 0.00,
-            'TipoDC': CD_CHOICES.get('SOBREGIROS'),
+            'TipoCD': CD_CHOICES.get('SOBREGIROS'),
         } for row in self.sc_df.itertuples()]), ignore_index=True, sort=True)
 
         self.at04_df['MakerDate'] = datetime.date.today()
         self.at04_df.MakerDate = pd.to_datetime(self.at04_df.MakerDate)
         self.at04_df['MakerUser'] = user
 
+
+        # %%
+        #  Making some adjustments to the report
+
+        # Setting CapitalCastigado as MontoOriginal and Inicial of Canceled credits
+        filter_df = (self.at04_df.EstadoCredito == 3) & \
+                    (self.at04_df.MontoLineaCredito == 0.00) & \
+                    (self.at04_df.TipoDC.isin([
+                        CD_CHOICES.get('CCA_CONSUMO'),
+                        CD_CHOICES.get('CCH'),
+                        CD_CHOICES.get('PIL'),
+                        CD_CHOICES.get('REWRITES'),
+                        CD_CHOICES.get('MICROFINANCIERO'),
+                        CD_CHOICES.get('CARROS'),
+                        CD_CHOICES.get('SEGUROS')
+                    ]))
+
+        self.at04_df.loc[filter_df, ['MontoOriginal', 'MontoInicial']] = self.at04_df[filter_df].set_index('NumeroCredito').join(
+            self.ah_mod_df, rsuffix='_ah')[['CapitalCastigado', 'CapitalCastigado']]
+
+        # Setting FechaLiquidacion as FechaVencimientoUltimaCuotalCapital and Intereses of Canceled credits
+        filter_canceled_df = self.at04_df.EstadoCredito == 3
+        filter_active_df = self.at04_df.EstadoCredito == 1
+        filter_type_df = self.at04_df.TipoDC.isin([
+                            CD_CHOICES.get('CCA_CONSUMO'),
+                            CD_CHOICES.get('CCH'),
+                            CD_CHOICES.get('PIL'),
+                            CD_CHOICES.get('REWRITES'),
+                            CD_CHOICES.get('TDC'),
+                            CD_CHOICES.get('HLP'),
+                            CD_CHOICES.get('MICROFINANCIERO'),
+                            CD_CHOICES.get('AGRICOLA_OTHER_ICG'),
+                            CD_CHOICES.get('CARROS'),
+                            CD_CHOICES.get('SEGUROS')
+                        ])
+
+        self.at04_df.loc[
+            filter_canceled_df & filter_type_df,
+            ['FechaVencimientoUltimaCoutaCapital', 'FechaVencimientoUltimaCuotaInteres']
+        ] = self.at04_df[filter_df][['FechaLiquidacion', 'FechaLiquidacion']]
+
+        self.at04_df.loc[
+            filter_active_df & filter_type_df,
+            ['FechaVencimientoUltimaCoutaCapital', 'FechaVencimientoUltimaCuotaInteres']
+        ] = [DEFAULT_DATE, DEFAULT_DATE]
+
+        # %%
         print('Exporting AT04 Report...')
 
         out_path = os.path.join(
