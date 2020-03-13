@@ -61,6 +61,7 @@ CD_CHOICES = {
 
 DEFAULT_DATE = pd.to_datetime('1900-01-01')
 
+
 class ReportCreation():
     """Data Preparation Class for every resource file"""
     _out_folder = 'reports'
@@ -416,7 +417,8 @@ class ReportCreation():
         self.cc_mod_df = self.cc_df.set_index('IdentificadorCliente')
 
         # CREATING AH WITH NEW INDEX
-        self.ah_mod_df = self.ah_df.loc[(self.ah_df['AppId'] == 50)].set_index('Acct')
+        self.ah_mod_df = self.ah_df.loc[(
+            self.ah_df['AppId'] == 50)].set_index('Acct')
 
         # CREATING UNION BETWEEN AT04CRE & CND
         self.at04cre_cnd_df = self.at04cre_df.set_index('REFERNO').join(self.cnd_df.set_index(
@@ -479,7 +481,7 @@ class ReportCreation():
         """Gets the Domicilio Fiscal Value"""
         if type_dc in [
             CD_CHOICES.get('TURISMO'), CD_CHOICES.get('AGRICOLA_ICG')
-            ] or is_in_dom_fis_field:
+        ] or is_in_dom_fis_field:
             return self.at04cre_mod_df.at[
                 int(num_credito),
                 'ADDRESS'
@@ -1009,11 +1011,13 @@ class ReportCreation():
 
     def get_ricg_values(self, num_credito, campo):
         """Gets Rendimientos Corportavios Values"""
-        if campo in ['Saldo',]:
-            ricg_value = self.ricg_mod_df.at[int(num_credito), campo] if int(num_credito) in self.ricg_mod_df.index else False
+        if campo in ['Saldo', ]:
+            ricg_value = self.ricg_mod_df.at[int(num_credito), campo] if int(
+                num_credito) in self.ricg_mod_df.index else False
             return is_nan(ricg_value, 0.00) or 0.00
-        elif campo in ['Status',]:
-            ricg_value = self.ricg_mod_df.at[int(num_credito), campo] if int(num_credito) in self.ricg_mod_df.index else False
+        elif campo in ['Status', ]:
+            ricg_value = self.ricg_mod_df.at[int(num_credito), campo] if int(
+                num_credito) in self.ricg_mod_df.index else False
             return is_nan(ricg_value, '') or ''
         else:
             sys.exit(f'The field ({campo}) is invalid or not supported!')
@@ -2464,7 +2468,6 @@ class ReportCreation():
         self.at04_df.MakerDate = pd.to_datetime(self.at04_df.MakerDate)
         self.at04_df['MakerUser'] = user
 
-
         # %%
         #  Making some adjustments to the report
 
@@ -2488,27 +2491,62 @@ class ReportCreation():
         filter_canceled_df = self.at04_df.EstadoCredito == 3
         filter_active_df = self.at04_df.EstadoCredito == 1
         filter_type_df = self.at04_df.TipoDC.isin([
-                            CD_CHOICES.get('CCA_CONSUMO'),
-                            CD_CHOICES.get('CCH'),
-                            CD_CHOICES.get('PIL'),
-                            CD_CHOICES.get('REWRITES'),
-                            CD_CHOICES.get('TDC'),
-                            CD_CHOICES.get('HLP'),
-                            CD_CHOICES.get('MICROFINANCIERO'),
-                            CD_CHOICES.get('AGRICOLA_OTHER_ICG'),
-                            CD_CHOICES.get('CARROS'),
-                            CD_CHOICES.get('SEGUROS')
-                        ])
+            CD_CHOICES.get('CCA_CONSUMO'),
+            CD_CHOICES.get('CCH'),
+            CD_CHOICES.get('PIL'),
+            CD_CHOICES.get('REWRITES'),
+            CD_CHOICES.get('TDC'),
+            CD_CHOICES.get('HLP'),
+            CD_CHOICES.get('MICROFINANCIERO'),
+            CD_CHOICES.get('AGRICOLA_OTHER_ICG'),
+            CD_CHOICES.get('CARROS'),
+            CD_CHOICES.get('SEGUROS')
+        ])
 
         self.at04_df.loc[
             filter_canceled_df & filter_type_df,
-            ['FechaVencimientoUltimaCoutaCapital', 'FechaVencimientoUltimaCuotaInteres']
+            ['FechaVencimientoUltimaCoutaCapital',
+                'FechaVencimientoUltimaCuotaInteres']
         ] = self.at04_df[filter_df][['FechaLiquidacion', 'FechaLiquidacion']]
 
         self.at04_df.loc[
             filter_active_df & filter_type_df,
-            ['FechaVencimientoUltimaCoutaCapital', 'FechaVencimientoUltimaCuotaInteres']
+            ['FechaVencimientoUltimaCoutaCapital',
+                'FechaVencimientoUltimaCuotaInteres']
         ] = [DEFAULT_DATE, DEFAULT_DATE]
+
+        # Check that UltimaechaCancelacionCuotaIntereses is 19000101
+        filter_df = (self.at04_df.MontoOriginal == self.at04_df.Saldo) & \
+                    (self.at04_df.PeriodicidadPagoInteresCredito < 1024) & \
+                    (self.at04_df.TipoDC.isin([
+                        CD_CHOICES.get('ICG_NO_DIRIGIDA'),
+                    ]))
+        self.at04_df.loc[filter_df,
+                         'UltimaFechaCancelacionCuotaIntereses'] = DEFAULT_DATE
+
+        # Check that TipoCredito = 1 when TipoCD PILS and CodigoContable = 1330510102
+        filter_df = (self.at04_df.CodigoContable == 1330510102) & \
+                    (self.at04_df.TipoDC.isin([
+                        CD_CHOICES.get('PILS'),
+                    ]))
+        self.at04_df.loc[filter_df, 'TipoCredito'] = 1
+
+        # Check that EstadoCredito = 3 and SituacionCredito = 0
+        # When CodigoContable = 8190310100
+        self.at04_df.loc[
+            self.at04_df.CodigoContable == 8190310100,
+            ['EstadoCredito', 'SituacionCredito']
+        ] = [3, 0]
+
+        # Check that TipoCredito equals zero (0) for canceled credits
+        filter_canceled_df = self.at04_df.EstadoCredito == 3
+        self.at04_df.loc[filter_canceled_df, 'TipoCredito'] = 0
+
+        # Check that ClasificacionRiesgo is zero (0) for EstadoCredito in 2 and 3
+        filter_df = self.at04_df.EstadoCredito in (2, 3)
+        self.at04_df.loc[filter_df, 'ClasificacionRiesgo'] = 0
+
+        # TODO: Include AT04_MES_ANTERIOR TABLE
 
         # %%
         print('Exporting AT04 Report...')
