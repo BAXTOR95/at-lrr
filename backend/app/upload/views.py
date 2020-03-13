@@ -126,7 +126,7 @@ class FileUploadView(viewsets.ModelViewSet):
         response_data['id'] = file_serializer.data['id']
         response_data['resource_name'] = file_serializer.data['resource_name']
         response_data['file'] = data_result['out_path']
-        response_data['user'] = user_view(request)
+        response_data['user'] = request.user.soeid
         response_data['data'] = data_result['data']
 
         return Response(response_data, status=status.HTTP_201_CREATED)

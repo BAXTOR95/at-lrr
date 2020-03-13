@@ -23,6 +23,24 @@
       >
         <mat-card-content>
           <mat-form-field class="example-full-width">
+            <mat-label aria-label>SOEID</mat-label>
+            <input
+              matNativeControl
+              type="text"
+              name="soeid"
+              id="soeid"
+              placeholder="SOEID"
+              aria-describedby="helpIdS"
+              ngModel
+              required
+            />
+            <mat-error>This field is required</mat-error>
+            <mat-hint hintLabel align="start" id="helpIdS" class="text-muted"
+              ><strong>Type your SOEID</strong>
+            </mat-hint>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width" *ngIf="!isLoginMode">
             <mat-label aria-label>E-Mail</mat-label>
             <input
               matNativeControl
@@ -38,6 +56,24 @@
             <mat-error>This field is required</mat-error>
             <mat-hint hintLabel align="start" id="helpIdE" class="text-muted"
               ><strong>Type your E-Mail Address</strong>
+            </mat-hint>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width" *ngIf="!isLoginMode">
+            <mat-label aria-label>Name</mat-label>
+            <input
+              matNativeControl
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Name"
+              aria-describedby="helpIdN"
+              ngModel
+              required
+            />
+            <mat-error>This field is required</mat-error>
+            <mat-hint hintLabel align="start" id="helpIdN" class="text-muted"
+              ><strong>Type your Name</strong>
             </mat-hint>
           </mat-form-field>
 
@@ -59,24 +95,6 @@
               ><strong>Type your Password</strong>
             </mat-hint>
           </mat-form-field>
-
-          <mat-form-field class="example-full-width" *ngIf="!isLoginMode">
-            <mat-label aria-label>Name</mat-label>
-            <input
-              matNativeControl
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Name"
-              aria-describedby="helpIdN"
-              ngModel
-              required
-            />
-            <mat-error>This field is required</mat-error>
-            <mat-hint hintLabel align="start" id="helpIdN" class="text-muted"
-              ><strong>Type your Name</strong>
-            </mat-hint>
-          </mat-form-field>
         </mat-card-content>
         <button
           type="submit"
@@ -96,6 +114,13 @@
         >
           Switch to {{ isLoginMode ? "Sign Up" : "Login" }}
         </button>
+
+        <mat-icon
+          svgIcon="sso"
+          aria-hidden="false"
+          aria-label="SSO icon"
+          style="width: 5em; height: 5em; float: right;"
+        ></mat-icon>
       </form>
     </mat-card>
   </div>

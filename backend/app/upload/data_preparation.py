@@ -12,6 +12,8 @@ import pandas as pd
 
 from django.conf import settings
 
+from core.models import User
+
 
 CD_CHOICES = {
     'HLP': 6,  # Hipotecario Largo Plazo
@@ -120,7 +122,7 @@ class DataPreparation():
 
         a_h['MakerDate'] = datetime.date.today()
         a_h.MakerDate = pd.to_datetime(a_h.MakerDate)
-        a_h['MakerUser'] = data[0]['user']
+        a_h['MakerUser'] = self.get_user(data[0]['user'])
 
         out_path = join(abs_dir, self._out_folder, 'AH' + '.txt')
 
@@ -241,7 +243,7 @@ class DataPreparation():
 
         at04_df['MakerDate'] = datetime.date.today()
         at04_df.MakerDate = pd.to_datetime(at04_df.MakerDate)
-        at04_df['MakerUser'] = data[0]['user']
+        at04_df['MakerUser'] = self.get_user(data[0]['user'])
 
         out_path = join(abs_dir, self._out_folder, 'AT04' + '.txt')
 
@@ -320,7 +322,7 @@ class DataPreparation():
 
         at04cre['MakerDate'] = datetime.date.today()
         at04cre.MakerDate = pd.to_datetime(at04cre.MakerDate)
-        at04cre['MakerUser'] = data[0]['user']
+        at04cre['MakerUser'] = self.get_user(data[0]['user'])
 
         out_path = join(abs_dir, self._out_folder, 'AT04CRE' + '.txt')
 
@@ -391,7 +393,7 @@ class DataPreparation():
 
         at07_df['MakerDate'] = datetime.date.today()
         at07_df.MakerDate = pd.to_datetime(at07_df.MakerDate)
-        at07_df['MakerUser'] = data[0]['user']
+        at07_df['MakerUser'] = self.get_user(data[0]['user'])
 
         out_path = join(abs_dir, self._out_folder, 'AT07' + '.txt')
 
@@ -441,7 +443,7 @@ class DataPreparation():
 
         bbat['MakerDate'] = datetime.date.today()
         bbat.MakerDate = pd.to_datetime(bbat.MakerDate)
-        bbat['MakerUser'] = data[0]['user']
+        bbat['MakerUser'] = self.get_user(data[0]['user'])
 
         out_path = join(abs_dir, self._out_folder, 'BBAT' + '.txt')
 
@@ -514,7 +516,7 @@ class DataPreparation():
 
         cnd['MakerDate'] = datetime.date.today()
         cnd.MakerDate = pd.to_datetime(cnd.MakerDate)
-        cnd['MakerUser'] = data[0]['user']
+        cnd['MakerUser'] = self.get_user(data[0]['user'])
 
         out_path = join(abs_dir, self._out_folder, 'CND' + '.txt')
 
@@ -547,7 +549,7 @@ class DataPreparation():
 
         cc_df['MakerDate'] = datetime.date.today()
         cc_df.MakerDate = pd.to_datetime(cc_df.MakerDate)
-        cc_df['MakerUser'] = data[0]['user']
+        cc_df['MakerUser'] = self.get_user(data[0]['user'])
 
         out_path = join(abs_dir, self._out_folder, 'CC' + '.txt')
 
@@ -642,7 +644,7 @@ class DataPreparation():
 
         c_d['MakerDate'] = datetime.date.today()
         c_d.MakerDate = pd.to_datetime(c_d.MakerDate)
-        c_d['MakerUser'] = data[0]['user']
+        c_d['MakerUser'] = self.get_user(data[0]['user'])
 
         out_path = join(abs_dir, self._out_folder, 'CD.txt')
 
@@ -674,7 +676,7 @@ class DataPreparation():
 
         cfgesiif_citi_df['MakerDate'] = datetime.date.today()
         cfgesiif_citi_df.MakerDate = pd.to_datetime(cfgesiif_citi_df.MakerDate)
-        cfgesiif_citi_df['MakerUser'] = data[0]['user']
+        cfgesiif_citi_df['MakerUser'] = self.get_user(data[0]['user'])
 
         out_path = join(abs_dir, self._out_folder, 'CFGESIIFCITI' + '.txt')
 
@@ -720,7 +722,7 @@ class DataPreparation():
 
         fdn_df['MakerDate'] = datetime.date.today()
         fdn_df.MakerDate = pd.to_datetime(fdn_df.MakerDate)
-        fdn_df['MakerUser'] = data[0]['user']
+        fdn_df['MakerUser'] = self.get_user(data[0]['user'])
 
         out_path = join(abs_dir, self._out_folder, 'FDN' + '.txt')
 
@@ -851,7 +853,7 @@ class DataPreparation():
 
         gavetas['MakerDate'] = datetime.date.today()
         gavetas.MakerDate = pd.to_datetime(gavetas.MakerDate)
-        gavetas['MakerUser'] = data[0]['user']
+        gavetas['MakerUser'] = self.get_user(data[0]['user'])
 
         out_path = join(abs_dir, self._out_folder, 'GICG' + '.txt')
 
@@ -929,7 +931,7 @@ class DataPreparation():
 
         lnp860_df['MakerDate'] = datetime.date.today()
         lnp860_df.MakerDate = pd.to_datetime(lnp860_df.MakerDate)
-        lnp860_df['MakerUser'] = data[0]['user']
+        lnp860_df['MakerUser'] = self.get_user(data[0]['user'])
 
         out_path = join(abs_dir, self._out_folder, 'LNP860' + '.txt')
 
@@ -983,7 +985,7 @@ class DataPreparation():
 
         mm_df['MakerDate'] = datetime.date.today()
         mm_df.MakerDate = pd.to_datetime(mm_df.MakerDate)
-        mm_df['MakerUser'] = data[0]['user']
+        mm_df['MakerUser'] = self.get_user(data[0]['user'])
 
         out_path = join(abs_dir, self._out_folder, 'MM' + '.txt')
 
@@ -1144,7 +1146,7 @@ class DataPreparation():
 
         mispf['MakerDate'] = datetime.date.today()
         mispf.MakerDate = pd.to_datetime(mispf.MakerDate)
-        mispf['MakerUser'] = data[0]['user']
+        mispf['MakerUser'] = self.get_user(data[0]['user'])
 
         out_path = join(abs_dir, self._out_folder, 'MISP' + '.txt')
 
@@ -1195,7 +1197,7 @@ class DataPreparation():
 
         pphr['MakerDate'] = datetime.date.today()
         pphr.MakerDate = pd.to_datetime(pphr.MakerDate)
-        pphr['MakerUser'] = data[0]['user']
+        pphr['MakerUser'] = self.get_user(data[0]['user'])
 
         out_path = join(abs_dir, self._out_folder, 'PPRRHH' + '.txt')
 
@@ -1238,7 +1240,7 @@ class DataPreparation():
 
         rend_icg['MakerDate'] = datetime.date.today()
         rend_icg.MakerDate = pd.to_datetime(rend_icg.MakerDate)
-        rend_icg['MakerUser'] = data[0]['user']
+        rend_icg['MakerUser'] = self.get_user(data[0]['user'])
 
         out_path = join(abs_dir, self._out_folder, 'RICG' + '.txt')
 
@@ -1335,7 +1337,7 @@ class DataPreparation():
 
         siif_df['MakerDate'] = datetime.date.today()
         siif_df.MakerDate = pd.to_datetime(siif_df.MakerDate)
-        siif_df['MakerUser'] = data[0]['user']
+        siif_df['MakerUser'] = self.get_user(data[0]['user'])
 
         out_path = join(abs_dir, self._out_folder, 'SIIF' + '.txt')
 
@@ -1386,7 +1388,7 @@ class DataPreparation():
 
         sobregiros_gcg['MakerDate'] = datetime.date.today()
         sobregiros_gcg.MakerDate = pd.to_datetime(sobregiros_gcg.MakerDate)
-        sobregiros_gcg['MakerUser'] = data[0]['user']
+        sobregiros_gcg['MakerUser'] = self.get_user(data[0]['user'])
 
         out_path = join(abs_dir, self._out_folder, 'SC' + '.txt')
 
@@ -1453,7 +1455,7 @@ class DataPreparation():
 
         vnp003t_df['MakerDate'] = datetime.date.today()
         vnp003t_df.MakerDate = pd.to_datetime(vnp003t_df.MakerDate)
-        vnp003t_df['MakerUser'] = data[0]['user']
+        vnp003t_df['MakerUser'] = self.get_user(data[0]['user'])
 
         out_path = join(abs_dir, self._out_folder, 'VNP003T' + '.txt')
 
@@ -1473,6 +1475,10 @@ class DataPreparation():
                 double_precision=2
             )
         }
+
+    def get_user(self, user_id):
+        user = User.objects.get(id=user_id)
+        return user.soeid
 
     def call_method(self, data):
         """Call the method corresponding to the data's resource name provided"""

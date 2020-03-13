@@ -1,4 +1,4 @@
-import { NgForm } from '@angular/forms';
+import {NgForm} from '@angular/forms';
 import {
   Component,
   ComponentFactoryResolver,
@@ -6,13 +6,15 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import {Store} from '@ngrx/store';
+import {MatIconRegistry} from '@angular/material/icon';
+import {DomSanitizer} from '@angular/platform-browser';
+import {Subscription} from 'rxjs';
 
 
-import { AlertComponent } from '../shared/alert/alert.component';
-import { PlaceholderDirective } from '../shared/placeholder/placeholder.directive';
-import { SnackbarService } from '../shared/services/snackbar.service';
+import {AlertComponent} from '../shared/alert/alert.component';
+import {PlaceholderDirective} from '../shared/placeholder/placeholder.directive';
+import {SnackbarService} from '../shared/services/snackbar.service';
 import * as fromApp from '../store/app.reducer';
 import * as AuthActions from './store/auth.actions';
 
@@ -20,7 +22,7 @@ import * as AuthActions from './store/auth.actions';
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
-  styleUrls: [ './auth.component.scss' ],
+  styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent implements OnInit, OnDestroy {
   isLoginMode = true;
@@ -33,11 +35,17 @@ export class AuthComponent implements OnInit, OnDestroy {
   private closeSub: Subscription;
   private storeSub: Subscription;
 
-  constructor (
+  constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private store: Store<fromApp.AppState>,
-    private snackbarService: SnackbarService
-  ) { }
+    private snackbarService: SnackbarService,
+    iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer,
+  ) {
+    iconRegistry.addSvgIcon(
+      'sso',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/img/icons/sso.svg'));
+  }
 
   ngOnInit() {
     this.storeSub = this.store.select('auth').subscribe(authState => {
@@ -58,6 +66,7 @@ export class AuthComponent implements OnInit, OnDestroy {
     if (!form.valid) {
       return;
     }
+    const soeid = form.value.soeid;
     const email = form.value.email;
     const password = form.value.password;
     const name = form.value.name;
@@ -65,9 +74,9 @@ export class AuthComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     if (this.isLoginMode) {
       // authObs = this.authService.login(email, password);
-      this.store.dispatch(new AuthActions.LoginStart({ email, password }));
+      this.store.dispatch(new AuthActions.LoginStart({soeid, password}));
     } else {
-      this.store.dispatch(new AuthActions.SignupStart({ email, password, name }));
+      this.store.dispatch(new AuthActions.SignupStart({soeid, email, password, name}));
     }
 
     form.reset();

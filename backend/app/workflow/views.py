@@ -7,7 +7,7 @@ from rest_framework.parsers import FileUploadParser
 
 from workflow.serializers import WorkflowSerializer
 
-from core.models import Workflow
+from core.models import Workflow, User
 
 from workflow.reports.AT04 import report_creation as rc
 
@@ -74,6 +74,10 @@ class WorkflowView(viewsets.ModelViewSet):
             current_user = request.user
             return current_user.id
 
+        def get_user(user_id):
+            user = User.objects.get(id=user_id)
+            return user.soeid
+
         response_data = {
             'id': '',
             'report_path': '',
@@ -107,7 +111,7 @@ class WorkflowView(viewsets.ModelViewSet):
                             status=status.HTTP_400_BAD_REQUEST)
 
         data_result = rc_obj.create_report(
-            request_data['user'], request_data['book_date'])
+            get_user(request_data['user']), request_data['book_date'])
 
         response_data['id'] = workflow_serializer.data['id']
         response_data['report_path'] = data_result['report_path']

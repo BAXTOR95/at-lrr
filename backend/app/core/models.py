@@ -61,20 +61,24 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 
 class UserManager(BaseUserManager):
 
-    def create_user(self, email, password=None, **extra_fields):
+    def create_user(self, soeid, email=None, password=None, **extra_fields):
         """Creates and saves a new user"""
-        if not email:
-            raise ValueError('Users must have an email address')
-        user = self.model(email=self.normalize_email(email), **extra_fields)
+        if not soeid:
+            raise ValueError('Users must have a SOEID')
+        user = self.model(
+            soeid=str(soeid).upper(),
+            email=self.normalize_email(email),
+            **extra_fields
+        )
         user.is_active = True
         user.set_password(password)
         user.save(using=self._db)
 
         return user
 
-    def create_superuser(self, email, password):
+    def create_superuser(self, soeid, password):
         """Creates and saves a new super user"""
-        user = self.create_user(email, password)
+        user = self.create_user(soeid, password)
         user.is_staff = True
         user.is_superuser = True
         user.save(using=self._db)
@@ -85,6 +89,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     """Custom user model that supports using email instead of username"""
 
+    soeid = models.CharField(max_length=7, unique=True)
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
@@ -97,7 +102,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'soeid'
 
 
 class File(models.Model):
@@ -105,11 +110,15 @@ class File(models.Model):
 
     class TypeCD(models.TextChoices):
         AH = 'AH', _('Account History')
+        AT04 = 'AT04', _('AT04 Transmitido Pasado')
         AT04CRE = 'AT04CRE', _('AT04 CRE')
-        AT07 = 'AT07', _('AT07')
+        AT07 = 'AT07', _('AT07 Actual')
         BBAT = 'BBAT', _('Bal By Acct Transformada')
         CND = 'CND', _('Cartera No Dirigida')
+        CC = 'CC', _('Clientes Consumer')
         CD = 'CD', _('Cartera Dirigida')
+        CFGESIIFCITI = 'CFGESIIFCITI', _(
+            'Tabla CFGESIIFCITI (Equivalencias Actividad Cliente)')
         FDN = 'FDN', _('Fecha de Nacimiento')
         GICG = 'GICG', _('Gavetas ICG')
         LNP860 = 'LNP860', _('LNP860')

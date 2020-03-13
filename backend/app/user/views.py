@@ -31,6 +31,7 @@ class CreateUserView(generics.CreateAPIView):
             return Response({'token': user.auth_token.key,
                              'created': user.auth_token.created,
                              'expiresIn': user.expiresIn,
+                             'soeid': user.soeid,
                              'email': user.email,
                              'name': user.name,
                              'is_active': user.is_active,
