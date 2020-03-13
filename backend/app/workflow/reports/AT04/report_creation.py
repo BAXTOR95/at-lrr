@@ -18,6 +18,7 @@ pd.options.display.float_format = '{:.2f}'.format
 
 RESOURCES_PATH = os.path.join(settings.MEDIA_ROOT, 'resources')
 AH_PATH = os.path.join(RESOURCES_PATH, 'AH.txt')
+AT04_PAST_PATH = os.path.join(RESOURCES_PATH, 'AT04.txt')
 AT04CRE_PATH = os.path.join(RESOURCES_PATH, 'AT04CRE.txt')
 AT07_PATH = os.path.join(RESOURCES_PATH, 'AT07.txt')
 BBAT_PATH = os.path.join(RESOURCES_PATH, 'BBAT.txt')
@@ -33,11 +34,8 @@ RICG_PATH = os.path.join(RESOURCES_PATH, 'RICG.txt')
 SC_PATH = os.path.join(RESOURCES_PATH, 'SC.txt')
 SIIF_PATH = os.path.join(RESOURCES_PATH, 'SIIF.txt')
 VNP003T_PATH = os.path.join(RESOURCES_PATH, 'VNP003T.txt')
-
-# Tabla equivalencias Actividad Cliente
-CFGESIIFCITI_PATH = os.path.join(RESOURCES_PATH, 'CFGESIIFCITI.txt')
-
-CC_PATH = os.path.join(RESOURCES_PATH, 'CC.txt')
+CFGESIIFCITI_PATH = os.path.join(RESOURCES_PATH, 'CFGESIIFCITI.txt')  # Tabla equivalencias Actividad Cliente
+CC_PATH = os.path.join(RESOURCES_PATH, 'CC.txt')  # Clientes Consumo
 
 CD_CHOICES = {
     'CCA_CONSUMO': 1,  # Cartera de Creditos al Consumo
@@ -236,6 +234,7 @@ class ReportCreation():
     # %%
     #  DEFINING RESOURCES
     ah_df = pd.DataFrame()
+    at04_past_df = pd.DataFrame()
     at04cre_df = pd.DataFrame()
     at07_df = pd.DataFrame()
     bbat_df = pd.DataFrame()
@@ -276,6 +275,8 @@ class ReportCreation():
         #  IMPORTING RESOURCES
         self.ah_df = pd.read_csv(
             AH_PATH, sep='~', low_memory=False, encoding='latin')
+        self.at04_past_df = pd.read_csv(AT04_PAST_PATH, sep='~',
+                                        low_memory=False, encoding='latin')
         self.at04cre_df = pd.read_csv(AT04CRE_PATH, sep='~',
                                       low_memory=False, encoding='latin')
         self.at07_df = pd.read_csv(AT07_PATH, sep='~',

@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewEncapsulation, EventEmitter, Output } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
+import {Component, OnInit, ViewEncapsulation, EventEmitter, Output} from '@angular/core';
+import {FormControl, Validators} from '@angular/forms';
+import {Store} from '@ngrx/store';
 
 // import {ResourceService} from '../resources.service';
 import * as fromApp from '../../../store/app.reducer';
@@ -26,23 +26,23 @@ export interface ResourceGroup {
 @Component({
   selector: 'app-resources-select',
   templateUrl: './resources-select.component.html',
-  styleUrls: [ './resources-select.component.scss' ],
+  styleUrls: ['./resources-select.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class ResourcesSelectComponent implements OnInit {
 
   resourceControl = new FormControl('', Validators.required);
 
-  resourceGroups: ResourceGroup[] = [ {
+  resourceGroups: ResourceGroup[] = [{
     type: 'Manual',
     names: [
-      { value: 'CND', viewValue: 'Corporativo No Dirigida ICG' },
-      { value: 'SC', viewValue: 'Sobregiros Consumer' },
-      { value: 'RICG', viewValue: 'Rendimientos Corporativo' },
-      { value: 'MM', viewValue: 'Migrated Mortgage' },
-      { value: 'GICG', viewValue: 'Insumo Gaveta (Agricola, Turismo, Manufactura e Hipotecario)' },
-      { value: 'MISP', viewValue: 'MIS Provisiones' },
-      { value: 'PPRRHH', viewValue: 'Préstamos Sobre Prestaciones RRHH - Sudeban' },
+      {value: 'CND', viewValue: 'Corporativo No Dirigida ICG'},
+      {value: 'SC', viewValue: 'Sobregiros Consumer'},
+      {value: 'RICG', viewValue: 'Rendimientos Corporativo'},
+      {value: 'MM', viewValue: 'Migrated Mortgage'},
+      {value: 'GICG', viewValue: 'Insumo Gaveta (Agricola, Turismo, Manufactura e Hipotecario)'},
+      {value: 'MISP', viewValue: 'MIS Provisiones'},
+      {value: 'PPRRHH', viewValue: 'Préstamos Sobre Prestaciones RRHH - Sudeban'},
       // {value: '', viewValue: 'PlantillaTMPCorporativoNoDirEnlazado.xlsx'},
       // {value: '', viewValue: 'SOBREGIROS_ICG.XLS'},
       // 'RPT_STG_Dirigidas_AGRICOLA_CONSUMER.txt',
@@ -57,26 +57,27 @@ export class ResourcesSelectComponent implements OnInit {
   }, {
     type: 'Automatic',
     names: [
-      { value: 'CD', viewValue: 'Carteras Dirigidas' },
-      { value: 'AT04CRE', viewValue: 'AT04CRE(cosmos)' },
-      { value: 'LNP860', viewValue: 'Lnp860' },
-      { value: 'VNP003T', viewValue: 'VNP003T' },
-      { value: 'AH', viewValue: 'Account History' },
-      { value: 'BBAT', viewValue: 'BalByAcct Transformada' },
-      { value: 'SIIF', viewValue: 'Reporte SIIF' },
-      { value: 'FDN', viewValue: 'Fechas de Nacimiento' },
-      { value: 'AT07', viewValue: 'AT07' },
-      // 'clientesconsumer_05.txt',
+      {value: 'CD', viewValue: 'Carteras Dirigidas'},
+      {value: 'AT04', viewValue: 'AT04 Ultima Transmision'},
+      {value: 'AT04CRE', viewValue: 'AT04CRE(cosmos)'},
+      {value: 'LNP860', viewValue: 'Lnp860'},
+      {value: 'VNP003T', viewValue: 'VNP003T'},
+      {value: 'AH', viewValue: 'Account History'},
+      {value: 'BBAT', viewValue: 'BalByAcct Transformada'},
+      {value: 'SIIF', viewValue: 'Reporte SIIF'},
+      {value: 'FDN', viewValue: 'Fechas de Nacimiento'},
+      {value: 'AT07', viewValue: 'AT07 Actual'},
+      {value: 'CC', viewValue: 'Clientes Consumer'},
+      {value: 'CFGESIIFCITI', viewValue: 'Tabla CFGESIIFCITI (Equivalencias Actividad Cliente)'},
     ]
-  }
-  ];
+  }];
 
   @Output() resourceSelected = new EventEmitter<string>();
 
   constructor(
     // private resourceService: ResourceService,
     private store: Store<fromApp.AppState>,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.onValueChanges();

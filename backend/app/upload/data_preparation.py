@@ -25,11 +25,14 @@ CD_CHOICES = {
 
 RESOURCE_CHOICES = [
     'AH',
+    'AT04',
     'AT04CRE',
     'AT07',
     'BBAT',
     'CND',
+    'CC',
     'CD',
+    'CFGESIIFCITI',
     'FDN',
     'GICG',
     'LNP860',
@@ -132,6 +135,127 @@ class DataPreparation():
         return {
             'out_path': out_path,
             'data': a_h.head(100).to_json(
+                orient='records',
+                date_format='iso',
+                double_precision=2
+            )
+        }
+
+    def at04(self, data):
+        """AT04 resource Data Preparation"""
+
+        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
+
+        abs_dir, f_name, f_ext = self.get_path_file(path)
+
+        labels = [
+            'NumeroCredito', 'FechaLiquidacion', 'FechaSolicitud', 'FechaAprobacion',
+            'Oficina', 'CodigoContable', 'NumeroCreditoPrimerDesembolso', 'NumeroDesembolso',
+            'CodigoLineaCredito', 'MontoLineaCredito', 'EstadoCredito', 'TipoCredito',
+            'SituacionCredito', 'PlazoCredito', 'ClasificacionRiesgo', 'DestinoCredito',
+            'NaturalezaCliente', 'TipoCliente', 'IdentificacionCliente', 'Nombre_RazonSocial',
+            'Genero', 'TipoClienteRIF', 'IdentificacionTipoClienteRIF', 'ActividadCliente',
+            'PaisNacionalidad', 'DomicilioFiscal', 'ClienteNuevo', 'Cooperativa', 'Sindicado',
+            'BancoLiderSindicato', 'RelacionCrediticia', 'GrupoEconomicoFinanciero', 'NombreGrupoEconomicoFinanciero',
+            'CodigoParroquia', 'PeriodoGraciaCapital', 'PeriodicidadPagoCapital', 'PeriodicidadPagoInteresCredito',
+            'FechaVencimientoOriginal', 'FechaVencimientoActual', 'FechaReestructuracion',
+            'CantidadProrroga', 'FechaProrroga', 'CantidadRenovaciones', 'FechaUltimaRenovacion',
+            'FechaCancelacionTotal', 'FechaVencimientoUltimaCoutaCapital', 'UltimaFechaCancelacionCuotaCapital',
+            'FechaVencimientoUltimaCuotaInteres', 'UltimaFechaCancelacionCuotaIntereses', 'Moneda',
+            'TipoCambioOriginal', 'TipoCambioCierreMes', 'MontoOriginal', 'MontoInicial',
+            'MontoLiquidadoMes', 'EntePublico', 'MontoInicialTerceros', 'Saldo', 'RendimientosCobrar',
+            'RendimientosCobrarVencidos', 'RendimientosCobrarMora', 'ProvisionEspecifica',
+            'PorcentajeProvisionEspecifica', 'ProvisionRendimientoCobrar', 'TasasInteresCobrada',
+            'TasasInteresActual', 'IndicadorTasaPreferencial', 'TasaComision', 'ComisionesCobrar',
+            'ComisionesCobradas', 'ErogacionesRecuperables', 'TipoGarantiaPrincipal', 'NumeroCuotas',
+            'NumeroCuotasVencidas', 'MontoVencido30dias', 'MontoVencido60dias', 'MontoVencido90dias',
+            'MontoVencido120dias', 'MontoVencido180dias', 'MontoVencidoUnAno', 'MontoVencidoMasUnAno',
+            'MontoVencer30dias', 'MontoVencer60dias', 'MontoVencer90dias', 'MontoVencer120dias',
+            'MontoVencer180dias', 'MontoVencerUnAno', 'MontoVencerMasUnAno', 'BancaSocial',
+            'UnidadProduccionSocial', 'ModalidadMicrocredito', 'UsoFinanciero', 'DestinoRecursosMicrofinancieros',
+            'CantidadTrabajadores', 'VentaAnuales', 'FechaEstadoFinanciero', 'NumeroRTN',
+            'LicenciaTuristicaNacional', 'FechaEmisionFactibilidadSociotecnica_ConformidadTuristica',
+            'NumeroExpedienteFactibilidadSociotecnica', 'NumeroExpedienteConformidadTuristica',
+            'NombreProyectoUnidadProduccion', 'DireccionProyectoUnidadProduccion', 'CodigoTipoProyecto',
+            'CodigoTipoOperacionesFinanciamiento', 'CodigoSegmento', 'TipoZona',
+            'FechaAutenticacionProtocolizacion', 'FechaUltimaInspeccion', 'PorcentajeEjecucionProyecto',
+            'PagosEfectuadosDuranteMes', 'MontosLiquidadosFechaCierre', 'AmortizacionesCapitalAcumuladasFecha',
+            'TasaIncentivo', 'NumeroOficioIncentivo', 'NumeroRegistro_ConstanciaMPPAT',
+            'TipoRegistro_ConstanciaMPPAT', 'FechaVencimientoRegistro_ConstanciaMPPAT', 'TipoSubsector',
+            'Rubro', 'CodigoUso', 'CantidadUnidades', 'CodigoUnidadMedida', 'SectorProduccion',
+            'CantidadHectareas', 'SuperficieTotalPropiedad', 'NumeroProductoresBeneficiarios',
+            'Prioritario', 'DestinoManufacturero', 'DestinoEconomico', 'TipoBeneficiario',
+            'ModalidadHipoteca', 'IngresoFamiliar', 'MontoLiquidadoDuranteAnoCurso',
+            'SaldoCredito31_12', 'CantidadViviendasConstruir', 'RendimientosCobrarReestructurados',
+            'RendimientosCobrarAfectosReporto', 'RendimientosCobrarLitigio', 'InteresEfectivamenteCobrado',
+            'PorcentajeComisionFlat', 'MontoComisionFlat', 'PeriocidadPagoEspecialCapital',
+            'FechaCambioEstatusCredito', 'FechaRegistroVencidaLitigiooCastigada', 'FechaExigibilidadPagoUltimaCuotaPagada',
+            'CuentaContableProvisionEspecifica', 'CuentaContableProvisionRendimiento', 'CuentaContableInteresCuentaOrden',
+            'MontoInteresCuentaOrden', 'TipoIndustria', 'TipoBeneficiarioSectorManufacturero',
+            'TipoBeneficiarioSectorTurismo', 'BeneficiarioEspecial', 'FechaEmisionCertificacionBeneficiarioEspecial',
+            'TipoVivienda', 'FechaFinPeriodoGraciaPagoInteres', 'CapitalTransferido',
+            'FechaCambioEstatusCapitalTransferido', 'FechaNacimiento', 'UnidadValoracionAT04',
+        ]
+
+        parse_dates = [
+            'FechaLiquidacion', 'FechaSolicitud', 'FechaAprobacion', 'FechaVencimientoOriginal',
+            'FechaVencimientoActual', 'FechaReestructuracion', 'FechaProrroga',
+            'FechaUltimaRenovacion', 'FechaCancelacionTotal', 'FechaVencimientoUltimaCoutaCapital',
+            'UltimaFechaCancelacionCuotaCapital', 'FechaVencimientoUltimaCuotaInteres',
+            'UltimaFechaCancelacionCuotaIntereses', 'FechaEstadoFinanciero',
+            'FechaEmisionFactibilidadSociotecnica_ConformidadTuristica',
+            'FechaAutenticacionProtocolizacion', 'FechaUltimaInspeccion',
+            'FechaVencimientoRegistro_ConstanciaMPPAT', 'FechaCambioEstatusCredito',
+            'FechaRegistroVencidaLitigiooCastigada', 'FechaExigibilidadPagoUltimaCuotaPagada',
+            'FechaEmisionCertificacionBeneficiarioEspecial', 'FechaFinPeriodoGraciaPagoInteres',
+            'FechaCambioEstatusCapitalTransferido', 'FechaNacimiento'
+        ]
+
+        amounts = [
+            'MontoLineaCredito', 'Sindicado', 'TipoCambioOriginal', 'TipoCambioCierreMes', 'MontoOriginal',
+            'MontoInicial', 'MontoLiquidadoMes', 'MontoInicialTerceros', 'Saldo', 'RendimientosCobrar',
+            'RendimientosCobrarVencidos', 'RendimientosCobrarMora', 'ProvisionEspecifica',
+            'PorcentajeProvisionEspecifica', 'ProvisionRendimientoCobrar', 'TasasInteresCobrada',
+            'TasasInteresActual', 'TasaComision', 'ComisionesCobrar', 'ComisionesCobradas',
+            'ErogacionesRecuperables', 'MontoVencido30dias', 'MontoVencido60dias', 'MontoVencido90dias',
+            'MontoVencido120dias', 'MontoVencido180dias', 'MontoVencidoUnAno', 'MontoVencidoMasUnAno',
+            'MontoVencer30dias', 'MontoVencer60dias', 'MontoVencer90dias', 'MontoVencer120dias',
+            'MontoVencer180dias', 'MontoVencerUnAno', 'MontoVencerMasUnAno', 'VentaAnuales',
+            'PorcentajeEjecucionProyecto', 'PagosEfectuadosDuranteMes', 'MontosLiquidadosFechaCierre',
+            'AmortizacionesCapitalAcumuladasFecha', 'CantidadUnidades', 'CantidadHectareas',
+            'SuperficieTotalPropiedad', 'IngresoFamiliar', 'MontoLiquidadoDuranteAnoCurso',
+            'SaldoCredito31_12', 'RendimientosCobrarReestructurados', 'RendimientosCobrarAfectosReporto',
+            'RendimientosCobrarLitigio', 'InteresEfectivamenteCobrado', 'PorcentajeComisionFlat',
+            'MontoComisionFlat', 'MontoInteresCuentaOrden', 'CapitalTransferido', 'UnidadValoracionAT04'
+        ]
+
+        at04_df = pd.read_csv(path,
+                              sep='~',
+                              low_memory=False,
+                              encoding="latin",
+                              parse_dates=parse_dates,
+                              header=None,
+                              names=labels)
+
+        at04_df[amounts] = at04_df[amounts].replace(to_replace=',', value='.', regex=True)
+
+        at04_df['MakerDate'] = datetime.date.today()
+        at04_df.MakerDate = pd.to_datetime(at04_df.MakerDate)
+        at04_df['MakerUser'] = data[0]['user']
+
+        out_path = join(abs_dir, self._out_folder, 'AT04' + '.txt')
+
+        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
+
+        at04_df.to_csv(
+            out_path,
+            sep='~', date_format='%Y-%m-%d', index=False)
+
+        unlink(join(abs_dir, f_name + '.' + f_ext))
+
+        return {
+            'out_path': out_path,
+            'data': at04_df.head(100).to_json(
                 orient='records',
                 date_format='iso',
                 double_precision=2
@@ -411,6 +535,39 @@ class DataPreparation():
             )
         }
 
+    def clientes_consumo(self, data):
+        """Clientes Consumo resource Data Preparation"""
+        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
+
+        abs_dir, f_name, f_ext = self.get_path_file(path)
+
+        cc_df = pd.read_csv(path, sep='~', low_memory=False)
+
+        cc_df.Parroquia = cc_df.Parroquia.fillna(0).astype("int64")
+
+        cc_df['MakerDate'] = datetime.date.today()
+        cc_df.MakerDate = pd.to_datetime(cc_df.MakerDate)
+        cc_df['MakerUser'] = data[0]['user']
+
+        out_path = join(abs_dir, self._out_folder, 'CC' + '.txt')
+
+        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
+
+        cc_df.to_csv(
+            out_path,
+            sep='~', date_format='%Y-%m-%d', index=False)
+
+        unlink(join(abs_dir, f_name + '.' + f_ext))
+
+        return {
+            'out_path': out_path,
+            'data': cc_df.head(100).to_json(
+                orient='records',
+                date_format='iso',
+                double_precision=2
+            )
+        }
+
     def cartera_dirigida(self, data):
         """Cartera Dirigida resource Data Preparation"""
 
@@ -493,7 +650,7 @@ class DataPreparation():
 
         c_d.to_csv(
             out_path,
-            sep='~', date_format='%Y-%m-%d', index=False)
+            sep='~', index=False)
 
         for path in paths:
             unlink(path)
@@ -501,6 +658,37 @@ class DataPreparation():
         return {
             'out_path': out_path,
             'data': c_d.head(100).to_json(
+                orient='records',
+                date_format='iso',
+                double_precision=2
+            )
+        }
+
+    def cfgesiif_citi(self, data):
+        """CFGESIIFCITI (Equivalencias Actividad Cliente) resource Data Preparation"""
+        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
+
+        abs_dir, f_name, f_ext = self.get_path_file(path)
+
+        cfgesiif_citi_df = pd.read_csv(path, sep='~', low_memory=False)
+
+        cfgesiif_citi_df['MakerDate'] = datetime.date.today()
+        cfgesiif_citi_df.MakerDate = pd.to_datetime(cfgesiif_citi_df.MakerDate)
+        cfgesiif_citi_df['MakerUser'] = data[0]['user']
+
+        out_path = join(abs_dir, self._out_folder, 'CFGESIIFCITI' + '.txt')
+
+        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
+
+        cfgesiif_citi_df.to_csv(
+            out_path,
+            sep='~', date_format='%Y-%m-%d', index=False)
+
+        unlink(join(abs_dir, f_name + '.' + f_ext))
+
+        return {
+            'out_path': out_path,
+            'data': cfgesiif_citi_df.head(100).to_json(
                 orient='records',
                 date_format='iso',
                 double_precision=2
@@ -1296,6 +1484,8 @@ class DataPreparation():
 
             if resource_name == 'AH':
                 data_results = self.account_history(data)
+            if resource_name == 'AT04':
+                data_results = self.at04(data)
             elif resource_name == 'AT04CRE':
                 data_results = self.at04_cre(data)
             elif resource_name == 'AT07':
@@ -1304,8 +1494,12 @@ class DataPreparation():
                 data_results = self.bal_by_acct_transformada(data)
             elif resource_name == 'CND':
                 data_results = self.cartera_no_dirigida(data)
+            elif resource_name == 'CC':
+                data_results = self.clientes_consumo(data)
             elif resource_name == 'CD':
                 data_results = self.cartera_dirigida(data)
+            elif resource_name == 'CFGESIIFCITI':
+                data_results = self.cfgesiif_citi(data)
             elif resource_name == 'FDN':
                 data_results = self.fdn(data)
             elif resource_name == 'GICG':
