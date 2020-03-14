@@ -34,7 +34,8 @@ RICG_PATH = os.path.join(RESOURCES_PATH, 'RICG.txt')
 SC_PATH = os.path.join(RESOURCES_PATH, 'SC.txt')
 SIIF_PATH = os.path.join(RESOURCES_PATH, 'SIIF.txt')
 VNP003T_PATH = os.path.join(RESOURCES_PATH, 'VNP003T.txt')
-CFGESIIFCITI_PATH = os.path.join(RESOURCES_PATH, 'CFGESIIFCITI.txt')  # Tabla equivalencias Actividad Cliente
+# Tabla equivalencias Actividad Cliente
+CFGESIIFCITI_PATH = os.path.join(RESOURCES_PATH, 'CFGESIIFCITI.txt')
 CC_PATH = os.path.join(RESOURCES_PATH, 'CC.txt')  # Clientes Consumo
 
 CD_CHOICES = {
@@ -382,13 +383,13 @@ class ReportCreation():
 
         # CREATING UNION BETWEEN AT04CRE & CFGE
         self.at04cre_cfgesc_df = self.at04cre_df.set_index('SICVENCLI').join(
-            self.cfgesiifciti_df.set_index('CodigoCiti')).set_index('REFERNO')
+            self.cfgesiifciti_df.set_index('CodigoCiti'), rsuffix='_').set_index('REFERNO')
 
         # CREATING UNION BETWEEN SIIF & CFGE
         self.cfgesiifciti_filter = (self.cfgesiifciti_df['AtomoSIF'] == 'CTE') & (
             self.cfgesiifciti_df['TablaSIF'] == 'SB10') & (self.cfgesiifciti_df['Insumo'] == 'CORE')
         self.siif_cfgesc_df = self.siif_df.set_index('ActivityId').join(
-            self.cfgesiifciti_df[self.cfgesiifciti_filter].set_index('CodigoCiti')).set_index('Acct')
+            self.cfgesiifciti_df[self.cfgesiifciti_filter].set_index('CodigoCiti'), rsuffix='_').set_index('Acct')
 
         # CREATING GICG WITH NEW INDEX
         self.gicg_mod_df = self.gicg_df.set_index('NumeroCredito')
@@ -1015,11 +1016,11 @@ class ReportCreation():
         if campo in ['Saldo', ]:
             ricg_value = self.ricg_mod_df.at[int(num_credito), campo] if int(
                 num_credito) in self.ricg_mod_df.index else False
-            return is_nan(ricg_value, 0.00) or 0.00
+            return self.is_nan(ricg_value, 0.00) or 0.00
         elif campo in ['Status', ]:
             ricg_value = self.ricg_mod_df.at[int(num_credito), campo] if int(
                 num_credito) in self.ricg_mod_df.index else False
-            return is_nan(ricg_value, '') or ''
+            return self.is_nan(ricg_value, '') or ''
         else:
             sys.exit(f'The field ({campo}) is invalid or not supported!')
 
@@ -2475,7 +2476,7 @@ class ReportCreation():
         # Setting CapitalCastigado as MontoOriginal and Inicial of Canceled credits
         filter_df = (self.at04_df.EstadoCredito == 3) & \
                     (self.at04_df.MontoLineaCredito == 0.00) & \
-                    (self.at04_df.TipoDC.isin([
+                    (self.at04_df.TipoCD.isin([
                         CD_CHOICES.get('CCA_CONSUMO'),
                         CD_CHOICES.get('CCH'),
                         CD_CHOICES.get('PIL'),
@@ -2491,7 +2492,7 @@ class ReportCreation():
         # Setting FechaLiquidacion as FechaVencimientoUltimaCuotalCapital and Intereses of Canceled credits
         filter_canceled_df = self.at04_df.EstadoCredito == 3
         filter_active_df = self.at04_df.EstadoCredito == 1
-        filter_type_df = self.at04_df.TipoDC.isin([
+        filter_type_df = self.at04_df.TipoCD.isin([
             CD_CHOICES.get('CCA_CONSUMO'),
             CD_CHOICES.get('CCH'),
             CD_CHOICES.get('PIL'),
@@ -2519,7 +2520,7 @@ class ReportCreation():
         # Check that UltimaechaCancelacionCuotaIntereses is 19000101
         filter_df = (self.at04_df.MontoOriginal == self.at04_df.Saldo) & \
                     (self.at04_df.PeriodicidadPagoInteresCredito < 1024) & \
-                    (self.at04_df.TipoDC.isin([
+                    (self.at04_df.TipoCD.isin([
                         CD_CHOICES.get('ICG_NO_DIRIGIDA'),
                     ]))
         self.at04_df.loc[filter_df,
@@ -2527,7 +2528,7 @@ class ReportCreation():
 
         # Check that TipoCredito = 1 when TipoCD PILS and CodigoContable = 1330510102
         filter_df = (self.at04_df.CodigoContable == 1330510102) & \
-                    (self.at04_df.TipoDC.isin([
+                    (self.at04_df.TipoCD.isin([
                         CD_CHOICES.get('PILS'),
                     ]))
         self.at04_df.loc[filter_df, 'TipoCredito'] = 1
@@ -2544,7 +2545,7 @@ class ReportCreation():
         self.at04_df.loc[filter_canceled_df, 'TipoCredito'] = 0
 
         # Check that ClasificacionRiesgo is zero (0) for EstadoCredito in 2 and 3
-        filter_df = self.at04_df.EstadoCredito in (2, 3)
+        filter_df = self.at04_df.EstadoCredito.isin([2, 3])
         self.at04_df.loc[filter_df, 'ClasificacionRiesgo'] = 0
 
         # TODO: Include AT04_MES_ANTERIOR TABLE
