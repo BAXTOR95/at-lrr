@@ -10,7 +10,7 @@ export class WorkflowComponent implements OnInit {
   mobileQuery: MediaQueryList;
 
   constructor(media: MediaMatcher) {
-    this.mobileQuery = media.matchMedia('(max-width: 730px)');
+    this.mobileQuery = media.matchMedia('(max-width: 801px)');
   }
 
   ngOnInit() {

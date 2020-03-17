@@ -6,10 +6,14 @@ import sys
 import string
 import ntpath
 import datetime
+import simplejson
 
 from pathlib import Path
 
 from django.conf import settings
+
+from . import report_format as rf
+
 
 pd.set_option('display.precision', 4)
 pd.options.display.float_format = '{:.2f}'.format
@@ -62,9 +66,10 @@ DEFAULT_DATE = pd.to_datetime('1900-01-01')
 
 
 class ReportCreation():
-    """Data Preparation Class for every resource file"""
+    """AT04 Report Creation Class"""
     _out_folder = 'reports'
     _out_path = os.path.join(settings.MEDIA_ROOT, _out_folder)
+    _report_format = rf.ReportFormat()
 
     _fecha_reportar = DEFAULT_DATE
 
@@ -230,6 +235,20 @@ class ReportCreation():
         'FechaCambioEstatusCapitalTransferido',
         'FechaNacimiento',
         'UnidadValoracionAT04',
+    ]
+
+    _date_fields = [
+        'FechaLiquidacion', 'FechaSolicitud', 'FechaAprobacion', 'FechaVencimientoOriginal',
+        'FechaVencimientoActual', 'FechaReestructuracion', 'FechaProrroga',
+        'FechaUltimaRenovacion', 'FechaCancelacionTotal', 'FechaVencimientoUltimaCoutaCapital',
+        'UltimaFechaCancelacionCuotaCapital', 'FechaVencimientoUltimaCuotaInteres',
+        'UltimaFechaCancelacionCuotaIntereses', 'FechaEstadoFinanciero',
+        'FechaEmisionFactibilidadSociotecnica_ConformidadTuristica',
+        'FechaAutenticacionProtocolizacion', 'FechaUltimaInspeccion',
+        'FechaVencimientoRegistro_ConstanciaMPPAT', 'FechaCambioEstatusCredito',
+        'FechaRegistroVencidaLitigiooCastigada', 'FechaExigibilidadPagoUltimaCuotaPagada',
+        'FechaEmisionCertificacionBeneficiarioEspecial', 'FechaFinPeriodoGraciaPagoInteres',
+        'FechaCambioEstatusCapitalTransferido', 'FechaNacimiento'
     ]
 
     # %%
@@ -436,6 +455,20 @@ class ReportCreation():
 
     # %%
     # HELPFUL METHODS
+
+    def get_json(self, df):
+        """ Small function to serialise DataFrame dates as 'YYYYMMDD' in JSON """
+
+        def convert_timestamp(item_date_object):
+            if isinstance(item_date_object, (datetime.date, datetime.datetime)):
+                return self.is_nan(
+                    item_date_object,
+                    pd.to_datetime('1900-01-01')
+                ).strftime("%Y%m%d")
+
+        dict_ = df.to_dict(orient='records')
+
+        return simplejson.dumps(dict_, ignore_nan=True, default=convert_timestamp)
 
     def is_nan(self, value, value_if_nan):
         """Checks whether a value is nan and returns the exception if True or the original value if False"""
@@ -933,11 +966,11 @@ class ReportCreation():
 
     def get_plazo_credito_cnd(self, plazo_days):
         """Gets Plazo Credito Value for Cartera No Dirigida ICG"""
-        if float(plazo)/365 <= 3:
+        if float(plazo_days)/365 <= 3:
             return 'C'
-        elif float(plazo)/365 > 3 and float(plazo)/365 <= 5:
+        elif float(plazo_days)/365 > 3 and float(plazo_days)/365 <= 5:
             return 'M'
-        elif float(plazo)/365 > 5:
+        elif float(plazo_days)/365 > 5:
             return 'L'
         else:
             return ''
@@ -2473,6 +2506,10 @@ class ReportCreation():
         # %%
         #  Making some adjustments to the report
 
+        # Converting date fields to datetime
+        self.at04_df[self._date_fields] = self.at04_df[self._date_fields].apply(
+            pd.to_datetime, errors='coerce')
+
         # Setting CapitalCastigado as MontoOriginal and Inicial of Canceled credits
         filter_df = (self.at04_df.EstadoCredito == 3) & \
                     (self.at04_df.MontoLineaCredito == 0.00) & \
@@ -2550,6 +2587,8 @@ class ReportCreation():
 
         # TODO: Include AT04_MES_ANTERIOR TABLE
 
+        # print(self.at04_df.info())
+
         # %%
         print('Exporting AT04 Report...')
 
@@ -2559,17 +2598,18 @@ class ReportCreation():
         Path(os.path.dirname(os.path.abspath(out_path))).mkdir(
             parents=True, exist_ok=True)
 
-        self.at04_df[self._labels].to_csv(
+        at04_df_format = self._report_format.set_format(self.at04_df)
+
+        at04_df_format[self._labels].to_csv(
             out_path,
-            sep='~', date_format='%Y%m%d', index=False)
+            sep='~', date_format='%Y%m%d', index=False, header=False)
+
+        path_parts = out_path.split(os.path.sep)
+        out_path = os.path.sep + os.path.sep.join(path_parts[-3:])
 
         return {
             'report_path': out_path,
             'description': 'Cartera de Creditos',
             'last_processing_date': datetime.date.today(),
-            'data': self.at04_df[self._labels].head(100).to_json(
-                orient='records',
-                date_format='iso',
-                double_precision=2
-            )
+            'data': self.get_json(at04_df_format[self._labels].head(100))
         }

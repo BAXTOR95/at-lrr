@@ -19,6 +19,45 @@
       padding: 40px 70px 50px;
     }
 
+    .table-container {
+      max-height: calc(80vh - 155px);
+      // height: 400px;
+      width: 50vw;
+      overflow: auto;
+    }
+
+    .mat-row {
+      height: auto;
+    }
+
+    .mat-cell {
+      padding: 10px 10px 10px 0;
+    }
+
+    table {
+      width: 100%;
+    }
+
+    .mat-column {
+      word-wrap: break-word !important;
+      white-space: unset !important;
+      flex: 0 0 28% !important;
+      width: 28% !important;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
+
+      -ms-hyphens: auto;
+      -moz-hyphens: auto;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+    }
+
+    td.mat-column-star {
+      width: 20px;
+      padding-right: 8px;
+    }
+
     .box {
       position: relative;
       top: 0;

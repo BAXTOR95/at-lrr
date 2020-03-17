@@ -85,12 +85,13 @@ export class WorkflowGenerateComponent implements OnInit, OnDestroy {
           case HttpEventType.Response:
             this.progress = 100;
             this.snackbarService.openSnackBar(
-              'File successfully uploaded! ' + `${ this.DJANGO_SERVER }${ event.body.report_name }`,
+              `${ event.body.report_name }` + ' Report successfully generated! ',
               'OK',
               this.durationInSeconds
             );
             this.workflowService.setResourceData(event.body.data);
             this.store.dispatch(new WorkflowActions.SetReport(JSON.parse(event.body.data)));
+            this.store.dispatch(new WorkflowActions.SetReportPath(event.body.report_path));
             console.log('Report successfully created!', event.body);
             setTimeout(() => {
               this.progress = 0;

@@ -56,6 +56,7 @@ pywin32==224
 pywinpty>=0.5.5,<0.6.0
 pyzmq>=18.1.0,<18.2.0
 Send2Trash>=1.5.0,<1.6.0
+simplejson>=3.17.0,<3.18.0
 six>=1.12.0,<1.13.0
 sqlparse>=0.3.0,<0.4.0
 terminado>=0.8.2,<0.9.0

@@ -2,9 +2,8 @@
 
 import datetime
 import ntpath
-
-from os.path import join, dirname, abspath, normpath
-from os import unlink
+import os
+import simplejson
 
 from pathlib import Path
 
@@ -62,16 +61,35 @@ class DataPreparation():
     def get_path_file(self, path):
         """Gets the absolute path, file name and extension of the given full path to file"""
 
-        abs_dir = dirname(abspath(path))
+        abs_dir = os.path.dirname(os.path.abspath(path))
         Path(abs_dir).mkdir(parents=True, exist_ok=True)
         f_name, f_ext = self.path_leaf(path).split('.')
 
         return abs_dir, f_name, f_ext
 
+    def is_nan(self, value, value_if_nan):
+        """Checks whether a value is nan and returns the exception if True or the original value if False"""
+        return value_if_nan if pd.isnull(value) else value
+
+    def get_json(self, df):
+        """ Small function to serialise DataFrame dates as 'YYYY-MM-DD' in JSON """
+
+        def convert_timestamp(item_date_object):
+            if isinstance(item_date_object, (datetime.date, datetime.datetime)):
+                return self.is_nan(
+                    item_date_object,
+                    pd.to_datetime('1900-01-01')
+                ).strftime("%Y-%m-%d")
+
+        dict_ = df.to_dict(orient='records')
+
+        return simplejson.dumps(dict_, ignore_nan=True, default=convert_timestamp)
+
     def account_history(self, data):
         """Account History resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
+        path = os.path.join(settings.WEB_ROOT,
+                            os.path.normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -124,29 +142,30 @@ class DataPreparation():
         a_h.MakerDate = pd.to_datetime(a_h.MakerDate)
         a_h['MakerUser'] = self.get_user(data[0]['user'])
 
-        out_path = join(abs_dir, self._out_folder, 'AH' + '.txt')
+        out_path = os.path.join(abs_dir, self._out_folder, 'AH' + '.txt')
 
-        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
+        Path(os.path.dirname(os.path.abspath(out_path))).mkdir(
+            parents=True, exist_ok=True)
 
         a_h.to_csv(
             out_path,
             sep='~', date_format='%Y-%m-%d', index=False)
 
-        unlink(join(abs_dir, f_name + '.' + f_ext))
+        os.unlink(os.path.join(abs_dir, f_name + '.' + f_ext))
+
+        path_parts = out_path.split(os.path.sep)
+        out_path = os.path.sep + os.path.sep.join(path_parts[-3:])
 
         return {
             'out_path': out_path,
-            'data': a_h.head(100).to_json(
-                orient='records',
-                date_format='iso',
-                double_precision=2
-            )
+            'data': self.get_json(a_h.head(100))
         }
 
     def at04(self, data):
         """AT04 resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
+        path = os.path.join(settings.WEB_ROOT,
+                            os.path.normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -239,35 +258,37 @@ class DataPreparation():
                               header=None,
                               names=labels)
 
-        at04_df[amounts] = at04_df[amounts].replace(to_replace=',', value='.', regex=True)
+        at04_df[amounts] = at04_df[amounts].replace(
+            to_replace=',', value='.', regex=True)
 
         at04_df['MakerDate'] = datetime.date.today()
         at04_df.MakerDate = pd.to_datetime(at04_df.MakerDate)
         at04_df['MakerUser'] = self.get_user(data[0]['user'])
 
-        out_path = join(abs_dir, self._out_folder, 'AT04' + '.txt')
+        out_path = os.path.join(abs_dir, self._out_folder, 'AT04' + '.txt')
 
-        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
+        Path(os.path.dirname(os.path.abspath(out_path))).mkdir(
+            parents=True, exist_ok=True)
 
         at04_df.to_csv(
             out_path,
             sep='~', date_format='%Y-%m-%d', index=False)
 
-        unlink(join(abs_dir, f_name + '.' + f_ext))
+        os.unlink(os.path.join(abs_dir, f_name + '.' + f_ext))
+
+        path_parts = out_path.split(os.path.sep)
+        out_path = os.path.sep + os.path.sep.join(path_parts[-3:])
 
         return {
             'out_path': out_path,
-            'data': at04_df.head(100).to_json(
-                orient='records',
-                date_format='iso',
-                double_precision=2
-            )
+            'data': self.get_json(at04_df.head(100))
         }
 
     def at04_cre(self, data):
         """AT04CRE resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
+        path = os.path.join(settings.WEB_ROOT,
+                            os.path.normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -324,29 +345,30 @@ class DataPreparation():
         at04cre.MakerDate = pd.to_datetime(at04cre.MakerDate)
         at04cre['MakerUser'] = self.get_user(data[0]['user'])
 
-        out_path = join(abs_dir, self._out_folder, 'AT04CRE' + '.txt')
+        out_path = os.path.join(abs_dir, self._out_folder, 'AT04CRE' + '.txt')
 
-        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
+        Path(os.path.dirname(os.path.abspath(out_path))).mkdir(
+            parents=True, exist_ok=True)
 
         at04cre.to_csv(
             out_path,
             sep='~', date_format='%Y-%m-%d', index=False)
 
-        unlink(join(abs_dir, f_name + '.' + f_ext))
+        os.unlink(os.path.join(abs_dir, f_name + '.' + f_ext))
+
+        path_parts = out_path.split(os.path.sep)
+        out_path = os.path.sep + os.path.sep.join(path_parts[-3:])
 
         return {
             'out_path': out_path,
-            'data': at04cre.head(100).to_json(
-                orient='records',
-                date_format='iso',
-                double_precision=2
-            )
+            'data': self.get_json(at04cre.head(100))
         }
 
     def at07(self, data):
         """AT07 resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
+        path = os.path.join(settings.WEB_ROOT,
+                            os.path.normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -395,29 +417,30 @@ class DataPreparation():
         at07_df.MakerDate = pd.to_datetime(at07_df.MakerDate)
         at07_df['MakerUser'] = self.get_user(data[0]['user'])
 
-        out_path = join(abs_dir, self._out_folder, 'AT07' + '.txt')
+        out_path = os.path.join(abs_dir, self._out_folder, 'AT07' + '.txt')
 
-        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
+        Path(os.path.dirname(os.path.abspath(out_path))).mkdir(
+            parents=True, exist_ok=True)
 
         at07_df.to_csv(
             out_path,
             sep='~', date_format='%Y-%m-%d', index=False)
 
-        unlink(join(abs_dir, f_name + '.' + f_ext))
+        os.unlink(os.path.join(abs_dir, f_name + '.' + f_ext))
+
+        path_parts = out_path.split(os.path.sep)
+        out_path = os.path.sep + os.path.sep.join(path_parts[-3:])
 
         return {
             'out_path': out_path,
-            'data': at07_df.head(100).to_json(
-                orient='records',
-                date_format='iso',
-                double_precision=2
-            )
+            'data': self.get_json(at07_df.head(100))
         }
 
     def bal_by_acct_transformada(self, data):
         """BalByAcct Transformada resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
+        path = os.path.join(settings.WEB_ROOT,
+                            os.path.normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -445,28 +468,29 @@ class DataPreparation():
         bbat.MakerDate = pd.to_datetime(bbat.MakerDate)
         bbat['MakerUser'] = self.get_user(data[0]['user'])
 
-        out_path = join(abs_dir, self._out_folder, 'BBAT' + '.txt')
+        out_path = os.path.join(abs_dir, self._out_folder, 'BBAT' + '.txt')
 
-        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
+        Path(os.path.dirname(os.path.abspath(out_path))).mkdir(
+            parents=True, exist_ok=True)
 
         bbat.to_csv(
             out_path, sep='~', date_format='%Y-%m-%d', index=False)
 
-        unlink(join(abs_dir, f_name + '.' + f_ext))
+        os.unlink(os.path.join(abs_dir, f_name + '.' + f_ext))
+
+        path_parts = out_path.split(os.path.sep)
+        out_path = os.path.sep + os.path.sep.join(path_parts[-3:])
 
         return {
             'out_path': out_path,
-            'data': bbat.head(100).to_json(
-                orient='records',
-                date_format='iso',
-                double_precision=2
-            )
+            'data': self.get_json(bbat.head(100))
         }
 
     def cartera_no_dirigida(self, data):
         """Cartera No Dirigida resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
+        path = os.path.join(settings.WEB_ROOT,
+                            os.path.normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -518,28 +542,29 @@ class DataPreparation():
         cnd.MakerDate = pd.to_datetime(cnd.MakerDate)
         cnd['MakerUser'] = self.get_user(data[0]['user'])
 
-        out_path = join(abs_dir, self._out_folder, 'CND' + '.txt')
+        out_path = os.path.join(abs_dir, self._out_folder, 'CND' + '.txt')
 
-        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
+        Path(os.path.dirname(os.path.abspath(out_path))).mkdir(
+            parents=True, exist_ok=True)
 
         cnd.to_csv(
             out_path,
             sep='~', date_format='%Y-%m-%d', index=False)
 
-        unlink(join(abs_dir, f_name + '.' + f_ext))
+        os.unlink(os.path.join(abs_dir, f_name + '.' + f_ext))
+
+        path_parts = out_path.split(os.path.sep)
+        out_path = os.path.sep + os.path.sep.join(path_parts[-3:])
 
         return {
             'out_path': out_path,
-            'data': cnd.head(100).to_json(
-                orient='records',
-                date_format='iso',
-                double_precision=2
-            )
+            'data': self.get_json(cnd.head(100))
         }
 
     def clientes_consumo(self, data):
         """Clientes Consumo resource Data Preparation"""
-        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
+        path = os.path.join(settings.WEB_ROOT,
+                            os.path.normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -551,30 +576,30 @@ class DataPreparation():
         cc_df.MakerDate = pd.to_datetime(cc_df.MakerDate)
         cc_df['MakerUser'] = self.get_user(data[0]['user'])
 
-        out_path = join(abs_dir, self._out_folder, 'CC' + '.txt')
+        out_path = os.path.join(abs_dir, self._out_folder, 'CC' + '.txt')
 
-        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
+        Path(os.path.dirname(os.path.abspath(out_path))).mkdir(
+            parents=True, exist_ok=True)
 
         cc_df.to_csv(
             out_path,
             sep='~', date_format='%Y-%m-%d', index=False)
 
-        unlink(join(abs_dir, f_name + '.' + f_ext))
+        os.unlink(os.path.join(abs_dir, f_name + '.' + f_ext))
+
+        path_parts = out_path.split(os.path.sep)
+        out_path = os.path.sep + os.path.sep.join(path_parts[-3:])
 
         return {
             'out_path': out_path,
-            'data': cc_df.head(100).to_json(
-                orient='records',
-                date_format='iso',
-                double_precision=2
-            )
+            'data': self.get_json(cc_df.head(100))
         }
 
     def cartera_dirigida(self, data):
         """Cartera Dirigida resource Data Preparation"""
 
         paths = [
-            join(settings.WEB_ROOT, normpath(path['file'])[1:])
+            os.path.join(settings.WEB_ROOT, os.path.normpath(path['file'])[1:])
             for path in data
         ]
         paths.sort()
@@ -646,29 +671,30 @@ class DataPreparation():
         c_d.MakerDate = pd.to_datetime(c_d.MakerDate)
         c_d['MakerUser'] = self.get_user(data[0]['user'])
 
-        out_path = join(abs_dir, self._out_folder, 'CD.txt')
+        out_path = os.path.join(abs_dir, self._out_folder, 'CD.txt')
 
-        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
+        Path(os.path.dirname(os.path.abspath(out_path))).mkdir(
+            parents=True, exist_ok=True)
 
         c_d.to_csv(
             out_path,
             sep='~', index=False)
 
         for path in paths:
-            unlink(path)
+            os.unlink(path)
+
+        path_parts = out_path.split(os.path.sep)
+        out_path = os.path.sep + os.path.sep.join(path_parts[-3:])
 
         return {
             'out_path': out_path,
-            'data': c_d.head(100).to_json(
-                orient='records',
-                date_format='iso',
-                double_precision=2
-            )
+            'data': self.get_json(c_d.head(100))
         }
 
     def cfgesiif_citi(self, data):
         """CFGESIIFCITI (Equivalencias Actividad Cliente) resource Data Preparation"""
-        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
+        path = os.path.join(settings.WEB_ROOT,
+                            os.path.normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -678,29 +704,31 @@ class DataPreparation():
         cfgesiif_citi_df.MakerDate = pd.to_datetime(cfgesiif_citi_df.MakerDate)
         cfgesiif_citi_df['MakerUser'] = self.get_user(data[0]['user'])
 
-        out_path = join(abs_dir, self._out_folder, 'CFGESIIFCITI' + '.txt')
+        out_path = os.path.join(
+            abs_dir, self._out_folder, 'CFGESIIFCITI' + '.txt')
 
-        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
+        Path(os.path.dirname(os.path.abspath(out_path))).mkdir(
+            parents=True, exist_ok=True)
 
         cfgesiif_citi_df.to_csv(
             out_path,
             sep='~', date_format='%Y-%m-%d', index=False)
 
-        unlink(join(abs_dir, f_name + '.' + f_ext))
+        os.unlink(os.path.join(abs_dir, f_name + '.' + f_ext))
+
+        path_parts = out_path.split(os.path.sep)
+        out_path = os.path.sep + os.path.sep.join(path_parts[-3:])
 
         return {
             'out_path': out_path,
-            'data': cfgesiif_citi_df.head(100).to_json(
-                orient='records',
-                date_format='iso',
-                double_precision=2
-            )
+            'data': self.get_json(cfgesiif_citi_df.head(100))
         }
 
     def fdn(self, data):
         """Fecha de Nacimiento resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
+        path = os.path.join(settings.WEB_ROOT,
+                            os.path.normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -724,30 +752,30 @@ class DataPreparation():
         fdn_df.MakerDate = pd.to_datetime(fdn_df.MakerDate)
         fdn_df['MakerUser'] = self.get_user(data[0]['user'])
 
-        out_path = join(abs_dir, self._out_folder, 'FDN' + '.txt')
+        out_path = os.path.join(abs_dir, self._out_folder, 'FDN' + '.txt')
 
-        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
+        Path(os.path.dirname(os.path.abspath(out_path))).mkdir(
+            parents=True, exist_ok=True)
 
         fdn_df.to_csv(
             out_path,
             sep='~', date_format='%Y-%m-%d', index=False)
 
-        unlink(join(abs_dir, f_name + '.' + f_ext))
+        os.unlink(os.path.join(abs_dir, f_name + '.' + f_ext))
+
+        path_parts = out_path.split(os.path.sep)
+        out_path = os.path.sep + os.path.sep.join(path_parts[-3:])
 
         return {
             'out_path': out_path,
-            'data': fdn_df.head(100).to_json(
-                orient='records',
-                date_format='iso',
-                double_precision=2
-            )
+            'data': self.get_json(fdn_df.head(100))
         }
 
     def gavetas_icg(self, data):
         """Gavetas ICG resource Data Preparation"""
 
         paths = [
-            join(settings.WEB_ROOT, normpath(path['file'])[1:])
+            os.path.join(settings.WEB_ROOT, os.path.normpath(path['file'])[1:])
             for path in data
         ]
         paths.sort()
@@ -855,30 +883,31 @@ class DataPreparation():
         gavetas.MakerDate = pd.to_datetime(gavetas.MakerDate)
         gavetas['MakerUser'] = self.get_user(data[0]['user'])
 
-        out_path = join(abs_dir, self._out_folder, 'GICG' + '.txt')
+        out_path = os.path.join(abs_dir, self._out_folder, 'GICG' + '.txt')
 
-        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
+        Path(os.path.dirname(os.path.abspath(out_path))).mkdir(
+            parents=True, exist_ok=True)
 
         gavetas.to_csv(
             out_path,
             sep='~', date_format='%Y-%m-%d', index=False)
 
         for path in paths:
-            unlink(path)
+            os.unlink(path)
+
+        path_parts = out_path.split(os.path.sep)
+        out_path = os.path.sep + os.path.sep.join(path_parts[-3:])
 
         return {
             'out_path': out_path,
-            'data': gavetas.head(100).to_json(
-                orient='records',
-                date_format='iso',
-                double_precision=2
-            )
+            'data': self.get_json(gavetas.head(100))
         }
 
     def lnp860(self, data):
         """LNP860 resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
+        path = os.path.join(settings.WEB_ROOT,
+                            os.path.normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -933,29 +962,30 @@ class DataPreparation():
         lnp860_df.MakerDate = pd.to_datetime(lnp860_df.MakerDate)
         lnp860_df['MakerUser'] = self.get_user(data[0]['user'])
 
-        out_path = join(abs_dir, self._out_folder, 'LNP860' + '.txt')
+        out_path = os.path.join(abs_dir, self._out_folder, 'LNP860' + '.txt')
 
-        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
+        Path(os.path.dirname(os.path.abspath(out_path))).mkdir(
+            parents=True, exist_ok=True)
 
         lnp860_df.to_csv(
             out_path,
             sep='~', date_format='%Y-%m-%d', index=False)
 
-        unlink(join(abs_dir, f_name + '.' + f_ext))
+        os.unlink(os.path.join(abs_dir, f_name + '.' + f_ext))
+
+        path_parts = out_path.split(os.path.sep)
+        out_path = os.path.sep + os.path.sep.join(path_parts[-3:])
 
         return {
             'out_path': out_path,
-            'data': lnp860_df.head(100).to_json(
-                orient='records',
-                date_format='iso',
-                double_precision=2
-            )
+            'data': self.get_json(lnp860_df.head(100))
         }
 
     def migrate_mortgage(self, data):
         """Migrate Mortgage resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
+        path = os.path.join(settings.WEB_ROOT,
+                            os.path.normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -987,29 +1017,30 @@ class DataPreparation():
         mm_df.MakerDate = pd.to_datetime(mm_df.MakerDate)
         mm_df['MakerUser'] = self.get_user(data[0]['user'])
 
-        out_path = join(abs_dir, self._out_folder, 'MM' + '.txt')
+        out_path = os.path.join(abs_dir, self._out_folder, 'MM' + '.txt')
 
-        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
+        Path(os.path.dirname(os.path.abspath(out_path))).mkdir(
+            parents=True, exist_ok=True)
 
         mm_df.to_csv(
             out_path,
             sep='~', date_format='%Y-%m-%d', index=False)
 
-        unlink(join(abs_dir, f_name + '.' + f_ext))
+        os.unlink(os.path.join(abs_dir, f_name + '.' + f_ext))
+
+        path_parts = out_path.split(os.path.sep)
+        out_path = os.path.sep + os.path.sep.join(path_parts[-3:])
 
         return {
             'out_path': out_path,
-            'data': mm_df.head(100).to_json(
-                orient='records',
-                date_format='iso',
-                double_precision=2
-            )
+            'data': self.get_json(mm_df.head(100))
         }
 
     def mis_provisiones(self, data):
         """MIS Provisiones resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
+        path = os.path.join(settings.WEB_ROOT,
+                            os.path.normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -1148,29 +1179,30 @@ class DataPreparation():
         mispf.MakerDate = pd.to_datetime(mispf.MakerDate)
         mispf['MakerUser'] = self.get_user(data[0]['user'])
 
-        out_path = join(abs_dir, self._out_folder, 'MISP' + '.txt')
+        out_path = os.path.join(abs_dir, self._out_folder, 'MISP' + '.txt')
 
-        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
+        Path(os.path.dirname(os.path.abspath(out_path))).mkdir(
+            parents=True, exist_ok=True)
 
         mispf[columns].to_csv(
             out_path,
             sep='~', date_format='%Y-%m-%d', index=False)
 
-        unlink(join(abs_dir, f_name + '.' + f_ext))
+        os.unlink(os.path.join(abs_dir, f_name + '.' + f_ext))
+
+        path_parts = out_path.split(os.path.sep)
+        out_path = os.path.sep + os.path.sep.join(path_parts[-3:])
 
         return {
             'out_path': out_path,
-            'data': mispf.head(100).to_json(
-                orient='records',
-                date_format='iso',
-                double_precision=2
-            )
+            'data': self.get_json(mispf.head(100))
         }
 
     def prestamo_prestaciones_hr(self, data):
         """Prestamos para las Prestaciones RRHH resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
+        path = os.path.join(settings.WEB_ROOT,
+                            os.path.normpath(data[0]['file'])[1:])
 
         names = [
             'GEID', 'IdentificacionCliente', 'NombreCliente',
@@ -1199,29 +1231,30 @@ class DataPreparation():
         pphr.MakerDate = pd.to_datetime(pphr.MakerDate)
         pphr['MakerUser'] = self.get_user(data[0]['user'])
 
-        out_path = join(abs_dir, self._out_folder, 'PPRRHH' + '.txt')
+        out_path = os.path.join(abs_dir, self._out_folder, 'PPRRHH' + '.txt')
 
-        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
+        Path(os.path.dirname(os.path.abspath(out_path))).mkdir(
+            parents=True, exist_ok=True)
 
         pphr.to_csv(
             out_path,
             sep='~', date_format='%Y-%m-%d', index=False)
 
-        unlink(join(abs_dir, f_name + '.' + f_ext))
+        os.unlink(os.path.join(abs_dir, f_name + '.' + f_ext))
+
+        path_parts = out_path.split(os.path.sep)
+        out_path = os.path.sep + os.path.sep.join(path_parts[-3:])
 
         return {
             'out_path': out_path,
-            'data': pphr.head(100).to_json(
-                orient='records',
-                date_format='iso',
-                double_precision=2
-            )
+            'data': self.get_json(pphr.head(100))
         }
 
     def rendimientos_icg(self, data):
         """Rendimientos ICG resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
+        path = os.path.join(settings.WEB_ROOT,
+                            os.path.normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -1242,29 +1275,30 @@ class DataPreparation():
         rend_icg.MakerDate = pd.to_datetime(rend_icg.MakerDate)
         rend_icg['MakerUser'] = self.get_user(data[0]['user'])
 
-        out_path = join(abs_dir, self._out_folder, 'RICG' + '.txt')
+        out_path = os.path.join(abs_dir, self._out_folder, 'RICG' + '.txt')
 
-        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
+        Path(os.path.dirname(os.path.abspath(out_path))).mkdir(
+            parents=True, exist_ok=True)
 
         rend_icg.to_csv(
             out_path,
             sep='~', date_format='%Y-%m-%d', index=False)
 
-        unlink(join(abs_dir, f_name + '.' + f_ext))
+        os.unlink(os.path.join(abs_dir, f_name + '.' + f_ext))
+
+        path_parts = out_path.split(os.path.sep)
+        out_path = os.path.sep + os.path.sep.join(path_parts[-3:])
 
         return {
             'out_path': out_path,
-            'data': rend_icg.head(100).to_json(
-                orient='records',
-                date_format='iso',
-                double_precision=2
-            )
+            'data': self.get_json(rend_icg.head(100))
         }
 
     def siif(self, data):
         """SIIF resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
+        path = os.path.join(settings.WEB_ROOT,
+                            os.path.normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -1290,7 +1324,9 @@ class DataPreparation():
             'Amt180DPD',
             'Amt210DPD',
             'SaldoCastigado',
-            'PrincipalBalance'
+            'PrincipalBalance',
+            'Purchases',
+            'FeePaid'
         ]
 
         siif_df = pd.read_csv(path,
@@ -1339,29 +1375,30 @@ class DataPreparation():
         siif_df.MakerDate = pd.to_datetime(siif_df.MakerDate)
         siif_df['MakerUser'] = self.get_user(data[0]['user'])
 
-        out_path = join(abs_dir, self._out_folder, 'SIIF' + '.txt')
+        out_path = os.path.join(abs_dir, self._out_folder, 'SIIF' + '.txt')
 
-        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
+        Path(os.path.dirname(os.path.abspath(out_path))).mkdir(
+            parents=True, exist_ok=True)
 
         siif_df.to_csv(
             out_path,
             sep='~', date_format='%Y-%m-%d', index=False)
 
-        unlink(join(abs_dir, f_name + '.' + f_ext))
+        os.unlink(os.path.join(abs_dir, f_name + '.' + f_ext))
+
+        path_parts = out_path.split(os.path.sep)
+        out_path = os.path.sep + os.path.sep.join(path_parts[-3:])
 
         return {
             'out_path': out_path,
-            'data': siif_df.head(100).to_json(
-                orient='records',
-                date_format='iso',
-                double_precision=2
-            )
+            'data': self.get_json(siif_df.head(100))
         }
 
     def sobregiros_consumer(self, data):
         """Sobregiros Consumer resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
+        path = os.path.join(settings.WEB_ROOT,
+                            os.path.normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -1390,29 +1427,30 @@ class DataPreparation():
         sobregiros_gcg.MakerDate = pd.to_datetime(sobregiros_gcg.MakerDate)
         sobregiros_gcg['MakerUser'] = self.get_user(data[0]['user'])
 
-        out_path = join(abs_dir, self._out_folder, 'SC' + '.txt')
+        out_path = os.path.join(abs_dir, self._out_folder, 'SC' + '.txt')
 
-        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
+        Path(os.path.dirname(os.path.abspath(out_path))).mkdir(
+            parents=True, exist_ok=True)
 
         sobregiros_gcg.to_csv(
             out_path,
             sep='~', date_format='%Y-%m-%d', index=False)
 
-        unlink(join(abs_dir, f_name + '.' + f_ext))
+        os.unlink(os.path.join(abs_dir, f_name + '.' + f_ext))
+
+        path_parts = out_path.split(os.path.sep)
+        out_path = os.path.sep + os.path.sep.join(path_parts[-3:])
 
         return {
             'out_path': out_path,
-            'data': sobregiros_gcg.head(100).to_json(
-                orient='records',
-                date_format='iso',
-                double_precision=2
-            )
+            'data': self.get_json(sobregiros_gcg.head(100))
         }
 
     def vnp003t(self, data):
         """VNP003T resource Data Preparation"""
 
-        path = join(settings.WEB_ROOT, normpath(data[0]['file'])[1:])
+        path = os.path.join(settings.WEB_ROOT,
+                            os.path.normpath(data[0]['file'])[1:])
 
         abs_dir, f_name, f_ext = self.get_path_file(path)
 
@@ -1457,23 +1495,23 @@ class DataPreparation():
         vnp003t_df.MakerDate = pd.to_datetime(vnp003t_df.MakerDate)
         vnp003t_df['MakerUser'] = self.get_user(data[0]['user'])
 
-        out_path = join(abs_dir, self._out_folder, 'VNP003T' + '.txt')
+        out_path = os.path.join(abs_dir, self._out_folder, 'VNP003T' + '.txt')
 
-        Path(dirname(abspath(out_path))).mkdir(parents=True, exist_ok=True)
+        Path(os.path.dirname(os.path.abspath(out_path))).mkdir(
+            parents=True, exist_ok=True)
 
         vnp003t_df.to_csv(
             out_path,
             sep='~', date_format='%Y-%m-%d', index=False)
 
-        unlink(join(abs_dir, f_name + '.' + f_ext))
+        os.unlink(os.path.join(abs_dir, f_name + '.' + f_ext))
+
+        path_parts = out_path.split(os.path.sep)
+        out_path = os.path.sep + os.path.sep.join(path_parts[-3:])
 
         return {
             'out_path': out_path,
-            'data': vnp003t_df.head(100).to_json(
-                orient='records',
-                date_format='iso',
-                double_precision=2
-            )
+            'data': self.get_json(vnp003t_df.head(100))
         }
 
     def get_user(self, user_id):

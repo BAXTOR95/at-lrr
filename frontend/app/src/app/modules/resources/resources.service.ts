@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { Observable, throwError, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResourceService {
 
-  DJANGO_SERVER = 'http://127.0.0.1:8000';
+  DJANGO_SERVER = environment.djangoServer;
 
   resourceSelectedChanged = new Subject<string>();
 
@@ -16,7 +17,7 @@ export class ResourceService {
 
   resourceData: JSON[];
 
-  constructor (private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   public upload(formData) {
     return this.http.post(`${ this.DJANGO_SERVER }/api/upload/file/resource/`, formData, {

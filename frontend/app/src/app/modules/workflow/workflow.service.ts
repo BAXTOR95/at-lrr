@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { Observable, throwError, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WorkflowService {
 
-  DJANGO_SERVER = 'http://127.0.0.1:8000';
+  DJANGO_SERVER = environment.djangoServer;
 
   reportSelectedChanged = new Subject<string>();
 
@@ -42,6 +43,11 @@ export class WorkflowService {
 
   getResourceData() {
     return this.reportData;
+  }
+
+  getFile(fileUrl: string): Observable<Blob> {
+    const uri = fileUrl;
+    return this.http.get(uri, { responseType: 'blob' });
   }
 
   errorMgmt(error: HttpErrorResponse) {
