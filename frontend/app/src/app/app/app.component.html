@@ -1,0 +1,209 @@
+<div [class]="'theme-wrapper ' + (theme$ | async)">
+  <div class="header">
+    <mat-sidenav-container fullscreen id="visibilityContainer">
+      <mat-sidenav
+        #snav
+        [mode]="mobileQuery.matches ? 'over' : 'push'"
+        role="navigation"
+      >
+        <div
+          class="toolbar"
+          [style.position]="(stickyHeader$ | async) ? 'inherit' : 'inherit'"
+          [class.mat-elevation-z4]="stickyHeader$ | async"
+        >
+          <mat-toolbar color="primary">
+            <span class="fill-remaining-space"></span>
+            <button
+              mat-icon-button
+              (click)="snav.toggle()"
+              class="mat-icon-button sidenav-toggle-button"
+              [hidden]="!snav.opened"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-toolbar>
+        </div>
+
+        <!-- MODULES -->
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <span i18n>Modules</span>
+              </mat-panel-title>
+              <mat-panel-description>
+                Modules Section
+                <mat-icon
+                  mat-list-icon
+                  svgIcon="module"
+                  aria-hidden="false"
+                  aria-label="Module icon"
+                ></mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-action-list>
+              <button
+                mat-list-item
+                [routerLink]="['resources']"
+                (click)="snav.toggle()"
+              >
+                <span i18n>Resources</span>
+              </button>
+              <button
+                mat-list-item
+                [routerLink]="['workflow']"
+                (click)="snav.toggle()"
+              >
+                <span i18n>Workflow</span>
+              </button>
+              <button
+                mat-list-item
+                [routerLink]="['views']"
+                (click)="snav.toggle()"
+              >
+                <span i18n>Views</span>
+              </button>
+              <button
+                mat-list-item
+                [routerLink]="['balance-account']"
+                (click)="snav.toggle()"
+              >
+                <span i18n>Balance Account</span>
+              </button>
+            </mat-action-list>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <span i18n>Checker</span>
+              </mat-panel-title>
+              <mat-panel-description>
+                <span i18n>Checker Section</span>
+                <mat-icon
+                  mat-list-icon
+                  svgIcon="check"
+                  aria-hidden="false"
+                  aria-label="Check icon"
+                ></mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-action-list>
+              <button
+                mat-list-item
+                [routerLink]="['checker', 'approval']"
+                (click)="snav.toggle()"
+              >
+                <span i18n>Approval</span>
+              </button>
+              <button
+                mat-list-item
+                [routerLink]="['checker', 'validation']"
+                (click)="snav.toggle()"
+              >
+                <span i18n>Validation</span>
+              </button>
+            </mat-action-list>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-sidenav>
+      <mat-sidenav-content class="page-wrap">
+        <div
+          class="toolbar"
+          [style.position]="(stickyHeader$ | async) ? 'inherit' : 'inherit'"
+          [class.mat-elevation-z4]="stickyHeader$ | async"
+        >
+          <mat-toolbar
+            color="primary"
+            class="toolbar main-toolbar mat-elevation-z6"
+          >
+            <button
+              mat-icon-button
+              (click)="snav.toggle()"
+              *ngIf="isAuthenticated"
+              class="mat-icon-button sidenav-toggle-button"
+              [hidden]="snav.opened"
+            >
+              <mat-icon>menu</mat-icon>
+            </button>
+            <h1 class="app-name">SIRDCAT</h1>
+            <span class="fill-remaining-space"></span>
+            <button
+              *ngIf="isAuthenticated"
+              mat-icon-button
+              [matMenuTriggerFor]="toolbarUserMenu"
+            >
+              <fa-icon icon="user-circle"></fa-icon>
+            </button>
+            <mat-menu #toolbarUserMenu="matMenu">
+              <button mat-menu-item (click)="onLogout()">
+                <mat-icon><fa-icon icon="power-off"></fa-icon></mat-icon>
+                <span>Logout</span>
+              </button>
+            </mat-menu>
+            <button mat-icon-button [routerLink]="['settings']">
+              <fa-icon icon="cog"></fa-icon>
+            </button>
+            <!-- <button
+              mat-menu-item
+              color="primary"
+              *ngIf="isAuthenticated"
+              (click)="onLogout()"
+            >
+              <mat-icon><fa-icon icon="power-off"></fa-icon></mat-icon>
+              LOGOUT
+            </button>
+            <span class="fill-remaining-space"></span>
+            <button
+              mat-icon-button
+              routerLink="settings"
+              class="d-none d-sm-inline"
+            >
+              <fa-icon icon="cog"></fa-icon>
+            </button> -->
+          </mat-toolbar>
+        </div>
+        <div class="all-wrap wrapper">
+          <main
+            class="content main-content-inner"
+            [@routeAnimations]="
+              o.isActivated &&
+              o.activatedRoute.routeConfig.data &&
+              o.activatedRoute.routeConfig.data.title
+            "
+          >
+            <section class="content-area">
+              <router-outlet #o="outlet"></router-outlet>
+            </section>
+          </main>
+          <footer>
+            <div class="footer">
+              <div class="row">
+                <div class="col m6 text-wrap links">
+                  <!-- <img
+                      class="footer-logo"
+                      src="../../assets/img/icons/citi_1c_rev_rgb_zrT_icon.ico"
+                      alt="Citi icon"
+                    /> -->
+                  <p i18n>
+                    <a href="http://www.citigroup.com/citi/">Citigroup.com</a>
+                    is the global source of information about and access to
+                    financial services provided by the Citigroup companies.
+                  </p>
+                </div>
+                <div class="col m6 text-right links">
+                  <p i18n>
+                    Copyright &#169; 2020
+                    <a href="http://www.citigroup.com/citi/">Citigroup</a>
+                    Inc.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+</div>

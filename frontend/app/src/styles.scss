@@ -1,40 +1,37 @@
-// @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-// @import '~@angular/material/prebuilt-themes/indigo-pink.css';
-// @import '~@angular/material/prebuilt-themes/pink-bluegrey.css';
-// @import '~@angular/material/prebuilt-themes/purple-green.css';
+@import "styles-variables";
 
-@import "./styles/m-modified.css";
-@import "./styles/material-theme";
+@import "~bootstrap/scss/bootstrap-reboot";
+@import "~bootstrap/scss/bootstrap-grid";
+@import "styles-reset";
 
-// Define a custom typography config that overrides the font-family as well as the
-// `headlines` and `body-1` levels.
-$custom-typography: mat-typography-config(
-  $font-family: "Roboto"
-);
+@import "~@angular/material/theming";
 
-// Override typography for all Angular Material, including mat-base-typography and all components.
-@include angular-material-typography($custom-typography);
+@include mat-core();
 
-// Override the typography in the core CSS.
-@include mat-core($custom-typography);
+@import "./themes/default-theme";
+@import "./themes/light-theme";
+@import "./themes/black-theme";
+@import "./themes/nature-theme";
 
-html,
-body {
-  height: 100%;
+@import "styles-reset.scss-theme";
+@import "./themes/component-themes";
+
+.default-theme {
+  @include angular-material-theme($app-theme);
+  @include component-themes($app-theme);
 }
 
-body {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  margin: 0;
+.light-theme {
+  @include angular-material-theme($app-light-theme);
+  @include component-themes($app-light-theme);
 }
 
-.centered {
-  position: fixed;
-  /* or absolute */
-  top: 50%;
-  left: 50%;
+.black-theme {
+  @include angular-material-theme($app-black-theme);
+  @include component-themes($app-black-theme);
 }
 
-/**  Copyright 2019 Google LLC. All Rights Reserved.
-    Use of this source code is governed by an MIT-style license that
-    can be found in the LICENSE file at http://angular.io/license */
+.nature-theme {
+  @include angular-material-theme($app-nature-theme);
+  @include component-themes($app-nature-theme);
+}

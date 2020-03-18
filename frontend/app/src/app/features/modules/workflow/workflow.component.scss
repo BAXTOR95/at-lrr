@@ -1,0 +1,56 @@
+@import "~@angular/material/theming";
+@import "workflow-select/workflow-select.component";
+@import "workflow-generate/workflow-generate.component";
+@import "workflow-view/workflow-view.component";
+
+@mixin workflow-theme($theme) {
+  @include workflow-select-theme($theme);
+  @include workflow-generate-theme($theme);
+  @include workflow-view-theme($theme);
+
+  $primary: map-get($theme, primary);
+  $secundary: map-get($theme, foreground);
+  $accent: map-get($theme, accent);
+  $background: map-get($theme, background);
+  $background-color: mat-color($background, card);
+
+  .resource {
+    .wrapper {
+      // margin: 25px auto;
+      // max-width: 600px;
+      // text-align: center;
+      // padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      // min-height: 100vh;
+      flex: 1;
+    }
+
+    .group {
+      margin: 0 0 40px 0;
+    }
+
+    .container {
+      margin-top: 20px;
+    }
+
+    h1 {
+      margin: 0 0 20px 0;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0 0 10px 0;
+      text-transform: uppercase;
+    }
+
+    mat-icon {
+      margin: 0 6px 6px 0;
+      font-size: 20px;
+    }
+
+    mat-form-field {
+      flex: 1 0 auto;
+    }
+  }
+}

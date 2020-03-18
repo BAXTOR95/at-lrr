@@ -1,0 +1,15 @@
+// @import "../app/footer/footer.component";
+@import "../app/app/app.component";
+@import "../app/features/auth/auth/auth.component";
+@import "../app/features/modules/resources/resources.component";
+// @import "../app/header/header.component";
+@import "../app/features/modules/workflow/workflow.component";
+
+@mixin component-themes($theme) {
+  // @include footer-theme($theme);
+  @include app-theme($theme);
+  @include auth-theme($theme);
+  @include resource-theme($theme);
+  // @include header-theme($theme);
+  @include workflow-theme($theme);
+}

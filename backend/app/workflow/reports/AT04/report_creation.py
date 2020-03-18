@@ -1058,7 +1058,7 @@ class ReportCreation():
             sys.exit(f'The field ({campo}) is invalid or not supported!')
 
     # %%
-    def create_report(self, user, book_date):
+    def create_report(self, data):
         """Creates the AT04 Report"""
 
         print(datetime.date.today(), ': Setting Dataframes...')
@@ -1073,7 +1073,7 @@ class ReportCreation():
                 'data': {}
             }
 
-        self._fecha_reportar = pd.to_datetime(book_date)
+        self._fecha_reportar = pd.to_datetime(data['book_date'])
 
         # INITIALIZING AT04 DATAFRAME
         self.at04_df = pd.DataFrame(columns=self._labels)
@@ -2501,7 +2501,7 @@ class ReportCreation():
 
         self.at04_df['MakerDate'] = datetime.date.today()
         self.at04_df.MakerDate = pd.to_datetime(self.at04_df.MakerDate)
-        self.at04_df['MakerUser'] = user
+        self.at04_df['MakerUser'] = data['user']
 
         # %%
         #  Making some adjustments to the report

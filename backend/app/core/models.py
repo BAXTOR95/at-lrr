@@ -105,44 +105,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'soeid'
 
 
-class File(models.Model):
-    """Custom file model that supports uploading a file"""
-
-    class TypeCD(models.TextChoices):
-        AH = 'AH', _('Account History')
-        AT04 = 'AT04', _('AT04 Transmitido Pasado')
-        AT04CRE = 'AT04CRE', _('AT04 CRE')
-        AT07 = 'AT07', _('AT07 Actual')
-        BBAT = 'BBAT', _('Bal By Acct Transformada')
-        CND = 'CND', _('Cartera No Dirigida')
-        CC = 'CC', _('Clientes Consumer')
-        CD = 'CD', _('Cartera Dirigida')
-        CFGESIIFCITI = 'CFGESIIFCITI', _(
-            'Tabla CFGESIIFCITI (Equivalencias Actividad Cliente)')
-        FDN = 'FDN', _('Fecha de Nacimiento')
-        GICG = 'GICG', _('Gavetas ICG')
-        LNP860 = 'LNP860', _('LNP860')
-        MM = 'MM', _('Migrate Mortgage')
-        MISP = 'MISP', _('MIS Provisiones')
-        PPRRHH = 'PPRRHH', _('Prestamos sobre Prestaciones RRHH')
-        RICG = 'RICG', _('Rendimientos ICG')
-        SIIF = 'SIIF', _('SIIF')
-        SC = 'SC', _('Sobregiros Consumer')
-        VNP003T = 'VNP003T', _('VNP003T')
-
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        default=None
-    )
-    resource_name = models.CharField(
-        max_length=50, choices=TypeCD.choices, default='')
-    file = models.FileField(upload_to=path_and_rename, blank=False, null=False)
-
-    def __str__(self):
-        return self.file.name
-
-
 class Workflow(models.Model):
     """Custom workflow model that supports starting the construction of a report"""
 
@@ -200,6 +162,46 @@ class Workflow(models.Model):
     report_name = models.CharField(
         max_length=50, choices=Reports.choices, default='')
     book_data = models.DateField(default=date.today)
+
+
+class File(models.Model):
+    """Custom file model that supports uploading a file"""
+
+    class TypeCD(models.TextChoices):
+        AH = 'AH', _('Account History')
+        AT04 = 'AT04', _('AT04 Transmitido Pasado')
+        AT04CRE = 'AT04CRE', _('AT04 CRE')
+        AT07 = 'AT07', _('AT07 Actual')
+        BBAT = 'BBAT', _('Bal By Acct Transformada')
+        CND = 'CND', _('Cartera No Dirigida')
+        CC = 'CC', _('Clientes Consumer')
+        CD = 'CD', _('Cartera Dirigida')
+        CFGESIIFCITI = 'CFGESIIFCITI', _(
+            'Tabla CFGESIIFCITI (Equivalencias Actividad Cliente)')
+        FDN = 'FDN', _('Fecha de Nacimiento')
+        GICG = 'GICG', _('Gavetas ICG')
+        LNP860 = 'LNP860', _('LNP860')
+        MM = 'MM', _('Migrate Mortgage')
+        MISP = 'MISP', _('MIS Provisiones')
+        PPRRHH = 'PPRRHH', _('Prestamos sobre Prestaciones RRHH')
+        RICG = 'RICG', _('Rendimientos ICG')
+        SIIF = 'SIIF', _('SIIF')
+        SC = 'SC', _('Sobregiros Consumer')
+        VNP003T = 'VNP003T', _('VNP003T')
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        default=None
+    )
+    report_name = models.CharField(
+        max_length=50, choices=Workflow.Reports.choices, default='')
+    resource_name = models.CharField(
+        max_length=50, choices=TypeCD.choices, default='')
+    file = models.FileField(upload_to=path_and_rename, blank=False, null=False)
+
+    def __str__(self):
+        return self.file.name
 
 
 # class Tag(models.Model):

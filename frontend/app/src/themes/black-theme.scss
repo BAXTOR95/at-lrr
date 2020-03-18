@@ -1,0 +1,9 @@
+$app-black-primary: mat-palette($mat-blue, 800, 500, 900);
+$app-black-accent: mat-palette($mat-red, A400, A100, A700);
+$app-black-warn: mat-palette($mat-red, A800, A400, A900);
+
+$app-black-theme: mat-dark-theme(
+  $app-black-primary,
+  $app-black-accent,
+  $app-black-warn
+);

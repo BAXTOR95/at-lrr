@@ -1,33 +1,50 @@
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const appRoutes: Routes = [
-  // {path: '', redirectTo: '/resources', pathMatch: 'full'},
+  {
+    path: '',
+    redirectTo: 'resources',
+    pathMatch: 'full'
+  },
   {
     path: 'resources',
     loadChildren: () =>
-      import('./modules/resources/resources.module').then(m => m.ResourcesModule),
+      import('./features/modules/resources/resources.module').then(m => m.ResourcesModule),
   },
   {
     path: 'workflow',
     loadChildren: () =>
-      import('./modules/workflow/workflow.module').then(m => m.WorkflowModule),
+      import('./features/modules/workflow/workflow.module').then(m => m.WorkflowModule),
   },
   {
     path: 'checker',
     loadChildren: () =>
-      import('./modules/checker/checker.module').then(m => m.CheckerModule),
+      import('./features/modules/checker/checker.module').then(m => m.CheckerModule),
   },
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
+    loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule),
   },
+  {
+    path: 'settings',
+    loadChildren: () =>
+      import('./features/settings/settings.module').then(m => m.SettingsModule)
+  },
+  {
+    path: '**',
+    redirectTo: 'resources'
+  }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules}),
+    RouterModule.forRoot(appRoutes, {
+      useHash: false,
+      scrollPositionRestoration: 'enabled',
+      preloadingStrategy: PreloadAllModules
+    }),
   ],
-  exports: [RouterModule],
+  exports: [ RouterModule ],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

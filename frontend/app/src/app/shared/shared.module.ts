@@ -1,7 +1,8 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DemoMaterialModule } from './material-design/material-module';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -11,36 +12,65 @@ import { MaterialDesignModule } from './material-design/material-design.module';
 
 import { FileSizePipe } from '../shared/pipes/filesize.pipe';
 
-import { AlertComponent } from './alert/alert.component';
-import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
-import { PlaceholderDirective } from './placeholder/placeholder.directive';
-import { DropdownDirective } from './dropdown.directive';
+import { AlertComponent } from './alert/alert.component';;
+
+import {
+  FontAwesomeModule,
+  FaIconLibrary
+} from '@fortawesome/angular-fontawesome';
+import {
+  faPlus,
+  faEdit,
+  faTrash,
+  faTimes,
+  faCaretUp,
+  faCaretDown,
+  faExclamationTriangle,
+  faFilter,
+  faTasks,
+  faCheck,
+  faSquare,
+  faLanguage,
+  faPaintBrush,
+  faLightbulb,
+  faWindowMaximize,
+  faStream,
+  faBook
+} from '@fortawesome/free-solid-svg-icons';
+import { faMediumM, faGithub } from '@fortawesome/free-brands-svg-icons';
 
 
 @NgModule({
   declarations: [
     AlertComponent,
-    LoadingSpinnerComponent,
-    PlaceholderDirective,
-    DropdownDirective,
   ],
   imports: [
     CommonModule,
+    FormsModule,
+
     MaterialDesignModule,
+
+    TranslateModule,
+
+    FontAwesomeModule
   ],
   exports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+
+    TranslateModule,
+
     AlertComponent,
-    LoadingSpinnerComponent,
-    PlaceholderDirective,
-    DropdownDirective,
     MaterialDesignModule,
     DemoMaterialModule,
     MatNativeDateModule,
     ReactiveFormsModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+
+    FontAwesomeModule
   ],
   entryComponents: [ AlertComponent, ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
@@ -49,4 +79,28 @@ import { DropdownDirective } from './dropdown.directive';
     FileSizePipe,
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+  constructor(faIconLibrary: FaIconLibrary) {
+    faIconLibrary.addIcons(
+      faGithub,
+      faMediumM,
+      faPlus,
+      faEdit,
+      faTrash,
+      faTimes,
+      faCaretUp,
+      faCaretDown,
+      faExclamationTriangle,
+      faFilter,
+      faTasks,
+      faCheck,
+      faSquare,
+      faLanguage,
+      faPaintBrush,
+      faLightbulb,
+      faWindowMaximize,
+      faStream,
+      faBook
+    );
+  }
+}

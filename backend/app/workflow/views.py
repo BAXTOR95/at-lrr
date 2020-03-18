@@ -9,7 +9,7 @@ from workflow.serializers import WorkflowSerializer
 
 from core.models import Workflow, User
 
-from workflow.reports.AT04 import report_creation as rc
+from .reports.reports import Reports
 
 
 class BaseFileAttr(viewsets.GenericViewSet,
@@ -98,7 +98,7 @@ class WorkflowView(viewsets.ModelViewSet):
             '_mutable': True,
         }
 
-        rc_obj = rc.ReportCreation()
+        rc_obj = Reports()
 
         request_data = request.data.copy()
         request_data['user'] = user_view(request)
@@ -110,8 +110,7 @@ class WorkflowView(viewsets.ModelViewSet):
             return Response(workflow_serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
 
-        data_result = rc_obj.create_report(
-            get_user(request_data['user']), request_data['book_date'])
+        data_result = rc_obj.call_method(request_data)
 
         response_data['id'] = workflow_serializer.data['id']
         response_data['report_path'] = data_result['report_path']

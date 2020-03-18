@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="3b9fe5551d4915da2cc9fe8421df298c5ba4cf52" datatype="html">
+        <source>Modules</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app/app.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="452ef1b96854fe05618303ee601f8fed3b866c9f" datatype="html">
+        <source>Resources</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app/app.component.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/resources/resources.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f9168e5798b25b5b3c56afc305eff1d01179ee1d" datatype="html">
+        <source>Workflow</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app/app.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/workflow/workflow.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b7641aed03492978b4ec6843b1e53f30464294d9" datatype="html">
+        <source>Views</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app/app.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ccdc629c4c7e296e78958937077054f653a79c19" datatype="html">
+        <source>Balance Account</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app/app.component.html</context>
+          <context context-type="linenumber">72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3ba13d7260b299b6b46cde9c8aa6022d2e572b90" datatype="html">
+        <source>Checker</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app/app.component.html</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="866d72edaccc33a6947cdf27ffd16fd3d5fce3ab" datatype="html">
+        <source>Checker Section</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app/app.component.html</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="72ef13f418f796fa384156f4100a06b0d8aaa7d2" datatype="html">
+        <source>Approval</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app/app.component.html</context>
+          <context context-type="linenumber">98</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="12ce9154fb4b6bd40e48658b72fe680d164e94e9" datatype="html">
+        <source>Validation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app/app.component.html</context>
+          <context context-type="linenumber">105</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6a4f10d150093540851c2851eac138fd384e9c4a" datatype="html">
+        <source>
+                    <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>Citigroup.com<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
+                    is the global source of information about and access to
+                    financial services provided by the Citigroup companies.
+                  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app/app.component.html</context>
+          <context context-type="linenumber">189</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d515176467c0b481912e25055bee96843bc6d25d" datatype="html">
+        <source>
+                    Copyright © 2020
+                    <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>Citigroup<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
+                    Inc.
+                  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app/app.component.html</context>
+          <context context-type="linenumber">196</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f9fc12df997c879f9001c5322bde2483e0505f1f" datatype="html">
+        <source>
+        Upload Resources
+        <x id="START_TAG_MAT-DIVIDER" ctype="x-mat-divider" equiv-text="&lt;mat-divider&gt;"/><x id="CLOSE_TAG_MAT-DIVIDER" ctype="x-mat-divider" equiv-text="&lt;/mat-divider&gt;"/>
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/resources/resources-upload/resources-upload.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dfd4e4e484a3769e0baae4a810bf74f0c8e3437d" datatype="html">
+        <source>Resource File Path</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/resources/resources-upload/resources-upload.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1838dcb0da13b17f4dc7059910d426deec500b12" datatype="html">
+        <source>
+                Please select a file
+              </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/resources/resources-upload/resources-upload.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4de7798334d6383887f82c2570a358f62925f36e" datatype="html">
+        <source>
+              Upload Resource File
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/resources/resources-upload/resources-upload.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f3513f6a094320b540acc113278310dabe01d686" datatype="html">
+        <source>
+        Select Resource
+        <x id="START_TAG_MAT-DIVIDER" ctype="x-mat-divider" equiv-text="&lt;mat-divider&gt;"/><x id="CLOSE_TAG_MAT-DIVIDER" ctype="x-mat-divider" equiv-text="&lt;/mat-divider&gt;"/>
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/resources/resources-select/resources-select.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="418f45dddbb79584267e2d40e65b52e9843140b2" datatype="html">
+        <source>Select Resource</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/resources/resources-select/resources-select.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="48e285278ff0bdbf26bbd8cb55be093c579d0dff" datatype="html">
+        <source>-- None --</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/resources/resources-select/resources-select.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/resources/resources-report-select/resources-report-select.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/workflow/workflow-select/workflow-select.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="53eac1246736cb84ef0469cb0b3a3d5aff019774" datatype="html">
+        <source>Please choose a resource</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/resources/resources-select/resources-select.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f4beb43f89550b14929c22538869e274e87dedd1" datatype="html">
+        <source>
+        Select Report
+        <x id="START_TAG_MAT-DIVIDER" ctype="x-mat-divider" equiv-text="&lt;mat-divider&gt;"/><x id="CLOSE_TAG_MAT-DIVIDER" ctype="x-mat-divider" equiv-text="&lt;/mat-divider&gt;"/>
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/resources/resources-report-select/resources-report-select.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/workflow/workflow-select/workflow-select.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cbcd1ad773b351576ba9315c392fa14085a1c51d" datatype="html">
+        <source>Select Report</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/resources/resources-report-select/resources-report-select.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/workflow/workflow-select/workflow-select.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3fed338359be206ff42171b9efbb6905cf3cec40" datatype="html">
+        <source>Please choose a report</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/resources/resources-report-select/resources-report-select.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/workflow/workflow-select/workflow-select.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0dab13c885663f3f297d5826bfeaf73d06ae2031" datatype="html">
+        <source>
+        View Resource
+        <x id="START_TAG_MAT-DIVIDER" ctype="x-mat-divider" equiv-text="&lt;mat-divider&gt;"/><x id="CLOSE_TAG_MAT-DIVIDER" ctype="x-mat-divider" equiv-text="&lt;/mat-divider&gt;"/>
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/resources/resources-view/resources-view.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5ca707824ab93066c7d9b44e1b8bf216725c2c22" datatype="html">
+        <source>Filter</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/resources/resources-view/resources-view.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/workflow/workflow-view/workflow-view.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="044afea74fb7148745730944220a60d15110af9f" datatype="html">
+        <source>
+        Generate Report
+        <x id="START_TAG_MAT-DIVIDER" ctype="x-mat-divider" equiv-text="&lt;mat-divider&gt;"/><x id="CLOSE_TAG_MAT-DIVIDER" ctype="x-mat-divider" equiv-text="&lt;/mat-divider&gt;"/>
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/workflow/workflow-generate/workflow-generate.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="db59207be2265e4f22aec367cb04a28ff369748a" datatype="html">
+        <source>Report Date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/workflow/workflow-generate/workflow-generate.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dade086aa387b5636b4857f492d7917d5a4a0667" datatype="html">
+        <source>
+            Start Workflow
+          </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/workflow/workflow-generate/workflow-generate.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="101f92f252151be64cc5624a18ef694feb63b7ce" datatype="html">
+        <source>
+        View Report
+        <x id="START_TAG_MAT-DIVIDER" ctype="x-mat-divider" equiv-text="&lt;mat-divider&gt;"/><x id="CLOSE_TAG_MAT-DIVIDER" ctype="x-mat-divider" equiv-text="&lt;/mat-divider&gt;"/>
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/modules/workflow/workflow-view/workflow-view.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c85dc819f3e89d195b40e0f96ac4c5855244c158" datatype="html">
+        <source>
+          <x id="INTERPOLATION" equiv-text="{{ isLoginMode ? &quot;Log in&quot; : &quot;Sign Up&quot; }}"/>
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/auth/auth/auth.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5e6548eb9cbb0467c307b4079bc989cd21f44355" datatype="html">
+        <source>This field is required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/auth/auth/auth.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/auth/auth/auth.component.html</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/auth/auth/auth.component.html</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/auth/auth/auth.component.html</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ca980f9b93fdcc8a5ea1ed72db69a90da8acdbe5" datatype="html">
+        <source>Type your SOEID</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/auth/auth/auth.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6d3b88a3ae6ff3d987f86395605397ec736dee9c" datatype="html">
+        <source>E-Mail</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/auth/auth/auth.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b7879405c3593b8b103dfd0b9d9821af9f08ed1a" datatype="html">
+        <source>Type your E-Mail Address</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/auth/auth/auth.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="80db010c3b39ee4c565b8cec4e4dadc16c452b35" datatype="html">
+        <source>Type your Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/auth/auth/auth.component.html</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c32ef07f8803a223a83ed17024b38e8d82292407" datatype="html">
+        <source>Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/auth/auth/auth.component.html</context>
+          <context context-type="linenumber">81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="48886846118f0fbd3e0be27f9bb2171a74d2a2b8" datatype="html">
+        <source>Type your Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/auth/auth/auth.component.html</context>
+          <context context-type="linenumber">95</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="33ac17dc0bf034c7d34c606809e43883d7e0f4eb" datatype="html">
+        <source>
+          <x id="INTERPOLATION" equiv-text="{{ isLoginMode ? &quot;Login&quot; : &quot;Sign Up&quot; }}"/>
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/auth/auth/auth.component.html</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4df09139d7367e0ba2d169fb900c0292f2f27ac7" datatype="html">
+        <source>
+          Switch to <x id="INTERPOLATION" equiv-text="{{ isLoginMode ? &quot;Sign Up&quot; : &quot;Login&quot; }}"/>
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/auth/auth/auth.component.html</context>
+          <context context-type="linenumber">116</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,36 +1,24 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { StoreRouterConnectingModule, DefaultRouterStateSerializer } from '@ngrx/router-store';
 
-import { AppComponent } from './app.component';
+import { AppComponent } from './app/app.component';
 import { SharedModule } from './shared/shared.module';
-import { ModulesModule } from './modules/modules.module';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
+import { ModulesModule } from './features/modules/modules.module';
 import { AppRoutingModule } from './app-routing.module';
-import { CoreModule } from './core.module';
-import * as fromApp from './store/app.reducer';
-import { AuthEffects } from './auth/store/auth.effects';
+import { CoreModule } from './core/core.module';
+import * as fromApp from './core/core.state';
+import { AuthEffects } from './core/auth/store/auth.effects';
 import { environment } from '../environments/environment';
 
 @NgModule({
-  declarations: [ AppComponent, HeaderComponent, FooterComponent ],
+  declarations: [ AppComponent, ],
   imports: [
     SharedModule,
     ModulesModule,
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,
     AppRoutingModule,
-    StoreModule.forRoot(fromApp.appReducer),
-    EffectsModule.forRoot([ AuthEffects ]),
-    StoreDevtoolsModule.instrument({ logOnly: environment.production }),
-    StoreRouterConnectingModule.forRoot({ serializer: DefaultRouterStateSerializer }),
     CoreModule,
   ],
   entryComponents: [ AppComponent ],

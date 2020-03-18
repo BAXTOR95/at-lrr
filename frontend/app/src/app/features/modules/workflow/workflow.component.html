@@ -1,0 +1,27 @@
+<div class="resource">
+  <div class="wrapper container">
+    <div class="row">
+      <div class="col s12" [ngClass]="routeAnimationsElements">
+        <h1 i18n>Workflow</h1>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col m6 group" [ngClass]="routeAnimationsElements">
+        <app-workflow-select></app-workflow-select>
+      </div>
+      <div
+        class="col m6 group"
+        [ngClass]="mobileQuery.matches ? 'mt-4' : ''"
+        [ngClass]="routeAnimationsElements"
+      >
+        <app-workflow-generate></app-workflow-generate>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col m12 group" [ngClass]="routeAnimationsElements">
+        <app-workflow-view></app-workflow-view>
+      </div>
+    </div>
+  </div>
+</div>

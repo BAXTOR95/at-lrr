@@ -7,6 +7,7 @@ export class ThemeService {
   isDarkTheme = this._darkTheme.asObservable();
 
   setDarkTheme(isDarkTheme: boolean): void {
+    localStorage.setItem('dark_theme', String(isDarkTheme));
     this._darkTheme.next(isDarkTheme);
   }
 }

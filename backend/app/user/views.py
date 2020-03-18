@@ -75,6 +75,7 @@ class CreateExpiringTokenView(ObtainAuthToken):
             return Response({'token': token.key,
                              'created': token.created,
                              'expiresIn': token.created - yesterday,
+                             'soeid': user.soeid,
                              'email': user.email,
                              'name': user.name,
                              'is_active': user.is_active,

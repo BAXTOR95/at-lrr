@@ -12,7 +12,7 @@ from upload.serializers import FileSerializer
 
 from core.models import File
 
-from upload import data_preparation as dp
+from .reports.reports import Reports
 
 # import pandas as pd
 
@@ -84,6 +84,7 @@ class FileUploadView(viewsets.ModelViewSet):
 
         response_data = {
             'id': None,
+            'report_name': None,
             'resource_name': None,
             'file': None,
             'user': None,
@@ -92,6 +93,7 @@ class FileUploadView(viewsets.ModelViewSet):
 
         request_data = {
             'file': {},
+            'report_name': '',
             'resource_name': '',
             'encoding': '',
             '_encoding': '',
@@ -99,7 +101,7 @@ class FileUploadView(viewsets.ModelViewSet):
             '__len__': 0,
         }
 
-        dp_obj = dp.DataPreparation()
+        rc_obj = Reports()
 
         if request.FILES:
             if len(request.FILES.getlist('file')) > 0:
@@ -121,9 +123,10 @@ class FileUploadView(viewsets.ModelViewSet):
                 return Response(file_serializer.errors,
                                 status=status.HTTP_400_BAD_REQUEST)
 
-        data_result = dp_obj.call_method(data)
+        data_result = rc_obj.call_method(data)
 
         response_data['id'] = file_serializer.data['id']
+        response_data['report_name'] = file_serializer.data['report_name']
         response_data['resource_name'] = file_serializer.data['resource_name']
         response_data['file'] = data_result['out_path']
         response_data['user'] = request.user.soeid

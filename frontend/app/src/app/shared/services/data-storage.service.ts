@@ -5,12 +5,12 @@ import { Store } from '@ngrx/store';
 
 // import { RecipeService } from '../recipes/recipe.service';
 // import { Recipe } from '../recipes/recipe.model';
-import * as fromApp from '../../store/app.reducer';
+import * as fromApp from '../../core/core.state';
 // import * as RecipesActions from '../recipes/store/recipe.actions';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
-  constructor (
+  constructor(
     private http: HttpClient,
     // private recipeService: RecipeService,
     private store: Store<fromApp.AppState>,
