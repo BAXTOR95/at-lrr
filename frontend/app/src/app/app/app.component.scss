@@ -130,21 +130,21 @@
       display: flex;
       flex-direction: column;
       // uses flexbox to enforce the app toolbar is always present, even as the user scrolls down through content
-      .main-toolbar {
-        flex: 0 0 auto;
-        // z-index: 999;
-      }
+      // .main-toolbar {
+      //   flex: 0 0 auto;
+      //   // z-index: 999;
+      // }
       // uses flexbox to push the inner content area, where the router-outlet lives below the toolbar and grants
       // it the rest of the available space with the ability to scroll
-      .main-content-inner {
-        flex: 1 1 auto;
-        // position: relative; /* need this to position inner content */
-        // overflow-y: auto;
+      // .main-content-inner {
+      //   flex: 1 1 auto;
+      //   // position: relative; /* need this to position inner content */
+      //   // overflow-y: auto;
 
-        .content-area {
-          padding: 15px 30px;
-        }
-      }
+      //   .content-area {
+      //     padding: 15px 30px;
+      //   }
+      // }
     }
 
     .content {
@@ -207,6 +207,7 @@
             top: -2px;
             width: 48px;
             height: 48px;
+            margin-right: 8px;
           }
         }
 
@@ -254,6 +255,21 @@
 
           .content-area {
             padding: 15px 30px;
+
+            .router-bg {
+              background: transparent url("/assets/img/other/logo_sirdcat.png")
+                no-repeat center center;
+
+              img {
+                position: fixed;
+                max-width: 80%;
+                max-height: 80%;
+                top: 50%;
+                left: 50%;
+                /* bring your own prefixes */
+                transform: translate(-50%, -50%);
+              }
+            }
           }
         }
 
@@ -262,7 +278,7 @@
           padding: 0 15px;
           // text-align: center;
 
-          background-color: $background-color;
+          // background-color: $background-color;
 
           p {
             // color: $background-color;

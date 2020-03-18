@@ -1,3 +1,4 @@
+import { Router, NavigationEnd } from '@angular/router';
 import browser from 'browser-detect';
 import { Component, OnInit, OnDestroy, ChangeDetectorRef, HostListener, ViewEncapsulation } from '@angular/core';
 import { Store, select } from '@ngrx/store';
@@ -41,7 +42,8 @@ export class AppComponent implements OnInit {
   envName = env.envName;
   version = env.versions.app;
   year = new Date().getFullYear();
-  // logo = require('../../assets/img/other/logo_sirdcat.png');
+  logo = require('../../assets/img/other/logo.png');
+  logo_app = require('../../assets/img/other/logo_sirdcat.png');
   languages = [ 'en', 'de', 'sk', 'fr', 'es', 'pt-br', 'zh-cn', 'he' ];
   showNavText = false;
   isAuthenticated = false;
@@ -52,6 +54,8 @@ export class AppComponent implements OnInit {
   events: string[] = [];
   opened: boolean;
   appropriateClass: string;
+  router: string;
+
 
   stickyHeader$: Observable<boolean>;
   language$: Observable<string>;
@@ -82,11 +86,15 @@ export class AppComponent implements OnInit {
     private dataStorageService: DataStorageService,
     private authService: AuthService,
     private themeService: ThemeService,
+    private _router: Router,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
   ) {
+    _router.events.subscribe((val) => {
+      this.router = _router.url;
+    });
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', () => {

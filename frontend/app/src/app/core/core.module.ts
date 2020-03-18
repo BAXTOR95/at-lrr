@@ -30,6 +30,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { environment } from '../../environments/environment';
 
+import { AppRoutingModule } from '../app-routing.module';
+
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 
 import {
@@ -101,6 +103,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     FormsModule,
 
+    AppRoutingModule,
+
     // material
     MatSidenavModule,
     MatToolbarModule,
@@ -144,6 +148,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   exports: [
     // angular
     FormsModule,
+
+    AppRoutingModule,
 
     // material
     MatSidenavModule,

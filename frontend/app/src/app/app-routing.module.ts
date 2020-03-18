@@ -3,11 +3,6 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const appRoutes: Routes = [
   {
-    path: '',
-    redirectTo: 'resources',
-    pathMatch: 'full'
-  },
-  {
     path: 'resources',
     loadChildren: () =>
       import('./features/modules/resources/resources.module').then(m => m.ResourcesModule),
@@ -30,6 +25,11 @@ const appRoutes: Routes = [
     path: 'settings',
     loadChildren: () =>
       import('./features/settings/settings.module').then(m => m.SettingsModule)
+  },
+  {
+    path: '',
+    redirectTo: 'resources',
+    pathMatch: 'full'
   },
   {
     path: '**',
