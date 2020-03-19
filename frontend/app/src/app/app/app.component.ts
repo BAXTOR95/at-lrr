@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
   year = new Date().getFullYear();
   logo = require('../../assets/img/other/logo.png');
   logo_app = require('../../assets/img/other/logo_sirdcat.png');
-  languages = [ 'en', 'de', 'sk', 'fr', 'es', 'pt-br', 'zh-cn', 'he' ];
+  languages = [ 'en', 'es' ];
   showNavText = false;
   isAuthenticated = false;
   positionOptions: TooltipPosition[] = [ 'after', 'before', 'above', 'below', 'left', 'right' ];

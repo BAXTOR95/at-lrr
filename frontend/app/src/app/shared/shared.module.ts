@@ -12,7 +12,9 @@ import { MaterialDesignModule } from './material-design/material-design.module';
 
 import { FileSizePipe } from '../shared/pipes/filesize.pipe';
 
-import { AlertComponent } from './alert/alert.component';;
+import { AlertComponent } from './alert/alert.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { PlaceholderDirective } from './placeholder/placeholder.directive';
 
 import {
   FontAwesomeModule,
@@ -43,6 +45,8 @@ import { faMediumM, faGithub } from '@fortawesome/free-brands-svg-icons';
 @NgModule({
   declarations: [
     AlertComponent,
+    LoadingSpinnerComponent,
+    PlaceholderDirective,
   ],
   imports: [
     CommonModule,
@@ -62,6 +66,9 @@ import { faMediumM, faGithub } from '@fortawesome/free-brands-svg-icons';
     TranslateModule,
 
     AlertComponent,
+    LoadingSpinnerComponent,
+    PlaceholderDirective,
+
     MaterialDesignModule,
     DemoMaterialModule,
     MatNativeDateModule,

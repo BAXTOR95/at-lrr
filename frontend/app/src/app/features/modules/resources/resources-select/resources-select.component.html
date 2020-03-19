@@ -1,20 +1,28 @@
 <div class="resource-select">
   <mat-card class="box mat-elevation-z6" color="foreground">
     <mat-card-header>
-      <mat-card-title i18n>
-        Select Resource
+      <mat-card-title>
+        {{ "sirdcat.modules.resources.select.title" | translate }}
         <mat-divider></mat-divider>
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <mat-form-field class="full-width">
-        <mat-label i18n>Select Resource</mat-label>
+        <mat-label>{{
+          "sirdcat.modules.resources.select.label" | translate
+        }}</mat-label>
         <mat-select
           panelClass="panel-selection"
           [formControl]="resourceControl"
           required
         >
-          <mat-option i18n>-- None --</mat-option>
+          <mat-option
+            >--
+            {{
+              "sirdcat.modules.resources.select.option.default" | translate
+            }}
+            --</mat-option
+          >
           <mat-optgroup
             *ngFor="let group of resourceGroupsShow"
             [label]="group.type"
@@ -27,9 +35,9 @@
             </mat-option>
           </mat-optgroup>
         </mat-select>
-        <mat-error *ngIf="resourceControl.hasError('required')" i18n
-          >Please choose a resource</mat-error
-        >
+        <mat-error *ngIf="resourceControl.hasError('required')">{{
+          "sirdcat.modules.resources.select.error.msg" | translate
+        }}</mat-error>
       </mat-form-field>
     </mat-card-content>
   </mat-card>

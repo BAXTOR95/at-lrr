@@ -29,10 +29,10 @@
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>
-                <span i18n>Modules</span>
+                <span>{{ "sirdcat.menu.modules" | translate }}</span>
               </mat-panel-title>
               <mat-panel-description>
-                Modules Section
+                {{ "sirdcat.menu.modules.desc" | translate }}
                 <mat-icon
                   mat-list-icon
                   svgIcon="module"
@@ -49,38 +49,38 @@
                 [routerLink]="['resources']"
                 (click)="snav.toggle()"
               >
-                <span i18n>Resources</span>
+                <span>{{ "sirdcat.menu.modules.resources" | translate }}</span>
               </button>
               <button
                 mat-list-item
                 [routerLink]="['workflow']"
                 (click)="snav.toggle()"
               >
-                <span i18n>Workflow</span>
+                <span>{{ "sirdcat.menu.modules.workflow" | translate }}</span>
               </button>
               <button
                 mat-list-item
                 [routerLink]="['views']"
                 (click)="snav.toggle()"
               >
-                <span i18n>Views</span>
+                <span>{{ "sirdcat.menu.modules.views" | translate }}</span>
               </button>
               <button
                 mat-list-item
                 [routerLink]="['balance-account']"
                 (click)="snav.toggle()"
               >
-                <span i18n>Balance Account</span>
+                <span>{{ "sirdcat.menu.modules.balance" | translate }}</span>
               </button>
             </mat-action-list>
           </mat-expansion-panel>
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>
-                <span i18n>Checker</span>
+                <span>{{ "sirdcat.menu.checker" | translate }}</span>
               </mat-panel-title>
               <mat-panel-description>
-                <span i18n>Checker Section</span>
+                <span>{{ "sirdcat.menu.checker.desc" | translate }}</span>
                 <mat-icon
                   mat-list-icon
                   svgIcon="check"
@@ -97,14 +97,14 @@
                 [routerLink]="['checker', 'approval']"
                 (click)="snav.toggle()"
               >
-                <span i18n>Approval</span>
+                <span>{{ "sirdcat.menu.checker.approval" | translate }}</span>
               </button>
               <button
                 mat-list-item
                 [routerLink]="['checker', 'validation']"
                 (click)="snav.toggle()"
               >
-                <span i18n>Validation</span>
+                <span>{{ "sirdcat.menu.checker.validation" | translate }}</span>
               </button>
             </mat-action-list>
           </mat-expansion-panel>
@@ -138,10 +138,10 @@
             <span
               routerLink=""
               class="branding spacer center d-none d-sm-inline d-md-none"
-              ><img [src]="logo" />SIRDCAT</span
+              ><img [src]="logo" />{{ "sirdcat.title.short" | translate }}</span
             >
             <span routerLink="" class="branding spacer d-none d-md-inline"
-              ><img [src]="logo" />SIRDCAT</span
+              ><img [src]="logo" />{{ "sirdcat.title.long" | translate }}</span
             >
             <!-- <h1 class="app-name">SIRDCAT</h1> -->
             <!-- <span class="fill-remaining-space"></span> -->
@@ -152,7 +152,7 @@
               *ngIf="!isAuthenticated"
               [routerLink]="['auth']"
             >
-              Login
+              {{ "sirdcat.menu.login" | translate }}
             </button>
             <button
               *ngIf="isAuthenticated"
@@ -164,12 +164,22 @@
             <mat-menu #toolbarUserMenu="matMenu">
               <button mat-menu-item (click)="onLogout()">
                 <mat-icon><fa-icon icon="power-off"></fa-icon></mat-icon>
-                <span>Logout</span>
+                <span>{{ "sirdcat.menu.logout" | translate }}</span>
               </button>
             </mat-menu>
             <button mat-icon-button [routerLink]="['settings']">
               <fa-icon icon="cog"></fa-icon>
             </button>
+            <span *ngIf="language$ | async as language">
+              <mat-select
+                [ngModel]="language"
+                (selectionChange)="onLanguageSelect($event)"
+              >
+                <mat-option *ngFor="let l of languages" [value]="l">
+                  {{ l.toUpperCase() }}
+                </mat-option>
+              </mat-select>
+            </span>
             <!-- <button
               mat-menu-item
               color="primary"
@@ -215,14 +225,13 @@
                       src="../../assets/img/icons/citi_1c_rev_rgb_zrT_icon.ico"
                       alt="Citi icon"
                     /> -->
-                  <p i18n>
+                  <p>
                     <a href="http://www.citigroup.com/citi/">Citigroup.com</a>
-                    is the global source of information about and access to
-                    financial services provided by the Citigroup companies.
+                    {{ "sirdcat.footer.msg" | translate }}
                   </p>
                 </div>
                 <div class="col m6 text-right links">
-                  <p i18n>
+                  <p>
                     Copyright &#169; 2020
                     <a href="http://www.citigroup.com/citi/">Citigroup</a>
                     Inc.

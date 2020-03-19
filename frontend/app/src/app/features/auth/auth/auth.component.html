@@ -3,8 +3,12 @@
   <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
     <mat-card class="box mat-elevation-z6" color="primary">
       <mat-card-header>
-        <mat-card-title i18n>
-          {{ isLoginMode ? "Log in" : "Sign Up" }}
+        <mat-card-title>
+          {{
+            isLoginMode
+              ? ("sirdcat.auth.login.title" | translate)
+              : ("sirdcat.auth.signup.title" | translate)
+          }}
         </mat-card-title>
       </mat-card-header>
 
@@ -34,14 +38,16 @@
               ngModel
               required
             />
-            <mat-error i18n>This field is required</mat-error>
+            <mat-error>{{ "sirdcat.auth.error.msg" | translate }}</mat-error>
             <mat-hint hintLabel align="start" id="helpIdS" class="text-muted"
-              ><strong i18n>Type your SOEID</strong>
+              ><strong>{{ "sirdcat.auth.type.soeid" | translate }}</strong>
             </mat-hint>
           </mat-form-field>
 
           <mat-form-field class="example-full-width" *ngIf="!isLoginMode">
-            <mat-label aria-label i18n>E-Mail</mat-label>
+            <mat-label aria-label>{{
+              "sirdcat.auth.label.email" | translate
+            }}</mat-label>
             <input
               matNativeControl
               type="email"
@@ -53,14 +59,16 @@
               placeholder="E-Mail Address"
               email
             />
-            <mat-error i18n>This field is required</mat-error>
+            <mat-error>{{ "sirdcat.auth.error.msg" | translate }}</mat-error>
             <mat-hint hintLabel align="start" id="helpIdE" class="text-muted"
-              ><strong i18n>Type your E-Mail Address</strong>
+              ><strong>{{ "sirdcat.auth.type.email" | translate }}</strong>
             </mat-hint>
           </mat-form-field>
 
           <mat-form-field class="example-full-width" *ngIf="!isLoginMode">
-            <mat-label aria-label>Name</mat-label>
+            <mat-label aria-label>{{
+              "sirdcat.auth.label.name" | translate
+            }}</mat-label>
             <input
               matNativeControl
               type="text"
@@ -71,14 +79,16 @@
               ngModel
               required
             />
-            <mat-error i18n>This field is required</mat-error>
+            <mat-error>{{ "sirdcat.auth.error.msg" | translate }}</mat-error>
             <mat-hint hintLabel align="start" id="helpIdN" class="text-muted"
-              ><strong i18n>Type your Name</strong>
+              ><strong>{{ "sirdcat.auth.type.name" | translate }}</strong>
             </mat-hint>
           </mat-form-field>
 
           <mat-form-field class="example-full-width">
-            <mat-label aria-label i18n>Password</mat-label>
+            <mat-label aria-label>{{
+              "sirdcat.auth.label.pwd" | translate
+            }}</mat-label>
             <input
               matNativeControl
               type="password"
@@ -90,9 +100,9 @@
               required
               minlength="6"
             />
-            <mat-error i18n>This field is required</mat-error>
+            <mat-error>{{ "sirdcat.auth.error.msg" | translate }}</mat-error>
             <mat-hint hintLabel align="start" id="helpIdP" class="text-muted"
-              ><strong i18n>Type your Password</strong>
+              ><strong>{{ "sirdcat.auth.type.pwd" | translate }}</strong>
             </mat-hint>
           </mat-form-field>
         </mat-card-content>
@@ -104,7 +114,11 @@
           class="btn-block"
           i18n
         >
-          {{ isLoginMode ? "Login" : "Sign Up" }}
+          {{
+            isLoginMode
+              ? ("sirdcat.auth.login.title" | translate)
+              : ("sirdcat.auth.signup.title" | translate)
+          }}
         </button>
         <button
           type="button"
@@ -114,7 +128,12 @@
           class="btn-block"
           i18n
         >
-          Switch to {{ isLoginMode ? "Sign Up" : "Login" }}
+          {{ "sirdcat.auth.switch.msg" | translate }}
+          {{
+            isLoginMode
+              ? ("sirdcat.auth.signup.title" | translate)
+              : ("sirdcat.auth.login.title" | translate)
+          }}
         </button>
 
         <mat-icon

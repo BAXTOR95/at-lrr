@@ -1,14 +1,16 @@
 <div class="resource-view">
   <mat-card class="box mat-elevation-z6" color="foreground">
     <mat-card-header>
-      <mat-card-title i18n>
-        View Resource
+      <mat-card-title>
+        {{ "sirdcat.modules.resources.view.title" | translate }}
         <mat-divider></mat-divider>
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <mat-form-field>
-        <mat-label i18n>Filter</mat-label>
+        <mat-label>{{
+          "sirdcat.modules.resources.view.filter" | translate
+        }}</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Filter" />
       </mat-form-field>
       <div class="table-container mat-elevation-z8">

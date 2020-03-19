@@ -1,8 +1,8 @@
 <div class="workflow-view">
   <mat-card class="box mat-elevation-z6" color="foreground">
     <mat-card-header>
-      <mat-card-title i18n>
-        View Report
+      <mat-card-title>
+        {{ "sirdcat.modules.workflow.view.title" | translate }}
         <mat-divider></mat-divider>
       </mat-card-title>
     </mat-card-header>
@@ -17,8 +17,14 @@
         <mat-icon>get_app</mat-icon>
       </button>
       <mat-form-field>
-        <mat-label i18n>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Filter" />
+        <mat-label>{{
+          "sirdcat.modules.workflow.view.filter" | translate
+        }}</mat-label>
+        <input
+          matInput
+          (keyup)="applyFilter($event)"
+          [placeholder]="'sirdcat.modules.workflow.view.filter' | translate"
+        />
       </mat-form-field>
       <div class="table-container mat-elevation-z8">
         <table mat-table [dataSource]="dataSource" matSort>

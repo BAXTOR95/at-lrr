@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 
 
 import { AlertComponent } from '../../../shared/alert/alert.component';
-// import { PlaceholderDirective } from '../../../shared/placeholder/placeholder.directive';
+import { PlaceholderDirective } from '../../../shared/placeholder/placeholder.directive';
 import { SnackbarService } from '../../../shared/services/snackbar.service';
 import * as fromApp from '../../../core/core.state';
 import * as AuthActions from '../../../core/auth/store/auth.actions';
@@ -28,8 +28,8 @@ export class AuthComponent implements OnInit, OnDestroy {
   isLoginMode = true;
   isLoading = false;
   error: string = null;
-  // @ViewChild(PlaceholderDirective)
-  // alertHost: PlaceholderDirective;
+  @ViewChild(PlaceholderDirective)
+  alertHost: PlaceholderDirective;
   durationInSeconds = 10;
 
   private closeSub: Subscription;
