@@ -14,7 +14,7 @@
         [disabled]="reportPath === ''"
         (click)="downloadReport()"
       >
-        <mat-icon>get_app</mat-icon>
+        <mat-icon [color]="reportPath !== '' ? 'accent' : ''">get_app</mat-icon>
       </button>
       <mat-form-field>
         <mat-label>{{

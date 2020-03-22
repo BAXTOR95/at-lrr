@@ -9,6 +9,7 @@ const workflowRoutes: Routes = [
     path: '',
     component: WorkflowComponent,
     canActivate: [ AuthGuard ],
+    data: { title: 'workflow' },
     children: [
       { path: '', component: WorkflowComponent },
     ],

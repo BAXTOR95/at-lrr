@@ -2,11 +2,11 @@ import { Component, OnInit, ViewEncapsulation, EventEmitter, Output } from '@ang
 import { FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 // import {ResourceService} from '../resources.service';
 import * as fromApp from '../../../../core/core.state';
 import * as ResourceActions from '../store/resources.actions';
-import { map } from 'rxjs/operators';
 
 
 export interface ResourceValue {

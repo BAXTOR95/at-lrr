@@ -11,6 +11,7 @@ const resourcesRoutes: Routes = [
     path: '',
     component: ResourcesComponent,
     canActivate: [ AuthGuard ],
+    data: { title: 'resources' },
     children: [
       { path: '', component: ResourcesComponent },
       // {

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 
 import { AuthComponent } from './auth/auth.component';
+import { AuthRoutingModule } from './auth-routing.module';
 import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
@@ -12,7 +12,7 @@ import { SharedModule } from '../../shared/shared.module';
     CommonModule,
     SharedModule,
     FormsModule,
-    RouterModule.forChild([ { path: '', component: AuthComponent } ]),
+    AuthRoutingModule,
   ],
 })
 export class AuthModule { }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -19,7 +19,6 @@ import { selectSettings } from '../../../core/settings/settings.selectors';
   selector: 'app-settings',
   templateUrl: './settings-container.component.html',
   styleUrls: [ './settings-container.component.scss' ],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SettingsContainerComponent implements OnInit {
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
