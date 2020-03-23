@@ -1,15 +1,127 @@
+@import "~@angular/material/theming";
 @import "../../styles-variables";
 
 @mixin app-theme($theme) {
   $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
   $secundary: map-get($theme, foreground);
   $accent: map-get($theme, accent);
   $background: map-get($theme, background);
   $background-color: mat-color($background, card);
 
+  mat-sidenav-container {
+    mat-toolbar {
+      button {
+        &.active {
+          color: mat-color($accent, default-contrast);
+          background-color: mat-color($accent);
+        }
+      }
+
+      .link {
+        color: mat-color($primary, default-contrast);
+      }
+    }
+
+    mat-sidenav {
+      .mat-list-item {
+        &.active {
+          color: mat-color($accent, default-contrast);
+          background-color: mat-color($accent) !important;
+
+          &:hover {
+            background-color: mat-color($accent, darker) !important;
+          }
+        }
+      }
+    }
+
+    .footer {
+      color: mat-color($primary, lighter);
+      background-color: mat-color($primary, darker);
+
+      .year {
+        padding-right: 4px;
+      }
+
+      .links,
+      .signature {
+        a {
+          color: mat-color($primary, lighter);
+          &:hover {
+            color: mat-color($accent);
+          }
+        }
+      }
+
+      padding: 0 15px;
+
+      p {
+        line-height: 1rem;
+        font-size: 0.8rem;
+        margin: 0;
+        padding-top: 1.2vh;
+      }
+
+      .row {
+        padding: 10px 0;
+
+        .links {
+          a {
+            transition: padding 0.5s;
+            display: inline-block;
+
+            &:hover {
+              text-decoration: none;
+            }
+
+            fa-icon {
+              font-size: 30px;
+              width: 35px;
+            }
+
+            span {
+              display: inline-block;
+              width: 75px;
+              overflow: hidden;
+              text-align: left;
+              white-space: nowrap;
+              transition: width 0.5s;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .error-notification-overlay {
+    color: mat-color($warn, default-contrast);
+    background-color: mat-color($warn);
+  }
+
+  .info-notification-overlay {
+    color: mat-color($accent, default-contrast);
+    background-color: mat-color($accent);
+  }
+
+  .success-notification-overlay {
+    color: mat-color($success-colors, default-contrast);
+    background-color: mat-color($success-colors);
+  }
+
+  .warning-notification-overlay {
+    color: mat-color($warning-colors, default-contrast);
+    background-color: mat-color($warning-colors);
+  }
+
   .theme-wrapper {
     height: 100%;
     width: 100%;
+  }
+
+  .menu-icon {
+    margin-right: 1.5em;
   }
 
   .header {
@@ -270,97 +382,6 @@
                 transform: translate(-50%, -50%);
               }
             }
-          }
-        }
-
-        .footer {
-          // flex: 0 0 auto;
-          padding: 0 15px;
-          // text-align: center;
-
-          // background-color: $background-color;
-
-          p {
-            // color: $background-color;
-            line-height: 1rem;
-            font-size: 0.8rem;
-            margin: 0;
-            padding-top: 1.2vh;
-          }
-
-          // a {
-          //   text-decoration: none;
-          //   color: inherit;
-
-          //   // &:hover,
-          //   // &:focus {
-          //   //   text-decoration: underline;
-          //   // }
-          // }
-
-          .row {
-            padding: 10px 0;
-
-            .links {
-              a {
-                transition: padding 0.5s;
-                display: inline-block;
-                // padding: 20px 5px;
-
-                &:hover {
-                  text-decoration: none;
-                }
-
-                fa-icon {
-                  font-size: 30px;
-                  width: 35px;
-                }
-
-                span {
-                  display: inline-block;
-                  width: 75px;
-                  // padding: 0 0 0 3px;
-                  overflow: hidden;
-                  text-align: left;
-                  white-space: nowrap;
-                  transition: width 0.5s;
-                }
-              }
-
-              // @media (min-width: map-get($grid-breakpoints, lg)) {
-              //   a {
-              //     padding: 20px 10px;
-              //   }
-              // }
-
-              // @media (max-width: map-get($grid-breakpoints, md)) {
-              //   a {
-              //     padding: 20px;
-
-              //     span {
-              //       width: 0;
-              //       padding: 0;
-              //     }
-              //   }
-              // }
-
-              // @media (max-width: map-get($grid-breakpoints, sm)) {
-              //   a {
-              //     padding: 20px 5px;
-              //   }
-              // }
-            }
-
-            // @media (min-width: map-get($grid-breakpoints, sm)) {
-            //   .signature {
-            //     position: relative;
-
-            //     a {
-            //       position: absolute;
-            //       right: 15px;
-            //     }
-            //   }
-            // }
           }
         }
       }

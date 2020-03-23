@@ -74,5 +74,8 @@ class ReportFormat():
         df_format[self.rate_fields] = df_format[self.rate_fields].apply(
             lambda x: x.replace(r'\.', ',', regex=True))
 
-        # returning new dataframe
-        return df_format
+        # Converting NumeroCredito field to string for alphebetical ordering
+        df_format['NumeroCredito'] = df_format['NumeroCredito'].astype(str)
+
+        # returning new sorted and formated dataframe
+        return df_format.sort_values(by=['NumeroCredito'])

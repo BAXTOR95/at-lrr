@@ -4,6 +4,7 @@
 @import "../app/features/modules/resources/resources.component";
 // @import "../app/header/header.component";
 @import "../app/features/modules/workflow/workflow.component";
+@import "../styles-reset.scss-theme";
 
 @mixin component-themes($theme) {
   // @include footer-theme($theme);
@@ -12,4 +13,5 @@
   @include resource-theme($theme);
   // @include header-theme($theme);
   @include workflow-theme($theme);
+  @include app-styles-reset-theme($theme);
 }

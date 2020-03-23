@@ -28,12 +28,12 @@ const appRoutes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'resources',
+    redirectTo: '',
     pathMatch: 'full'
   },
   {
     path: '**',
-    redirectTo: 'resources'
+    redirectTo: ''
   }
 ];
 

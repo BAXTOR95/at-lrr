@@ -124,7 +124,7 @@
               mat-icon-button
               (click)="snav.toggle()"
               *ngIf="isAuthenticated"
-              class="mat-icon-button sidenav-toggle-button"
+              class="mat-icon-button sidenav-toggle-button menu-icon"
               [hidden]="snav.opened"
             >
               <mat-icon>menu</mat-icon>
@@ -232,7 +232,7 @@
                 </div>
                 <div class="col m6 text-right links">
                   <p>
-                    Copyright &#169; 2020
+                    Copyright &#169; <span class="year">{{ year }}</span>
                     <a href="http://www.citigroup.com/citi/">Citigroup</a>
                     Inc.
                   </p>

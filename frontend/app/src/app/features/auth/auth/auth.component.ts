@@ -16,6 +16,7 @@ import { AlertComponent } from '../../../shared/alert/alert.component';
 import { PlaceholderDirective } from '../../../shared/placeholder/placeholder.directive';
 import { SnackbarService } from '../../../shared/services/snackbar.service';
 import * as fromApp from '../../../core/core.state';
+import { NotificationService } from '../../../core/notifications/notification.service';
 import * as AuthActions from '../../../core/auth/store/auth.actions';
 
 
@@ -39,6 +40,7 @@ export class AuthComponent implements OnInit, OnDestroy {
     private componentFactoryResolver: ComponentFactoryResolver,
     private store: Store<fromApp.AppState>,
     private snackbarService: SnackbarService,
+    private notificationService: NotificationService,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
   ) {
@@ -53,7 +55,8 @@ export class AuthComponent implements OnInit, OnDestroy {
       this.error = authState.authError;
       if (this.error) {
         // this.showErrorAlert(this.error);
-        throw new Error(this.error);
+        // throw new Error(this.error);
+        this.notificationService.error(this.error);
         // this.snackbarService.openSnackBar(this.error, 'Close', this.durationInSeconds);
       }
     });
