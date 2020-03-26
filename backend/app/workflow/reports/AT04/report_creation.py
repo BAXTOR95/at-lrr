@@ -286,6 +286,7 @@ class ReportCreation():
     ah_mod_df = pd.DataFrame()
     at04cre_cnd_df = pd.DataFrame()
     ricg_mod_df = pd.DataFrame()
+    at04_past_mod_df = pd.DataFrame()
 
     at04_df = pd.DataFrame()
 
@@ -450,6 +451,9 @@ class ReportCreation():
         self.ricg_mod_df['Status'] = self.ricg_mod_df['DescripcionDeLaCuenta'].apply(
             lambda x: str(x).upper().strip().split()[-1])
         self.ricg_mod_df = self.ricg_mod_df.set_index('Referencia')
+
+        # CREATING AT04 PAST WITH NEW INDEX
+        self.at04_past_mod_df = self.at04_past_df.set_index('NumeroCredito')
 
         return True
 
@@ -1054,6 +1058,19 @@ class ReportCreation():
             ricg_value = self.ricg_mod_df.at[int(num_credito), campo] if int(
                 num_credito) in self.ricg_mod_df.index else False
             return self.is_nan(ricg_value, '') or ''
+        else:
+            sys.exit(f'The field ({campo}) is invalid or not supported!')
+
+    def get_at04_past_values(self, num_credito, campo):
+        """Gets AT04 Past Values"""
+        if campo in ['DomicilioFiscal', ]:
+            at04_value = self.at04_past_mod_df.at[int(num_credito), campo] if int(
+                num_credito) in self.at04_past_mod_df.index else False
+            return self.is_nan(at04_value, '') or ''
+        # if campo in ['Saldo', ]:
+        #     at04_value = self.at04_past_mod_df.at[int(num_credito), campo] if int(
+        #         num_credito) in self.at04_past_mod_df.index else False
+        #     return self.is_nan(at04_value, 0.00) or 0.00
         else:
             sys.exit(f'The field ({campo}) is invalid or not supported!')
 
