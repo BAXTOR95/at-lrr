@@ -64,34 +64,43 @@ class UserManager(BaseUserManager):
     def create_user(self, soeid, email=None, password=None, **extra_fields):
         """Creates and saves a new user"""
         if not soeid:
-            raise ValueError('Users must have a SOEID')
+            raise ValueError(_('Users must have a SOEID'))
+        if not email:
+            raise ValueError(_('The Email must be set'))
+
+        email = self.normalize_email(email)
+        soeid = str(soeid).upper()
         user = self.model(
-            soeid=str(soeid).upper(),
-            email=self.normalize_email(email),
+            soeid=soeid,
+            email=email,
             **extra_fields
         )
-        user.is_active = True
         user.set_password(password)
         user.save(using=self._db)
 
         return user
 
-    def create_superuser(self, soeid, password):
+    def create_superuser(self, soeid, email=None, password=None, **extra_fields):
         """Creates and saves a new super user"""
-        user = self.create_user(soeid, password)
-        user.is_staff = True
-        user.is_superuser = True
-        user.save(using=self._db)
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('is_active', True)
 
-        return user
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError(_('Superuser must have is_staff=True.'))
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError(_('Superuser must have is_superuser=True.'))
+
+        return self.create_user(soeid, email, password, **extra_fields)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
     """Custom user model that supports using email instead of username"""
 
     soeid = models.CharField(max_length=7, unique=True)
-    email = models.EmailField(max_length=255, unique=True)
+    email = models.EmailField(_('email address'), unique=True)
     name = models.CharField(max_length=255)
+    date_joined = models.DateTimeField(default=timezone.now)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     expiresIn = models.DecimalField(max_digits=10, decimal_places=2, default=0)
@@ -100,9 +109,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     #                           on_delete=models.CASCADE,
     #                           default=None)
 
+    USERNAME_FIELD = 'soeid'
+    REQUIRED_FIELDS = ['email']
+
     objects = UserManager()
 
-    USERNAME_FIELD = 'soeid'
+    def __str__(self):
+        return self.soeid
 
 
 class Workflow(models.Model):

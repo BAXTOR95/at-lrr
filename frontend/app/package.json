@@ -41,6 +41,7 @@
     "browser-detect": "^0.2.28",
     "cors": "^2.8.5",
     "ngx-material-file-input": "^2.1.0",
+    "pace-js": "^1.0.2",
     "popper.js": "^1.16.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.11.1",

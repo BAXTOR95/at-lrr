@@ -5,29 +5,33 @@ from django.apps import apps
 
 # from core import models, resources_models, config_tables_sb_models, reports_models
 
+from .forms import CustomUserCreationForm, CustomUserChangeForm
 from core import models
 
 
-class UserAdmin(BaseUserAdmin):
-    ordering = ['id']
-    list_display = ['email', 'name']
+class CustomUserAdmin(BaseUserAdmin):
+    add_form = CustomUserCreationForm
+    form = CustomUserChangeForm
+    model = models.User
+    list_display = ('soeid', 'is_staff', 'is_active',)
+    list_filter = ('soeid', 'is_staff', 'is_active',)
     fieldsets = (
         (None, {
             'fields': (
-                'email',
+                'soeid',
                 'password'
             ),
         }),
         (_('Personal Info'), {
             'fields': (
                 'name',
+                'email',
             ),
         }),
         (_('Permissions'), {
             'fields': (
                 'is_active',
-                'is_staff',
-                'is_superuser'
+                'is_staff'
             ),
         }),
         (_('Important dates'), {
@@ -39,9 +43,11 @@ class UserAdmin(BaseUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2')
+            'fields': ('soeid', 'password1', 'password2', 'email', 'is_staff', 'is_active')
         }),
     )
+    search_fields = ('soeid', 'email',)
+    ordering = ('soeid', 'email',)
 
 
 class ListAdminMixin(object):
@@ -50,7 +56,7 @@ class ListAdminMixin(object):
         super(ListAdminMixin, self).__init__(model, admin_site)
 
 
-admin.site.register(models.User, UserAdmin)
+admin.site.register(models.User, CustomUserAdmin)
 
 app_models = apps.get_models()
 

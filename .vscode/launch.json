@@ -10,7 +10,8 @@
             "request": "launch",
             "program": "${workspaceFolder}\\backend\\app\\manage.py",
             "args": ["runserver", "--noreload"],
-            "django": true
+            "django": true,
+            "justMyCode": false
         },
         {
             "type": "chrome",

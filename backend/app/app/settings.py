@@ -146,7 +146,13 @@ WEB_ROOT = os.path.join(BASE_DIR, 'vol', 'web')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'vol', 'web', 'media')
 STATIC_ROOT = os.path.join(BASE_DIR, 'vol', 'web', 'static')
 
+# changes the in-build User model to ours (Custom)
 AUTH_USER_MODEL = 'core.User'
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by custom User model, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+)
 
 CORS_ORIGIN_ALLOW_ALL = True
 
