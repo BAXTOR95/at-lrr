@@ -302,7 +302,7 @@ jspm_packages/
 # nuxt.js build output
 .nuxt
 
-# react / gatsby 
+# react / gatsby
 public/
 
 # vuepress build output
@@ -376,3 +376,7 @@ public/
 .history
 
 # End of https://www.gitignore.io/api/git,node,python,django,angular,jupyternotebooks,visualstudiocode
+
+resources/
+
+.venv/
